@@ -1,0 +1,1071 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whisper vs Newton v3 - оценка ASR на русской речи</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;700;800&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --paper:        #EFF0EA;
+  --paper-2:      #E7E8DF;
+  --ink:          #17151F;
+  --ink-soft:     #413C4C;
+  --muted:        #5E5A68;
+  --rule:         #D7D6CD;
+  --rule-strong:  #BBBAAF;
+
+  --night:        #1A1430;
+  --night-2:      #251C42;
+  --cream:        #F3EFFA;
+  --cream-muted:  #ABA0C4;
+
+  --newton:       #D6157E;   /* канал 1: пиковая энергия, заливка */
+  --newton-ink:   #A8115F;   /* текст на бумаге (AA) */
+  --newton-glow:  #FF49A6;   /* на тёмном */
+  --whisper:      #0E7C86;   /* канал 2: глубокий циан, заливка */
+  --whisper-ink:  #0A565E;   /* текст на бумаге */
+  --whisper-glow: #2BD6CF;   /* на тёмном */
+  --whisper-soft: #8FC3C7;   /* CER, светлый вариант */
+  --warn:         #A85B14;   /* предупреждение */
+
+  --font-display: "Unbounded", system-ui, sans-serif;
+  --font-body:    "Manrope", system-ui, sans-serif;
+  --font-mono:    "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---------- сетка: асимметричная, не центральная колонка 960px ---------- */
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 32px;
+}
+.measure { max-width: 680px; }
+
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%; right: 50%;
+  margin-left: -50vw; margin-right: -50vw;
+}
+
+a { color: var(--whisper-ink); }
+
+/* ---------- мастхед: full-bleed, тёмный, мотив двух каналов ---------- */
+.masthead {
+  background: var(--night);
+  background-image:
+    radial-gradient(120% 90% at 12% -10%, var(--night-2) 0%, var(--night) 55%);
+  color: var(--cream);
+  overflow: hidden;
+  position: relative;
+}
+.masthead .wave {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  width: 100%; height: 230px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+.masthead-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 40px 32px 150px;
+  position: relative;
+  z-index: 1;
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--cream);
+}
+.wordmark .vs { color: var(--cream-muted); font-weight: 400; }
+.wordmark .ch-a { color: var(--newton-glow); }
+.wordmark .ch-b { color: var(--whisper-glow); }
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  margin: 28px 0 22px;
+}
+
+.verdict {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(28px, 4.4vw, 46px);
+  line-height: 1.16;
+  letter-spacing: -0.015em;
+  margin: 0;
+  max-width: 17em;
+  text-wrap: balance;
+}
+.verdict .n { color: var(--newton-glow); }
+.verdict .w { color: var(--whisper-glow); }
+
+/* ---------- блоки-цифры (числа-выносы, не карточки) ---------- */
+.figs {
+  margin: 0 auto;
+  max-width: 1120px;
+  padding: 0 32px;
+  margin-top: -104px;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px 28px;
+  align-items: end;
+}
+.fig { grid-column: span 3; }
+.fig--lead { grid-column: span 3; }
+.fig-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(40px, 6vw, 68px);
+}
+.fig--newton .fig-num { color: var(--newton-ink); }
+.fig--whisper .fig-num { color: var(--whisper-ink); }
+.fig-num.small { font-size: clamp(28px, 4vw, 40px); }
+.fig-label {
+  font-weight: 700;
+  font-size: 15px;
+  margin: 14px 0 4px;
+}
+.fig-sub {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.45;
+  font-family: var(--font-mono);
+}
+.fig-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--warn);
+  font-weight: 700;
+  font-family: var(--font-display);
+  font-size: 22px;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 860px) {
+  .fig, .fig--lead { grid-column: span 6; }
+}
+@media (max-width: 520px) {
+  .figs { margin-top: -72px; gap: 18px; }
+  .fig, .fig--lead { grid-column: span 6; }
+}
+
+/* ---------- секции ---------- */
+section { padding: 52px 0; border-bottom: 1px solid var(--rule); }
+section:last-of-type { border-bottom: none; }
+
+.sec-head { display: flex; align-items: baseline; gap: 16px; margin-bottom: 26px; }
+.sec-no {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--newton-ink);
+  font-variant-numeric: tabular-nums;
+  flex: none;
+  padding-top: 4px;
+}
+.sec-titles { min-width: 0; }
+.sec-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0 0 6px;
+}
+h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 25px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+  text-wrap: balance;
+}
+h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 16px;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+p { margin: 0 0 16px; text-wrap: pretty; }
+p:last-child { margin-bottom: 0; }
+strong { font-weight: 700; }
+.lead-strong { color: var(--ink); font-weight: 700; }
+
+/* секция с маргиналией */
+.noted {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 264px;
+  gap: 44px;
+  align-items: start;
+}
+.noted > .body { min-width: 0; }
+.note {
+  position: sticky;
+  top: 24px;
+  border-top: 2px solid var(--ink);
+  padding-top: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+}
+.note .note-kicker {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+.note p { margin: 0 0 10px; }
+@media (max-width: 760px) {
+  .noted { grid-template-columns: 1fr; gap: 24px; }
+  .note { position: static; }
+}
+
+/* ---------- рекомендации ---------- */
+.recs { list-style: none; margin: 0; padding: 0; }
+.recs li {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  gap: 14px;
+  padding: 16px 0;
+  border-top: 1px solid var(--rule);
+}
+.recs li:first-child { border-top: none; }
+.rec-ico { color: var(--newton-ink); padding-top: 3px; }
+.recs li .rec-text { font-size: 16.5px; }
+
+/* ---------- графики: перерисованы в HTML/CSS ---------- */
+.chart {
+  background: var(--paper-2);
+  border-left: 3px solid var(--ink);
+  padding: 22px 24px 18px;
+}
+.chart.full-bleed { padding-left: max(32px, calc((100vw - 1120px)/2 + 32px));
+  padding-right: max(32px, calc((100vw - 1120px)/2 + 32px));
+  padding-top: 30px; padding-bottom: 26px; border-left: none;
+  border-top: 3px solid var(--ink); }
+.chart-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 17px;
+  letter-spacing: -0.01em;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+.chart-legend {
+  display: flex; gap: 20px; flex-wrap: wrap;
+  font-family: var(--font-mono); font-size: 12.5px;
+  margin: 4px 0 22px; color: var(--ink-soft);
+}
+.chart-legend .lg { display: inline-flex; align-items: center; gap: 8px; }
+.swatch { width: 14px; height: 12px; flex: none; display: inline-block; }
+.swatch.n { background: var(--newton); }
+.swatch.w { background: var(--whisper); }
+.swatch.c { background: var(--whisper-soft); }
+.swatch.art { background: var(--newton); background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0 3px, transparent 3px 6px); }
+
+.cat { margin: 0 0 20px; }
+.cat:last-child { margin-bottom: 0; }
+.cat-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink);
+  margin-bottom: 7px;
+  display: flex; justify-content: space-between; align-items: baseline;
+}
+.cat-name .cat-tag { color: var(--muted); font-size: 11.5px; letter-spacing: .04em; }
+.cat.total .cat-name { font-weight: 700; }
+
+.bar {
+  display: grid;
+  grid-template-columns: 64px 1fr 58px;
+  align-items: center;
+  gap: 12px;
+  margin: 5px 0;
+}
+.bar .b-tag {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  text-align: right;
+}
+.bar .b-tag.n { color: var(--newton-ink); }
+.bar .b-tag.w { color: var(--whisper-ink); }
+.track {
+  position: relative;
+  height: 18px;
+  background: rgba(23,21,31,.06);
+}
+.track.scaled::after {
+  /* опорная линия 100% при шкале до 130 */
+  content: "";
+  position: absolute;
+  left: 76.9%; top: -3px; bottom: -3px;
+  border-left: 1px dashed var(--rule-strong);
+}
+.fill { position: absolute; left: 0; top: 0; bottom: 0; }
+.fill.n { background: var(--newton); }
+.fill.w { background: var(--whisper); }
+.fill.c { background: var(--whisper-soft); }
+.fill.art { background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.55) 0 3px, transparent 3px 6px); }
+.bar .b-val {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 500;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.b-val .art-mark { color: var(--newton-ink); font-style: italic; font-size: 11px; }
+.chart-axis {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 11px; color: var(--muted);
+  margin: 14px 0 0 76px;
+  border-top: 1px solid var(--rule);
+  padding-top: 6px;
+}
+.chart-axis.scaled { margin-left: 76px; }
+.chart-note {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  color: var(--muted);
+  margin-top: 12px;
+}
+.chart-cap { margin-top: 16px; font-size: 15px; color: var(--ink-soft); line-height: 1.5; }
+.chart-cap .lead { color: var(--ink); font-weight: 700; }
+@media (max-width: 520px) {
+  .bar { grid-template-columns: 52px 1fr 50px; gap: 8px; }
+  .chart-axis { margin-left: 60px; }
+}
+
+/* ---------- таблицы ---------- */
+.table-wrap { width: 100%; overflow-x: auto; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  font-variant-numeric: tabular-nums;
+}
+thead th {
+  text-align: left;
+  font-weight: 500;
+  color: var(--muted);
+  font-size: 11.5px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 0 14px 10px 0;
+  border-bottom: 2px solid var(--ink);
+  white-space: nowrap;
+}
+thead th.num { text-align: right; }
+tbody td {
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: baseline;
+}
+tbody td:first-child, thead th:first-child { font-family: var(--font-body); }
+tbody td.txt { font-family: var(--font-body); color: var(--ink-soft); font-size: 14px; }
+tbody td.num { text-align: right; font-weight: 500; }
+tbody td.muted-num { text-align: right; color: var(--muted); }
+tbody tr.total td {
+  border-top: 2px solid var(--ink);
+  border-bottom: none;
+  font-weight: 700;
+  color: var(--ink);
+}
+.svc { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-body); }
+.dot { width: 9px; height: 9px; flex: none; display: inline-block; }
+.dot.w { background: var(--whisper); }
+.dot.n { background: var(--newton); }
+.table-note { margin-top: 14px; font-size: 13px; color: var(--muted); }
+
+/* ---------- блок Newton (несовместимость) ---------- */
+.flag-block {
+  border-left: 3px solid var(--newton);
+  background: var(--paper-2);
+  padding: 18px 22px;
+}
+.flag-block .tag {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--newton-ink);
+  margin-bottom: 12px;
+}
+
+/* ---------- примеры-транскрипты ---------- */
+.examples { display: flex; flex-direction: column; gap: 26px; }
+.ex-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 14px; margin-bottom: 10px; }
+.ex-title { font-family: var(--font-display); font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.ex-meta { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
+.transcript { border-top: 1px solid var(--ink); }
+.transcript .row { display: grid; grid-template-columns: 56px 1fr; border-bottom: 1px solid var(--rule); }
+.transcript .lbl {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 700;
+  padding: 11px 12px; letter-spacing: .04em; user-select: none;
+  color: var(--muted);
+}
+.transcript .row.hyp.n .lbl { color: var(--newton-ink); }
+.transcript .row.hyp.w .lbl { color: var(--whisper-ink); }
+.transcript .txt {
+  font-family: var(--font-mono); font-size: 13.5px; line-height: 1.55;
+  padding: 11px 14px; white-space: pre-wrap; word-break: break-word;
+}
+.ex-note { margin-top: 10px; font-size: 14.5px; color: var(--ink-soft); }
+.caveat {
+  margin-top: 10px;
+  display: grid; grid-template-columns: auto 1fr; gap: 10px;
+  font-size: 13px; color: var(--muted); line-height: 1.5;
+  border-left: 2px solid var(--rule-strong);
+  padding: 4px 0 4px 12px;
+}
+.caveat .cv-tag {
+  font-family: var(--font-mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase; white-space: nowrap;
+  color: var(--ink); padding-top: 1px;
+}
+
+/* ---------- методология ---------- */
+.method p { color: var(--ink-soft); }
+.mono-code {
+  font-family: var(--font-mono);
+  font-size: 0.86em;
+  background: var(--paper-2);
+  padding: 1px 5px;
+  color: var(--ink);
+}
+
+/* ---------- разделитель акта ---------- */
+.act {
+  padding: 30px 0 6px;
+}
+.act .act-kicker {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--muted);
+}
+.act .act-title {
+  font-family: var(--font-display); font-weight: 800; font-size: 22px;
+  letter-spacing: -0.015em; margin: 6px 0 0;
+}
+.act .act-wave { display: block; width: 100%; height: 26px; margin-top: 16px; opacity: .8; }
+
+/* ---------- футер ---------- */
+footer {
+  background: var(--night);
+  color: var(--cream-muted);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+.footer-inner {
+  max-width: 1120px; margin: 0 auto; padding: 34px 32px 46px;
+  display: flex; flex-wrap: wrap; gap: 10px 32px; align-items: baseline;
+}
+.footer-inner .f-mark { font-family: var(--font-display); font-weight: 800; color: var(--cream); letter-spacing: .04em; }
+.footer-inner .f-prov { width: 100%; color: #8E84A6; margin-top: 4px; }
+
+/* иконки */
+.ico { width: 1em; height: 1em; vertical-align: -0.12em; }
+.ico-lg { width: 20px; height: 20px; }
+
+/* печать: тёмные полосы становятся светлыми, full-bleed гасим */
+@media print {
+  body { background: #fff; }
+  .masthead, footer { background: #fff !important; color: var(--ink) !important; }
+  .masthead .wave, .act .act-wave { display: none; }
+  .verdict .n, .wordmark .ch-a { color: var(--newton-ink) !important; }
+  .verdict .w, .wordmark .ch-b { color: var(--whisper-ink) !important; }
+  .wordmark, .kicker, .footer-inner, .f-mark { color: var(--ink) !important; }
+  .chart.full-bleed { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ===== SVG-символы: иконки и мотив-волна (стерео-каналы) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="ico-warn" viewBox="0 0 24 24">
+    <path d="M12 3 1.7 21h20.6L12 3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+    <path d="M12 9.5v5M12 17.6h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="ico-check" viewBox="0 0 24 24">
+    <path d="M4 12.5 9.5 18 20 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="ico-arrow" viewBox="0 0 24 24">
+    <path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </symbol>
+  <symbol id="wave-stereo" viewBox="0 0 1200 200" preserveAspectRatio="none">
+    <polyline fill="none" stroke="var(--newton-glow)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"
+      points="0,70 40,58 80,86 120,40 160,96 200,52 240,72 280,30 320,100 360,64 400,48 440,90 480,36 520,82 560,60 600,74 640,44 680,98 720,56 760,68 800,38 840,92 880,50 920,78 960,62 1000,46 1040,88 1080,58 1120,72 1160,54 1200,66"/>
+    <polyline fill="none" stroke="var(--whisper-glow)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"
+      points="0,140 40,150 80,124 120,162 160,118 200,150 240,134 280,168 320,112 360,144 400,158 440,122 480,166 520,128 560,148 600,132 640,160 680,116 720,150 760,138 800,164 840,120 880,154 920,130 960,146 1000,162 1040,124 1080,150 1120,134 1160,152 1200,138"/>
+  </symbol>
+  <symbol id="wave-strip" viewBox="0 0 1200 60" preserveAspectRatio="none">
+    <polyline fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+      points="0,30 30,20 60,38 90,14 120,42 150,24 180,34 210,10 240,46 270,28 300,18 330,40 360,12 390,38 420,26 450,32 480,16 510,44 540,24 570,34 600,14 630,42 660,22 690,36 720,28 750,18 780,40 810,26 840,32 870,20 900,38 930,16 960,42 990,24 1020,34 1050,12 1080,40 1110,26 1140,32 1170,20 1200,30"/>
+  </symbol>
+</svg>
+
+<!-- ===== МАСТХЕД ===== -->
+<header class="masthead">
+  <svg class="wave" aria-hidden="true"><use href="#wave-stereo"/></svg>
+  <div class="masthead-inner">
+    <div class="wordmark">
+      <span class="ch-a">Newton</span><span class="vs">/</span><span class="ch-b">Whisper</span>
+      <span class="vs">- распознавание русской речи</span>
+    </div>
+    <p class="kicker">Сравнение ASR · mono + stereo · прогон 2026-05-30 · v3</p>
+    <h1 class="verdict">
+      На стерео АТС-звонках <span class="n">Newton</span> точнее - 70% слов против 49% у <span class="w">Whisper</span> - и разделяет говорящих. На mono-записях <span class="w">Whisper</span> держит 89% и остаётся рабочим выбором.
+    </h1>
+  </div>
+</header>
+
+<!-- ===== ЧИСЛА-ВЫНОСЫ ===== -->
+<div class="figs">
+  <div class="fig fig--lead fig--newton">
+    <div class="fig-num">70.3%</div>
+    <div class="fig-label">Точность Newton на АТС</div>
+    <div class="fig-sub">70 из 100 слов на стерео; у Whisper 49%</div>
+  </div>
+  <div class="fig fig--lead fig--whisper">
+    <div class="fig-num">89.0%</div>
+    <div class="fig-label">Точность Whisper на подкасте</div>
+    <div class="fig-sub">89 из 100 слов IT-подкаста</div>
+  </div>
+  <div class="fig fig--newton">
+    <div class="fig-num small">4&#8202;/&#8202;4</div>
+    <div class="fig-label">Звонки АТС за Newton</div>
+    <div class="fig-sub">точнее на всех проверенных</div>
+  </div>
+  <div class="fig">
+    <div class="fig-flag"><svg class="ico ico-lg"><use href="#ico-warn"/></svg> хвосты</div>
+    <div class="fig-label">Повторы на концах</div>
+    <div class="fig-sub">Whisper добавляет ложные реплики в конце файла</div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <!-- РЕКОМЕНДАЦИЯ -->
+  <section class="noted">
+    <div class="body">
+      <div class="sec-head">
+        <div class="sec-no">01</div>
+        <div class="sec-titles">
+          <p class="sec-label">Рекомендация</p>
+          <h2>Что делать дальше</h2>
+        </div>
+      </div>
+      <ul class="recs measure">
+        <li>
+          <span class="rec-ico"><svg class="ico ico-lg"><use href="#ico-arrow"/></svg></span>
+          <span class="rec-text">Для АТС-звонков (stereo) - Newton: он точнее и разделяет менеджера и клиента.</span>
+        </li>
+        <li>
+          <span class="rec-ico"><svg class="ico ico-lg"><use href="#ico-arrow"/></svg></span>
+          <span class="rec-text">Для записей созвонов (mono) - Whisper: точность 89% на подкасте, Newton в этом режиме не работает.</span>
+        </li>
+        <li>
+          <span class="rec-ico"><svg class="ico ico-lg"><use href="#ico-arrow"/></svg></span>
+          <span class="rec-text">Следующий шаг - тест Newton на 20-30 реальных АТС-звонках плюс словарь доменных терминов (1С, Первый Бит).</span>
+        </li>
+      </ul>
+    </div>
+    <aside class="note">
+      <span class="note-kicker">Как читать цифры</span>
+      <p>«Точность X%» - из 100 слов записи сервис распознал X; выше число - меньше ошибок.</p>
+      <p>Newton создан для звонков с двумя собеседниками: он разделяет реплики «кто говорит», менеджер и клиент видны раздельно.</p>
+      <p>На mono-аудио Newton дублирует каждую фразу дважды, поэтому его цифры на mono-тесте не показывают реальное качество.</p>
+      <p>Оба ошибаются на терминах - «1С», «Первый Бит», «1С Фреш», названия компаний; это решается словарём доменных слов.</p>
+    </aside>
+  </section>
+
+  <!-- РАЗДЕЛИТЕЛЬ АКТА A -->
+  <div class="act">
+    <span class="act-kicker">Техническая часть · блок A</span>
+    <p class="act-title">Stereo АТС-звонки: подробные данные</p>
+    <svg class="act-wave" style="color: var(--newton)" aria-hidden="true"><use href="#wave-strip"/></svg>
+  </div>
+
+  <!-- КОНТЕКСТ АТС -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">02</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 2 · Stereo АТС · контекст</p>
+        <h2>Контекст и данные АТС-прогона</h2>
+      </div>
+    </div>
+    <div class="measure">
+      <p>Тестировались два ASR-сервиса - Whisper (<span class="mono-code">w.1bitai.ru</span>) и Newton (<span class="mono-code">bit-dual-channel.1bitai.ru</span>) - на 4 стерео АТС-звонках (<span class="mono-code">t_1</span>..<span class="mono-code">t_4</span>) из архива <span class="mono-code">Тестовые звонки final (1).zip</span>. Каждый файл - MP3 stereo, длительность примерно 62-71 секунду. Прогон выполнен командой <span class="mono-code">python3 transcribe.py &lt;audio&gt; --backend whisper|newton --remove-timestamps</span>.</p>
+      <p>Эталон взят из локальных <span class="mono-code">t_*.txt</span> и сверялся с Google Doc «Тест Whisper large v3 и Бит Ньютон». Разметка субъективная: содержит пометки <span class="mono-code">[НЕ МОГУ РАЗОБРАТЬ]</span>, расхождения по именам и правки в комментариях. Поэтому WER и CER служат ориентиром, а не строгой финальной статистикой качества.</p>
+    </div>
+  </section>
+
+  <!-- ГРАФИК АТС WER (full-bleed, перерисован) -->
+  <section style="border-bottom:none; padding-bottom:24px;">
+    <div class="sec-head">
+      <div class="sec-no">03</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 2 · Stereo АТС · данные</p>
+        <h2>WER по АТС-звонкам</h2>
+      </div>
+    </div>
+  </section>
+  <div class="chart full-bleed">
+    <p class="chart-title">На stereo АТС-звонках Newton побеждает: корпусной WER 29.7% против 50.8%</p>
+    <div class="chart-legend">
+      <span class="lg"><span class="swatch n"></span>Newton</span>
+      <span class="lg"><span class="swatch w"></span>Whisper</span>
+      <span class="lg" style="color:var(--muted)">меньше WER - лучше</span>
+    </div>
+    <div class="cat">
+      <div class="cat-name">t_1 <span class="cat-tag">149 слов</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track"><div class="fill n" style="width:30.2%"></div></div><span class="b-val">30.2%</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track"><div class="fill w" style="width:95.3%"></div></div><span class="b-val">95.3%</span></div>
+    </div>
+    <div class="cat">
+      <div class="cat-name">t_2 <span class="cat-tag">174 слова</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track"><div class="fill n" style="width:14.4%"></div></div><span class="b-val">14.4%</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track"><div class="fill w" style="width:17.8%"></div></div><span class="b-val">17.8%</span></div>
+    </div>
+    <div class="cat">
+      <div class="cat-name">t_3 <span class="cat-tag">143 слова</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track"><div class="fill n" style="width:21.0%"></div></div><span class="b-val">21.0%</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track"><div class="fill w" style="width:23.8%"></div></div><span class="b-val">23.8%</span></div>
+    </div>
+    <div class="cat">
+      <div class="cat-name">t_4 <span class="cat-tag">185 слов</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track"><div class="fill n" style="width:50.3%"></div></div><span class="b-val">50.3%</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track"><div class="fill w" style="width:67.0%"></div></div><span class="b-val">67.0%</span></div>
+    </div>
+    <div class="cat total">
+      <div class="cat-name">Итого по корпусу <span class="cat-tag">651 слово</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track"><div class="fill n" style="width:29.7%"></div></div><span class="b-val">29.7%</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track"><div class="fill w" style="width:50.8%"></div></div><span class="b-val">50.8%</span></div>
+    </div>
+    <div class="chart-axis"><span>0%</span><span>25%</span><span>50%</span><span>75%</span><span>100% WER</span></div>
+    <p class="chart-cap"><span class="lead">Newton точнее на всех 4 звонках.</span> Разрыв на корпусе - 21 процентный пункт WER. Сводку по всем датасетам см. ниже.</p>
+  </div>
+
+  <!-- ТАБЛИЦА МЕТРИК АТС -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">04</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 2 · Stereo АТС · метрики</p>
+        <h2>Таблица метрик АТС</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Звонок</th>
+            <th class="num">Слов</th>
+            <th class="num">Whisper WER</th>
+            <th class="num">Whisper CER</th>
+            <th class="num">Newton WER</th>
+            <th class="num">Newton CER</th>
+            <th>Вывод</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>t_1</td><td class="muted-num">149</td><td class="num">95.3%</td><td class="num">82.5%</td><td class="num">30.2%</td><td class="num">25.7%</td><td class="txt">Newton сильно лучше</td></tr>
+          <tr><td>t_2</td><td class="muted-num">174</td><td class="num">17.8%</td><td class="num">12.8%</td><td class="num">14.4%</td><td class="num">9.4%</td><td class="txt">Оба пригодны, Newton чуть точнее</td></tr>
+          <tr><td>t_3</td><td class="muted-num">143</td><td class="num">23.8%</td><td class="num">16.8%</td><td class="num">21.0%</td><td class="num">14.2%</td><td class="txt">Близко, Newton лучше</td></tr>
+          <tr><td>t_4</td><td class="muted-num">185</td><td class="num">67.0%</td><td class="num">59.7%</td><td class="num">50.3%</td><td class="num">38.6%</td><td class="txt">Оба ошибаются, у Whisper хвост</td></tr>
+          <tr class="total"><td>Итого</td><td class="muted-num">651</td><td class="num">50.8%</td><td class="num">43.1%</td><td class="num">29.7%</td><td class="num">22.4%</td><td class="txt">Newton лучше на корпусе</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ПРИМЕРЫ АТС -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">05</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 2 · Stereo АТС · примеры</p>
+        <h2>Примеры ошибок на АТС-звонках</h2>
+      </div>
+    </div>
+    <div class="examples">
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Whisper - хвостовой повтор</span><span class="ex-meta">t_1 · WER 95.3%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">…Хотите я выставлю на полгода, получится выгоднее. Хорошо, спасибо. До свидания.</div></div>
+          <div class="row hyp w"><div class="lbl">HYP</div><div class="txt">…Хотите я выставлю на полгода, получится выгоднее. Хорошо, спасибо. До новых встреч. До новых встреч. До новых встреч. До новых встреч. До новых встреч.</div></div>
+        </div>
+        <p class="ex-note">Whisper генерирует ложные реплики в конце файла - рискованно для автоматических отчётов.</p>
+        <div class="caveat"><span class="cv-tag">Реконструкция</span><span>Текст гипотезы Whisper для t_1 взят из разбора («много раз добавил &laquo;До новых встреч&raquo;»). Финал REF восстановлен по смыслу звонка: клиент выбирает счёт на полгода и прощается.</span></div>
+      </div>
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Newton - точный диалог</span><span class="ex-meta">t_2 · WER 14.4%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">Да, на почту, пожалуйста.</div></div>
+          <div class="row hyp n"><div class="lbl">HYP</div><div class="txt">SPEAKER_LEFT: Да, на почту, пожалуйста.</div></div>
+        </div>
+        <p class="ex-note">Лучший результат в прогоне - Newton сохранил структуру и каналы.</p>
+        <div class="caveat"><span class="cv-tag">Подтверждено</span><span>REF и HYP взяты из отчёта: Newton «явно отделил клиента, сохранил &laquo;Да, на почту, пожалуйста&raquo;».</span></div>
+      </div>
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Newton - ошибка доменного термина</span><span class="ex-meta">t_4 · WER 50.3%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">Хорошо, тогда пришлите счёт и реквизиты, в 1С оформим.</div></div>
+          <div class="row hyp n"><div class="lbl">HYP</div><div class="txt">SPEAKER_LEFT: Хорошо, тогда пришлите чат и реквизиты, в 1 SMS оформим.</div></div>
+        </div>
+        <p class="ex-note">Оба сервиса ошибаются на доменных словах - нужен словарь терминов.</p>
+        <div class="caveat"><span class="cv-tag">Реконструкция</span><span>Отчёт фиксирует, что в t_4 «счёт» местами превращается в «чат», 1С - в «1 SMS». Фраза REF восстановлена по смыслу: уточнение счёта, реквизитов, почты.</span></div>
+      </div>
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Whisper - повторяющийся хвост</span><span class="ex-meta">t_4 · WER 67.0%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">Всё понял, отправим на почту. До свидания.</div></div>
+          <div class="row hyp w"><div class="lbl">HYP</div><div class="txt">Всё понял, отправим на почту. До свидания. До свидания. До свидания. До свидания. До свидания. До свидания.</div></div>
+        </div>
+        <p class="ex-note">Повторяющийся паттерн: Whisper нестабилен на концах стерео-файлов.</p>
+        <div class="caveat"><span class="cv-tag">Реконструкция</span><span>Отчёт фиксирует, что в t_4 Whisper «добавил длинный хвост &laquo;До свидания&raquo;, много раз подряд». Финал REF восстановлен по смыслу: отправка реквизитов на почту, завершение.</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- КАЧЕСТВЕННЫЙ РАЗБОР -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">06</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 2 · Stereo АТС · разбор</p>
+        <h2>Разбор по звонкам</h2>
+      </div>
+    </div>
+    <div class="measure">
+      <h3>t_1</h3>
+      <p>Уточнение о перезвоне линии консультации, вопрос о продлении на 6 или 12 месяцев и выгоде - клиент выбирает счёт на полгода.</p>
+      <p><strong>Whisper:</strong> основную середину понял, но ошибся в доменном вступлении - <span class="mono-code">Первый Бит</span>, <span class="mono-code">1С Фреш</span> превратились в неустойчивую фразу. В конце добавил длинную серию «До новых встреч», которой нет в эталоне, и это делает сырой текст непригодным для автоматического резюме.</p>
+      <p><strong>Newton:</strong> сохранил структуру диалога и каналы, лучше передал вопрос про выгоду и выбор счёта на полгода. Ошибся во вступлении - потерял или исказил часть про <span class="mono-code">1С Фреш</span>. Для отчёта по смыслу Newton здесь заметно надёжнее.</p>
+    </div>
+  </section>
+
+  <!-- ВЫВОДЫ АТС -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">07</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 2 · Stereo АТС · выводы</p>
+        <h2>Выводы по АТС-прогону</h2>
+      </div>
+    </div>
+    <div class="measure">
+      <p><strong>Newton лучше сохраняет диалоговую структуру.</strong> Для АТС-звонков это критично: без разделения сторон труднее понять, кто подтвердил действие, кто попросил отправить данные на почту и кто отказался от помощи.</p>
+      <p><strong>Whisper нестабилен на концах файлов в сыром режиме.</strong> Повторяющиеся хвосты в <span class="mono-code">t_1</span> и <span class="mono-code">t_4</span> создают ложные реплики и делают результат рискованным для автоматического отчёта по звонку.</p>
+      <p><strong>Newton на стерео не повторяет mono-проблему из предыдущего отчёта.</strong> Здесь вход стерео, и поведение нормальное: один участник попадает в <span class="mono-code">SPEAKER_RIGHT</span>, второй - в <span class="mono-code">SPEAKER_LEFT</span>.</p>
+      <p><strong>Термины 1С и доменные слова нужно обрабатывать отдельно.</strong> Оба сервиса путают <span class="mono-code">1С</span>, <span class="mono-code">1С Фреш</span>, <span class="mono-code">Первый Бит</span>, названия компаний и имена - для продакшена нужен словарь или постобработка языковой моделью.</p>
+      <p><strong>Для автосводки по звонку Newton сейчас безопаснее.</strong> Он чаще сохраняет важные действия: отправить счёт, отправить контакты на почту, клиенту помощь не нужна. При этом финансовые и договорные формулировки требуют проверки человеком.</p>
+    </div>
+  </section>
+
+  <!-- РАЗДЕЛИТЕЛЬ АКТА B -->
+  <div class="act">
+    <span class="act-kicker">Техническая часть · блок B</span>
+    <p class="act-title">Mono-записи: где Whisper, а где артефакт Newton</p>
+    <svg class="act-wave" style="color: var(--whisper)" aria-hidden="true"><use href="#wave-strip"/></svg>
+  </div>
+
+  <!-- СВОДНЫЙ ГРАФИК (full-bleed) -->
+  <section style="border-bottom:none; padding-bottom:24px;">
+    <div class="sec-head">
+      <div class="sec-no">08</div>
+      <div class="sec-titles">
+        <p class="sec-label">Сводка · сравнение</p>
+        <h2>Все датасеты: каждому формату - свой сервис</h2>
+      </div>
+    </div>
+  </section>
+  <div class="chart full-bleed">
+    <p class="chart-title">Сводка WER по всем датасетам: на mono выигрывает Whisper, на stereo - Newton</p>
+    <div class="chart-legend">
+      <span class="lg"><span class="swatch w"></span>Whisper</span>
+      <span class="lg"><span class="swatch n"></span>Newton</span>
+      <span class="lg"><span class="swatch art"></span>артефакт dual-channel</span>
+    </div>
+    <div class="cat">
+      <div class="cat-name">Подкаст <span class="cat-tag">mono</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track scaled"><div class="fill w" style="width:8.46%"></div></div><span class="b-val">11.0%</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track scaled"><div class="fill n art" style="width:88.69%"></div></div><span class="b-val">115%<span class="art-mark"> ▤</span></span></div>
+    </div>
+    <div class="cat">
+      <div class="cat-name">Звонки <span class="cat-tag">mono</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track scaled"><div class="fill w" style="width:27.46%"></div></div><span class="b-val">35.7%</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track scaled"><div class="fill n art" style="width:97.31%"></div></div><span class="b-val">127%<span class="art-mark"> ▤</span></span></div>
+    </div>
+    <div class="cat">
+      <div class="cat-name">АТС <span class="cat-tag">stereo</span></div>
+      <div class="bar"><span class="b-tag w">Whisper</span><div class="track scaled"><div class="fill w" style="width:39.08%"></div></div><span class="b-val">50.8%</span></div>
+      <div class="bar"><span class="b-tag n">Newton</span><div class="track scaled"><div class="fill n" style="width:22.85%"></div></div><span class="b-val">29.7%</span></div>
+    </div>
+    <div class="chart-axis scaled"><span>0%</span><span style="margin-left:auto; margin-right:0">100% = длина эталона</span><span style="margin-left:18px">130%</span></div>
+    <p class="chart-cap"><span class="lead">На mono Whisper побеждает, на stereo - Newton.</span> Бары Newton со штриховкой выходят за 100%: это артефакт dual-channel на mono, а не качество распознавания. Разбор - в секции 12.</p>
+  </div>
+
+  <!-- КОНТЕКСТ MONO -->
+  <section class="noted">
+    <div class="body">
+      <div class="sec-head">
+        <div class="sec-no">09</div>
+        <div class="sec-titles">
+          <p class="sec-label">Тест 1 · Mono · контекст</p>
+          <h2>Контекст и задача</h2>
+        </div>
+      </div>
+      <p>Сравниваем два развёрнутых ASR-сервиса: Whisper (<span class="mono-code">w.1bitai.ru</span>) и Newton (<span class="mono-code">bit-dual-channel.1bitai.ru</span>) на русской речи, приближенной к рабочим созвонам. <strong>Данные:</strong> 12 сэмплов IT-подкаста «Подлодка» (bond005/podlodka_speech, HuggingFace) и 10 телефонных звонков из OpenSTT (Joarnixon/open-stt-calls, HuggingFace). Оба датасета с ручным эталоном. Дата прогона: 2026-05-30.</p>
+    </div>
+    <aside class="note">
+      <span class="note-kicker">Ограничения</span>
+      <p>22 сэмпла - это ориентир, а не статистически значимый результат. Для надёжных выводов нужно 200+ сэмплов.</p>
+      <p>Числа не нормализовались: «351» против «триста пятнадцатый» засчитывается как ошибка в WER.</p>
+    </aside>
+  </section>
+
+  <!-- ОБЩЕЕ СРАВНЕНИЕ WER (full-bleed) -->
+  <section style="border-bottom:none; padding-bottom:24px;">
+    <div class="sec-head">
+      <div class="sec-no">10</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 1 · Mono · данные</p>
+        <h2>Общее сравнение WER</h2>
+      </div>
+    </div>
+  </section>
+  <div class="chart full-bleed">
+    <p class="chart-title">Whisper уверенно ниже планки; Newton зашкаливает по технической причине</p>
+    <div class="chart-legend">
+      <span class="lg"><span class="swatch w"></span>Whisper</span>
+      <span class="lg"><span class="swatch art"></span>Newton · артефакт dual-channel</span>
+    </div>
+    <div class="cat">
+      <div class="bar"><span class="b-tag w">Подкаст</span><div class="track scaled"><div class="fill w" style="width:8.46%"></div></div><span class="b-val">11.0%</span></div>
+      <div class="bar"><span class="b-tag w">Звонки</span><div class="track scaled"><div class="fill w" style="width:27.46%"></div></div><span class="b-val">35.7%</span></div>
+      <div class="bar"><span class="b-tag n">Подкаст</span><div class="track scaled"><div class="fill n art" style="width:88.69%"></div></div><span class="b-val">115.3%</span></div>
+      <div class="bar"><span class="b-tag n">Звонки</span><div class="track scaled"><div class="fill n art" style="width:97.31%"></div></div><span class="b-val">126.5%</span></div>
+    </div>
+    <div class="chart-axis scaled"><span>0%</span><span style="margin-left:auto; margin-right:0">100% = длина эталона</span><span style="margin-left:18px">130%</span></div>
+    <p class="chart-cap"><span class="lead">Whisper работает в привычном диапазоне 11-36%.</span> Newton зашкаливает из-за архитектурного несовпадения с mono-аудио, а не из-за плохого распознавания.</p>
+  </div>
+
+  <!-- WHISPER FOCUS (перерисован) -->
+  <section style="border-bottom:none; padding-bottom:24px;">
+    <div class="sec-head">
+      <div class="sec-no">11</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 1 · Mono · метрики</p>
+        <h2>Whisper: WER и CER по датасетам</h2>
+      </div>
+    </div>
+  </section>
+  <div class="chart full-bleed">
+    <p class="chart-title">Чистые диалоги даются Whisper легко, короткие телефонные фразы - труднее</p>
+    <div class="chart-legend">
+      <span class="lg"><span class="swatch w"></span>WER</span>
+      <span class="lg"><span class="swatch c"></span>CER</span>
+    </div>
+    <div class="cat">
+      <div class="cat-name">Подкаст <span class="cat-tag">12 сэмплов</span></div>
+      <div class="bar"><span class="b-tag w">WER</span><div class="track"><div class="fill w" style="width:27.5%"></div></div><span class="b-val">11.0%</span></div>
+      <div class="bar"><span class="b-tag w" style="color:var(--muted)">CER</span><div class="track"><div class="fill c" style="width:19.25%"></div></div><span class="b-val">7.7%</span></div>
+    </div>
+    <div class="cat">
+      <div class="cat-name">Звонки <span class="cat-tag">10 сэмплов</span></div>
+      <div class="bar"><span class="b-tag w">WER</span><div class="track"><div class="fill w" style="width:89.25%"></div></div><span class="b-val">35.7%</span></div>
+      <div class="bar"><span class="b-tag w" style="color:var(--muted)">CER</span><div class="track"><div class="fill c" style="width:49.75%"></div></div><span class="b-val">19.9%</span></div>
+    </div>
+    <div class="chart-axis"><span>0%</span><span>10%</span><span>20%</span><span>30%</span><span>40%</span></div>
+    <p class="chart-cap"><span class="lead">Разрыв объясняется разной длиной реплик и числовым шумом.</span> На длинных репликах созвонов WER будет ниже, чем на коротких тестовых фразах из датасета calls.</p>
+  </div>
+
+  <!-- ТАБЛИЦА MONO -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">12</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 1 · Mono · таблица</p>
+        <h2>Таблица метрик (полная)</h2>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Датасет</th>
+            <th>Бэкенд</th>
+            <th class="num">Сэмплов</th>
+            <th class="num">Слов (эталон)</th>
+            <th class="num">WER</th>
+            <th class="num">CER</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Подкаст (IT-диалоги)</td><td><span class="svc"><span class="dot w"></span>Whisper</span></td><td class="muted-num">12</td><td class="muted-num">562</td><td class="num">11.0%</td><td class="num">7.7%</td></tr>
+          <tr><td>Подкаст (IT-диалоги)</td><td><span class="svc"><span class="dot n"></span>Newton</span></td><td class="muted-num">12</td><td class="muted-num">562</td><td class="num">115.3%</td><td class="num">112.5%</td></tr>
+          <tr><td>Звонки (телефонные)</td><td><span class="svc"><span class="dot w"></span>Whisper</span></td><td class="muted-num">10</td><td class="muted-num">98</td><td class="num">35.7%</td><td class="num">19.9%</td></tr>
+          <tr><td>Звонки (телефонные)</td><td><span class="svc"><span class="dot n"></span>Newton</span></td><td class="muted-num">10</td><td class="muted-num">98</td><td class="num">126.5%</td><td class="num">105.9%</td></tr>
+          <tr class="total"><td>Итого (корпус)</td><td><span class="svc"><span class="dot w"></span>Whisper</span></td><td class="muted-num">22</td><td class="muted-num">660</td><td class="num">~14%</td><td class="num">~9%</td></tr>
+          <tr class="total"><td>Итого (корпус)</td><td><span class="svc"><span class="dot n"></span>Newton</span></td><td class="muted-num">22</td><td class="muted-num">660</td><td class="num">~118%</td><td class="num">~113%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="table-note">Рабочие показатели - у Whisper. Цифры Newton приведены как есть; их интерпретация - в секции ниже.</p>
+  </section>
+
+  <!-- ПРИРОДА ОШИБОК NEWTON -->
+  <section class="noted">
+    <div class="body">
+      <div class="sec-head">
+        <div class="sec-no">13</div>
+        <div class="sec-titles">
+          <p class="sec-label">Тест 1 · Mono · ограничения</p>
+          <h2>Природа ошибок Newton (WER &gt; 100%)</h2>
+        </div>
+      </div>
+      <div class="flag-block">
+        <span class="tag"><svg class="ico ico-lg"><use href="#ico-warn"/></svg> Не тестировался в своём режиме</span>
+        <p>Newton (<span class="mono-code">bit-dual-channel.1bitai.ru</span>) создан для стерео-звонков: два спикера на двух каналах. На mono-аудио он видит один канал и дублирует каждую реплику как SPEAKER_LEFT + SPEAKER_RIGHT. После нормализации спикер-меток текст всё равно остаётся вдвое длиннее эталона - отсюда WER &gt; 100%.</p>
+        <p>Это несовместимость входных данных, а не плохое распознавание. Результаты несопоставимы с Whisper. Newton нужно тестировать на реальных стерео-звонках - только там виден его настоящий уровень точности.</p>
+      </div>
+    </div>
+    <aside class="note">
+      <span class="note-kicker">Коротко</span>
+      <p>WER &gt; 100% у Newton на mono - закономерность, а не сбой: вывод вдвое длиннее эталона.</p>
+      <p>Реальную точность Newton показывают только стерео-данные - см. блок A выше (29.7% на АТС).</p>
+    </aside>
+  </section>
+
+  <!-- ПРИМЕРЫ MONO -->
+  <section>
+    <div class="sec-head">
+      <div class="sec-no">14</div>
+      <div class="sec-titles">
+        <p class="sec-label">Тест 1 · Mono · примеры</p>
+        <h2>Примеры ошибок</h2>
+      </div>
+    </div>
+    <div class="examples">
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Whisper - точно</span><span class="ex-meta">podlodka_test_000 · WER 0%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">И поэтому использовать их в повседневности не получается. Мы вынуждены поступать зачастую интуитивно.</div></div>
+          <div class="row hyp w"><div class="lbl">HYP</div><div class="txt">И поэтому использовать их в повседневности не получается. Мы вынуждены поступать зачастую интуитивно.</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Whisper - ошибка IT-термина</span><span class="ex-meta">podlodka_test_002 · WER ~15%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">…недавно ставший тимлидом… заходит в чатик…</div></div>
+          <div class="row hyp w"><div class="lbl">HYP</div><div class="txt">…недавно ставший тем лидом… заходит в чат…</div></div>
+        </div>
+      </div>
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Whisper - числовой шум</span><span class="ex-meta">calls_train_007 · WER ~48%</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">в какойто триста сто пятнадцатый кабинет блин прибыть</div></div>
+          <div class="row hyp w"><div class="lbl">HYP</div><div class="txt">Какой-то 351 кабинет, где прибыть</div></div>
+        </div>
+        <p class="ex-note">Числа словами в эталоне против цифр у Whisper - ошибка нормализации, а не распознавания.</p>
+      </div>
+
+      <div class="example">
+        <div class="ex-head"><span class="ex-title">Newton - артефакт двойного вывода</span><span class="ex-meta">calls_train_000</span></div>
+        <div class="transcript">
+          <div class="row ref"><div class="lbl">REF</div><div class="txt">через некоторое время их просто не возможно</div></div>
+          <div class="row hyp n"><div class="lbl">HYP</div><div class="txt">SPEAKER_LEFT (manager): Через некоторое время их просто невозможно.
+SPEAKER_RIGHT (client): Через некоторое время их просто невозможно.</div></div>
+        </div>
+        <p class="ex-note">После нормализации текст вдвое длиннее эталона - WER &gt; 100% закономерен.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- МЕТОДОЛОГИЯ -->
+  <section class="method">
+    <div class="sec-head">
+      <div class="sec-no">15</div>
+      <div class="sec-titles">
+        <p class="sec-label">Методология</p>
+        <h2>Как считали</h2>
+      </div>
+    </div>
+    <div class="measure">
+      <p><strong>Корпусной WER/CER:</strong> <span class="mono-code">sum(правок по всем сэмплам) / sum(слов эталона по всем сэмплам)</span>. Нормализация: lowercase, ё → е, удаление таймкодов и спикер-меток. Прогон через <span class="mono-code">transcribe.py</span> с флагом <span class="mono-code">--remove-timestamps</span>. Newton «сырой», без постобработки. Сверка с jiwer: расхождение 0.000000 по всем комбинациям (Opus, 2026-05-30).</p>
+      <p><strong>Тест 1 (Mono):</strong> 12 сэмплов IT-подкаста «Подлодка» (bond005/podlodka_speech) и 10 телефонных звонков из OpenSTT (Joarnixon/open-stt-calls) на HuggingFace. Всего 22 сэмпла, 660 слов эталона.</p>
+      <p><strong>Тест 2 (Stereo АТС):</strong> 4 звонка из архива <span class="mono-code">Тестовые звонки final (1).zip</span>, 651 слово эталона. Стерео-файлы обрабатывались раздельно по каналам для Newton, а Whisper обрабатывал смешанный сигнал.</p>
+      <p>Выборка из 26 сэмплов суммарно - ориентир, а не строгая статистика. Для продакшн-оценки рекомендуется выборка от 200 записей.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <span class="f-mark">Newton / Whisper</span>
+    <span>Дата прогона: 2026-05-30</span>
+    <span>Версия 3.0 · редакторская</span>
+    <span>оценка ASR на русской речи · mono + stereo</span>
+    <span class="f-prov">Контент собран агентом 05-examples-writer на основе report-content-ats-final.md; оформление v3 - по слою принципов claude-design-principles.</span>
+  </div>
+</footer>
+
+</body>
+</html>

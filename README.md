@@ -13,4 +13,5 @@
 
 - `agent-map/` - короткая карта работы с агентами;
 - `agent-playbook/` - полный справочник по работе с агентами;
-- `codex-claude-code/` - статья про связку Codex и Claude Code.
+- `codex-claude-code/` - статья про связку Codex и Claude Code;
+- `whisper-newton-tests/` - тесты Whisper и Newton на русской речи.
