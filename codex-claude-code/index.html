@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Когда комбинировать Codex и Claude Code</title>
+  <style>
+    :root {
+      --bg: #f6f5f1;
+      --paper: #fffefa;
+      --ink: #1d2520;
+      --muted: #647067;
+      --line: #d9d5c8;
+      --green: #2d6a4f;
+      --blue: #315f8c;
+      --red: #9b3d31;
+      --gold: #b57b18;
+      --teal: #0f766e;
+      --shadow: 0 18px 50px rgba(29, 37, 32, 0.11);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(90deg, rgba(49, 95, 140, 0.08) 0 1px, transparent 1px 100%),
+        linear-gradient(rgba(45, 106, 79, 0.07) 0 1px, transparent 1px 100%),
+        var(--bg);
+      background-size: 56px 56px;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; border-bottom: 1px solid rgba(49, 95, 140, 0.28); }
+    a:hover { border-bottom-color: var(--blue); }
+
+    code {
+      font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+      padding: 1px 5px;
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      background: #fbfaf5;
+      color: #33423a;
+      white-space: nowrap;
+    }
+
+    pre {
+      margin: 0;
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #f0efe9;
+      font-family: "SF Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      overflow-x: auto;
+      color: #1d2520;
+    }
+    pre code {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      font-size: inherit;
+      white-space: pre;
+    }
+
+    .page { max-width: 900px; margin: 0 auto; padding: 36px 22px 72px; }
+
+    header {
+      padding: 48px 0 40px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 44px;
+    }
+
+    .eyebrow {
+      width: fit-content;
+      margin: 0 0 20px;
+      padding: 5px 10px;
+      border: 1px solid var(--line);
+      background: rgba(255, 254, 250, 0.76);
+      color: var(--muted);
+      font-size: 13px;
+      border-radius: 999px;
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: clamp(36px, 5.5vw, 68px);
+      line-height: 0.97;
+      letter-spacing: -0.01em;
+    }
+
+    .lead {
+      max-width: 720px;
+      margin: 0;
+      color: #33423a;
+      font-size: clamp(17px, 2vw, 21px);
+      line-height: 1.5;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      margin: 0 -22px 44px;
+      padding: 10px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(246, 245, 241, 0.92);
+      backdrop-filter: blur(16px);
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+    }
+
+    nav a {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 254, 250, 0.78);
+      color: #33423a;
+      font-size: 13.5px;
+    }
+
+    section { margin: 0 0 56px; }
+
+    h2 {
+      margin: 0 0 12px;
+      font-size: clamp(24px, 3.4vw, 38px);
+      line-height: 1.07;
+      letter-spacing: -0.005em;
+    }
+
+    h3 { margin: 28px 0 10px; font-size: 20px; }
+    h4 { margin: 20px 0 8px; font-size: 16px; color: var(--green); }
+
+    p { margin: 0 0 16px; }
+    p:last-child { margin-bottom: 0; }
+
+    .section-intro { max-width: 780px; color: var(--muted); margin: 0 0 24px; }
+
+    .tldr {
+      padding: 24px 28px;
+      border: 1px solid var(--line);
+      border-left: 5px solid var(--green);
+      border-radius: 8px;
+      background: #e9f2ed;
+      margin-bottom: 28px;
+    }
+    .tldr h2 { font-size: 22px; margin-bottom: 14px; }
+    .tldr ul { margin: 0; padding-left: 20px; }
+    .tldr li { margin: 8px 0; line-height: 1.55; }
+
+    .matrix {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      border-radius: 8px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+    .matrix th, .matrix td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+      font-size: 14.5px;
+    }
+    .matrix th {
+      background: #edf1ea;
+      font-size: 13.5px;
+      white-space: nowrap;
+    }
+    .matrix tr:last-child td { border-bottom: 0; }
+    .matrix td:first-child { font-weight: 700; font-size: 13.5px; white-space: nowrap; }
+
+    .model-diagram {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      margin: 20px 0;
+    }
+    .layer {
+      padding: 16px 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 0;
+    }
+    .layer.green { background: #e9f2ed; border-color: rgba(45, 106, 79, 0.3); }
+    .layer.blue  { background: #eaf0f7; border-color: rgba(49, 95, 140, 0.3); }
+    .layer.gold  { background: #f7f0df; border-color: rgba(181, 123, 24, 0.3); }
+    .layer strong { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); margin-bottom: 4px; }
+    .layer span { font-size: 15px; }
+    .arrow {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      padding: 8px 0;
+    }
+
+    .pattern {
+      padding: 22px 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 8px 24px rgba(29, 37, 32, 0.06);
+      margin-bottom: 14px;
+    }
+    .pattern-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .pattern-num {
+      flex: 0 0 auto;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: var(--green);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .pattern h3 { margin: 0; font-size: 18px; }
+    .pattern p { font-size: 15px; color: #2a3830; }
+    .when { margin-top: 12px; padding: 10px 14px; border-radius: 6px; background: #f0efe9; font-size: 13.5px; color: var(--muted); }
+    .when b { color: var(--ink); }
+
+    .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 20px; }
+    .card {
+      padding: 18px 20px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(29, 37, 32, 0.05);
+    }
+    .card.red { border-top: 4px solid var(--red); }
+    .card h4 { margin: 0 0 8px; font-size: 16px; color: var(--ink); }
+    .card p { font-size: 14.5px; color: #2a3830; }
+
+    .steps { margin: 20px 0 0; counter-reset: step; }
+    .step-item {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 14px;
+      align-items: baseline;
+      margin-bottom: 16px;
+    }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--green);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      margin-top: 2px;
+    }
+    .step-body { font-size: 15px; color: #2a3830; }
+    .step-body b { color: var(--ink); }
+
+    .callout {
+      padding: 20px 24px;
+      border-left: 5px solid var(--gold);
+      border-radius: 8px;
+      background: #f7f0df;
+      margin: 20px 0;
+      font-size: 15px;
+    }
+    .callout.warning { border-left-color: var(--red); background: #f6ebe7; }
+
+    .source-list { columns: 2; column-gap: 28px; color: var(--muted); font-size: 14px; }
+    .source-list p { margin: 0 0 7px; }
+
+    footer {
+      margin-top: 56px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    ul { margin: 12px 0; padding-left: 20px; }
+    li { margin: 7px 0; font-size: 15px; }
+
+    @media (max-width: 700px) {
+      .grid-2 { grid-template-columns: 1fr; }
+      .source-list { columns: 1; }
+      header { padding: 32px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <p class="eyebrow">Снимок: июнь 2026 · инструменты для кода</p>
+      <h1>Когда комбинировать<br>Codex и Claude Code</h1>
+      <p class="lead">Они не конкуренты, где надо выбрать одного. Это два слоя одного стека. Вопрос в том, что куда маршрутизировать.</p>
+    </header>
+
+    <nav aria-label="Разделы">
+      <a href="#tldr">TL;DR</a>
+      <a href="#profile">Профили</a>
+      <a href="#model">Ментальная модель</a>
+      <a href="#patterns">6 паттернов</a>
+      <a href="#matrix">Матрица</a>
+      <a href="#when-not">Когда НЕ</a>
+      <a href="#quickstart">Быстрый старт</a>
+      <a href="#caveats">Спорные места</a>
+      <a href="#sources">Источники</a>
+    </nav>
+
+    <section id="tldr">
+      <div class="tldr">
+        <h2>TL;DR за 30 секунд</h2>
+        <ul>
+          <li>Codex и Claude Code в 2026 году не конкуренты по принципу «выбери один». Это два слоя одного стека.</li>
+          <li>Самый частый паттерн у практиков: <strong>Claude Code ведёт сложные 20% - архитектура, многофайловый рефакторинг, дебаг с диалогом. Codex молотит рутинные 80% - создаёт каркас фичи, закрывает типовые тикеты - и работает вторым, скептическим ревьюером.</strong></li>
+          <li>OpenAI выпустила официальный плагин Codex прямо внутрь Claude Code. Сигнал: вендоры сами признали, что люди их комбинируют.</li>
+          <li>Комбинируй, когда задача большая, неоднородная или важная. Не комбинируй на мелочи - оверхед на координацию съест выигрыш.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="profile">
+      <h2>Профиль инструментов: на чём каждый реально силён</h2>
+      <p class="section-intro">Бенчмарки меняются каждый месяц. Свойства инструментов - нет. Поэтому здесь опора на устойчивые характеристики, а не на то, кто сегодня на полпроцента выше в SWE-bench.</p>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Claude Code</th>
+            <th>Codex (CLI + Cloud)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Движок</td>
+            <td>Claude Opus / Sonnet</td>
+            <td>GPT-5.x-Codex</td>
+          </tr>
+          <tr>
+            <td>Сильная сторона</td>
+            <td>Понимание большого незнакомого репо, многофайловый рефакторинг, дебаг через диалог («объясни, почему падает»), строгое следование <code>CLAUDE.md</code></td>
+            <td>Аккуратная генерация по чёткому ТЗ, создание каркаса фичи, изолированный sandbox, асинхронные облачные PR</td>
+          </tr>
+          <tr>
+            <td>Среда</td>
+            <td>Локальный интерактивный цикл, прямой доступ к инструментам, env и credentials</td>
+            <td>Локальный CLI + облачный sandbox без сети (запускается из ChatGPT)</td>
+          </tr>
+          <tr>
+            <td>Слабая сторона</td>
+            <td>Уходит в «over-eager loops» на глубоких архитектурных багах, большой разброс расхода токенов</td>
+            <td>В большом репо тонет в избыточных <code>grep</code>, забивает контекст шумом, дороже за задачу</td>
+          </tr>
+          <tr>
+            <td>Цена за задачу</td>
+            <td>Сложный рефактор ~$0.40 в тестах практиков</td>
+            <td>Та же задача ~$1.50-2.50</td>
+          </tr>
+          <tr>
+            <td>Сообщество</td>
+            <td>r/ClaudeCode, r/ClaudeAI</td>
+            <td>r/Codex, общий хаб - r/ChatGPTCoding</td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="color: var(--muted); font-size: 14.5px;">Любопытная деталь из замеров: на 500+ Reddit-комментариев 65% предпочитают Codex по качеству исполнения, но Claude Code порождает в 4 раза больше обсуждения. Перевод: Codex чаще хвалят за «просто сделал», Claude Code - за то, что с ним можно думать вслух.</p>
+    </section>
+
+    <section id="model">
+      <h2>Ментальная модель: не «кто лучше», а «кто на каком слое»</h2>
+      <p class="section-intro">Ключ - не выбрать лучшего агента, а маршрутизировать работу туда, где она дешевле и качественнее.</p>
+      <div class="model-diagram">
+        <div class="layer green">
+          <strong>Замысел / Архитектура / Разбор незнакомого</strong>
+          <span>Ведёт <strong>Claude Code</strong></span>
+        </div>
+        <div class="arrow">↓ план, контекст, рамки</div>
+        <div class="layer blue">
+          <strong>Массовое исполнение по чёткому ТЗ</strong>
+          <span>Молотит <strong>Codex</strong> (часто параллельно)</span>
+        </div>
+        <div class="arrow">↓ диффы</div>
+        <div class="layer gold">
+          <strong>Состязательное ревью / Второе мнение</strong>
+          <span>Код одного проверяет другой (<strong>cross-review</strong>)</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="patterns">
+      <h2>6 паттернов комбинирования</h2>
+      <p class="section-intro">Каждый паттерн - отдельный сценарий с понятным условием применения. Бери то, что подходит к задаче, а не всё сразу.</p>
+
+      <div class="pattern">
+        <div class="pattern-header">
+          <span class="pattern-num">1</span>
+          <h3>Planner → Implementer → Reviewer (правило 80/20)</h3>
+        </div>
+        <p>Самый ходовой сценарий у команд. <strong>Claude Code</strong> проектирует и ревьюит важные 20%: архитектуру, контракты API, спорные места. <strong>Codex</strong> делает рутинные 80%: создаёт каркас фичи, пишет типовые заготовки, закрывает понятные тикеты. Общий якорь - файл вроде <code>PROJECT_CONTEXT.md</code>: после крупных изменений он обновляется, чтобы оба инструмента видели одну картину.</p>
+        <div class="when"><b>Когда брать:</b> фича среднего и большого размера, где есть и «подумать», и «натаскать кода».</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-header">
+          <span class="pattern-num">2</span>
+          <h3>Cross-review: код одного проверяет другой</h3>
+        </div>
+        <p>Самый недооценённый и самый дешёвый по соотношению польза/усилия. OpenAI выпустила официальный плагин Codex для Claude Code (<code>codex@openai-codex</code>, репозиторий <code>openai/codex-plugin-cc</code>). Три команды прямо из сессии Claude Code:</p>
+        <ul>
+          <li><code>/codex:review</code> - обычное ревью силами Codex (read-only).</li>
+          <li><code>/codex:adversarial-review</code> - скептическое, состязательное ревью: Codex считает код сломанным и ищет дыры - гонки, потеря данных, откаты, аутентификация.</li>
+          <li><code>/codex:rescue</code> - передача задачи Codex целиком (единственная команда с правом менять код).</li>
+        </ul>
+        <p style="margin-top: 12px;">Смысл - поймать то, что одна модель «залюбила» и не видит. Две модели редко ошибаются одинаково.</p>
+        <div class="when"><b>Когда брать:</b> всегда, когда цена ошибки выше пары минут.</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-header">
+          <span class="pattern-num">3</span>
+          <h3>Rescue: разблокировка, когда застрял</h3>
+        </div>
+        <p>Документированный практиками сценарий (разбор Nate Herk, 30k+ просмотров): застрял в Claude Code на проблеме - передаёшь её Codex, не меняя контекст и проект, side-by-side. Часто помогает обратное: Codex встал - отдаёшь Claude Code на диалоговый дебаг.</p>
+        <div class="when"><b>Когда брать:</b> один агент крутится в цикле и не сходится. Смена движка часто разрывает залипание лучше, чем десятый перезапуск того же.</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-header">
+          <span class="pattern-num">4</span>
+          <h3>Параллельные агенты в git worktree</h3>
+        </div>
+        <p>Запускаешь Claude Code, Codex (и при желании Gemini) бок о бок, каждый в своём <code>git worktree</code> - отдельная ветка и рабочая папка, общий объектный стор. Файлы не сталкиваются. Есть готовые обвязки: <code>johannesjo/parallel-code</code>, desktop-app <code>Runner</code> («запускать как crew»).</p>
+        <p>Два режима: <strong>гонка</strong> - одна задача, три агента, сравниваешь диффы, мёржишь лучшее. <strong>Веер</strong> - пять фич, пять агентов одновременно, ноль конфликтов.</p>
+        <p>Важное различие изоляции: worktree Claude Code работает локально с полным доступом к инструментам и credentials; sandbox Codex - в облачном контейнере без сети. Поэтому untrusted-код и чувствительное исполнение безопаснее гнать через Codex, а задачи, которым нужен локальный build/test/сервис - через Claude Code.</p>
+        <div class="when"><b>Когда брать:</b> несколько независимых задач разом, или одна важная задача, где хочешь выбрать из вариантов.</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-header">
+          <span class="pattern-num">5</span>
+          <h3>Локальный Claude Code + облачный Codex async</h3>
+        </div>
+        <p>Claude Code интерактивно разбирает проблему здесь и сейчас. Долгие ресурсоёмкие вещи - массовая миграция по сервисам, длинный прогон тестов - уходят в облачный Codex как асинхронный PR в отдельном контейнере, пока идёт другая работа.</p>
+        <div class="when"><b>Когда брать</b> (все три условия сразу): задача блокирует терминал дольше 15-20 минут; scope чётко ограничен; в репо есть надёжные CI-тесты, которые поймают брак.</div>
+      </div>
+
+      <div class="pattern">
+        <div class="pattern-header">
+          <span class="pattern-num">6</span>
+          <h3>Git как канал связи между агентами</h3>
+        </div>
+        <p>Свежий приём с Hacker News: Claude Code и Codex ведут «разговор» через git - один пишет коммиты и заметки, другой читает и отвечает своими коммитами. Грубовато, но работает без специальной шины: общая история репозитория и есть протокол.</p>
+        <div class="when"><b>Когда брать:</b> хочешь связать двух агентов без отдельного оркестратора, на том, что уже есть.</div>
+      </div>
+    </section>
+
+    <section id="matrix">
+      <h2>Матрица: тип задачи → кто ведущий</h2>
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Задача</th>
+            <th>Ведущий</th>
+            <th>Второе мнение / комбо</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Разобрать незнакомый большой репозиторий</td><td>Claude Code</td><td>-</td></tr>
+          <tr><td>Спроектировать архитектуру / API</td><td>Claude Code (диалог)</td><td>Codex как состязательный ревьюер</td></tr>
+          <tr><td>Большой многофайловый рефакторинг</td><td>Claude Code</td><td>Codex для финальной проверки диффа</td></tr>
+          <tr><td>Скаффолдинг, boilerplate, понятный тикет</td><td>Codex</td><td>-</td></tr>
+          <tr><td>Дебаг с трассировкой и гипотезами</td><td>Claude Code (диалог)</td><td>Если залип - Паттерн 3 (Rescue)</td></tr>
+          <tr><td>Untrusted / чувствительный код в sandbox</td><td>Codex (облако без сети)</td><td>-</td></tr>
+          <tr><td>Массовая миграция по многим сервисам</td><td>Codex (параллельные ветки)</td><td>Локально проверить один кейс вручную</td></tr>
+          <tr><td>Критичный код перед мёржем</td><td>Тот, кто писал</td><td>Обязательный cross-review другим (Паттерн 2)</td></tr>
+          <tr><td>Несколько независимых фич разом</td><td>Оба в worktree-веере</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="when-not">
+      <h2>Когда НЕ комбинировать</h2>
+      <div class="grid-2">
+        <div class="card red">
+          <h4>Мелкая правка в один-два файла</h4>
+          <p>Поднимать два агента, синхронизировать контекст и читать два диффа дольше, чем сделать самому. Оверхед координации съест выигрыш.</p>
+        </div>
+        <div class="card red">
+          <h4>Нет общего якоря контекста</h4>
+          <p>Без <code>PROJECT_CONTEXT.md</code> / <code>AGENTS.md</code> / <code>CLAUDE.md</code> два агента разойдутся в разные стороны.</p>
+        </div>
+        <div class="card red">
+          <h4>Нет тестов под автономную задачу</h4>
+          <p>Agentный прогон без CI-сетки - незаметный брак, который всплывёт позже. Сначала тесты, потом делегирование.</p>
+        </div>
+        <div class="card red">
+          <h4>Погоня за бенчмарком</h4>
+          <p>Лидер SWE-bench меняется каждый месяц и почти не влияет на ежедневную пользу. Выбирай по свойствам и цене, не по полпроцента в таблице.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="quickstart">
+      <h2>Быстрый старт: минимум, чтобы начать</h2>
+      <div class="steps">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <div class="step-body"><b>Поставь оба локально:</b> Claude Code и Codex CLI (<code>npm install -g @openai/codex</code>).</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <div class="step-body"><b>Один якорь контекста на репо.</b> Заведи <code>CLAUDE.md</code> для Claude Code и <code>@AGENTS.md</code>-импорт для совместимости с Codex. Держи их короткими - это конфиг, а не документация.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <div class="step-body"><b>Подключи cross-review.</b> В Claude Code: <code>/plugin marketplace add openai/codex-plugin-cc</code>, затем <code>/plugin install codex@openai-codex</code>, <code>/reload-plugins</code>, <code>/codex:setup</code>. Нужна подписка ChatGPT или ключ OpenAI API + Node.js 18.18+. Получишь <code>/codex:review</code> и <code>/codex:adversarial-review</code> прямо из сессии.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">4</div>
+          <div class="step-body"><b>Заведи привычку второго мнения</b> на критичных диффах: писал Claude Code - проверь Codex, и наоборот.</div>
+        </div>
+        <div class="step-item">
+          <div class="step-num">5</div>
+          <div class="step-body"><b>Для параллельной работы</b> возьми готовую обвязку worktree (<code>parallel-code</code> или аналог), не городи руками.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="caveats">
+      <h2>Спорные места</h2>
+      <p class="section-intro">Где не надо переоценивать данные - вердикты из базы знаний с уровнями уверенности.</p>
+      <div class="callout">
+        <p><strong>«Codex объективно лучше для архитектуры»</strong> - подтверждён лишь паттерн «blueprint Codex → реализация Claude Code». Прямых авторитетных бенчмарков по архитектуре нет. Вердикт: Отчасти верно, уверенность низкая.</p>
+      </div>
+      <div class="callout" style="margin-top: 12px;">
+        <p><strong>«Claude строже следует инструкциям»</strong> - да, по <code>CLAUDE.md</code> следует строго, но frontier-модели склонны к over-engineering, а свежие GPT-5.x часто аккуратнее держат жёсткое ТЗ. Не абсолют. Вердикт: Отчасти верно, уверенность низкая.</p>
+      </div>
+      <div class="callout" style="margin-top: 12px;">
+        <p><strong>Бенчмарки SWE-bench</strong> у Opus и GPT-5.x-Codex идут вплотную (паритет около 80%) и обгоняют друг друга от релиза к релизу. Это аргумент в пользу комбинации, а не выбора одного навсегда.</p>
+      </div>
+    </section>
+
+    <section id="sources">
+      <h2>Источники</h2>
+      <div class="source-list">
+        <p>GitHub - <code>openai/codex-plugin-cc</code> (тир S, официальный плагин)</p>
+        <p>OpenAI Developer Community - анонс плагина</p>
+        <p>The New Stack - тест Codex на реальном Python-репо</p>
+        <p>Composio, MindStudio, codersera - разборы комбинирования (май 2026)</p>
+        <p>Hacker News - «Claude Code and Codex via Git»; Show HN: Runner</p>
+        <p>GitHub - <code>johannesjo/parallel-code</code></p>
+        <p>YouTube - Nate Herk, разбор хендоффа Claude Code → Codex</p>
+        <p>Внутренний playbook - <code>clean/agent-routing.md</code></p>
+      </div>
+    </section>
+
+    <footer>
+      <p>Бенчмарки и версии моделей меняются каждый месяц - статья опирается на устойчивые свойства инструментов. Актуальные имена моделей сверяй с официальными страницами Anthropic и OpenAI. Снимок: июнь 2026.</p>
+    </footer>
+  </div>
+</body>
+</html>
