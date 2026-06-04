@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Слайд 3 — варианты инфографики</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --ink:#1D1D1F; --accent:#AB4F2A; --muted:#86868B;
+    --line:#D2D2D7; --chip:#EBEBED;
+    --sans:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Inter','Segoe UI','Helvetica Neue',sans-serif;
+    --mono:'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+
+  /* ---------- slide shell (1920x1080) ---------- */
+  .slide{
+    width:1920px; height:1080px; background:var(--bg); color:var(--ink);
+    font-family:var(--sans); -webkit-font-smoothing:antialiased;
+    padding:92px 120px; display:flex; flex-direction:column;
+    letter-spacing:-0.01em;
+  }
+  .kicker{display:flex; align-items:center; gap:.65em; color:var(--accent);
+    font-size:24px; font-weight:600; text-transform:uppercase; letter-spacing:.13em;}
+  .kdot{width:.5em; height:.5em; background:var(--accent); flex:none;}
+  h2.title{font-size:66px; font-weight:600; line-height:1.05; letter-spacing:-0.025em; margin:0;}
+  .sm{font-size:26px;} .muted{color:var(--muted);} .accent{color:var(--accent);}
+
+  /* tool icon box (mirrors reference) */
+  .tool{display:flex; align-items:center; gap:22px;}
+  .tbox{width:96px; height:96px; border:1.7px solid var(--line); border-radius:22px;
+    display:flex; align-items:center; justify-content:center; background:#fff; flex:none;}
+  .tbox svg{width:54px; height:54px; fill:none; stroke:var(--ink); stroke-width:1.7;
+    stroke-linecap:round; stroke-linejoin:round;}
+  .tbox.acc{border-color:var(--accent);}
+  .tbox.acc svg{stroke:var(--accent);}
+  .tlab{font-size:36px; font-weight:600; letter-spacing:-0.02em;}
+
+  /* AI hub node */
+  .hub{border-radius:50%; border:2px solid var(--ink); background:#fff;
+    display:flex; align-items:center; justify-content:center; flex:none;}
+  .hub span{font-size:92px; font-weight:700; letter-spacing:-0.04em; color:var(--ink);}
+  .hub.acc{border-color:var(--accent);}
+  .hub.acc span{color:var(--accent);}
+
+  /* chat bubble */
+  .bubble{position:relative; border:2px solid var(--muted); border-radius:28px;
+    background:#fff; padding:42px 48px;}
+  .bubble::after{content:""; position:absolute; left:64px; bottom:-26px; width:0; height:0;
+    border:14px solid transparent; border-top-color:#fff; border-bottom:0;
+    filter:drop-shadow(0 2px 0 var(--muted));}
+  .bubble .av{width:96px; height:96px; border-radius:50%; border:2px solid var(--muted);
+    display:flex; align-items:center; justify-content:center; flex:none;}
+  .bubble .av span{font-size:48px; font-weight:700; color:var(--muted); letter-spacing:-0.03em;}
+  .tline{height:5px; border-radius:3px; background:var(--muted); opacity:.55;}
+
+  .panel{background:#fff; border:1px solid var(--line); border-radius:24px;}
+  .panel.flat{background:var(--chip); border:none;}
+  .verdict{font-size:42px; font-weight:600; letter-spacing:-0.02em;}
+  .plabel{font-size:24px; font-weight:600; text-transform:uppercase; letter-spacing:.1em;}
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#F5F5F7">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F5F5F7"/>
+    <circle cx="380" cy="400" r="120" fill="none" stroke="#1D1D1F" stroke-width="8"/>
+    <text x="380" y="438" font-size="120" font-weight="700" text-anchor="middle" fill="#1D1D1F" font-family="Inter,sans-serif">AI</text>
+    <path d="M510 400 C 640 400 680 280 820 280" fill="none" stroke="#AB4F2A" stroke-width="6"/>
+    <path d="M510 400 H 820" fill="none" stroke="#AB4F2A" stroke-width="6"/>
+    <path d="M510 400 C 640 400 680 520 820 520" fill="none" stroke="#AB4F2A" stroke-width="6"/>
+    <rect x="830" y="248" width="64" height="64" rx="14" fill="none" stroke="#AB4F2A" stroke-width="6"/>
+    <rect x="830" y="368" width="64" height="64" rx="14" fill="none" stroke="#AB4F2A" stroke-width="6"/>
+    <rect x="830" y="488" width="64" height="64" rx="14" fill="none" stroke="#AB4F2A" stroke-width="6"/>
+  </svg>
+</template>
+
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script type="text/babel" src="design-canvas.jsx"></script>
+
+<script type="text/babel">
+const { useState } = React;
+
+/* ---------------- icon paths (line, viewBox 0 0 24 24) ---------------- */
+const ICON = {
+  browser: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><ellipse cx="12" cy="12" rx="4" ry="9"/>',
+  files:   '<path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h6"/>',
+  terminal:'<rect x="3" y="4" width="18" height="16" rx="2.5"/><path d="M7 9l3 3-3 3"/><path d="M13 16h4"/>',
+  api:     '<path d="M12 3.2l7 4v9.6l-7 4-7-4V7.2z"/><path d="M9 12h6M12 9.5v5" stroke-width="1.4"/><circle cx="12" cy="7.2" r="1.1"/><circle cx="12" cy="16.8" r="1.1"/><circle cx="5" cy="7.2" r="1.1"/><circle cx="19" cy="7.2" r="1.1"/><circle cx="5" cy="16.8" r="1.1"/><circle cx="19" cy="16.8" r="1.1"/>',
+  person:  '<circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/>',
+};
+const TOOLS = [
+  ['browser','Browser'], ['files','Files'], ['terminal','Terminal'], ['api','API'], ['person','CRM'],
+];
+
+function toolRow(key, label, acc){
+  return `<div class="tool"><div class="tbox ${acc?'acc':''}"><svg viewBox="0 0 24 24">${ICON[key]}</svg></div><div class="tlab">${label}</div></div>`;
+}
+
+/* chat bubble markup */
+function bubble(widths){
+  const lines = widths.map(w=>`<div class="tline" style="width:${w}px;"></div>`).join('');
+  return `<div class="bubble" style="display:flex; gap:36px; align-items:center; max-width:760px;">
+      <div class="av"><span>AI</span></div>
+      <div style="display:flex; flex-direction:column; gap:20px; flex:1;">${lines}</div>
+    </div>`;
+}
+
+/* SVG connector cluster: hub on left -> vertical stack of N targets on right.
+   w,h = svg box; hx,hy = hub anchor; tx = target x; ys = array of target y */
+function connectors(w,h,hx,hy,tx,ys,color){
+  const paths = ys.map(y=>{
+    const c1x = hx + (tx-hx)*0.42, c2x = hx + (tx-hx)*0.60;
+    return `<path d="M${hx},${hy} C ${c1x},${hy} ${c2x},${y} ${tx},${y}" fill="none" stroke="${color}" stroke-width="2.2" marker-end="url(#ar)"/>`;
+  }).join('');
+  return `<svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}" style="position:absolute; inset:0; overflow:visible;">
+      <defs><marker id="ar" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto">
+        <path d="M1,1 L8,4 L1,7" fill="none" stroke="${color}" stroke-width="2"/></marker></defs>
+      ${paths}</svg>`;
+}
+
+/* =========================================================================
+   VARIANT A — VS two-panel: chat bubble (dead-end text) vs agent hub→tools
+   ========================================================================= */
+function VariantA(){
+  // agent diagram geometry (panel-local px)
+  const W=560, H=620, hubR=86, hx=2*hubR, hy=H/2;
+  const ys=[70,205,340,475,610].map((_,i)=>72+i*(610-72)/4);
+  const rows = TOOLS.map(([k,l],i)=>
+    `<div style="position:absolute; left:380px; top:${ys[i]-48}px;">${toolRow(k,l,true)}</div>`).join('');
+  const html = `
+  <div class="slide">
+    <div class="kicker"><span class="kdot"></span>Блок 1 · Водораздел</div>
+    <div style="flex:1; display:flex; flex-direction:column; gap:40px; padding-top:34px; min-height:0;">
+      <h2 class="title">Чат советует — агент делает</h2>
+      <div style="flex:1; display:grid; grid-template-columns:1fr auto 1fr; gap:48px; align-items:stretch; min-height:0;">
+
+        <!-- CHAT -->
+        <div class="panel flat" style="padding:54px 56px; display:flex; flex-direction:column;">
+          <div class="plabel muted">Чат</div>
+          <div class="sm muted" style="margin-top:6px;">Умный собеседник</div>
+          <div style="flex:1; display:flex; align-items:center;">
+            ${bubble([360,420,300,390])}
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; color:var(--muted); font-size:27px;">
+            <span style="font-family:var(--mono);">text →</span> вы копипастите руками
+          </div>
+          <div class="verdict muted" style="margin-top:26px;">Скажет, как.</div>
+        </div>
+
+        <!-- VS -->
+        <div style="align-self:center; font-size:38px; font-weight:600; color:var(--muted); letter-spacing:.06em;">VS</div>
+
+        <!-- AGENT -->
+        <div class="panel" style="border-color:var(--accent); padding:54px 56px; display:flex; flex-direction:column;">
+          <div class="plabel accent">Агент</div>
+          <div class="sm muted" style="margin-top:6px;">Сотрудник с руками</div>
+          <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+            <div style="position:relative; width:${W}px; height:${H}px;">
+              ${connectors(W,H,hx,hy,372,ys,'#AB4F2A')}
+              <div class="hub acc" style="position:absolute; left:0; top:${hy-hubR}px; width:${hubR*2}px; height:${hubR*2}px;"><span>AI</span></div>
+              ${rows}
+            </div>
+          </div>
+          <div class="verdict accent" style="margin-top:26px;">Сделает сам.</div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  return <div dangerouslySetInnerHTML={{__html: html}} />;
+}
+
+/* =========================================================================
+   VARIANT B — Agent as hero. Big hub fans into tools; chat is a small inset.
+   ========================================================================= */
+function VariantB(){
+  const W=1180, H=720, hubR=150, hx=2*hubR, hy=H/2;
+  const ys=[0,1,2,3,4].map(i=>96+i*(H-192)/4);
+  const rows = TOOLS.map(([k,l],i)=>
+    `<div style="position:absolute; left:760px; top:${ys[i]-50}px;">${toolRow(k,l,true)}</div>`).join('');
+  const html = `
+  <div class="slide">
+    <div class="kicker"><span class="kdot"></span>Блок 1 · Водораздел</div>
+    <div style="flex:1; display:grid; grid-template-columns:1.05fr 1.95fr; gap:64px; padding-top:30px; min-height:0; align-items:center;">
+
+      <!-- left: framing + chat inset -->
+      <div style="display:flex; flex-direction:column; gap:40px;">
+        <h2 class="title" style="font-size:58px;">Чат советует —<br>агент <span class="accent">делает</span></h2>
+        <div class="panel flat" style="padding:36px 40px;">
+          <div class="plabel muted">Чат</div>
+          <div style="display:flex; gap:24px; align-items:center; margin-top:22px;">
+            <div class="bubble" style="display:flex; gap:22px; align-items:center; padding:26px 30px; flex:1;">
+              <div class="av" style="width:64px; height:64px;"><span style="font-size:32px;">AI</span></div>
+              <div style="display:flex; flex-direction:column; gap:13px; flex:1;">
+                <div class="tline" style="width:100%;"></div>
+                <div class="tline" style="width:80%;"></div>
+                <div class="tline" style="width:92%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="muted" style="font-size:25px; margin-top:20px;">Только текст. Дальше — руками.</div>
+        </div>
+      </div>
+
+      <!-- right: agent hub -> tools -->
+      <div class="panel" style="border-color:var(--accent); height:100%; display:flex; flex-direction:column; padding:44px 56px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+          <div class="plabel accent">Агент</div>
+          <div class="muted sm">тянется к реальным инструментам</div>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div style="position:relative; width:${W}px; height:${H}px;">
+            ${connectors(W,H,hx,hy,752,ys,'#AB4F2A')}
+            <div class="hub acc" style="position:absolute; left:0; top:${hy-hubR}px; width:${hubR*2}px; height:${hubR*2}px;"><span style="font-size:128px;">AI</span></div>
+            ${rows}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+  return <div dangerouslySetInnerHTML={{__html: html}} />;
+}
+
+/* =========================================================================
+   VARIANT C — Two horizontal lanes. Top lane = text dead-ends in a bubble.
+   Bottom lane = output flows into a row of tools.
+   ========================================================================= */
+function VariantC(){
+  const toolsRow = TOOLS.map(([k,l])=>
+    `<div style="display:flex; flex-direction:column; align-items:center; gap:16px;">
+       <div class="tbox acc" style="width:120px; height:120px;"><svg viewBox="0 0 24 24" style="width:66px; height:66px;">${ICON[k]}</svg></div>
+       <div class="tlab" style="font-size:30px;">${l}</div>
+     </div>`).join('<div style="align-self:center; color:var(--accent); font-size:30px; margin-bottom:46px;">·</div>');
+  const html = `
+  <div class="slide">
+    <div class="kicker"><span class="kdot"></span>Блок 1 · Водораздел</div>
+    <div style="flex:1; display:flex; flex-direction:column; gap:36px; padding-top:34px; min-height:0;">
+      <h2 class="title">Чат советует — агент делает</h2>
+
+      <!-- lane 1: chat -->
+      <div class="panel flat" style="flex:0.9; display:grid; grid-template-columns:auto 1fr auto; gap:48px; align-items:center; padding:40px 56px;">
+        <div class="hub" style="width:150px; height:150px; border-color:var(--muted);"><span style="font-size:74px; color:var(--muted);">AI</span></div>
+        <div style="display:flex; align-items:center; gap:30px;">
+          <svg width="200" height="40" style="overflow:visible;"><defs><marker id="am" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto"><path d="M1,1 L8,4 L1,7" fill="none" stroke="#86868B" stroke-width="2"/></marker></defs><line x1="0" y1="20" x2="190" y2="20" stroke="#86868B" stroke-width="2.2" marker-end="url(#am)"/></svg>
+          <div class="bubble" style="display:flex; gap:26px; align-items:center; padding:30px 36px; flex:1;">
+            <div style="display:flex; flex-direction:column; gap:15px; flex:1;">
+              <div class="tline" style="width:90%;"></div><div class="tline" style="width:70%;"></div><div class="tline" style="width:82%;"></div>
+            </div>
+          </div>
+        </div>
+        <div style="text-align:right;"><div class="plabel muted">Чат</div><div class="verdict muted" style="font-size:34px; margin-top:8px;">Скажет, как.</div></div>
+      </div>
+
+      <!-- lane 2: agent -->
+      <div class="panel" style="flex:1.25; border-color:var(--accent); display:grid; grid-template-columns:auto 1fr auto; gap:48px; align-items:center; padding:40px 56px;">
+        <div class="hub acc" style="width:170px; height:170px;"><span style="font-size:84px;">AI</span></div>
+        <div style="display:flex; align-items:center; justify-content:center; gap:22px;">
+          ${toolsRow}
+        </div>
+        <div style="text-align:right;"><div class="plabel accent">Агент</div><div class="verdict accent" style="font-size:34px; margin-top:8px;">Сделает сам.</div></div>
+      </div>
+    </div>
+  </div>`;
+  return <div dangerouslySetInnerHTML={{__html: html}} />;
+}
+
+function App(){
+  return (
+    <DesignCanvas>
+      <DCSection id="s3" title="Слайд 3 · Инфографика вместо слов" subtitle="«Чат советует — агент делает» — 3 направления. Открой любой в фокус-режиме (клик по рамке).">
+        <DCArtboard id="a" label="A · VS-сравнение" width={1920} height={1080}><VariantA/></DCArtboard>
+        <DCArtboard id="b" label="B · Агент-герой" width={1920} height={1080}><VariantB/></DCArtboard>
+        <DCArtboard id="c" label="C · Две дорожки" width={1920} height={1080}><VariantC/></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

@@ -1,0 +1,1283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Кодинговые агенты для не-кодинговых задач</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F5F5F7; --ink:#1D1D1F; --accent:#AB4F2A; --muted:#86868B;
+    --line:#D2D2D7; --chip:#EBEBED;
+    --term-bg:#1D1D1F; --term-ink:#F5F5F7; --green:#30D158;
+
+    --type-hero:104px; --type-divider:90px; --type-title:66px;
+    --type-subtitle:40px; --type-body:32px; --type-small:26px;
+    --type-kicker:24px; --type-foot:24px; --type-bignum:108px; --type-mono:27px;
+
+    --pad-x:120px; --pad-y:92px; --gap:48px;
+
+    --sans:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Inter','Segoe UI','Helvetica Neue',sans-serif;
+    --mono:'SF Mono','JetBrains Mono',Menlo,Consolas,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html,body{height:100%;background:#000;}
+  body{font-family:var(--sans);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;}
+  deck-stage:not(:defined){visibility:hidden;}
+
+  section{
+    background:var(--bg); color:var(--ink);
+    padding:var(--pad-y) var(--pad-x);
+    display:flex; flex-direction:column;
+    font-size:var(--type-body); line-height:1.4;
+    letter-spacing:-0.01em;
+  }
+
+  /* ---- shared atoms ---- */
+  .kicker{
+    display:flex; align-items:center; gap:.65em;
+    color:var(--accent); font-size:var(--type-kicker); font-weight:600;
+    text-transform:uppercase; letter-spacing:.13em;
+  }
+  .kdot{width:.5em; height:.5em; background:var(--accent); flex:none;}
+  .body{flex:1; display:flex; flex-direction:column; min-height:0;}
+  .body.center{justify-content:center;}
+  .body.top{justify-content:flex-start;}
+  .spacer{flex:1;}
+
+  h1.hero{font-size:var(--type-hero); font-weight:600; line-height:1.02; letter-spacing:-0.03em; max-width:24ch;}
+  h2.title{font-size:var(--type-title); font-weight:600; line-height:1.05; letter-spacing:-0.025em; max-width:26ch;}
+  .subtitle{font-size:var(--type-subtitle); color:var(--muted); font-weight:400; line-height:1.2; letter-spacing:-0.02em;}
+  .foot{font-size:var(--type-foot); color:var(--muted);}
+  .accent{color:var(--accent);}
+  .muted{color:var(--muted);}
+  .small{font-size:var(--type-small);}
+
+  /* ---- divider ---- */
+  section.divider{justify-content:center;}
+  section.divider h2.title{font-size:var(--type-divider); max-width:22ch; margin-top:.32em;}
+  section.divider .subtitle{margin-top:.5em; max-width:34ch;}
+
+  /* ---- terminal ---- */
+  .term{
+    background:var(--term-bg); color:var(--term-ink);
+    border-radius:14px; padding:36px 40px;
+    font-family:var(--mono); font-size:var(--type-mono); line-height:1.85;
+    width:100%;
+  }
+  .term .ln{display:flex; gap:1.4em; white-space:pre;}
+  .term .t{color:var(--accent);}
+  .term .ok{color:var(--green);}
+  .term .cmd{color:var(--term-ink);}
+  .term .dim{color:#8A8A8E;}
+
+  /* ---- terminal window (slide 02) ---- */
+  .termwin{
+    background:#1A1A1A; border-radius:16px; width:100%;
+    overflow:hidden; box-shadow:0 26px 64px rgba(0,0,0,.20);
+    font-family:var(--mono);
+  }
+  .termwin .bar{
+    display:flex; align-items:center; gap:11px;
+    padding:16px 22px; background:#2A2A2C;
+    border-bottom:1px solid #0E0E0E;
+  }
+  .termwin .bar i{width:15px; height:15px; border-radius:50%; display:block;}
+  .termwin .bar .r{background:#C5544A;}
+  .termwin .bar .y{background:#C7993B;}
+  .termwin .bar .g{background:#4FA957;}
+  .termwin .bar .ttl{margin-left:14px; color:#6E6E73; font-size:24px; letter-spacing:.01em;}
+  .termwin .scr{padding:34px 40px 38px 28px; font-size:24px; line-height:1.9;}
+  .termwin .prompt{
+    display:block; color:#7A7A80; white-space:pre-wrap;
+    word-break:break-word; margin-bottom:1.25em;
+  }
+  .termwin .row{display:grid; grid-template-columns:max-content 1fr; gap:1.0em; white-space:nowrap;}
+  .termwin .row + .row{margin-top:.18em;}
+  .termwin .row .tm{color:var(--accent);}
+  .termwin .row .msg{color:#D6D6DA;}
+  .termwin .row.done{margin-top:.55em;}
+  .termwin .row.done .msg{color:#3FB950;}
+
+  /* ---- big numbers ---- */
+  .statrow{display:flex; gap:var(--gap); flex-wrap:wrap;}
+  .stat .num{font-size:var(--type-bignum); font-weight:600; line-height:1; letter-spacing:-0.04em;}
+  .stat .num.acc{color:var(--accent);}
+  .stat .lab{font-size:var(--type-small); color:var(--muted); margin-top:.5em; max-width:18ch; line-height:1.25;}
+  .stat .lab.sm{font-size:24px;}
+
+  /* ---- two columns / cards ---- */
+  .cols2{display:grid; grid-template-columns:1fr 1fr; gap:var(--gap);}
+  .col-head{font-size:var(--type-subtitle); font-weight:600; letter-spacing:-0.02em;}
+  .col-sub{font-size:var(--type-small); color:var(--muted); margin-top:.15em;}
+  ul.clean{list-style:none; display:flex; flex-direction:column; gap:.55em; margin-top:.9em;}
+  ul.clean li{display:flex; gap:.6em; align-items:baseline;}
+  ul.clean li::before{content:""; width:.42em; height:.42em; background:var(--line); border-radius:50%; flex:none; transform:translateY(-.18em);}
+  ul.clean.acc li::before{background:var(--accent);}
+
+  .card{background:#fff; border:1px solid var(--line); border-radius:18px; padding:40px 44px; display:flex; flex-direction:column;}
+  .card.flat{background:var(--chip); border:none;}
+  .card.fill{background:var(--accent); color:#fff; border:none;}
+  .card.fill .muted, .card.fill .col-sub{color:rgba(255,255,255,.78);}
+
+  /* VS badge */
+  .vsrow{display:grid; grid-template-columns:1fr auto 1fr; gap:40px; align-items:stretch;}
+  .vs{align-self:center; font-size:34px; font-weight:600; color:var(--muted); letter-spacing:.06em;}
+
+  /* ---- fact plaque ---- */
+  .fact{background:var(--chip); border-radius:16px; padding:34px 40px; font-size:var(--type-small); line-height:1.4;}
+  .fact .lab{color:var(--accent); font-weight:600; text-transform:uppercase; letter-spacing:.1em; font-size:24px; display:block; margin-bottom:.35em;}
+
+  /* ---- quote ---- */
+  .quote-xl{font-size:62px; font-weight:600; line-height:1.16; letter-spacing:-0.025em; max-width:24ch;}
+  .quote-md{font-size:46px; font-weight:600; line-height:1.22; letter-spacing:-0.02em; max-width:30ch;}
+  .source{font-size:var(--type-small); color:var(--muted); margin-top:1em;}
+  .quote-mark{color:var(--accent);}
+
+  /* ---- chips ---- */
+  .chiprow{display:flex; align-items:center; gap:14px; flex-wrap:wrap;}
+  .chip{background:#fff; border:1px solid var(--line); border-radius:999px; padding:14px 24px; font-size:24px; white-space:nowrap;}
+  .chip.acc{background:var(--accent); color:#fff; border-color:var(--accent); font-weight:600;}
+  .chip.mono{font-family:var(--mono); font-size:24px;}
+  .arrow{color:var(--muted); font-size:26px;}
+
+  /* ---- tool logo lockups (slide 20 · голос) ---- */
+  .toollogo{display:inline-flex; align-items:center; gap:16px; padding:11px 26px 11px 11px;}
+  .tmark{width:46px; height:46px; border-radius:12px; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:25px; letter-spacing:-0.04em; flex:none; box-shadow:0 4px 12px -6px rgba(0,0,0,.35);}
+  .tmark.pick{background:var(--accent); color:#fff;}
+  .tmark.dark{background:var(--ink); color:var(--bg);}
+  .tmark.line{background:#fff; border:1.7px solid var(--accent); color:var(--accent);}
+
+  /* ---- numbered list ---- */
+  .numlist{display:flex; flex-direction:column; gap:30px;}
+  .numitem{display:grid; grid-template-columns:auto 1fr; gap:28px; align-items:start;}
+  .numitem .n{font-size:46px; font-weight:600; color:var(--accent); line-height:1; min-width:1.2em; letter-spacing:-0.02em;}
+  .numitem .h{font-size:34px; font-weight:600; letter-spacing:-0.02em;}
+  .numitem .d{font-size:var(--type-small); color:var(--muted); margin-top:.3em; line-height:1.35; max-width:46ch;}
+
+  /* ---- contrast было/стало ---- */
+  .contrast{display:grid; grid-template-columns:1fr auto 1fr; gap:40px; align-items:center;}
+  .cbox{padding:38px 42px; border-radius:18px;}
+  .cbox.before{background:var(--chip);}
+  .cbox.after{background:var(--accent); color:#fff;}
+  .cbox .ct{font-size:var(--type-small); text-transform:uppercase; letter-spacing:.1em; opacity:.7; font-size:24px;}
+  .cbox .cv{font-size:42px; font-weight:600; letter-spacing:-0.02em; margin-top:.2em; line-height:1.1;}
+  .carw{font-size:40px; color:var(--muted);}
+
+  /* ---- icons ---- */
+  .ico{width:60px; height:60px; stroke:var(--accent); stroke-width:1.6; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+  .ico.ink{stroke:var(--ink);}
+
+  /* ---- slide 03 · инфографика «Агент-герой» ---- */
+  .s3b{flex:1; display:grid; grid-template-columns:1.05fr 1.95fr; gap:64px; padding-top:30px; min-height:0; align-items:center;}
+  .s3b .plabel{font-size:24px; font-weight:600; text-transform:uppercase; letter-spacing:.1em;}
+  .s3b .panel{background:#fff; border:1px solid var(--line); border-radius:24px;}
+  .s3b .panel.flat{background:var(--chip); border:none;}
+  .s3b .hub{border-radius:50%; border:2px solid var(--ink); background:#fff; display:flex; align-items:center; justify-content:center; flex:none;}
+  .s3b .hub span{font-weight:700; letter-spacing:-0.04em; color:var(--ink);}
+  .s3b .hub.acc{border-color:var(--accent);}
+  .s3b .hub.acc span{color:var(--accent);}
+  .s3b .tool{display:flex; align-items:center; gap:22px;}
+  .s3b .tbox{width:96px; height:96px; border:1.7px solid var(--accent); border-radius:22px; display:flex; align-items:center; justify-content:center; background:#fff; flex:none;}
+  .s3b .tbox svg{width:54px; height:54px; fill:none; stroke:var(--accent); stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round;}
+  .s3b .tlab{font-size:36px; font-weight:600; letter-spacing:-0.02em;}
+  .s3b .bubble{position:relative; border:2px solid var(--muted); border-radius:24px; background:#fff;}
+  .s3b .av{border-radius:50%; border:2px solid var(--muted); display:flex; align-items:center; justify-content:center; flex:none;}
+  .s3b .av span{font-weight:700; color:var(--muted); letter-spacing:-0.03em;}
+  .s3b .tline{height:5px; border-radius:3px; background:var(--muted); opacity:.55;}
+
+  /* ---- striped placeholder ---- */
+  .ph{
+    flex:1; border:2px dashed var(--line); border-radius:18px;
+    background:repeating-linear-gradient(135deg,#EDEDF0 0 22px,#F5F5F7 22px 44px);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;
+    color:var(--muted); text-align:center;
+  }
+  .ph .pl{font-family:var(--mono); font-size:26px; color:var(--muted);}
+  .ph .pi{width:64px; height:64px; stroke:var(--muted); stroke-width:1.4; fill:none;}
+
+  /* ---- embedded demo video (slide 07) ---- */
+  .demo{flex:1; min-height:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px;}
+  .demovid{
+    max-width:100%; max-height:100%; min-height:0;
+    border-radius:16px; border:1px solid var(--line); background:#000;
+    box-shadow:0 22px 60px -28px rgba(0,0,0,.45); object-fit:contain;
+    cursor:zoom-in;
+  }
+  .demovid:fullscreen{cursor:auto; border-radius:0; border:none; max-width:100%; max-height:100%; width:100%; height:100%;}
+  .democap{font-family:var(--mono); font-size:24px; color:var(--muted); text-align:center;}
+
+  /* pseudo-fullscreen overlay (mounted on <body>, outside the scaled stage) */
+  #vidfs{
+    position:fixed; inset:0; z-index:99999; display:none;
+    align-items:center; justify-content:center;
+    background:rgba(8,8,10,.94); backdrop-filter:blur(4px);
+    cursor:zoom-out;
+  }
+  #vidfs.on{display:flex;}
+  #vidfs video{
+    max-width:96vw; max-height:96vh; width:auto; height:auto;
+    border-radius:8px; background:#000; box-shadow:0 30px 90px -30px rgba(0,0,0,.8);
+    cursor:auto;
+  }
+  #vidfs .vidfs-close{
+    position:fixed; top:22px; right:26px; z-index:1;
+    font-family:var(--mono); font-size:26px; line-height:1; color:#fff;
+    background:rgba(255,255,255,.12); border:1px solid rgba(255,255,255,.3);
+    border-radius:999px; width:48px; height:48px; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+  }
+  #vidfs .vidfs-close:hover{background:rgba(255,255,255,.22);}
+
+  /* ---- ghost code ---- */
+  .ghost{position:absolute; left:var(--pad-x); right:var(--pad-x); bottom:54px; font-family:var(--mono); font-size:24px; line-height:1.6; color:var(--ink); opacity:.06; white-space:pre; pointer-events:none;}
+
+  /* ---- footnote ---- */
+  .note{font-size:24px; color:var(--muted); line-height:1.4;}
+
+  /* ---- badge ---- */
+  .badge{display:inline-flex; align-items:center; gap:.5em; background:var(--accent); color:#fff; font-size:24px; font-weight:600; padding:8px 18px; border-radius:999px; text-transform:uppercase; letter-spacing:.06em; vertical-align:middle;}
+  .badge .pulse{width:.55em; height:.55em; border-radius:50%; background:#fff;}
+
+  /* ---- Q&A / bonus helpers ---- */
+  .kicker.q{color:var(--muted);}
+  .kicker.q .kdot{background:var(--muted);}
+
+  /* scale-arrow */
+  .scale{display:flex; align-items:flex-start; gap:8px; width:100%;}
+  .scale .snode{flex:none; width:190px; display:flex; flex-direction:column; align-items:center; gap:16px;}
+  .scale .sdot{width:64px; height:64px; border-radius:50%; border:2px solid var(--accent); display:flex; align-items:center; justify-content:center; font-family:var(--mono); font-size:28px; font-weight:600; color:var(--accent); background:#fff;}
+  .scale .slab{font-size:27px; font-weight:600; line-height:1.2; text-align:center;}
+  .scale .sarw{flex:1; height:2px; background:var(--line); margin-top:31px; position:relative; min-width:24px;}
+  .scale .sarw::after{content:""; position:absolute; right:-2px; top:50%; transform:translateY(-50%); border-left:11px solid var(--line); border-top:7px solid transparent; border-bottom:7px solid transparent;}
+
+  /* myths */
+  .mythrow{display:flex; align-items:center; gap:24px; background:var(--chip); border-radius:14px; padding:24px 30px;}
+  .mythrow .mt{font-size:29px; line-height:1.3;}
+  .vd{font-family:var(--mono); font-size:24px; font-weight:600; padding:9px 18px; border-radius:9px; flex:none; text-transform:uppercase; letter-spacing:.05em; min-width:6.5ch; text-align:center;}
+  .vd.no{background:var(--ink); color:var(--bg);}
+  .vd.maybe{background:transparent; border:1.6px solid var(--accent); color:var(--accent); padding:7px 16px;}
+  .vd.yes{background:var(--green); color:#0A3D1A;}
+
+  /* Entrance: animate transform only — never opacity — so a frozen animation
+     timeline (hidden tab / preview iframe / export) can't strand content at
+     opacity:0. Worst case content sits 18px low at full opacity, never blank. */
+  @media (prefers-reduced-motion:no-preference){
+    section[data-deck-active] > .kicker{animation:rise .5s cubic-bezier(.2,.7,.2,1) both;}
+    section[data-deck-active] > .body{animation:rise .6s .07s cubic-bezier(.2,.7,.2,1) both;}
+    section[data-deck-active] > .foot{animation:rise .6s .14s cubic-bezier(.2,.7,.2,1) both;}
+  }
+  @keyframes rise{from{transform:translateY(18px);} to{transform:none;}}
+</style>
+</head>
+<body>
+
+<template id="__bundler_thumbnail" data-bg-color="#F5F5F7">
+  <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+    <rect width="1200" height="800" fill="#F5F5F7"/>
+    <rect x="300" y="318" width="56" height="56" fill="#AB4F2A"/>
+    <rect x="380" y="330" width="520" height="32" rx="6" fill="#1D1D1F"/>
+    <rect x="380" y="392" width="360" height="32" rx="6" fill="#1D1D1F"/>
+    <rect x="380" y="454" width="240" height="22" rx="6" fill="#86868B"/>
+  </svg>
+</template>
+
+<deck-stage width="1920" height="1080">
+
+  <!-- 01 · Титул -->
+  <section data-label="Титул">
+    <div class="kicker"><span class="kdot"></span>Внутренний доклад</div>
+    <div class="body center">
+      <h1 class="hero">Кодинговые агенты для&nbsp;не-кодинговых задач</h1>
+      <div class="subtitle" style="margin-top:.55em;">Не про код. Про вашу работу.</div>
+    </div>
+    <div class="foot">Шилин Георгий · июнь 2026</div>
+  </section>
+
+  <!-- 02 · git log одной ночи -->
+  <section data-label="Доклад собрал агент">
+    <div class="kicker"><span class="kdot"></span>Блок 0 · Открытие</div>
+    <div class="body top" style="gap:48px; padding-top:40px;">
+      <h2 class="title">Доклад собрал агент, пока я спал</h2>
+      <div style="display:grid; grid-template-columns:1.45fr .8fr; gap:48px; align-items:center; flex:1;">
+        <div class="termwin">
+          <div class="bar"><i class="r"></i><i class="y"></i><i class="g"></i><span class="ttl">git — ночь 30 → 31 мая</span></div>
+          <div class="scr">
+            <span class="prompt">$ git log --format="%ad  %s" --date=format:"%H:%M" --since="вчера 23:57"</span>
+            <div class="row"><span class="tm">00:58</span><span class="msg">Инструменты для сбора транскриптов и метаданных с YouTube</span></div>
+            <div class="row"><span class="tm">01:34</span><span class="msg">Корпус из 24 → 50 видео: выжимки + общий индекс по теме</span></div>
+            <div class="row"><span class="tm">02:10</span><span class="msg">NotebookLM: синхронизация корпуса до 50</span></div>
+            <div class="row"><span class="tm">06:47</span><span class="msg">Веб-ресёрч по пробелам: синтез 154 источников</span></div>
+            <div class="row done"><span class="tm">07:12</span><span class="msg">✓ готово</span></div>
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:44px 40px;">
+          <div class="stat"><div class="num acc">24</div><div class="lab">коммита за ночь</div></div>
+          <div class="stat"><div class="num">6ч&nbsp;14</div><div class="lab">с 00:58 до 07:12</div></div>
+          <div class="stat"><div class="num">50</div><div class="lab">видео разобрано</div></div>
+          <div class="stat"><div class="num">154</div><div class="lab">веб-источника</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 · Чат советует — агент делает (инфографика: Агент-герой) -->
+  <section data-label="Чат советует - агент делает">
+    <div class="kicker"><span class="kdot"></span>Блок 1 · Водораздел</div>
+    <div class="body s3b">
+
+      <!-- левая колонка: заголовок + чат-сноска -->
+      <div style="display:flex; flex-direction:column; gap:40px;">
+        <h2 class="title" style="font-size:58px;">Чат советует —<br>агент <span class="accent">делает</span></h2>
+        <div class="panel flat" style="padding:36px 40px;">
+          <div class="plabel muted">Чат</div>
+          <div style="display:flex; gap:24px; align-items:center; margin-top:22px;">
+            <div class="bubble" style="display:flex; gap:22px; align-items:center; padding:26px 30px; flex:1;">
+              <div class="av" style="width:64px; height:64px;"><span style="font-size:32px;">AI</span></div>
+              <div style="display:flex; flex-direction:column; gap:13px; flex:1;">
+                <div class="tline" style="width:100%;"></div>
+                <div class="tline" style="width:80%;"></div>
+                <div class="tline" style="width:92%;"></div>
+              </div>
+            </div>
+          </div>
+          <div class="muted" style="font-size:25px; margin-top:20px;">Только текст. Дальше — руками.</div>
+        </div>
+      </div>
+
+      <!-- правая колонка: агент тянется к инструментам -->
+      <div class="panel" style="border-color:var(--accent); height:100%; display:flex; flex-direction:column; padding:44px 56px;">
+        <div style="display:flex; justify-content:space-between; align-items:baseline;">
+          <div class="plabel accent">Агент</div>
+          <div class="muted" style="font-size:26px;">тянется к реальным инструментам</div>
+        </div>
+        <div style="flex:1; display:flex; align-items:center; justify-content:center;">
+          <div style="position:relative; width:1180px; height:720px;">
+            <svg width="1180" height="720" viewBox="0 0 1180 720" style="position:absolute; inset:0; overflow:visible;">
+              <defs><marker id="ar3" markerWidth="12" markerHeight="12" refX="8" refY="4" orient="auto">
+                <path d="M1,1 L8,4 L1,7" fill="none" stroke="#AB4F2A" stroke-width="2"></path></marker></defs>
+              <path d="M300,360 C 489.84,360 571.2,96 752,96" fill="none" stroke="#AB4F2A" stroke-width="2.2" marker-end="url(#ar3)"></path>
+              <path d="M300,360 C 489.84,360 571.2,228 752,228" fill="none" stroke="#AB4F2A" stroke-width="2.2" marker-end="url(#ar3)"></path>
+              <path d="M300,360 C 489.84,360 571.2,360 752,360" fill="none" stroke="#AB4F2A" stroke-width="2.2" marker-end="url(#ar3)"></path>
+              <path d="M300,360 C 489.84,360 571.2,492 752,492" fill="none" stroke="#AB4F2A" stroke-width="2.2" marker-end="url(#ar3)"></path>
+              <path d="M300,360 C 489.84,360 571.2,624 752,624" fill="none" stroke="#AB4F2A" stroke-width="2.2" marker-end="url(#ar3)"></path>
+            </svg>
+            <div class="hub acc" style="position:absolute; left:0; top:210px; width:300px; height:300px;"><span style="font-size:128px;">AI</span></div>
+            <div style="position:absolute; left:760px; top:46px;"><div class="tool"><div class="tbox"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"></circle><path d="M3 12h18"></path><ellipse cx="12" cy="12" rx="4" ry="9"></ellipse></svg></div><div class="tlab">Browser</div></div></div>
+            <div style="position:absolute; left:760px; top:178px;"><div class="tool"><div class="tbox"><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"></path><path d="M14 3v4h4"></path><path d="M9 13h6M9 17h6"></path></svg></div><div class="tlab">Files</div></div></div>
+            <div style="position:absolute; left:760px; top:310px;"><div class="tool"><div class="tbox"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2.5"></rect><path d="M7 9l3 3-3 3"></path><path d="M13 16h4"></path></svg></div><div class="tlab">Terminal</div></div></div>
+            <div style="position:absolute; left:760px; top:442px;"><div class="tool"><div class="tbox"><svg viewBox="0 0 24 24"><path d="M12 3.2l7 4v9.6l-7 4-7-4V7.2z"></path><path d="M9 12h6M12 9.5v5" stroke-width="1.4"></path><circle cx="12" cy="7.2" r="1.1"></circle><circle cx="12" cy="16.8" r="1.1"></circle><circle cx="5" cy="7.2" r="1.1"></circle><circle cx="19" cy="7.2" r="1.1"></circle><circle cx="5" cy="16.8" r="1.1"></circle><circle cx="19" cy="16.8" r="1.1"></circle></svg></div><div class="tlab">API</div></div></div>
+            <div style="position:absolute; left:760px; top:574px;"><div class="tool"><div class="tbox"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"></circle><path d="M5 20a7 7 0 0 1 14 0"></path></svg></div><div class="tlab">CRM</div></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 · Два определения -->
+  <section data-label="Два слова">
+    <div class="kicker"><span class="kdot"></span>Блок 1 · Водораздел</div>
+    <div class="body top" style="gap:46px; padding-top:36px; position:relative;">
+      <h2 class="title">Два слова, без которых дальше никак</h2>
+      <div class="cols2" style="gap:56px;">
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+          <div class="col-head" style="margin-top:24px;">Файлы = память агента</div>
+          <div class="col-sub" style="font-size:26px; margin-top:.5em; max-width:30ch;">контекст лежит на диске, переживает сессию</div>
+        </div>
+        <div class="card">
+          <svg class="ico" viewBox="0 0 24 24"><path d="M7 3h7l4 4v14a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 17h6"/></svg>
+          <div class="col-head" style="margin-top:24px;">AGENTS.md / CLAUDE.md = должностная инструкция</div>
+          <div class="col-sub" style="font-size:26px; margin-top:.5em; max-width:34ch;">текстовый файл, где написано как агент себя ведёт</div>
+        </div>
+      </div>
+      <div class="ghost"># AGENTS.md
+## Цель проекта: репозиторий готовит внутренний доклад для ДВП-отдела
+## С чего начинать: для любой работы с докладом сначала читай HANDOFF.md и deck-full.md
+## Правила работы:
+  - свободный текст пиши по-русски
+  - не меняй структуру 13 тем без просьбы</div>
+    </div>
+  </section>
+
+  <!-- 05 · Цитата + факт (Codex) -->
+  <section data-label="Большинство задач уже некодинговые">
+    <div class="kicker"><span class="kdot"></span>Блок 1 · Водораздел</div>
+    <div class="body center" style="gap:0;">
+      <div class="quote-xl"><span class="quote-mark">«</span>Большинство задач в Codex уже некодинговые.<span class="quote-mark">»</span></div>
+      <div class="source">Глава Codex, OpenAI</div>
+      <div class="fact" style="margin-top:64px; max-width:none;">
+        <span class="lab">Факт</span>
+        <span style="font-size:34px; line-height:1.35;">NVIDIA: Codex развёрнут на <span class="accent" style="font-weight:600;">10 000+</span> сотрудников - юристы, маркетинг, финансы, HR</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 · Раздел: Jira -->
+  <section data-label="Jira → отчёт голосом" class="divider">
+    <div class="kicker"><span class="kdot"></span>Блок 2 · Демо</div>
+    <h2 class="title">Jira <span class="muted">→</span> отчёт голосом</h2>
+    <div class="subtitle">Без выгрузок. Без SQL. За несколько минут.</div>
+  </section>
+
+  <!-- 07 · Демо: стендап голосом (STUB) -->
+  <section data-label="Утренний стендап">
+    <div class="kicker"><span class="kdot"></span>Демо · Jira</div>
+    <div class="body top" style="gap:30px; padding-top:28px;">
+      <h2 class="title" style="font-size:54px;">Утренний стендап: один голосовой запрос</h2>
+      <div style="display:flex; align-items:flex-start; gap:22px; background:#fff; border:1px solid var(--line); border-left:4px solid var(--accent); border-radius:16px; padding:28px 34px;">
+        <svg class="ico" style="width:40px; height:40px; flex:none; margin-top:2px;" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+        <div style="font-size:30px; line-height:1.4;"><span class="quote-mark">«</span>Перед стендапом: найди задачи In Review, переведи просроченную в Done, добавь комментарий "завершено в срок", дай отчёт.<span class="quote-mark">»</span></div>
+      </div>
+      <div class="demo">
+        <video class="demovid" src="uploads/jira_demo_preview_v2.mp4" muted playsinline preload="auto" controls title="Клик — открыть на весь экран"></video>
+        <div class="democap">Скринкаст · записан заранее · ускорен ×2–3 · без звука · <b>клик по видео — на весь экран</b></div>
+      </div>
+      <div class="chiprow">
+        <span class="chip mono">Kanban KAN</span><span class="arrow">→</span>
+        <span class="chip mono">тикет In Review</span><span class="arrow">→</span>
+        <span class="chip mono">статус Done</span><span class="arrow">→</span>
+        <span class="chip mono">комментарий</span><span class="arrow">→</span>
+        <span class="chip mono">make_dvp.py</span><span class="arrow">→</span>
+        <span class="chip mono">card.html</span>
+        <span class="chip acc" style="margin-left:8px;">несколько минут</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 08 · Портфель проектов (STUB / простая таблица) -->
+  <section data-label="Портфель проектов">
+    <div class="kicker"><span class="kdot"></span>Демо · Jira</div>
+    <div class="body top" style="gap:38px; padding-top:32px;">
+      <h2 class="title">Портфель проектов - одной командой</h2>
+      <table style="width:100%; border-collapse:collapse; font-size:30px;">
+        <thead>
+          <tr style="text-align:left; color:var(--muted); font-size:24px; text-transform:uppercase; letter-spacing:.08em;">
+            <th style="padding:0 0 20px; font-weight:600;">Проект</th>
+            <th style="padding:0 0 20px; font-weight:600; text-align:right;">Задач</th>
+            <th style="padding:0 0 20px; font-weight:600; text-align:right;">Багов</th>
+            <th style="padding:0 0 20px; font-weight:600; text-align:right;">План&nbsp;(ч)</th>
+            <th style="padding:0 0 20px; font-weight:600; text-align:right;">Факт&nbsp;(ч)</th>
+            <th style="padding:0 0 20px; font-weight:600; text-align:right;">%</th>
+            <th style="padding:0 0 20px; font-weight:600; text-align:right;">Статус</th>
+          </tr>
+        </thead>
+        <tbody style="font-family:var(--mono); font-size:28px;">
+          <tr style="border-top:1px solid var(--line);"><td style="padding:24px 0; font-weight:500;">base</td><td style="text-align:right;">27</td><td style="text-align:right;">3</td><td style="text-align:right;">140</td><td style="text-align:right;">128</td><td style="text-align:right;">91%</td><td style="text-align:right; color:var(--muted);">In Progress</td></tr>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:24px 0; font-weight:500;">refactor-api</td><td style="text-align:right;">14</td><td style="text-align:right;">1</td><td style="text-align:right;">80</td><td style="text-align:right;">52</td><td style="text-align:right;">65%</td><td style="text-align:right; color:var(--muted);">In Progress</td></tr>
+          <tr style="border-top:1px solid var(--line);"><td style="padding:24px 0; font-weight:500;">dvp-report</td><td style="text-align:right;">8</td><td style="text-align:right;">0</td><td style="text-align:right;">40</td><td style="text-align:right;">40</td><td style="text-align:right;">100%</td><td style="text-align:right; color:var(--accent); font-weight:600;">Done</td></tr>
+        </tbody>
+      </table>
+      <div class="spacer"></div>
+      <div class="note">Тот же агент, другой шаблон вывода · данные - обезличенный демо-тенант KAN</div>
+    </div>
+  </section>
+
+  <!-- 09 · Под капотом -->
+  <section data-label="Агент сам выбирает путь">
+    <div class="kicker"><span class="kdot"></span>Под капотом</div>
+    <div class="body top" style="gap:36px; padding-top:30px;">
+      <h2 class="title">Агент сам выбирает, где идти</h2>
+      <div class="cols2" style="gap:48px;">
+        <div class="card flat">
+          <div class="col-head">Браузер <span class="muted" style="font-weight:400;">(UI)</span></div>
+          <div class="col-sub" style="font-size:26px;">Там, где нужен человеческий путь</div>
+          <ul class="clean" style="margin-top:1.1em; gap:.5em; font-size:28px;">
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">1</span>Открыл Kanban-доску KAN</li>
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">2</span>Нашёл тикет с ближайшим дедлайном</li>
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">3</span>Сменил статус на Done</li>
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">4</span>Написал комментарий «завершено в срок»</li>
+          </ul>
+        </div>
+        <div class="card flat">
+          <div class="col-head">API <span class="muted" style="font-weight:400;">(REST)</span></div>
+          <div class="col-sub" style="font-size:26px;">Там, где быстрее напрямую</div>
+          <ul class="clean" style="margin-top:1.1em; gap:.5em; font-size:28px;">
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">5</span>JQL-запрос: задачи проекта base</li>
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">6</span>Агрегация worklog: план / факт / %</li>
+            <li><span class="accent" style="font-family:var(--mono); margin-right:.3em;">7</span>Рендер card.html - готов отчёт</li>
+          </ul>
+        </div>
+      </div>
+      <div class="chiprow" style="font-size:28px; color:var(--muted); gap:18px;">
+        <span>Один голосовой запрос</span><span class="arrow">↓</span>
+        <span>Агент выбирает путь</span><span class="arrow">↓</span>
+        <span style="color:var(--ink);">10 секунд - отчёт готов</span>
+      </div>
+      <div class="spacer"></div>
+      <div class="note">Тенант KAN · 27 задач · ~128 ч worklog</div>
+    </div>
+  </section>
+
+  <!-- 10 · Демо: месячный отчёт → Google Slides (EXT) -->
+  <section data-label="Месячный отчёт → Google Slides">
+    <div style="display:flex; align-items:center; justify-content:space-between; gap:24px;">
+      <div class="kicker"><span class="kdot"></span>Демо · Slides</div>
+      <span class="badge">EXT · расширенная версия</span>
+    </div>
+    <div class="body top" style="gap:24px; padding-top:24px;">
+      <h2 class="title" style="font-size:54px;">Месячный отчёт <span class="muted">→</span> Google Slides</h2>
+      <div class="demo">
+        <video class="demovid" style="width:100%; max-width:1180px; aspect-ratio:16/9; height:auto;" src="uploads/monthly_report_preview_v1.mp4" muted playsinline preload="auto" controls title="Клик — открыть на весь экран"></video>
+        <div class="democap" style="white-space:nowrap;">Jira → категоризация → capacity → Slides API</div>
+        <div class="democap" style="opacity:.7; white-space:nowrap;">скринкаст · записан заранее · <b>клик по видео — на весь экран</b></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 · Один контракт - четыре агента -->
+  <section data-label="Один контракт - четыре агента">
+    <div class="kicker"><span class="kdot"></span>Блок 3 · Проектирование</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title">Один контракт - четыре агента</h2>
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:56px; align-items:center;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:14px;">
+          <div class="muted small">Источник правды</div>
+          <div style="background:var(--ink); color:var(--bg); font-family:var(--mono); font-size:34px; padding:26px 34px; border-radius:14px; font-weight:500;">AGENTS.md</div>
+        </div>
+        <div class="cols2" style="gap:28px;">
+          <div class="card flat" style="padding:30px 34px;"><div style="font-size:32px; font-weight:600;">Claude Code</div><div class="muted small" style="margin-top:.25em;">исполнитель в репозитории</div></div>
+          <div class="card flat" style="padding:30px 34px;"><div style="font-size:32px; font-weight:600;">Codex</div><div class="muted small" style="margin-top:.25em;">независимый аудит и второе мнение</div></div>
+          <div class="card flat" style="padding:30px 34px;"><div style="font-size:32px; font-weight:600;">Gemini CLI</div><div class="muted small" style="margin-top:.25em;">дешёвая разведка больших контекстов</div></div>
+          <div class="card flat" style="padding:30px 34px;"><div style="font-size:32px; font-weight:600;">Copilot</div><div class="muted small" style="margin-top:.25em;">автодополнение в IDE</div></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="note">CLAUDE.md = @AGENTS.md + особенности агента. Не залочен на вендора. git worktrees для изоляции.</div>
+    </div>
+  </section>
+
+  <!-- 12 · Память агента - это git -->
+  <section data-label="Память агента - это git">
+    <div class="kicker"><span class="kdot"></span>Блок 3 · Проектирование</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title">Память агента - это git</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px;">
+        <div class="card flat">
+          <div style="font-family:var(--mono); font-size:30px; font-weight:600; color:var(--accent);">MEMORY.md</div>
+          <div class="small" style="margin-top:.6em; line-height:1.4;">Типизированные заметки: user, feedback, project, reference</div>
+        </div>
+        <div class="card flat">
+          <div style="font-size:30px; font-weight:600;">Крон каждые 30 мин</div>
+          <div class="small" style="margin-top:.6em; line-height:1.4;">crontab коммитит <span style="font-family:var(--mono);">~/.claude</span> автоматически, без моего участия</div>
+        </div>
+        <div class="card flat">
+          <div style="font-size:30px; font-weight:600;">Откат и diff бесплатно</div>
+          <div class="small" style="margin-top:.6em; line-height:1.4;"><span style="font-family:var(--mono);">git log</span>, <span style="font-family:var(--mono);">git diff</span>, <span style="font-family:var(--mono);">git revert</span> - стандартные инструменты разработки</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div style="font-size:38px; font-weight:600; letter-spacing:-0.02em;"><span class="quote-mark">«</span>правила, а не факты<span class="quote-mark">»</span> <span class="muted" style="font-weight:400;">- факты устаревают, правила живут.</span></div>
+    </div>
+  </section>
+
+  <!-- 13 · Три привычки -->
+  <section data-label="Три привычки">
+    <div class="kicker"><span class="kdot"></span>Блок 3 · Дисциплина</div>
+    <div class="body top" style="gap:48px; padding-top:34px;">
+      <h2 class="title">Три привычки, без которых агент врёт</h2>
+      <div class="numlist">
+        <div class="numitem"><div class="n">1</div><div><div class="h">Режим планирования до действия</div><div class="d">Не даю агенту сразу делать - он показывает план, я правлю. Потом он делает.</div></div></div>
+        <div class="numitem"><div class="n">2</div><div><div class="h">Research-first: сначала разведка</div><div class="d">Сначала разведка контекста (читает файлы, историю, ошибки), потом изменения.</div></div></div>
+        <div class="numitem"><div class="n">3</div><div><div class="h">Слабая модель по умолчанию</div><div class="d">В начале плана прописываю: рутину делать на Sonnet/Haiku, тяжёлую модель звать точечно. Быстрее и стабильнее.</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 14 · Раздел: Ширина -->
+  <section data-label="Один движок" class="divider">
+    <div class="kicker"><span class="kdot"></span>Блок 4 · Ширина</div>
+    <h2 class="title">Один движок: ночью - быт, днём - рабочие отчёты</h2>
+    <div class="subtitle">Не один удачный фокус - одна система с измеримым результатом.</div>
+  </section>
+
+  <!-- 15 · OpenClaw: фоновый штат -->
+  <section data-label="OpenClaw: фоновый штат">
+    <div class="kicker"><span class="kdot"></span>Блок 4 · Ширина</div>
+    <div class="body top" style="gap:34px; padding-top:28px;">
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:40px;">
+        <h2 class="title">OpenClaw: фоновый штат</h2>
+        <div style="display:flex; gap:56px;">
+          <div class="stat"><div class="num acc" style="font-size:76px;">5</div><div class="lab sm">агентов на сервере</div></div>
+          <div class="stat"><div class="num" style="font-size:76px;">8</div><div class="lab sm">cron-задач без человека</div></div>
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:0; border-top:1px solid var(--line);">
+        <div style="display:grid; grid-template-columns:160px 1fr; gap:30px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline;"><div style="font-family:var(--mono); color:var(--accent); font-size:30px;">17:30</div><div style="font-size:29px;">Агент логинится в браузере, проверяет трекинг посылок, скриншот в Telegram</div></div>
+        <div style="display:grid; grid-template-columns:160px 1fr; gap:30px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline;"><div style="font-family:var(--mono); color:var(--accent); font-size:30px;">10:00</div><div style="font-size:29px;">Остаток кредитов Google Cloud - алерт если мало</div></div>
+        <div style="display:grid; grid-template-columns:160px 1fr; gap:30px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline;"><div style="font-family:var(--mono); color:var(--accent); font-size:30px;">03:00</div><div style="font-size:29px;">Зашифрованный бэкап</div></div>
+        <div style="display:grid; grid-template-columns:160px 1fr; gap:30px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline;"><div style="font-family:var(--mono); color:var(--accent); font-size:30px;">всегда</div><div style="font-size:29px;">Голос→текст для входящих голосовых (Groq Whisper)</div></div>
+        <div style="display:grid; grid-template-columns:160px 1fr; gap:30px; padding:20px 0; border-bottom:1px solid var(--line); align-items:baseline;"><div style="font-family:var(--mono); color:var(--accent); font-size:30px;">30 мин</div><div style="font-size:29px;">git-синк заметок, инструкций, памяти</div></div>
+      </div>
+      <div class="note" style="font-size:27px;">Из 8 задач: 5 - инженерная гигиена, 3 - чистый быт. Один планировщик тянет «закоммить код» и «где моя посылка».</div>
+    </div>
+  </section>
+
+  <!-- 16 · Васёк в Турции -->
+  <section data-label="Васёк в Турции">
+    <div class="kicker"><span class="kdot"></span>Блок 4 · Ширина</div>
+    <div class="body top" style="gap:32px; padding-top:26px;">
+      <h2 class="title" style="font-size:54px;">Васёк в Турции: отпуск внутри Telegram</h2>
+      <div style="display:grid; grid-template-columns:0.82fr 1.18fr; gap:54px; align-items:start;">
+        <!-- LEFT: что умеет + живая деталь -->
+        <div style="display:flex; flex-direction:column; gap:24px;">
+          <ul class="clean acc" style="font-size:25px; gap:.42em; margin-top:0;">
+            <li>Погодные брифинги по точкам маршрута</li>
+            <li>Напоминания с inline-кнопками, snooze голосом</li>
+            <li>База знаний по отелю: рестораны, бары, расписания</li>
+            <li>Фото афиши дня → 12 напоминаний с таймерами</li>
+            <li>Разбор документов: билеты, страховки, ваучеры</li>
+            <li>Зеркало поездки в Notion</li>
+          </ul>
+          <div class="card" style="border-left:4px solid var(--accent); padding:26px 30px;">
+            <div class="kicker" style="font-size:24px;"><span class="kdot"></span>Живая деталь · аэропорт Rize</div>
+            <div style="font-size:25px; line-height:1.6; margin-top:.6em;">Голосом: «когда идти на посадку?» Вылет <span style="font-family:var(--mono); line-height:1;">21:55</span> → к стойке к <span style="font-family:var(--mono); line-height:1;">21:10</span>. Бот посчитал cut-off: <span class="accent" style="font-weight:600; white-space:nowrap;">«выходи из кафе сейчас».</span></div>
+          </div>
+        </div>
+
+        <!-- RIGHT: реальные скриншоты, читаемо -->
+        <div style="display:flex; flex-direction:column; gap:22px;">
+          <!-- вход → выход -->
+          <div>
+            <div class="democap" style="text-align:left; margin-bottom:10px;">фото табло активностей <span class="accent">→</span> агент разобрал в расписание</div>
+            <div style="display:flex; align-items:center; gap:18px;">
+              <img src="screenshots/crop-boards.png" alt="Фото цифровых табло с программой активностей отеля" style="width:340px; height:auto; display:block; border:1px solid var(--line); border-radius:14px; box-shadow:0 22px 54px -30px rgba(0,0,0,.5);">
+              <div style="font-size:40px; color:var(--accent); font-weight:600; flex:none;">→</div>
+              <img src="screenshots/crop-schedule.png" alt="Разобранное агентом расписание: 10:30 stretching, 10:45 boccia и т.д." style="width:472px; height:auto; display:block; border:1px solid var(--line); border-radius:14px; box-shadow:0 22px 54px -30px rgba(0,0,0,.5);">
+            </div>
+          </div>
+          <!-- напоминания с кнопками -->
+          <div>
+            <div class="democap" style="text-align:left; margin-bottom:10px;">погодный брифинг и напоминания приходят с кнопками прямо в чат</div>
+            <img src="screenshots/crop-buttons.png" alt="Погодный брифинг и три inline-кнопки: 5 мин / 1 час / завтра · Напомнить" style="width:640px; height:auto; display:block; border:1px solid var(--line); border-radius:14px; box-shadow:0 22px 54px -30px rgba(0,0,0,.5);">
+          </div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div style="font-size:30px; font-weight:500;">Не поиск в гугле - <span class="accent">посчитанный ответ под мою ситуацию.</span></div>
+    </div>
+  </section>
+
+  <!-- ============ Вне деки: персональный decision-агент ============ -->
+
+  <!-- A1 · Wolt -->
+  <section data-label="A1 · Wolt">
+    <div class="kicker"><span class="kdot"></span>Вне деки · Быт</div>
+    <div class="body top" style="gap:34px; padding-top:28px;">
+      <h2 class="title">Wolt: агент готовит - я жму Pay</h2>
+      <div class="chiprow" style="gap:14px;">
+        <span class="muted small" style="margin-right:4px;">Три категории:</span>
+        <span class="chip">Еда</span>
+        <span class="chip">Продукты</span>
+        <span class="chip">Аптека</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1.15fr .85fr; gap:48px; align-items:start;">
+        <ul class="clean acc" style="font-size:29px; gap:.55em; margin-top:0;">
+          <li>Агент только смотрит: ищет, сравнивает, ранжирует по моей истории заказов</li>
+          <li>Корзину не собирает, оплату не жмёт - это всегда я</li>
+          <li>Полный сравнительный прогон - <span class="accent" style="font-weight:600;">~3,5 сек</span></li>
+        </ul>
+        <div class="card" style="border-left:4px solid var(--accent);">
+          <div class="kicker" style="font-size:24px;"><span class="kdot"></span>Личный фидбек перебивает площадку</div>
+          <div style="font-size:28px; line-height:1.42; margin-top:.7em;">Заведение с публичным рейтингом <span style="white-space:nowrap;">9.2</span> я оценил на <span style="white-space:nowrap;">3</span>. Агент <span class="accent" style="font-weight:600;">навсегда</span> опустил его в моей выдаче.</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="fact" style="max-width:none; font-size:30px;">Граница одна: <span class="accent" style="font-weight:600;">агент готовит, кнопку «оплатить» жму я.</span></div>
+    </div>
+  </section>
+
+  <!-- A2 · iHerb -->
+  <section data-label="A2 · iHerb">
+    <div class="kicker"><span class="kdot"></span>Вне деки · Быт</div>
+    <div class="body top" style="gap:34px; padding-top:28px;">
+      <h2 class="title">iHerb: сначала «а надо ли», потом «что именно»</h2>
+      <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:32px; align-items:stretch;">
+        <div class="card flat">
+          <div style="display:flex; align-items:baseline; gap:.5em;"><span class="accent" style="font-size:40px; font-weight:600; font-family:var(--mono);">1</span><span style="font-size:32px; font-weight:600;">Безопасность</span></div>
+          <div class="small muted" style="margin-top:.6em; line-height:1.42;">Честный ответ: нужна ли тебе вообще эта добавка - не сдать ли сперва анализы.</div>
+        </div>
+        <div class="vs" style="align-self:center; font-size:40px; color:var(--muted);">→</div>
+        <div class="card" style="border-color:var(--accent);">
+          <div style="display:flex; align-items:baseline; gap:.5em;"><span class="accent" style="font-size:40px; font-weight:600; font-family:var(--mono);">2</span><span style="font-size:32px; font-weight:600;">Товар</span></div>
+          <div class="small" style="margin-top:.6em; line-height:1.42;"><span class="muted">Только если есть смысл:</span> состав, дозировка, цена, готовая корзина.</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="note" style="font-size:27px; max-width:none;">Агент пишет свои решения в журнал - чтобы не советовать одно и то же заново.</div>
+      <div class="fact" style="max-width:none; font-size:29px;">Это поддержка решения, <span class="accent" style="font-weight:600;">а не назначение врача</span> - корзину подтверждаю сам.</div>
+    </div>
+  </section>
+
+  <!-- A3 · Квартира родителям -->
+  <section data-label="A3 · Жильё родителям">
+    <div class="kicker"><span class="kdot"></span>Вне деки · Быт</div>
+    <div class="body top" style="gap:30px; padding-top:26px;">
+      <h2 class="title" style="font-size:56px;">Жильё родителям: не десять форм, а один разговор</h2>
+      <div style="display:grid; grid-template-columns:1.25fr .75fr; gap:48px; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:22px;">
+          <div>
+            <div class="muted small" style="margin-bottom:.5em;">Проговариваешь требования словами - не заполняешь десять форм на десяти сайтах:</div>
+            <div class="chiprow" style="gap:12px;">
+              <span class="chip">Район</span><span class="chip">Бюджет</span><span class="chip">Этаж</span><span class="chip">Что важно родителям</span>
+            </div>
+          </div>
+          <ul class="clean acc" style="font-size:28px; gap:.5em; margin-top:.2em;">
+            <li>Агент собрал выборку, отфильтровал, сложил в один PDF: гайд по району + шорт-лист квартир</li>
+            <li>Решение «ехать смотреть или нет» - за людьми</li>
+            <li>Это не замысел, а готовый результат</li>
+          </ul>
+        </div>
+        <div style="display:flex; flex-direction:column; align-items:center; gap:20px;">
+          <div style="position:relative; width:312px; height:362px; flex:none;">
+            <img src="screenshots/guide-back.png" alt="Страница PDF-гайда: что знать о квартире заранее" style="position:absolute; top:30px; left:74px; width:222px; height:auto; display:block; border:1px solid var(--line); border-radius:10px; box-shadow:0 18px 40px -26px rgba(0,0,0,.55); transform:rotate(7deg);">
+            <img src="screenshots/guide-cover.png" alt="Обложка PDF-гайда «Батуми без суеты»: дом, заселение, район, бронь" style="position:absolute; top:8px; left:6px; width:238px; height:auto; display:block; border:1px solid var(--line); border-radius:10px; box-shadow:0 26px 56px -28px rgba(0,0,0,.6); transform:rotate(-3deg);">
+          </div>
+          <div class="democap">готовый PDF: гайд по дому и району</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div style="background:var(--accent); color:#fff; border-radius:16px; padding:26px 36px; font-size:31px; font-weight:600; line-height:1.3;">Один паттерн, три задачи, одна граница: агент доводит до выбора - оплачиваю я.</div>
+    </div>
+  </section>
+
+  <!-- 17 · RTK: 725M токенов (STATS) -->
+  <section data-label="RTK: 725M токенов">
+    <div class="kicker"><span class="kdot"></span>Блок 4 · RTK</div>
+    <div class="body center" style="gap:64px;">
+      <h2 class="title" style="font-size:50px; max-width:34ch;">RTK - прокси, который сжимает вывод служебных команд агента</h2>
+      <div class="statrow" style="gap:90px;">
+        <div class="stat"><div class="num">8970</div><div class="lab">команд прошло через RTK</div></div>
+        <div class="stat"><div class="num acc">725.1M</div><div class="lab">токенов сэкономлено</div></div>
+        <div class="stat"><div class="num">99.2%</div><div class="lab">экономии на каждой команде</div></div>
+      </div>
+      <div class="note" style="font-size:28px; max-width:70ch;">Тот же движок одинаково тянет и код, и быт. Агент работает помногу - гигиена расходов окупается.</div>
+    </div>
+  </section>
+
+  <!-- Баланс (quote) -->
+  <section data-label="Баланс: кто делает - тот учится">
+    <div class="kicker"><span class="kdot"></span>Блок 5 · Роли</div>
+    <div class="body center" style="gap:0;">
+      <div class="quote-xl"><span class="quote-mark">«</span>Whoever does the work does the learning.<span class="quote-mark">»</span></div>
+      <div class="fact" style="margin-top:60px; max-width:none;">
+        <span class="lab">Принцип баланса</span>
+        <span style="font-size:34px; line-height:1.35;">Делегируй рутину - не отдавай понимание. Иначе разучишься.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 24 · Раздел: Приёмы -->
+  <section data-label="Не надо быть инженером" class="divider">
+    <div class="kicker"><span class="kdot"></span>Блок 6 · Приёмы</div>
+    <h2 class="title">Не надо быть инженером. Надо освоить 4-5 приёмов.</h2>
+  </section>
+
+  <!-- 25 · Голос вместо клавиатуры -->
+  <section data-label="Голос вместо клавиатуры">
+    <div class="kicker"><span class="kdot"></span>Приём 1 · Голос</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title">Голос вместо клавиатуры</h2>
+      <div style="display:grid; grid-template-columns:1.2fr .8fr; gap:64px; align-items:center;">
+        <div style="font-size:32px; line-height:1.5; max-width:40ch;">Я почти не печатаю задачи - я их проговариваю. Дело не только в скорости набора. Голосом за 1 минуту наговариваешь столько контекста, сколько руками печатал бы 10 минут. А агенту контекст нужен больше всего. Идея пришла на ходу - надиктовал, агент сам положил в заметки. <span class="accent">Множитель, который чувствуется в первый же день.</span></div>
+        <div class="contrast" style="grid-template-columns:1fr auto 1fr; gap:24px;">
+          <div class="cbox before" style="text-align:center; padding:30px 24px;"><div class="cv" style="font-size:56px;">1 мин</div><div class="ct">голосом</div></div>
+          <div class="carw">=</div>
+          <div class="cbox after" style="text-align:center; padding:30px 24px;"><div class="cv" style="font-size:56px;">10 мин</div><div class="ct">руками</div></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="chiprow">
+        <span class="muted small" style="margin-right:6px;">Инструменты:</span>
+        <span class="chip toollogo"><span class="tmark pick">W</span>Wispr Flow&nbsp;<span class="accent">(мой выбор)</span></span>
+        <span class="chip toollogo"><span class="tmark dark">S</span>Super Whisper&nbsp;<span class="muted">(для Mac)</span></span>
+        <span class="chip toollogo"><span class="tmark line">H</span>Handy&nbsp;<span class="muted">(бесплатно)</span></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 26 · Do it once, then skill it -->
+  <section data-label="Do it once, then skill it">
+    <div class="kicker"><span class="kdot"></span>Приём 2 · Навыки</div>
+    <div class="body center" style="gap:36px;">
+      <h2 class="title">Описал процесс один раз - переиспользуешь бесконечно</h2>
+      <div class="quote-md" style="font-size:44px; color:var(--accent); max-width:none;"><span class="quote-mark">«</span>Do it once, then skill it<span class="quote-mark">»</span></div>
+      <div style="font-size:32px; line-height:1.45; max-width:54ch; color:var(--muted);"><span style="color:var(--ink);">Свой AGENTS.md-навык = своя экспертиза, оцифрованная.</span> Вызываешь по имени - агент повторяет точно и без пропусков.</div>
+    </div>
+  </section>
+
+  <!-- 27 · Сводка приходит, пока спишь -->
+  <section data-label="Сводка пока спишь">
+    <div class="kicker"><span class="kdot"></span>Приём 3 · Расписание</div>
+    <div class="body top" style="gap:46px; padding-top:34px;">
+      <h2 class="title">Сводка приходит, пока спишь</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:32px;">
+        <div class="card flat"><div style="font-size:34px; font-weight:600;">Утром</div><div class="small muted" style="margin-top:.7em; line-height:1.4;">Дайджест задач, алертов и изменений уже готов - до первого кофе</div></div>
+        <div class="card flat"><div style="font-size:34px; font-weight:600;">Ночью</div><div class="small muted" style="margin-top:.7em; line-height:1.4;">Бэкап, git-синк, аудит лимитов - без тебя, по расписанию</div></div>
+        <div class="card flat"><div style="font-size:34px; font-weight:600;">Каждый день</div><div class="small muted" style="margin-top:.7em; line-height:1.4;">Отчёт, паспорт проекта, мониторинг - просто существуют</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 28 · Параллельные агенты -->
+  <section data-label="Ты дирижируешь">
+    <div class="kicker"><span class="kdot"></span>Приём 4 · Параллельность</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title">Ты дирижируешь, а не гребёшь</h2>
+      <div class="note" style="font-size:30px; max-width:62ch;">Несколько агентов одновременно: каждый в своей задаче, ты видишь всю картину.</div>
+      <div style="display:grid; grid-template-columns:auto 1fr; gap:48px; align-items:center; margin-top:10px;">
+        <div style="background:var(--accent); color:#fff; border-radius:18px; padding:38px 44px; text-align:center;"><div style="font-size:38px; font-weight:600;">Ты</div><div style="font-size:26px; opacity:.85;">тимлид</div></div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;">
+          <div class="card flat" style="padding:32px;"><div class="accent small" style="font-family:var(--mono);">Агент A</div><div style="font-size:32px; font-weight:600; margin-top:.3em;">анализ</div></div>
+          <div class="card flat" style="padding:32px;"><div class="accent small" style="font-family:var(--mono);">Агент B</div><div style="font-size:32px; font-weight:600; margin-top:.3em;">рефакторинг</div></div>
+          <div class="card flat" style="padding:32px;"><div class="accent small" style="font-family:var(--mono);">Агент C</div><div style="font-size:32px; font-weight:600; margin-top:.3em;">тесты</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 29 · Второй мозг (WIP) -->
+  <section data-label="Второй мозг">
+    <div class="kicker"><span class="kdot"></span>Приём 5 · Второй мозг</div>
+    <div class="body top" style="gap:38px; padding-top:28px;">
+      <h2 class="title" style="font-size:50px;">Созвоны → транскрипт → задачи → ритм недели &nbsp;<span class="badge"><span class="pulse"></span>делаю сейчас</span></h2>
+      <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:16px; align-items:stretch;">
+        <div class="card flat" style="padding:26px;"><div style="font-size:27px; font-weight:600;">Захват</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">Plaud Desktop / системный звук</div></div>
+        <div class="card flat" style="padding:26px;"><div style="font-size:27px; font-weight:600;">Транскрипт</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">Whisper / автоматически</div></div>
+        <div class="card flat" style="padding:26px;"><div style="font-size:27px; font-weight:600;">Саммари</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">Claude API / структурирует</div></div>
+        <div class="card flat" style="padding:26px;"><div style="font-size:27px; font-weight:600;">Задачи</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">нарезает сам / с контекстом</div></div>
+        <div class="card fill" style="padding:26px;"><div style="font-size:27px; font-weight:600;">Ритм недели</div><div style="font-size:24px; margin-top:.4em; line-height:1.35; color:rgba(255,255,255,.82);">агент видит нагрузку + биометрику</div></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="note" style="font-size:27px; max-width:none;">Любой источник - Plaud, запись Zoom, локальный файл - нормализуется в общий формат. Второй мозг не зависит от одного приложения.</div>
+    </div>
+  </section>
+
+  <!-- 30 · Соломинка vs библиотека (quote) -->
+  <section data-label="Соломинка vs библиотека">
+    <div class="kicker"><span class="kdot"></span>Блок 6 · Память</div>
+    <div class="body center" style="gap:48px;">
+      <div class="contrast">
+        <div class="cbox before"><div class="ct">Облако · Соломинка</div><div class="cv" style="font-size:30px; font-weight:500; line-height:1.3;">Агент тянет информацию через узкий канал - только то, что успело войти в контекст</div></div>
+        <div class="carw">vs</div>
+        <div class="cbox after"><div class="ct">Локально · Библиотека</div><div class="cv" style="font-size:30px; font-weight:500; line-height:1.3;">Агент берёт нужную книгу с полки и видит соседние - весь контекст рядом</div></div>
+      </div>
+      <div>
+        <div class="quote-md" style="font-size:38px; max-width:none;"><span class="quote-mark">«</span>В облаке агент тянет инфу через соломинку. Локально - как в библиотеке: берёт книгу с полки и видит соседние.<span class="quote-mark">»</span></div>
+        <div class="source">Charlie Cowan</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 31 · Whoop: свой baseline (STATS) -->
+  <section data-label="Свой baseline">
+    <div class="kicker"><span class="kdot"></span>Блок 7 · Здоровье</div>
+    <div class="body top" style="gap:34px; padding-top:26px;">
+      <div>
+        <div class="muted small" style="margin-bottom:.4em;">Крайняя точка диапазона</div>
+        <h2 class="title">Свой baseline, а не средние по больнице</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:1.15fr .85fr; gap:64px; align-items:center;">
+        <div style="font-size:31px; line-height:1.5; max-width:42ch;">Whoop + Apple Health → <span style="font-family:var(--mono); color:var(--accent);">health-guardian</span>. Агент учит baseline именно твоего организма и ловит аномалии: скачок HRV, деградация сна, признаки температуры. Утром - брифинг по восстановлению. <span class="muted">Честно: это сигнал, не диагноз. Серьёзное - к врачу.</span></div>
+        <div style="display:flex; flex-direction:column; gap:30px;">
+          <div class="stat"><div class="num acc" style="font-size:72px;">376K</div><div class="lab sm">записей Apple Health</div></div>
+          <div class="stat"><div class="num" style="font-size:72px;">30 дней</div><div class="lab sm">на baseline (скользящее окно)</div></div>
+          <div class="stat"><div class="num" style="font-size:48px; line-height:1.1;">Без облака<br>и телеметрии</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 32 · Раздел: Антихайп -->
+  <section data-label="Про грабли расскажу я сам" class="divider">
+    <div class="kicker"><span class="kdot"></span>Блок 8 · Честная часть</div>
+    <h2 class="title">Про грабли расскажу я сам</h2>
+    <div class="subtitle">Если минусы называю я - остальному можно верить больше.</div>
+  </section>
+
+  <!-- 33 · ROI отрицательный (quote) -->
+  <section data-label="ROI на старте отрицательный">
+    <div class="kicker"><span class="kdot"></span>Грабля 1 · Отдача</div>
+    <div class="body center" style="gap:0;">
+      <div class="quote-md"><span class="quote-mark">«</span>Для занятого прагматика отдача от вложений пока отрицательна: на доводку уходит больше времени, чем приносит сам результат.<span class="quote-mark">»</span></div>
+      <div class="fact" style="margin-top:54px; max-width:none; font-size:30px;">Это нормальная фаза. Её просто надо пережить. <span class="accent" style="font-weight:600;">Не значит, что не работает - значит, что входишь.</span></div>
+    </div>
+  </section>
+
+  <!-- 34 · 99% демо (quote) -->
+  <section data-label="99% демо - продуктивити-порно">
+    <div class="kicker"><span class="kdot"></span>Грабля 2 · Демо-культура</div>
+    <div class="body center" style="gap:0;">
+      <div class="quote-xl" style="font-size:58px;"><span class="quote-mark">«</span>99% видео... это полнейший булшит. Я называю это продуктивити-порно.<span class="quote-mark">»</span></div>
+      <div class="fact" style="margin-top:54px; max-width:none; font-size:30px;">Это касается и моего доклада. Поэтому я показываю <span class="accent" style="font-weight:600;">работающее на своей машине</span>, а не красивые рендеры.</div>
+    </div>
+  </section>
+
+  <!-- 35 · BCG: AI brain fry (STATS) -->
+  <section data-label="AI brain fry">
+    <div class="kicker"><span class="kdot"></span>Грабля 3 · Человек</div>
+    <div class="body top" style="gap:44px; padding-top:30px;">
+      <h2 class="title">AI brain fry: усталость от надзора, а не от работы</h2>
+      <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:32px;">
+        <div class="stat"><div class="num" style="font-size:72px;">1488</div><div class="lab sm">сотрудников - BCG, исследование масштаба</div></div>
+        <div class="stat"><div class="num acc" style="font-size:72px;">3</div><div class="lab sm">инструмента - пик. 4-й агент уже роняет эффективность</div></div>
+        <div class="stat"><div class="num acc" style="font-size:72px;">+39%</div><div class="lab sm">критических ошибок у перегруженных - слепо пропускают дефекты</div></div>
+        <div class="stat"><div class="num" style="font-size:72px;">7-10%</div><div class="lab sm">времени - здоровая доля ИИ в рабочем дне</div></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="note">Источник: BCG, исследование 2024.</div>
+    </div>
+  </section>
+
+  <!-- 36 · Две проблемы в голове -->
+  <section data-label="Две проблемы в голове">
+    <div class="kicker"><span class="kdot"></span>Грабли в голове, не в технике</div>
+    <div class="body top" style="gap:36px; padding-top:26px;">
+      <h2 class="title">Две проблемы, которые я ловлю за собой</h2>
+      <div class="cols2" style="gap:40px;">
+        <div class="card flat">
+          <div style="display:flex; align-items:baseline; gap:.5em;"><span class="accent" style="font-size:40px; font-weight:600; font-family:var(--mono);">1</span><span style="font-size:34px; font-weight:600;">Лень</span></div>
+          <div class="small muted" style="margin-top:.6em; line-height:1.4;">Агент написал план, задал вопросы, выдал результат - а ты по диагонали проскроллил и нажал «ок». Так пропускается всё.</div>
+        </div>
+        <div class="card flat">
+          <div style="display:flex; align-items:baseline; gap:.5em;"><span class="accent" style="font-size:40px; font-weight:600; font-family:var(--mono);">2</span><span style="font-size:34px; font-weight:600;">Ответственность</span></div>
+          <div class="small muted" style="margin-top:.6em; line-height:1.4;">«Агент умный - он отвечает за результат». Нет. По умолчанию он делает средне - «среднячок по больнице». За то, чтобы вышло хорошо, отвечаешь ты.</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="note" style="max-width:none;">Лекарство из практики: если один агент собрал материал и сам же сделал вывод - расхождение пропустишь. Поэтому важный вывод отдаю на независимую проверку второму агенту перед тем, как принять.</div>
+    </div>
+  </section>
+
+  <!-- 37 · Навык = исполняемый код -->
+  <section data-label="Чужой навык - это код">
+    <div class="kicker"><span class="kdot"></span>Безопасность</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title" style="font-size:54px;">Чужой навык - это исполняемый код, который запустится на вашей машине</h2>
+      <ul class="clean acc" style="font-size:31px; gap:.7em;">
+        <li>Ставь только из доверенных источников</li>
+        <li>Читай, что внутри, перед установкой</li>
+        <li>Особенно опасны навыки, которые ходят во внешние URL - туда можно подсунуть вредную инструкцию <span class="muted">(prompt injection)</span></li>
+      </ul>
+      <div class="spacer"></div>
+      <div class="fact" style="max-width:none; font-size:30px;">Чужой навык = чужой код на твоём компьютере. <span class="accent" style="font-weight:600;">Та же осторожность, что с npm-пакетами.</span></div>
+    </div>
+  </section>
+
+  <!-- 38 · Базовая гигиена -->
+  <section data-label="Базовая гигиена">
+    <div class="kicker"><span class="kdot"></span>Базовая гигиена</div>
+    <div class="body top" style="gap:34px; padding-top:24px;">
+      <h2 class="title" style="font-size:54px;">Правила, без которых работать с агентом опасно</h2>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;">
+        <div class="card flat" style="padding:28px 30px;"><div style="font-size:28px; font-weight:600;">Галлюцинации бывают</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">Агент иногда уверенно врёт. Проверяй важное по источникам.</div></div>
+        <div class="card flat" style="padding:28px 30px;"><div style="font-size:28px; font-weight:600;">Нет кнопки «отменить»</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">После деструктивного действия - нет undo. Git помогает, но не всегда.</div></div>
+        <div class="card flat" style="padding:28px 30px;"><div style="font-size:28px; font-weight:600;">Читай весь diff</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">Не глазами по диагонали. Агент мог изменить то, о чём не говорил.</div></div>
+        <div class="card flat" style="padding:28px 30px;"><div style="font-size:28px; font-weight:600;">Секреты вне папок агента</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">API-ключи, пароли, токены - агент не должен их видеть без нужды.</div></div>
+        <div class="card flat" style="padding:28px 30px;"><div style="font-size:28px; font-weight:600;">Удаление - руками</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">rm, DROP TABLE, форматирование - делай сам после проверки.</div></div>
+        <div class="card flat" style="padding:28px 30px;"><div style="font-size:28px; font-weight:600;">Критичное - руками</div><div class="muted" style="font-size:24px; margin-top:.4em; line-height:1.35;">Агента изолируй от продакшена. Read-only по умолчанию - хорошая привычка.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 39 · Стартовый стек ~$70 -->
+  <section data-label="Минимальный набор">
+    <div class="kicker"><span class="kdot"></span>Блок 9 · Старт</div>
+    <div class="body top" style="gap:38px; padding-top:28px;">
+      <h2 class="title">Минимальный набор, чтобы начать</h2>
+      <div style="display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:18px;">
+          <div style="display:flex; align-items:baseline; gap:.7em; padding:18px 0; border-bottom:1px solid var(--line);"><span style="font-size:32px; font-weight:600; min-width:13ch;">Claude Code / Codex</span><span class="muted small">основной агент</span></div>
+          <div style="display:flex; align-items:baseline; gap:.7em; padding:18px 0; border-bottom:1px solid var(--line);"><span style="font-size:32px; font-weight:600; min-width:13ch;">Wispr Flow / Handy</span><span class="muted small">голосовой ввод</span></div>
+          <div style="display:flex; align-items:baseline; gap:.7em; padding:18px 0; border-bottom:1px solid var(--line);"><span style="font-size:32px; font-weight:600; min-width:13ch;">Сервер (OpenClaw)</span><span class="muted small">опционально, позже</span></div>
+        </div>
+        <div class="card fill" style="justify-content:center; align-items:flex-start;">
+          <div style="font-size:24px; text-transform:uppercase; letter-spacing:.1em; opacity:.8;">Бюджет</div>
+          <div style="font-size:80px; font-weight:600; letter-spacing:-0.03em; line-height:1; margin-top:.15em;">~$20</div>
+          <div style="font-size:28px; opacity:.85; margin-top:.3em;">в месяц, на базовом уровне</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="chiprow" style="gap:16px;">
+        <span class="muted small" style="margin-right:4px;">Где уходят деньги:</span>
+        <span class="chip">Opus vs Sonnet <span class="accent">~5x</span></span>
+        <span class="chip">Fast mode <span class="accent">2x</span></span>
+        <span class="chip">Контекст &gt;200K <span class="accent">2x</span></span>
+      </div>
+      <div class="note">Рутину - на дешёвой модели. Тяжёлую звать точечно. Это и быстрее, и стабильнее.</div>
+    </div>
+  </section>
+
+  <!-- 40 · Финал: замкнуть петлю (бывш. 42; слайд «Один вечер» удалён) -->
+  <section data-label="Финал">
+    <div class="kicker"><span class="kdot"></span>Финал</div>
+    <div class="body top" style="gap:46px; padding-top:24px;">
+      <div style="display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:24px; align-items:stretch;">
+        <div class="card flat">
+          <div class="muted small">Начало доклада</div>
+          <div style="font-size:32px; font-weight:600; margin-top:.4em; line-height:1.2;">Доклад собрал агент за одну ночь</div>
+          <div class="muted" style="font-size:24px; margin-top:.6em;">24 коммита · 6ч 14мин · пока я спал</div>
+        </div>
+        <div class="vs" style="align-self:center; font-size:48px; color:var(--muted);">+</div>
+        <div class="card flat">
+          <div class="muted small">Демо</div>
+          <div style="font-size:32px; font-weight:600; margin-top:.4em; line-height:1.2;">Jira-отчёт голосом за 10 секунд</div>
+          <div class="muted" style="font-size:24px; margin-top:.6em;">Без выгрузок · Без SQL · Канбан → HTML</div>
+        </div>
+        <div class="vs" style="align-self:center; font-size:48px; color:var(--muted);">=</div>
+        <div class="card fill">
+          <div style="opacity:.8; font-size:24px; text-transform:uppercase; letter-spacing:.08em;">Между вами и этим</div>
+          <div style="font-size:32px; font-weight:600; margin-top:.4em; line-height:1.25;">Один вечер и разрешение себе попробовать</div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div style="display:flex; align-items:flex-end; justify-content:space-between; gap:48px;">
+        <div>
+          <div style="font-size:46px; font-weight:600; letter-spacing:-0.02em; line-height:1.18; max-width:30ch;">Инструмент со словом «код» в названии ждёт <span class="accent">именно вас</span> - тех, кто код не пишет.</div>
+          <div class="foot" style="font-size:28px;">Спасибо.</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:18px; flex-shrink:0;">
+          <div style="width:120px; height:120px; border:2px solid var(--ink); border-radius:10px; display:flex; align-items:center; justify-content:center;">
+            <div class="muted" style="font-size:24px; letter-spacing:.04em;">QR</div>
+          </div>
+          <div style="font-size:24px; font-weight:600; line-height:1.25; max-width:14ch;">Шаблон + одностраничный чеклист</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ СЕКЦИЯ B · Q&A-карман: достаю по вопросу из зала ============ -->
+
+  <!-- B1 · Насколько далеко от кода -->
+  <section data-label="B1 · Шкала">
+    <div class="kicker q"><span class="kdot"></span>Q&amp;A</div>
+    <div class="body center" style="gap:64px;">
+      <h2 class="title">Насколько далеко от кода</h2>
+      <div class="scale">
+        <div class="snode"><div class="sdot">1</div><div class="slab">Быт</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">2</div><div class="slab">Ресёрч</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">3</div><div class="slab">Браузер</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">4</div><div class="slab">Самообслуживание аналитикой</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">5</div><div class="slab">Методология</div></div>
+      </div>
+      <div class="note" style="font-size:28px; text-align:center;">Карта всего доклада одной шкалой.</div>
+    </div>
+  </section>
+
+  <!-- 46 · B2 · Как агент устроен -->
+  <section data-label="B2 · Цикл агента">
+    <div class="kicker q"><span class="kdot"></span>Q&amp;A</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title">Как агент устроен внутри</h2>
+      <div class="scale">
+        <div class="snode"><div class="sdot">1</div><div class="slab">Контекст</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">2</div><div class="slab">План</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">3</div><div class="slab">Действие</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot">4</div><div class="slab">Проверка</div></div>
+        <div class="sarw"></div>
+        <div class="snode"><div class="sdot" style="border-style:dashed; font-size:34px;">↻</div><div class="slab">И снова</div></div>
+      </div>
+      <div class="spacer"></div>
+      <div class="contrast">
+        <div class="cbox before" style="display:flex; align-items:center; gap:28px;"><div style="width:150px; height:3px; background:var(--muted); flex:none;"></div><div><div class="ct">Чат</div><div class="cv" style="font-size:34px;">Прямая линия</div></div></div>
+        <div class="carw">vs</div>
+        <div class="cbox after" style="display:flex; align-items:center; gap:28px;"><div style="width:88px; height:88px; border:4px solid #fff; border-radius:50%; flex:none;"></div><div><div class="ct">Агент</div><div class="cv" style="font-size:34px;">Круг</div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 47 · B3 · Память это файлы -->
+  <section data-label="B3 · Память файлами">
+    <div class="kicker q"><span class="kdot"></span>Q&amp;A</div>
+    <div class="body top" style="gap:40px; padding-top:30px;">
+      <h2 class="title">Память - это файлы</h2>
+      <div style="display:grid; grid-template-columns:auto auto 1fr; gap:40px; align-items:center;">
+        <div style="display:flex; flex-direction:column; align-items:flex-start; gap:10px;">
+          <div class="muted small">Задача</div>
+          <div style="background:var(--ink); color:var(--bg); font-family:var(--mono); font-size:30px; padding:24px 30px; border-radius:14px; font-weight:500;">/папка</div>
+        </div>
+        <div class="vs" style="font-size:40px; color:var(--muted);">→</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px;">
+          <div class="card flat" style="padding:30px 32px;"><div class="accent" style="font-family:var(--mono); font-size:26px; font-weight:600;">AGENTS.md</div><div class="small muted" style="margin-top:.4em; line-height:1.35;">должностная инструкция</div></div>
+          <div class="card flat" style="padding:30px 32px;"><div class="accent" style="font-family:var(--mono); font-size:26px; font-weight:600;">skills/</div><div class="small muted" style="margin-top:.4em; line-height:1.35;">навыки</div></div>
+          <div class="card flat" style="padding:30px 32px;"><div class="accent" style="font-family:var(--mono); font-size:26px; font-weight:600;">MEMORY.md</div><div class="small muted" style="margin-top:.4em; line-height:1.35;">журнал решений</div></div>
+        </div>
+      </div>
+      <div class="spacer"></div>
+      <div class="fact" style="max-width:none; font-size:30px;">Память лежит в файлах, не в облаке. <span class="accent" style="font-weight:600;">git - это история памяти.</span></div>
+    </div>
+  </section>
+
+  <!-- 48 · B4 · Ресёрч и документы -->
+  <section data-label="B4 · Ресёрч">
+    <div class="kicker q"><span class="kdot"></span>Q&amp;A</div>
+    <div class="body top" style="gap:32px; padding-top:28px;">
+      <h2 class="title">Ресёрч и документы</h2>
+      <div style="display:grid; grid-template-columns:1.3fr .7fr; gap:44px; align-items:start;">
+        <div style="display:flex; flex-direction:column; gap:20px;">
+          <div>
+            <div class="muted small" style="margin-bottom:.5em;">Слой 1 · готовые сервисы</div>
+            <div class="chiprow" style="gap:12px;">
+              <span class="chip">Perplexity</span><span class="chip">Gemini</span><span class="chip">ChatGPT <span class="muted">(платный)</span></span>
+            </div>
+          </div>
+          <div class="card flat">
+            <div class="muted small" style="margin-bottom:.4em;">Слой 2 · свой навык</div>
+            <div style="font-family:var(--mono); font-size:28px; font-weight:600; color:var(--accent);">deep-research</div>
+            <ul class="clean" style="font-size:26px; margin-top:.7em; gap:.4em;">
+              <li>3 бэкенда: сначала прямые запросы, потом fallback</li>
+              <li>Проверка квоты перед запуском</li>
+              <li>Выгрузка в Google Docs за сессию</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card" style="border-left:4px solid var(--accent); align-self:stretch;">
+          <div class="kicker" style="font-size:24px;"><span class="kdot"></span>Второе мнение</div>
+          <div style="font-size:28px; font-weight:600; margin-top:.6em;">NotebookLM</div>
+          <div class="small muted" style="margin-top:.5em; line-height:1.42;">Отчёт без источников помечаю слабым.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- B7 · 10 разобранных мифов -->
+  <section data-label="B7 · Мифы">
+    <div class="kicker q"><span class="kdot"></span>Q&amp;A</div>
+    <div class="body top" style="gap:30px; padding-top:28px;">
+      <h2 class="title">10 разобранных мифов</h2>
+      <div style="display:flex; flex-direction:column; gap:18px;">
+        <div class="mythrow"><span class="vd no">нет</span><div class="mt">«В Claude Code по умолчанию самая мощная модель»</div></div>
+        <div class="mythrow"><span class="vd no">нет</span><div class="mt">«Чем короче запрос, тем лучше» <span class="muted">- агенту нужен контекст</span></div></div>
+        <div class="mythrow"><span class="vd maybe">спорно</span><div class="mt">«Окно на миллион токенов держит весь монорепозиторий без потерь» <span class="muted">- дальше 200K цена удваивается, связи в контексте сползают</span></div></div>
+      </div>
+      <div class="spacer"></div>
+      <div style="background:var(--ink); color:var(--bg); border-radius:16px; padding:30px 38px; font-size:33px; font-weight:600; line-height:1.3;">Смотри не на цифру из пресс-релиза, а на <span style="color:#FF9D6E;">дату, источник и на то, что меряли</span>.</div>
+    </div>
+  </section>
+
+</deck-stage>
+
+<script type="application/json" id="speaker-notes">
+[
+  "Добрый день. Доклад называется «Кодинговые агенты для не-кодинговых задач». Сразу снимаю главное возражение: это не про код и не про то, чтобы вы стали программистами. Это про вашу работу - аналитика, менеджера, тестировщика. Слово «код» в названии инструмента, но самый большой скачок он даёт именно тем, кто код не пишет. Полчаса - и у каждого будет, что попробовать завтра утром.",
+  "Начну с честного факта про сам этот доклад. Я его не собирал руками ночью - его собрал агент, пока я спал. Вот реальный лог коммитов: в час ночи он делал инструменты для сбора транскриптов, к двум - корпус из 24 видео, под утро - синтез 154 источников. 24 коммита за шесть с небольшим часов. Запомните этот слайд - в конце мы к нему вернёмся.",
+  "Вот водораздел, ради которого всё. Слева чат - умный собеседник: отвечает текстом, а копипастить и делать вы будете руками. Закрыли сессию - он всё забыл. Справа агент - сотрудник с руками: открывает файлы, запускает команды, ходит в браузер под вашим аккаунтом. Как сказал Мацкевич - чат не в контакте с вашим ноутбуком, а эта штука за вас делает. Считайте разницу за три секунды - дальше всё про правую колонку.",
+  "Чтобы дальше не путаться, два слова. Первое - файлы. Для агента файлы это память: контекст лежит на диске и переживает закрытую сессию. Второе - AGENTS.md, или CLAUDE.md. Это обычный текстовый файл, должностная инструкция: кто агент, что делает, чего нельзя. Внизу - кусок настоящего такого файла. Никакой магии и чёрного ящика: всё читается простым языком.",
+  "И чтобы вы не думали, что это моя личная причуда. Глава Codex в OpenAI говорит прямо: большинство задач в Codex уже некодинговые. NVIDIA развернула Codex на десять тысяч с лишним сотрудников - юристы, маркетинг, финансы, HR. Это не эксперимент энтузиастов, это уже рабочий инструмент массовых отделов.",
+  "Теперь демо. Берём то, в чём вы живёте каждый день - Jira. Задача простая: получить отчёт. Без выгрузок, без SQL, голосом, за десять секунд. Дальше я просто покажу, как это выглядит.",
+  "Утренний стендап. Я не открываю Jira - я говорю одну фразу: найди задачи In Review, просроченную переведи в Done, добавь комментарий, дай отчёт. Дальше пойдёт скринкаст, он записан заранее и ускорен. Смотрите на ленту шагов внизу: канбан, тикет, статус, комментарий, скрипт, готовый html-отчёт. Весь путь - десять секунд.",
+  "Тот же агент, другой шаблон вывода - и вот портфель проектов одной командой. Задачи, баги, план и факт по часам, процент, статус. Здесь рамка под реальную таблицу с обезличенного демо-тенанта. Суть простая: данные были и раньше, новое - то, что собрать их теперь стоит одну фразу.",
+  "Коротко, что под капотом - потому что зал технический и спросит. Агент сам выбирает путь. Где нужен человеческий маршрут - идёт через браузер: открыл доску, нашёл тикет, сменил статус, написал комментарий. Где быстрее напрямую - идёт в API: JQL-запрос, агрегация worklog, рендер отчёта. Один голосовой запрос - агент сам решает, где UI, где API.",
+  "Меняем тему. Это уже не про разовый трюк, а про профессию. Я называю это новой инженерной профессией - и она уже существует на моей машине. Важная оговорка: я не пишу агентов в смысле кода. Я их проектирую - текстом, инструкциями, правилами.",
+  "Насколько это серьёзно - в цифрах. Команда наверху ищет по всему диску файлы-контракты. Ответ - 64. Это не один промпт-файлик: это целый слой текстов, который я веду наравне с самими проектами. На поверхности 64, со вложенными - 128. И это живая команда, число к вечеру может быть другим.",
+  "Один контракт - четыре агента. Источник правды один, AGENTS.md. От него работают разные исполнители: Claude Code в репозитории, Codex для независимого аудита и второго мнения, Gemini для дешёвой разведки больших контекстов, Aider для чистых коммитов. Я не залочен на одного вендора - контракт общий, агенты взаимозаменяемы.",
+  "Память агента - это git, и это красиво просто. Заметки лежат в MEMORY.md, типизированные. Крон каждые полчаса сам коммитит мою папку настроек - без моего участия. А значит откат, diff и история достаются бесплатно, обычными инструментами разработки. Принцип, который держу: правила, а не факты. Факты устаревают, правила живут.",
+  "Три привычки, без которых агент начинает врать. Первая - режим планирования: сначала он показывает план, я правлю, и только потом он делает. Вторая - research-first: сначала разведка контекста, потом изменения. Третья - слабая модель по умолчанию: рутину на лёгкой модели, тяжёлую звать точечно. Звучит как мелочи, но именно они отделяют надёжного агента от генератора ерунды.",
+  "Теперь про ширину. Тот же движок ночью занят бытом, днём - рабочими отчётами. Это важно: не один удачный фокус, а одна система с измеримым результатом. Дальше три примера - от сервера до отпуска.",
+  "OpenClaw - мой фоновый штат. Пять агентов на сервере, восемь задач по расписанию, без человека. В половине шестого вечера агент логинится в браузере, проверяет трекинг посылок и шлёт скриншот в телеграм. Утром следит за остатком облачных кредитов, ночью делает шифрованный бэкап. Из восьми задач пять - инженерная гигиена, три - чистый быт. Один планировщик тянет и «закоммить код», и «где моя посылка».",
+  "Живой пример - отпуск в Турции, целиком внутри телеграма. Погода по точкам маршрута, напоминания с кнопками, база знаний по отелю, разбор билетов и страховок. Любимая деталь - аэропорт Rize. Я голосом спросил, когда идти на посадку. Бот знал вылет, посчитал cut-off и ответил: выходи из кафе сейчас. Это не поиск в гугле - это посчитанный ответ под мою конкретную ситуацию.",
+  "Одна техническая цифра для скептиков по деньгам. RTK - это прокси, который сжимает вывод служебных команд агента. Почти девять тысяч команд через него, 725 миллионов токенов сэкономлено, 99 процентов экономии на каждой команде. Когда агент работает помногу, гигиена расходов окупается быстро.",
+  "Дальше - практическая часть. Найди себя по роли. Аналитик, продакт, тестировщик, менеджер - на каждого по слайду. Слушайте свой.",
+  "Аналитик. Раньше дашборд - это два-три месяца: Looker Studio, курсы, настройка. Сейчас - CSV на вход, готовый html-дашборд за десять секунд, ещё и аномалии подсвечены. Цитата Джоно Катлиффа честная до боли: те два-три месяца, что я учил Looker Studio, теперь обесценились, потому что Claude Code делает это за десять секунд.",
+  "Следствие, важное для менеджеров. Раньше: «сделайте мне выгрузку» - и жди несколько дней очереди к аналитику. Теперь автор вопроса сам получает ответ прямо сейчас. Как говорит глава Codex - тот, у кого есть проблема, теперь может сам построить решение.",
+  "Продакт-менеджер - Тереза Торрес. Её фраза: я парно программирую со всем, что делаю, даже когда это не программирование. На практике это команда /today со сводкой дня, авто-дайджест свежих статей по утрам, конкурент-анализ по расписанию. Программирование тут ни при чём - это просто рабочий ритм.",
+  "Тестировщик - и тут моя любимая мысль. Обычный diff видит строки и символы: строка изменилась - показал. Но он не видит, что внутри документа появилось противоречие - дата 2025 в одном месте и 2026 в другом. Агент - diff-машина для смысла. Он прошёл около восьмидесяти файлов и нашёл, что одна цифра спорит с другой. Человек так вычитывать не будет.",
+  "И сразу - принцип баланса, чтобы не было перекоса. Кто делает работу - тот и учится. Делегируйте рутину, но не отдавайте понимание. Иначе незаметно разучитесь сами. Это граница, которую я держу осознанно.",
+  "Хорошая новость для всех, кто заскучал от технических деталей. Не надо быть инженером. Надо освоить четыре-пять сквозных приёмов - дальше они работают в любой роли.",
+  "Приём первый - голос вместо клавиатуры. Я почти не печатаю задачи, я их проговариваю. И дело не в скорости набора: голосом за минуту наговариваешь столько контекста, сколько руками печатал бы десять минут. А агенту контекст нужен больше всего. Идея пришла на ходу - надиктовал, агент сам положил в заметки. Множитель, который чувствуешь в первый же день.",
+  "Приём второй - do it once, then skill it. Описал процесс один раз - переиспользуешь бесконечно. Свой навык в AGENTS.md это ваша экспертиза, оцифрованная. Вызываешь по имени - и агент повторяет её точно, без пропусков и без забывания.",
+  "Приём третий - расписание. Сводка приходит, пока ты спишь. Утром дайджест задач и изменений готов до первого кофе. Ночью - бэкап, синк, аудит лимитов. А отчёты и мониторинг просто существуют каждый день, без твоего участия.",
+  "Приём четвёртый - параллельность. Ты дирижируешь, а не гребёшь. Несколько агентов работают одновременно: один анализирует, другой рефакторит, третий пишет тесты. Ты - тимлид, который видит всю картину, а не гребец на одном весле.",
+  "Приём пятый - то, что я делаю прямо сейчас, второй мозг. Созвон - транскрипт - саммари - задачи - и в конце ритм недели, где агент видит мою нагрузку и биометрику. Важно: любой источник, хоть Plaud, хоть запись Zoom, хоть локальный файл, нормализуется в общий формат. Второй мозг не зависит от одного приложения.",
+  "И метафора про память, которую стоит запомнить. В облаке агент тянет информацию через соломинку - только то, что успело войти в узкий контекст. Локально - как в библиотеке: берёт нужную книгу с полки и видит соседние. Весь контекст рядом. Это слова Чарли Кауэна, и они хорошо объясняют, почему я держу столько локально.",
+  "Крайняя точка диапазона - здоровье. Whoop и Apple Health сливаются в агента-стража. Он учит baseline именно моего организма и ловит аномалии - скачок HRV, просадку сна, признаки температуры. Утром даёт брифинг по восстановлению. Честно: это сигнал, не диагноз, серьёзное - к врачу. 376 тысяч записей, тридцатидневное окно, и всё без облака и телеметрии.",
+  "Теперь честная часть, и про грабли расскажу я сам. Это сознательно: если минусы называю я, то всему остальному можно верить чуть больше. Три грабли и две проблемы в голове - по порядку.",
+  "Грабля первая - отдача. Скажу прямо: возврат на инвестиции у занятого прагматика сейчас отрицательный, люди тратят на допиливание больше, чем получают пользы. Я подписываюсь. Но это нормальная фаза входа, её надо просто пережить. Отрицательный ROI не значит, что не работает - значит, что ты ещё входишь.",
+  "Грабля вторая - демо-культура. 99 процентов видео это полный булшит, он называет это продуктивити-порно. И это камень в том числе в мой огород. Поэтому весь доклад я показываю работающее на своей машине, а не красивые рендеры.",
+  "Грабля третья - человек. BCG на выборке почти полторы тысячи человек показала: эффективность растёт до трёх инструментов, а четвёртый агент её уже роняет. У перегруженных надзором - на 39 процентов больше критических ошибок, они слепо пропускают дефекты. Здоровая доля ИИ в дне - семь-десять процентов. Усталость тут не от работы, а от надзора.",
+  "Две проблемы, которые я ловлю за собой - и они в голове, не в технике. Первая - лень: агент выдал план и результат, а ты по диагонали проскроллил и нажал «ок». Так пропускается всё. Вторая - ответственность: кажется, что умный агент отвечает за результат. Нет. По умолчанию он делает средне. За то, чтобы вышло хорошо, отвечаешь ты. Лекарство - важный вывод отдавать на проверку второму, независимому агенту.",
+  "Отдельно про безопасность. Чужой навык - это исполняемый код, который запустится на вашей машине. Ставьте только из доверенных источников, читайте, что внутри, до установки. Особенно опасны навыки, которые ходят во внешние URL - туда можно подсунуть вредную инструкцию, prompt injection. Относитесь к чужому навыку как к чужому npm-пакету.",
+  "И базовая гигиена - шесть правил, без которых работать опасно. Галлюцинации бывают - проверяй важное. Кнопки «отменить» нет - git помогает не всегда. Читай весь diff, а не по диагонали. Секреты держи вне папок агента. Удаление и всё критичное делай руками после проверки. Read-only по умолчанию - хорошая привычка.",
+  "Как начать практически. Минимальный набор: Claude Code или Codex как основной агент, Wispr Flow или Handy для голоса, сервер - опционально и позже. Бюджет на базовом уровне около семидесяти долларов в месяц. Где уходят деньги - на тяжёлых моделях, fast-режиме и большом контексте. Поэтому правило: рутину на дешёвой модели, тяжёлую звать точечно.",
+  "И замыкаем петлю. Начало доклада - его собрал агент за одну ночь, пока я спал. Демо - отчёт из Jira голосом за десять секунд. Сложите одно с другим - и между вами и этим стоит всего один вечер и разрешение себе попробовать. Инструмент со словом «код» в названии ждёт именно вас - тех, кто код не пишет. Спасибо."
+]
+</script>
+
+<script src="deck-stage.js"></script>
+<script>
+  /* Авто-старт демо-видео, когда слайд становится активным; пауза+сброс при уходе. */
+  (function(){
+    var vids = Array.prototype.slice.call(document.querySelectorAll('.demovid'));
+    if(!vids.length) return;
+
+    /* Клик по видео — открыть на весь экран (псевдо-фуллскрин через оверлей
+       на <body>, т.к. нативный Fullscreen API часто заблокирован в превью,
+       а CSS-трансформ масштабирования ломает position:fixed). */
+    var overlay, current, homeParent, homeNext;
+    function ensureOverlay(){
+      if(overlay) return overlay;
+      overlay = document.createElement('div');
+      overlay.id = 'vidfs';
+      var close = document.createElement('button');
+      close.className = 'vidfs-close';
+      close.setAttribute('aria-label','Закрыть');
+      close.textContent = '✕';
+      overlay.appendChild(close);
+      document.body.appendChild(overlay);
+      function exit(){ closeFs(); }
+      overlay.addEventListener('click', function(e){ if(e.target === overlay) exit(); });
+      close.addEventListener('click', function(e){ e.stopPropagation(); exit(); });
+      return overlay;
+    }
+    function openFs(v){
+      ensureOverlay();
+      current = v; homeParent = v.parentNode; homeNext = v.nextSibling;
+      overlay.appendChild(v);
+      overlay.classList.add('on');
+      v.muted = false;
+      v.play().catch(function(){});
+      document.addEventListener('keydown', onKey);
+    }
+    function closeFs(){
+      if(!overlay || !overlay.classList.contains('on') || !current) return;
+      overlay.classList.remove('on');
+      if(homeParent){ homeParent.insertBefore(current, homeNext); }
+      current.muted = true;
+      document.removeEventListener('keydown', onKey);
+      current = null;
+    }
+    function onKey(e){ if(e.key === 'Escape') closeFs(); }
+
+    /* Авто-старт демо-видео, когда слайд становится активным; пауза+сброс при уходе. */
+    vids.forEach(function(v){
+      var sec = v.closest('section');
+      function sync(){
+        if(sec.hasAttribute('data-deck-active')){
+          v.play().catch(function(){});
+        } else {
+          v.pause();
+          try{ v.currentTime = 0; }catch(e){}
+        }
+      }
+      new MutationObserver(sync).observe(sec, {attributes:true, attributeFilter:['data-deck-active']});
+      sync();
+
+      v.addEventListener('click', function(e){
+        e.preventDefault();
+        if(overlay && overlay.classList.contains('on')) return; /* клик по видео в оверлее — не закрываем */
+        openFs(v);
+      });
+    });
+  })();
+</script>
+</body>
+</html>
