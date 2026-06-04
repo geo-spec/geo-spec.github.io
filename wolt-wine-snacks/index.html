@@ -4,434 +4,610 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Закуски к вину - Wolt Batumi</title>
-  <meta name="description" content="Готовые наборы и каталог еды-закусок к вину на двоих в Батуми: реальные цены и фото из меню Wolt.">
+  <meta name="description" content="Инфографика с блюдами к красному и белому вину на двоих в Батуми: цены, рейтинги, фото и ссылки Wolt.">
   <style>
     :root {
       color-scheme: light dark;
-      --bg: #f7f3ec;
-      --card: #ffffff;
-      --ink: #1d2b2a;
-      --muted: #536b69;
-      --teal: #0c4a53;
-      --teal-soft: #e8f3f2;
-      --accent: #b45b21;
-      --line: #e6ddcd;
+      --paper: #f5f3ee;
+      --ink: #17211f;
+      --muted: #5d6f6b;
+      --panel: #fffdfa;
+      --line: #d6ddd6;
+      --green: #165f52;
+      --wine: #9a2741;
+      --gold: #af761b;
+      --blue: #235a7c;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     }
     * { box-sizing: border-box; }
-    body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.5; }
-    .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
-
-    .hero { background: var(--teal); color: #fff; border-radius: 22px; padding: 40px 36px; }
-    .hero h1 { margin: 0 0 10px; font-size: clamp(32px, 6vw, 56px); line-height: 1.02; }
-    .hero .lead { margin: 0 0 18px; font-size: 19px; color: #e9fbfa; max-width: 760px; }
-    .hero .note { margin: 0; font-size: 15px; color: #cfeae8; max-width: 820px; }
-    .hero .stamp { margin-top: 18px; font-size: 14px; color: #a9d6d2; }
-
-    .legend { background: #fff8dc; border: 1px solid #ecd9a6; color: #6a4a14;
-      border-radius: 12px; padding: 14px 18px; margin: 22px 0 6px; font-size: 15px; }
-
-    h2.block { font-size: 28px; color: var(--teal); margin: 40px 0 6px; }
-    .block-sub { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
-
-    .sets { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
-    .set { background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-      padding: 20px; display: flex; flex-direction: column; gap: 8px; }
-    .set-head { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
-    .set-head h3 { margin: 0; font-size: 20px; color: var(--teal); }
-    .set-items { list-style: none; margin: 6px 0 0; padding: 0; }
-    .set-items li { display: flex; justify-content: space-between; gap: 12px;
-      padding: 6px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
-    .set-items li.total { border-bottom: none; border-top: 2px solid var(--line);
-      margin-top: 4px; padding-top: 10px; font-weight: 700; color: var(--teal); }
-    .li-price { white-space: nowrap; font-variant-numeric: tabular-nums; }
-
-    .group { margin-top: 30px; }
-    .group-head h2 { margin: 0 0 4px; font-size: 24px; color: var(--teal); }
-    .group-sub { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
-    .dishes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
-    .dish { background: var(--card); border: 1px solid var(--line); border-radius: 16px;
-      overflow: hidden; display: flex; flex-direction: column; }
-    .photo { width: 100%; height: 180px; object-fit: cover; display: block; background: var(--teal-soft); }
-    .ph { width: 100%; height: 180px; display: grid; place-items: center;
-      background: var(--teal-soft); color: var(--muted); font-size: 14px; }
-    .dish-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 6px; }
-    .dish-top { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
-    .dish-top h4 { margin: 0; font-size: 16px; line-height: 1.3; }
-    .price { font-weight: 700; color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
-    .orig { color: var(--muted); font-size: 13px; }
-    .dish-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 2px; }
-    .venue { color: var(--teal); font-weight: 600; text-decoration: none; font-size: 14px; }
-    .venue:hover { text-decoration: underline; }
-    .chip { font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); }
-    .chip.rating { background: #fff3e6; color: #8a4a18; border-color: #f0d3b0; }
-    .chip.role { background: var(--teal-soft); color: #214946; border-color: #cfe6e3; }
-    .why { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
-
-    footer { margin-top: 48px; color: var(--muted); font-size: 14px; text-align: center; }
-    footer a { color: var(--teal); }
-
+    body { margin: 0; background: var(--paper); color: var(--ink); line-height: 1.45; }
+    a { color: inherit; }
+    .wrap { width: min(1180px, calc(100% - 28px)); margin: 0 auto; padding: 22px 0 54px; }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: 22px; align-items: stretch; min-height: 76vh; }
+    .hero-main { display: flex; flex-direction: column; justify-content: center; padding: 24px 0; }
+    .eyebrow { margin: 0 0 10px; color: var(--wine); font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    h1 { margin: 0; font-size: clamp(42px, 8vw, 92px); line-height: .94; letter-spacing: 0; max-width: 820px; }
+    .lead { margin: 18px 0 0; max-width: 760px; color: var(--muted); font-size: clamp(18px, 2.2vw, 24px); }
+    .hero-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+    .pill { display: inline-flex; align-items: center; min-height: 34px; padding: 6px 11px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); font-size: 14px; font-weight: 700; }
+    .summary { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; align-self: center; padding: 0; margin: 0; }
+    .summary li { list-style: none; min-height: 74px; display: flex; flex-direction: column; justify-content: space-between; background: var(--panel); border: 1px solid var(--line); border-left: 5px solid var(--green); border-radius: 8px; padding: 13px; }
+    .summary span { color: var(--muted); font-size: 14px; }
+    .summary strong { font-size: 21px; color: var(--wine); }
+    .notice { margin: 18px 0 0; padding: 14px 16px; border: 1px solid #e2c670; border-radius: 8px; color: #5e4212; background: #fff7d6; font-size: 15px; }
+    .group { margin-top: 44px; }
+    .group-head { display: flex; justify-content: space-between; gap: 18px; align-items: end; border-bottom: 1px solid var(--line); padding-bottom: 12px; margin-bottom: 14px; }
+    .group-head h2 { margin: 0; color: var(--green); font-size: clamp(26px, 4vw, 40px); line-height: 1; letter-spacing: 0; }
+    .group-head p { margin: 0; max-width: 480px; color: var(--muted); font-size: 15px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 14px; }
+    .option-card { overflow: hidden; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; display: grid; grid-template-rows: 188px auto; min-height: 520px; }
+    .photo { display: block; background: #dfe6e0; }
+    .photo img { width: 100%; height: 188px; object-fit: cover; display: block; }
+    .card-body { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+    .card-top { display: flex; justify-content: space-between; gap: 10px; align-items: center; }
+    .rank { color: var(--blue); font-weight: 900; }
+    .rating { color: var(--gold); font-weight: 800; font-size: 14px; white-space: nowrap; }
+    h3 { margin: 0; font-size: 20px; line-height: 1.15; letter-spacing: 0; }
+    .wolt-name { margin: 0; color: var(--muted); font-size: 13px; min-height: 38px; }
+    .venue { color: var(--green); font-weight: 800; text-decoration: none; }
+    .venue:hover, .item-link:hover { text-decoration: underline; }
+    .facts { display: flex; flex-wrap: wrap; gap: 7px; }
+    .facts span { padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; font-size: 13px; color: var(--muted); }
+    .price-row { margin-top: 2px; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 10px; background: #eef5f2; border-radius: 8px; }
+    .price-row span { color: var(--muted); font-size: 13px; }
+    .price-row strong { color: var(--wine); font-size: 22px; white-space: nowrap; }
+    .why { margin: 0; color: var(--muted); font-size: 14px; }
+    .item-link { margin-top: auto; color: var(--blue); font-weight: 800; text-decoration: none; font-size: 14px; }
+    footer { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--line); color: var(--muted); font-size: 13px; }
+    @media (max-width: 760px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .summary { grid-template-columns: 1fr; }
+      .group-head { display: block; }
+      .group-head p { margin-top: 8px; }
+      .option-card { min-height: 0; }
+    }
     @media (prefers-color-scheme: dark) {
-      :root { --bg: #10201f; --card: #18302e; --ink: #eaf5f3; --muted: #9dbab6;
-        --teal: #0e5963; --teal-soft: #143b39; --accent: #e89a5b; --line: #224240; }
-      .legend { background: #2a2410; border-color: #4a3f1c; color: #e7d29a; }
-      .chip.rating { background: #2a2410; color: #e7d29a; border-color: #4a3f1c; }
+      :root { --paper: #111817; --ink: #eef6f2; --muted: #a8bbb5; --panel: #172321; --line: #2a403b; --green: #7cc9b2; --wine: #ff8da2; --gold: #f4bd63; --blue: #8cc8ff; }
+      .notice { background: #2b2412; border-color: #5b4820; color: #ead28a; }
+      .photo { background: #20332f; }
+      .price-row { background: #1f312d; }
     }
   </style>
 </head>
 <body>
-  <div class="wrap">
+  <main class="wrap">
     <header class="hero">
-      <h1>Закуски к вину</h1>
-      <p class="lead">Готовые наборы на двоих и каталог блюд в Батуми. Вино берёшь отдельно - тут только закуски: доски, салаты, лёгкое и посытнее. С реальными ценами и фото из Wolt.</p>
-      <p class="note">Подборка еды-закусок к вину на двоих в Батуми. Вино здесь не подбирается. Цены и фото - реальные, из меню Wolt на момент снимка. Перед заказом сверьте цену, наличие, доставку и сервисный сбор в Wolt: они меняются. Это не заказ и не корзина.</p>
-      <p class="stamp">Цены и фото из меню Wolt Batumi, снимок 4 июня 2026, read-only</p>
+      <div class="hero-main">
+        <p class="eyebrow">Wolt Batumi - read-only подборка</p>
+        <h1>Закуски к вину на двоих</h1>
+        <p class="lead">18 блюд и мини-бордов к белому и красному. Само вино не подбираю: здесь только еда, цены, рейтинги, фото и прямые ссылки на Wolt.</p>
+        <div class="hero-meta">
+          <span class="pill">проверено 4 июня 2026</span>
+          <span class="pill">без браузера для Wolt</span>
+          <span class="pill">без корзины</span>
+          <span class="pill">цены до доставки и сборов</span>
+        </div>
+        <p class="notice">Перед заказом проверь вручную наличие, адрес, доставку, сервисный сбор и актуальную цену в Wolt. Страница не оформляет заказ и не содержит готовую корзину.</p>
+      </div>
+      <ol class="summary" aria-label="Быстрый выбор">
+        <li><span>Буррата 125 г</span><strong>25.80 GEL</strong></li>
+<li><span>Козий сыр 100 г</span><strong>10.90 GEL</strong></li>
+<li><span>Салями Milano 100 г</span><strong>8.95 GEL</strong></li>
+<li><span>Брускетта с грушей и горгонзолой</span><strong>20.00 GEL</strong></li>
+<li><span>Греческий салат</span><strong>13.95 GEL</strong></li>
+<li><span>Caesar salad</span><strong>15.95 GEL</strong></li>
+      </ol>
     </header>
-
-    <div class="legend">Это не заказ и не корзина. Суммы наборов - простой подсчёт по позициям, без доставки и сервисного сбора. Цены, наличие, доставку и сборы сверяйте в Wolt перед заказом.</div>
-
-    <h2 class="block">Готовые наборы</h2>
-    <p class="block-sub">Каждый набор - на двоих, из одного заведения. Сумма - сложение цен позиций.</p>
-    <div class="sets">
-      <article class="set">
-        <div class="set-head">
-          <h3>Винная доска под красное</h3>
-          <span class="chip role">под красное</span>
-        </div>
-        <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
-        <span class="chip rating">★ 9.8</span>
-        <ul class="set-items">
-              <li><span>Сырная доска</span><span class="li-price">49.5</span></li>
-              <li><span>Хумус</span><span class="li-price">21.45</span></li>
-              <li><span>Масло и хлеб (сет масел)</span><span class="li-price">20.35</span></li>
-          <li class="total"><span>Итого на двоих</span><span class="li-price">91.3 GEL</span></li>
-        </ul>
-        <p class="why">Профильная винотека, топ-рейтинг по городу. Сырная доска плюс хумус с хлебом - классический набор под красное, всё из одного места, одна доставка.</p>
-      </article>
-      <article class="set">
-        <div class="set-head">
-          <h3>Лёгкое и салаты под белое</h3>
-          <span class="chip role">под белое</span>
-        </div>
-        <a class="venue" href="https://wolt.com/en/geo/batumi/venue/place" target="_blank" rel="noopener">Place</a>
-        <span class="chip rating">★ 9.4</span>
-        <ul class="set-items">
-              <li><span>Брускетта с грушей и горгонзолой</span><span class="li-price">20</span></li>
-              <li><span>Жареный сулугуни с малиной и орехами</span><span class="li-price">25</span></li>
-              <li><span>Салат с хрустящим баклажаном и кремчизом</span><span class="li-price">20</span></li>
-          <li class="total"><span>Итого на двоих</span><span class="li-price">65 GEL</span></li>
-        </ul>
-        <p class="why">Контраст текстур: тёплый жареный сулугуни, свежий салат и брускетта с грушей. Не тяжело, хорошо идёт под белое.</p>
-      </article>
-      <article class="set">
-        <div class="set-head">
-          <h3>Морепродукты и салат</h3>
-          <span class="chip role">под белое</span>
-        </div>
-        <a class="venue" href="https://wolt.com/en/geo/batumi/venue/provence" target="_blank" rel="noopener">Provence</a>
-        <span class="chip rating">★ 9.4</span>
-        <ul class="set-items">
-              <li><span>Креветки (Shrimp mood)</span><span class="li-price">28</span></li>
-              <li><span>Цезарь</span><span class="li-price">27</span></li>
-              <li><span>Круассан капрезе</span><span class="li-price">19</span></li>
-          <li class="total"><span>Итого на двоих</span><span class="li-price">74 GEL</span></li>
-        </ul>
-        <p class="why">Креветки и цезарь под белое, круассан-капрезе для разнообразия. Французский акцент хорошо ложится на вино.</p>
-      </article>
-      <article class="set">
-        <div class="set-head">
-          <h3>Своя тарелка из гастронома</h3>
-          <span class="chip role">универсально</span>
-        </div>
-        <a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi" target="_blank" rel="noopener">Gastronome Batumi</a>
-        <span class="chip rating">★ 9.6</span>
-        <ul class="set-items">
-              <li><span>Чоризо Galar Vela Mild, 100 г</span><span class="li-price">4.95</span></li>
-              <li><span>Плавленый сыр в пластинах Bel, 180 г</span><span class="li-price">7.95</span></li>
-          <li class="total"><span>Итого на двоих</span><span class="li-price">12.9 GEL</span></li>
-        </ul>
-        <p class="why">Самосбор: нарезать чоризо и сыр самим выходит заметно дешевле готовой доски. Добавь оливки и хлеб по вкусу - и борд готов.</p>
-      </article>
-    </div>
-
-    <h2 class="block">Каталог блюд</h2>
-    <p class="block-sub">Отдельные позиции по типу - собери свой набор или замени блюдо в готовом.</p>
-      <section class="group">
+    
+      <section class="group" id="сыр-и-борд">
         <div class="group-head">
-          <h2>Доски и нарезки</h2>
-          <p class="group-sub">Сырные и мясные борды под бокал - готовые тарелки.</p>
+          <h2>Сыр и борд</h2>
+          <p>Если хочется собрать красивую тарелку без тяжелого ужина.</p>
         </div>
-        <div class="dishes">
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Сырная доска" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5ea8148d878d3ecb17ced6d6/b6e295ba-a2a9-11f0-ad3b-6e760057f8e2_cheese.jpg">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Сырная доска</h4>
-              <span class="price">49.5 GEL</span>
+        <div class="grid">
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-f263cca200b06ff242cc7fa4" target="_blank" rel="noopener">
+            <img src="assets/01-burrata.jpg" alt="Буррата 125 г" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#1</span>
+              <span class="rating">рейтинг 9.6</span>
             </div>
-            <span class="orig">ყველის დაფა</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi/itemid-fdc347b915cfdb07333d5966" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
-              <span class="chip rating">★ 9.8</span>
-              <span class="chip role">под красное и белое</span>
+            <h3>Буррата 125 г</h3>
+            <p class="wolt-name">Gastronome- ბურატა 125გრ</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/gastronome-batumi" target="_blank" rel="noopener">Gastronome Batumi</a>
+            <div class="facts">
+              <span>белое / легкое красное</span>
+              <span>2 порции</span>
             </div>
+            <div class="price-row">
+              <span>12.90 GEL за позицию</span>
+              <strong>25.80 GEL</strong>
+            </div>
+            <p class="why">Самый прямой легкий вариант к вину: мягкий сыр, можно добавить томаты или хлеб.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-f263cca200b06ff242cc7fa4" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
           </div>
         </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Доска с хамоном и сыром" src="https://wolt-menu-images-cdn.wolt.com/menu-images/60f574b2a76ab012d1694b58/716f2996-f94e-11ed-8b0a-961459ca22fe_lori_da_yveli.jpg">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Доска с хамоном и сыром</h4>
-              <span class="price">48.4 GEL</span>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-32a201c3e2cebef6437e0bb6" target="_blank" rel="noopener">
+            <img src="assets/02-goat-cheese.jpg" alt="Козий сыр 100 г" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#2</span>
+              <span class="rating">рейтинг 9.6</span>
             </div>
-            <span class="orig">ლორი და ყველის დაფა</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi/itemid-203f23c11ec87d78a037002c" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
-              <span class="chip rating">★ 9.8</span>
-              <span class="chip role">под красное</span>
+            <h3>Козий сыр 100 г</h3>
+            <p class="wolt-name">El Pastor-თხის ყველი-დელისია 100 გრ</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/gastronome-batumi" target="_blank" rel="noopener">Gastronome Batumi</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>1 порция</span>
             </div>
+            <div class="price-row">
+              <span>10.90 GEL за позицию</span>
+              <strong>10.90 GEL</strong>
+            </div>
+            <p class="why">Хороший сырный акцент без тяжелого горячего блюда.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-32a201c3e2cebef6437e0bb6" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
           </div>
         </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Тосканская доска" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5ea8148d878d3ecb17ced6d6/814bc6b0-a2a9-11f0-afe6-aa6bf0cb4bd6_tuscany.jpg">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Тосканская доска</h4>
-              <span class="price">45.1 GEL</span>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-47c529e4214818e5802d1891" target="_blank" rel="noopener">
+            <img src="assets/03-salami-milano.jpg" alt="Салями Milano 100 г" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#3</span>
+              <span class="rating">рейтинг 9.6</span>
             </div>
-            <span class="orig">ტოსკანური დაფა</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi/itemid-a8267e79efe54f666c53deb2" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
-              <span class="chip rating">★ 9.8</span>
-              <span class="chip role">под красное</span>
+            <h3>Салями Milano 100 г</h3>
+            <p class="wolt-name">COATI-სალიამი მილანო (AZCOM109) 100გრ</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/gastronome-batumi" target="_blank" rel="noopener">Gastronome Batumi</a>
+            <div class="facts">
+              <span>красное</span>
+              <span>1 порция</span>
             </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Хумус" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5ea8148d878d3ecb17ced6d6/0766d2c6-647f-11f0-94c0-8ec94564c5a9_hummusw.jpg">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Хумус</h4>
-              <span class="price">21.45 GEL</span>
+            <div class="price-row">
+              <span>8.95 GEL за позицию</span>
+              <strong>8.95 GEL</strong>
             </div>
-            <span class="orig">ჰუმუსი</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi/itemid-cef687f52d3992f65304f774" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
-              <span class="chip rating">★ 9.8</span>
-              <span class="chip role">под белое и розе</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Масло и хлеб (сет масел)" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5ea8148d878d3ecb17ced6d6/4081f8f6-a2aa-11f0-84a9-e6996b567c01_butter.jpg">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Масло и хлеб (сет масел)</h4>
-              <span class="price">20.35 GEL</span>
-            </div>
-            <span class="orig">კარაქი და პური</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi/itemid-733c036f3ca270fe00bac43a" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
-              <span class="chip rating">★ 9.8</span>
-              <span class="chip role">дополнение к доске</span>
-            </div>
+            <p class="why">Мясная нарезка для небольшой тарелки на двоих, без полноценного ужина.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-47c529e4214818e5802d1891" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
           </div>
         </article>
         </div>
       </section>
-      <section class="group">
+      <section class="group" id="легкие-блюда">
         <div class="group-head">
-          <h2>Салаты и лёгкое</h2>
-          <p class="group-sub">Свежие салаты и тёплые закуски, чаще под белое.</p>
+          <h2>Легкие блюда</h2>
+          <p>Одна общая тарелка, хорошо делится на двоих.</p>
         </div>
-        <div class="dishes">
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Брускетта с грушей и горгонзолой" src="https://imageproxy.wolt.com/assets/680c999a6f972db77b4d334d">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Брускетта с грушей и горгонзолой</h4>
-              <span class="price">20 GEL</span>
-            </div>
-            <span class="orig">Bruschetta with pear and Gorgonzola</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/place/itemid-235fdf099e02a05df39421dc" target="_blank" rel="noopener">Place</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">универсально</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Жареный сулугуни с малиной и орехами" src="https://wolt-menu-images-cdn.wolt.com/menu-images/631f0219227f69e1c411cfa1/1d7a1810-bc35-11ed-9957-f291c6564593_img01762.jpeg">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Жареный сулугуни с малиной и орехами</h4>
-              <span class="price">25 GEL</span>
-            </div>
-            <span class="orig">Fried Suluguni with Raspberry and Nuts</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/place/itemid-63ac3b8d9c0d37113de87cf0" target="_blank" rel="noopener">Place</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Салат с хрустящим баклажаном и кремчизом" src="https://imageproxy.wolt.com/assets/6691671ad3a75717b3d7aff7">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Салат с хрустящим баклажаном и кремчизом</h4>
-              <span class="price">20 GEL</span>
-            </div>
-            <span class="orig">Salad with crispy eggplant and cream cheese</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/place/itemid-80021425b7909e4d053a2514" target="_blank" rel="noopener">Place</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Куриный паштет" src="https://imageproxy.wolt.com/assets/67a8a45d2c28ca1ef7f40539">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Куриный паштет</h4>
-              <span class="price">20 GEL</span>
-            </div>
-            <span class="orig">Chicken pate</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/place/itemid-644e7dc99d29bd00c4004122" target="_blank" rel="noopener">Place</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под красное</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Цезарь" src="https://imageproxy.wolt.com/assets/695bccd8a6c45b6cc95040c1">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Цезарь</h4>
-              <span class="price">27 GEL</span>
-            </div>
-            <span class="orig">Ceasar salad</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/provence/itemid-64d1f6e2415c8bf550568263" target="_blank" rel="noopener">Provence</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Круассан капрезе" src="https://imageproxy.wolt.com/assets/68a5979372cf20388ef3fece">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Круассан капрезе</h4>
-              <span class="price">19 GEL</span>
-            </div>
-            <span class="orig">Croissant Caprese</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/provence/itemid-873ac2d668ef06c0f7ef77d9" target="_blank" rel="noopener">Provence</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        </div>
-      </section>
-      <section class="group">
-        <div class="group-head">
-          <h2>Морепродукты</h2>
-          <p class="group-sub">Креветки и рыбные закуски - под белое.</p>
-        </div>
-        <div class="dishes">
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Салат с хрустящей тилапией и терияки" src="https://imageproxy.wolt.com/assets/6888a6abaa097026a2f430d0">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Салат с хрустящей тилапией и терияки</h4>
-              <span class="price">24 GEL</span>
-            </div>
-            <span class="orig">Crispy tilapia salad with teriyaki sauce</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/place/itemid-a515690154ee94bf925ccfc0" target="_blank" rel="noopener">Place</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Креветки (Shrimp mood)" src="https://imageproxy.wolt.com/assets/68a5977f72cf20388ef3fec6">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Креветки (Shrimp mood)</h4>
-              <span class="price">28 GEL</span>
-            </div>
-            <span class="orig">Shrimp mood</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/provence/itemid-74847786ebc3d1a8e32abcc0" target="_blank" rel="noopener">Provence</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Скрэмбл с креветками в сливочном соусе" src="https://imageproxy.wolt.com/assets/675f16aab2a1aa1c3819d481">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Скрэмбл с креветками в сливочном соусе</h4>
-              <span class="price">18.5 GEL</span>
-            </div>
-            <span class="orig">Scramble With shrimp in Cream Sauce</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/good-vibess-batumi/itemid-f33195819bd29f876512c28b" target="_blank" rel="noopener">Good Vibes Batumi</a>
-              <span class="chip rating">★ 9.4</span>
-              <span class="chip role">под белое</span>
-            </div>
-          </div>
-        </article>
-        </div>
-      </section>
-      <section class="group">
-        <div class="group-head">
-          <h2>Собрать самому</h2>
-          <p class="group-sub">Нарезки из гастронома: свой борд дешевле готового.</p>
-        </div>
-        <div class="dishes">
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Чоризо Galar Vela Mild, 100 г" src="https://imageproxy.wolt.com/assets/692ee0e07e111a72348665ec">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Чоризо Galar Vela Mild, 100 г</h4>
-              <span class="price">4.95 GEL</span>
-            </div>
-            <span class="orig">Galar-ჩორიზო ველა მილდ 100გრ</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-88b42779e10b5813b0707e79" target="_blank" rel="noopener">Gastronome Batumi</a>
-              <span class="chip rating">★ 9.6</span>
-              <span class="chip role">под красное</span>
-            </div>
-          </div>
-        </article>
-        <article class="dish">
-          <img class="photo" loading="lazy" alt="Плавленый сыр в пластинах Bel, 180 г" src="https://imageproxy.wolt.com/assets/698d6100eb34dcf0f7cd6e4a">
-          <div class="dish-body">
-            <div class="dish-top">
-              <h4>Плавленый сыр в пластинах Bel, 180 г</h4>
-              <span class="price">7.95 GEL</span>
-            </div>
-            <span class="orig">Bel group-მდნარი ყველის ფირფიტები 180გრ</span>
-            <div class="dish-meta">
-              <a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-eb7923589d9c7b1412cddf22" target="_blank" rel="noopener">Gastronome Batumi</a>
-              <span class="chip rating">★ 9.6</span>
-              <span class="chip role">универсально</span>
-            </div>
-          </div>
-        </article>
-        </div>
-      </section>
+        <div class="grid">
 
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/place/itemid-235fdf099e02a05df39421dc" target="_blank" rel="noopener">
+            <img src="assets/04-bruschetta-gorgonzola.jpg" alt="Брускетта с грушей и горгонзолой" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#4</span>
+              <span class="rating">рейтинг 9.4</span>
+            </div>
+            <h3>Брускетта с грушей и горгонзолой</h3>
+            <p class="wolt-name">Bruschetta with pear and Gorgonzola</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/place" target="_blank" rel="noopener">Place</a>
+            <div class="facts">
+              <span>белое / красное</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>20.00 GEL за позицию</span>
+              <strong>20.00 GEL</strong>
+            </div>
+            <p class="why">Теплый, но не тяжелый формат: хлеб, сыр и сладкая груша хорошо дружат с бокалом.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/place/itemid-235fdf099e02a05df39421dc" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group" id="салаты">
+        <div class="group-head">
+          <h2>Салаты</h2>
+          <p>Свежая часть заказа под белое или легкое красное.</p>
+        </div>
+        <div class="grid">
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/good-vibess-batumi/itemid-ae9f937df7bc2f75dbe69148" target="_blank" rel="noopener">
+            <img src="assets/05-greek-salad.jpg" alt="Греческий салат" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#5</span>
+              <span class="rating">рейтинг 9.4</span>
+            </div>
+            <h3>Греческий салат</h3>
+            <p class="wolt-name">Greek salad</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/good-vibess-batumi" target="_blank" rel="noopener">Good Vibes Batumi</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>13.95 GEL за позицию</span>
+              <strong>13.95 GEL</strong>
+            </div>
+            <p class="why">Свежий солоноватый салат, хорош как легкая основа на двоих.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/good-vibess-batumi/itemid-ae9f937df7bc2f75dbe69148" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/good-vibess-batumi/itemid-3b316c5a245db69f46f0bc99" target="_blank" rel="noopener">
+            <img src="assets/06-caesar-salad.jpg" alt="Caesar salad" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#6</span>
+              <span class="rating">рейтинг 9.4</span>
+            </div>
+            <h3>Caesar salad</h3>
+            <p class="wolt-name">Сaesar salad</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/good-vibess-batumi" target="_blank" rel="noopener">Good Vibes Batumi</a>
+            <div class="facts">
+              <span>белое / легкое красное</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>15.95 GEL за позицию</span>
+              <strong>15.95 GEL</strong>
+            </div>
+            <p class="why">Чуть сытнее греческого, но все еще салатный формат.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/good-vibess-batumi/itemid-3b316c5a245db69f46f0bc99" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group" id="рыба-и-море">
+        <div class="group-head">
+          <h2>Рыба и море</h2>
+          <p>Тартары, креветка и роллы под белое.</p>
+        </div>
+        <div class="grid">
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27a1" target="_blank" rel="noopener">
+            <img src="assets/07-salmon-tartar.jpg" alt="Тартар из лосося" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#7</span>
+              <span class="rating">рейтинг 9.0</span>
+            </div>
+            <h3>Тартар из лосося</h3>
+            <p class="wolt-name"> Tartar Salmon</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/copacabana" target="_blank" rel="noopener">Copacabana</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>19.90 GEL за позицию</span>
+              <strong>19.90 GEL</strong>
+            </div>
+            <p class="why">Холодная рыбная тарелка к белому, легкая и аккуратная.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27a1" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27a5" target="_blank" rel="noopener">
+            <img src="assets/08-tuna-tartare.jpg" alt="Тартар из тунца" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#8</span>
+              <span class="rating">рейтинг 9.0</span>
+            </div>
+            <h3>Тартар из тунца</h3>
+            <p class="wolt-name"> Tartare Tuna</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/copacabana" target="_blank" rel="noopener">Copacabana</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>24.90 GEL за позицию</span>
+              <strong>24.90 GEL</strong>
+            </div>
+            <p class="why">Более плотный рыбный вариант, если хочется не салат, но без тяжести.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27a5" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27b3" target="_blank" rel="noopener">
+            <img src="assets/09-shrimp-uramaki.jpg" alt="Uramaki Shrimp Paradise" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#9</span>
+              <span class="rating">рейтинг 9.0</span>
+            </div>
+            <h3>Uramaki Shrimp Paradise</h3>
+            <p class="wolt-name"> Uramaki Shrimp Paradise</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/copacabana" target="_blank" rel="noopener">Copacabana</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>19.90 GEL за позицию</span>
+              <strong>19.90 GEL</strong>
+            </div>
+            <p class="why">Ролл с креветкой удобно делить на двоих, хорошо работает как легкий ужин.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27b3" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27e7" target="_blank" rel="noopener">
+            <img src="assets/10-shrimp-nigiri.jpg" alt="Nigiri Shrimp" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#10</span>
+              <span class="rating">рейтинг 9.0</span>
+            </div>
+            <h3>Nigiri Shrimp</h3>
+            <p class="wolt-name"> Nigiri Shrimp</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/copacabana" target="_blank" rel="noopener">Copacabana</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>2 порции</span>
+            </div>
+            <div class="price-row">
+              <span>9.90 GEL за позицию</span>
+              <strong>19.80 GEL</strong>
+            </div>
+            <p class="why">Минималистичная порция: взять две и добавить салат или тартар.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/copacabana/itemid-696f77790b6284cf8efd27e7" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group" id="теплое-и-хрустящее">
+        <div class="group-head">
+          <h2>Теплое и хрустящее</h2>
+          <p>Немного сытнее, но без больших мясных блюд.</p>
+        </div>
+        <div class="grid">
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/burger-hub1/itemid-620a37f9324bbfb25bef041f" target="_blank" rel="noopener">
+            <img src="assets/11-cheese-sticks.jpg" alt="Cheese Sticks" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#11</span>
+              <span class="rating">рейтинг 9.4</span>
+            </div>
+            <h3>Cheese Sticks</h3>
+            <p class="wolt-name">Cheese Sticks</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1" target="_blank" rel="noopener">Burger Hub</a>
+            <div class="facts">
+              <span>белое / красное</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>17.50 GEL за позицию</span>
+              <strong>17.50 GEL</strong>
+            </div>
+            <p class="why">Простой теплый сырный вариант, когда хочется закуски без бургера.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/burger-hub1/itemid-620a37f9324bbfb25bef041f" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/burger-hub1/itemid-620a38188c833722ace5d515" target="_blank" rel="noopener">
+            <img src="assets/12-hub-balls.jpg" alt="Hub Balls" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#12</span>
+              <span class="rating">рейтинг 9.4</span>
+            </div>
+            <h3>Hub Balls</h3>
+            <p class="wolt-name">Hub Balls</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1" target="_blank" rel="noopener">Burger Hub</a>
+            <div class="facts">
+              <span>красное</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>15.90 GEL за позицию</span>
+              <strong>15.90 GEL</strong>
+            </div>
+            <p class="why">Сыр и картофель: сытнее, но все еще формат небольшой общей тарелки.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/burger-hub1/itemid-620a38188c833722ace5d515" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group" id="грузинское-легкое">
+        <div class="group-head">
+          <h2>Грузинское легкое</h2>
+          <p>Пхали, сыр и овощи вместо хинкали и тяжелого мяса.</p>
+        </div>
+        <div class="grid">
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/nisha/itemid-6643466ed539c938b2bc7658" target="_blank" rel="noopener">
+            <img src="assets/13-phali-platter.jpg" alt="Пхали лангари" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#13</span>
+              <span class="rating">рейтинг 9.6</span>
+            </div>
+            <h3>Пхали лангари</h3>
+            <p class="wolt-name">ფხლის ლანგარი</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/nisha" target="_blank" rel="noopener">Nisha</a>
+            <div class="facts">
+              <span>красное / белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>38.00 GEL за позицию</span>
+              <strong>38.00 GEL</strong>
+            </div>
+            <p class="why">Овощные пасты с орехом: грузинский вкус, но без мясной тяжести.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/nisha/itemid-6643466ed539c938b2bc7658" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/nisha/itemid-6643466ed539c938b2bc765a" target="_blank" rel="noopener">
+            <img src="assets/14-georgian-cheese-platter.jpg" alt="Грузинская сырная тарелка" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#14</span>
+              <span class="rating">рейтинг 9.6</span>
+            </div>
+            <h3>Грузинская сырная тарелка</h3>
+            <p class="wolt-name">ქართული ყველის ლანგარი</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/nisha" target="_blank" rel="noopener">Nisha</a>
+            <div class="facts">
+              <span>красное / белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>50.00 GEL за позицию</span>
+              <strong>50.00 GEL</strong>
+            </div>
+            <p class="why">Уже полноценная тарелка на двоих, если хочется локального сырного набора.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/nisha/itemid-6643466ed539c938b2bc765a" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/nisha/itemid-3b7bb8021c3a9e3278834d24" target="_blank" rel="noopener">
+            <img src="assets/15-ajapsandali.jpg" alt="Аджапсандали" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#15</span>
+              <span class="rating">рейтинг 9.6</span>
+            </div>
+            <h3>Аджапсандали</h3>
+            <p class="wolt-name">აჯაფსანდალი</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/nisha" target="_blank" rel="noopener">Nisha</a>
+            <div class="facts">
+              <span>красное</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>25.00 GEL за позицию</span>
+              <strong>25.00 GEL</strong>
+            </div>
+            <p class="why">Овощное блюдо, хорошо как мягкая альтернатива мясу.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/nisha/itemid-3b7bb8021c3a9e3278834d24" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group" id="мини-борд-самому">
+        <div class="group-head">
+          <h2>Мини-борд самому</h2>
+          <p>Маленькие позиции, которые удобно комбинировать.</p>
+        </div>
+        <div class="grid">
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/hopibeer-kobaladze/itemid-ffed300754c24e2d73120be7" target="_blank" rel="noopener">
+            <img src="assets/16-smoked-sulguni.jpg" alt="Копченый сулугуни 60 г" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#16</span>
+              <span class="rating">рейтинг 9.8</span>
+            </div>
+            <h3>Копченый сулугуни 60 г</h3>
+            <p class="wolt-name">შებოლილი სულგუნი, 60გ / Smoked sulguni cheese, 60g</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/hopibeer-kobaladze" target="_blank" rel="noopener">hopi.beer Kobaladze</a>
+            <div class="facts">
+              <span>красное</span>
+              <span>3 порции</span>
+            </div>
+            <div class="price-row">
+              <span>4.80 GEL за позицию</span>
+              <strong>14.40 GEL</strong>
+            </div>
+            <p class="why">Дешевый сырный модуль: взять 2-3 порции и собрать маленький борд.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/hopibeer-kobaladze/itemid-ffed300754c24e2d73120be7" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/hopibeer-kobaladze/itemid-924ce3855957e06391d6209c" target="_blank" rel="noopener">
+            <img src="assets/17-jerky-pork.jpg" alt="Jerky Pork Meat 100 г" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#17</span>
+              <span class="rating">рейтинг 9.8</span>
+            </div>
+            <h3>Jerky Pork Meat 100 г</h3>
+            <p class="wolt-name">Jerky Pork Meat, 100g</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/hopibeer-kobaladze" target="_blank" rel="noopener">hopi.beer Kobaladze</a>
+            <div class="facts">
+              <span>красное</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>15.10 GEL за позицию</span>
+              <strong>15.10 GEL</strong>
+            </div>
+            <p class="why">Сухое мясо для маленькой мясной тарелки, лучше брать как дополнение к сыру.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/hopibeer-kobaladze/itemid-924ce3855957e06391d6209c" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+
+        <article class="option-card">
+          <a class="photo" href="https://wolt.com/en/geo/batumi/venue/hopibeer-kobaladze/itemid-b77bf361baa83c4458e5bb77" target="_blank" rel="noopener">
+            <img src="assets/18-salmon-threads.jpg" alt="Salmon threads 40 г" loading="lazy">
+          </a>
+          <div class="card-body">
+            <div class="card-top">
+              <span class="rank">#18</span>
+              <span class="rating">рейтинг 9.8</span>
+            </div>
+            <h3>Salmon threads 40 г</h3>
+            <p class="wolt-name">Salmon threads 40g / ორაგული დაჭრილი ზოლებად 40გ/Лосось соломка</p>
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/hopibeer-kobaladze" target="_blank" rel="noopener">hopi.beer Kobaladze</a>
+            <div class="facts">
+              <span>белое</span>
+              <span>1 порция</span>
+            </div>
+            <div class="price-row">
+              <span>12.00 GEL за позицию</span>
+              <strong>12.00 GEL</strong>
+            </div>
+            <p class="why">Небольшой рыбный снек, который можно добавить к сырной тарелке.</p>
+            <a class="item-link" href="https://wolt.com/en/geo/batumi/venue/hopibeer-kobaladze/itemid-b77bf361baa83c4458e5bb77" target="_blank" rel="noopener">Открыть позицию в Wolt</a>
+          </div>
+        </article>
+        </div>
+      </section>
     <footer>
-      Собрано по read-only меню Wolt Batumi через consumer-assortment API. Ссылки ведут на позиции и заведения в Wolt.
+      Источник: публичные read-only ответы Wolt Batumi и изображения Wolt CDN. Данные сняты 4 июня 2026. Публичный адрес: <a href="https://geo-spec.github.io/wolt-wine-snacks/">https://geo-spec.github.io/wolt-wine-snacks/</a>.
     </footer>
-  </div>
+  </main>
 </body>
 </html>
