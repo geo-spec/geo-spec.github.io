@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Шпаргалка · Кодинговые агенты</title>
+<style>
+:root{
+  --bg:#0f1115; --card:#161922; --ink:#e8eaf0; --muted:#9aa3b2;
+  --accent:#7aa2f7; --core:#3ddc97; --line:#262b38;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font:17px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;padding:0 0 100px}
+.wrap{max-width:820px;margin:0 auto;padding:0 18px}
+header.top{position:sticky;top:0;z-index:10;background:rgba(15,17,21,.92);
+  backdrop-filter:saturate(140%) blur(8px);border-bottom:1px solid var(--line)}
+header.top .wrap{padding:13px 18px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+header.top h1{font-size:15px;margin:0;font-weight:600}
+header.top .nav{margin-left:auto;display:flex;gap:8px}
+header.top a{color:var(--muted);text-decoration:none;font-size:13px;padding:6px 10px;border:1px solid var(--line);border-radius:8px}
+header.top a:hover{color:var(--ink);border-color:var(--accent)}
+header.top a.cur{color:var(--accent);border-color:var(--accent)}
+.lead{color:var(--muted);font-size:14px;margin:20px 0 14px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 16px 14px;break-inside:avoid}
+.chead{display:flex;align-items:center;gap:10px;margin-bottom:8px;flex-wrap:wrap}
+.bnum{flex:0 0 auto;min-width:30px;height:30px;padding:0 7px;border-radius:8px;background:rgba(122,162,247,.16);
+  color:var(--accent);font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center}
+.bnum.fin{background:rgba(61,220,151,.16);color:var(--core)}
+.chead h3{font-size:17px;margin:0;font-weight:650;flex:1}
+.slides{font-size:11px;color:var(--muted);white-space:nowrap}
+.card ul{margin:6px 0 0;padding-left:18px}
+.card li{margin:6px 0;font-size:14.5px;line-height:1.42;color:#d4d8e2}
+.anchors{margin-top:11px;display:flex;flex-wrap:wrap;gap:6px}
+.anchor{font-size:12.5px;font-weight:700;color:var(--core);background:rgba(61,220,151,.12);
+  border:1px solid rgba(61,220,151,.25);padding:3px 10px;border-radius:20px}
+footer{color:var(--muted);font-size:13px;text-align:center;margin-top:40px;padding-top:18px;border-top:1px solid var(--line)}
+footer a{color:var(--accent)}
+@media(max-width:680px){ .grid{grid-template-columns:1fr} body{font-size:16px} }
+@media print{ body{background:#fff;color:#000} header.top{display:none} .grid{grid-template-columns:1fr 1fr}
+  .card{border-color:#ccc;background:#fff} .card li{color:#000} .anchor,.bnum{-webkit-print-color-adjust:exact;print-color-adjust:exact} }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <h1>Шпаргалка докладчика</h1>
+  <nav class="nav">
+    <a href="../">Дека</a>
+    <a href="../speech/">Речь</a>
+    <a href="../cheatsheet/" class="cur">Шпаргалка</a>
+  </nav>
+</div></header>
+<main class="wrap">
+  <p class="lead">Тезисы-якоря по блокам - чтобы держать линию и не уходить от мысли. Зелёным выделены ключевые цифры и фразы. Полная речь - <a href="../speech/" style="color:var(--accent)">в соседней вкладке</a>.</p>
+  <div class="grid">
+<section class="card">
+  <div class="chead"><span class="bnum">0</span><h3>Открытие: доклад собрал агент</h3><span class="slides">слайды 1-2</span></div>
+  <ul><li>Видео-демо Codex: агент сам управляет компьютером (сценарий написал сам агент).</li>
+<li>git log одной ночи: 24 коммита, пока я спал. Доклад про агентов собрал агент.</li></ul>
+  <div class="anchors"><span class="anchor">24 коммита за ночь</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">1</span><h3>Водораздел: чат советует - агент делает</h3><span class="slides">слайды 3-5</span></div>
+  <ul><li>Разница не в уме модели, а в том, что у агента есть руки: файлы, терминал, браузер.</li>
+<li>Два слова на весь доклад: файлы = память, AGENTS.md = должностная инструкция.</li>
+<li>«Большинство задач в Codex уже некодинговые» - руководитель Codex. NVIDIA раздала 10k+ сотрудникам.</li></ul>
+  <div class="anchors"><span class="anchor">файлы = память</span> <span class="anchor">AGENTS.md = регламент</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">2</span><h3>Киллер-демо: Jira → отчёты</h3><span class="slides">слайды 6-10</span></div>
+  <ul><li>Один голос → агент сам ходит в Jira как человек: нашёл, перевёл в Done, прокомментировал.</li>
+<li>Портфель проектов одной командой. Под капотом: сам выбирает браузер vs API.</li>
+<li>Ни строчки SQL. Можно на расписание - отчёт сам утром на почте. Это навык, не разовый промпт.</li>
+<li>Месячный отчёт → Google Slides. Скептику: источник/проверка/сборка разнесены, второй агент перепроверяет.</li></ul>
+  <div class="anchors"><span class="anchor">0 строк SQL</span> <span class="anchor">несколько минут</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">3</span><h3>Как я проектирую агентов</h3><span class="slides">слайды 11-13</span></div>
+  <ul><li>Один контракт - четыре агента (Codex/Claude/Gemini/Copilot), источник правды AGENTS.md, не привязан к вендору.</li>
+<li>Память = git: крон сохраняет каждые 30 мин. Принцип: писать правила, а не факты.</li>
+<li>Три привычки: план до действия · разведка до изменений · модель под задачу (дешёвая рутина, дорогая точечно).</li></ul>
+  <div class="anchors"><span class="anchor">4 агента, 1 контракт</span> <span class="anchor">правила, не факты</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">4</span><h3>Контур вширь: OpenClaw / Васёк</h3><span class="slides">слайды 14-16</span></div>
+  <ul><li>Один движок: ночью быт, днём отчёты. OpenClaw - 5 агентов, 8 cron без человека.</li>
+<li>Васёк в Турции: отпуск внутри Telegram. Аэропорт Rize: бот сам посчитал cut-off - «выходи сейчас».</li>
+<li>Хайп OpenClaw честно разберу позже, в граблях.</li></ul>
+  <div class="anchors"><span class="anchor">5 агентов, 8 cron</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">4b</span><h3>Быт-агент: еда, добавки, квартира</h3><span class="slides">слайды 17-19</span></div>
+  <ul><li>Один паттерн, три задачи: агент смотрит и готовит, человек жмёт Pay.</li>
+<li>Wolt: ранжирует по личной истории. Заведение 9.2 я оценил на 3 - агент задвинул навсегда. Личный фидбек &gt; публичный рейтинг.</li>
+<li>iHerb: два слоя - сначала «а надо ли», потом «что именно». Поддержка решения, не врач.</li>
+<li>Квартира родителям: готовый PDF - гайд по дому и району. Решение ехать - за людьми.</li></ul>
+  <div class="anchors"><span class="anchor">агент готовит, я жму Pay</span> <span class="anchor">9.2 → 3</span> <span class="anchor">~3,5 сек</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">4в</span><h3>RTK: одна цифра</h3><span class="slides">слайды 20</span></div>
+  <ul><li>Прокси сжимает служебный вывод до того, как агент прочитает. Тот же движок - код и быт.</li></ul>
+  <div class="anchors"><span class="anchor">8970 команд</span> <span class="anchor">725M токенов</span> <span class="anchor">99,2%</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">5</span><h3>Баланс: кто делает - тот учится</h3><span class="slides">слайды 21</span></div>
+  <ul><li>Рутину отдаю, понимание оставляю за собой. Иначе перестаёшь проверять, что агент насчитал.</li>
+<li>Роли зала (устно): аналитик, продакт, QA - каждый узнаёт себя.</li></ul>
+  <div class="anchors"><span class="anchor">рутину - агенту, понимание - себе</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">6</span><h3>Сквозные приёмы</h3><span class="slides">слайды 22-28</span></div>
+  <ul><li>Не язык программирования - 4-5 приёмов, и ты оператор.</li>
+<li>Голос вместо клавиатуры (главный множитель, с него начинать). Навыки: сделал раз - оформи.</li>
+<li>Расписание: сводка пока спишь. Параллельность: ты дирижируешь. Второй мозг: созвоны → задачи → ритм недели.</li>
+<li>Память локально, не в облаке: «соломинка vs библиотека».</li></ul>
+  <div class="anchors"><span class="anchor">голос - множитель с первого дня</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">7</span><h3>Здоровье: свой baseline</h3><span class="slides">слайды 29</span></div>
+  <ul><li>Whoop + Apple Health, 376k записей. Baseline моего тела, не средние по популяции.</li>
+<li>Всё локально. Сигнал, не диагноз - серьёзное к врачу.</li></ul>
+  <div class="anchors"><span class="anchor">376k записей, локально</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">8</span><h3>Антихайп: грабли расскажу сам</h3><span class="slides">слайды 30-36</span></div>
+  <ul><li>Если про минусы скажу сам - остальному верить можно больше.</li>
+<li>ROI на старте отрицательный - нормальная фаза. 99% демо - постановка (и про мой доклад тоже).</li>
+<li>AI brain fry (BCG, 1488 чел): устают от НАДЗОРА. Пик - 3 инструмента, 4-й роняет. +39% ошибок у перегруженных.</li>
+<li>Грабли в голове: лень проверять + перекладывание ответственности. Правило одного уверенного голоса.</li>
+<li>Безопасность: чужой навык - исполняемый код. Гигиена: песочница, секреты вне папок, diff целиком.</li></ul>
+  <div class="anchors"><span class="anchor">надзор, не работа</span> <span class="anchor">пик = 3 инструмента</span> <span class="anchor">+39% ошибок</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum">9</span><h3>С чего начать завтра</h3><span class="slides">слайды 37</span></div>
+  <ul><li>Минимум: один агент (Claude Code/Codex) + голос (Wispr Flow/Handy). Сервер - позже. ~$70.</li>
+<li>Где деньги: мощная модель ×5, fast ×2, контекст &gt;200k ×2. Рутину на дешёвой, тяжёлую точечно.</li></ul>
+  <div class="anchors"><span class="anchor">~$70 на старт</span></div>
+</section>
+<section class="card">
+  <div class="chead"><span class="bnum fin">★</span><h3>Финал: замкнуть петлю</h3><span class="slides">слайды 38</span></div>
+  <ul><li>Помните git-ночь и Jira за минуты? QR на шаблон-репозиторий: скрипт, инструкция, навык + чеклист.</li>
+<li>Начать сегодня: одна папка, инструкция на 5-10 строк, одна рутина навыком.</li>
+<li>Между вами и этим - один вечер и разрешение себе попробовать.</li></ul>
+  <div class="anchors"><span class="anchor">один вечер</span></div>
+</section>
+  </div>
+  <footer>Внутренний доклад для ДВП-отдела · <a href="../speech/">полная речь</a> · <a href="../">дека</a></footer>
+</main>
+</body>
+</html>
