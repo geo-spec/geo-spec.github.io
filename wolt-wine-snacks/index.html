@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Закуски к вину - Wolt Batumi</title>
+  <meta name="description" content="Подборка еды-закусок к вину на двоих в Батуми по данным Wolt.">
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f3ec;
+      --card: #ffffff;
+      --ink: #1d2b2a;
+      --muted: #536b69;
+      --teal: #0c4a53;
+      --teal-soft: #e8f3f2;
+      --accent: #b45b21;
+      --line: #e6ddcd;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.5; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 20px 80px; }
+
+    .hero { background: var(--teal); color: #fff; border-radius: 22px; padding: 40px 36px; }
+    .hero h1 { margin: 0 0 10px; font-size: clamp(32px, 6vw, 56px); line-height: 1.02; }
+    .hero .lead { margin: 0 0 18px; font-size: 19px; color: #e9fbfa; max-width: 760px; }
+    .hero .note { margin: 0; font-size: 15px; color: #cfeae8; max-width: 820px; }
+    .hero .stamp { margin-top: 18px; font-size: 14px; color: #a9d6d2; }
+
+    .legend { background: #fff8dc; border: 1px solid #ecd9a6; color: #6a4a14;
+      border-radius: 12px; padding: 14px 18px; margin: 22px 0 6px; font-size: 15px; }
+
+    .group { margin-top: 38px; }
+    .group-head h2 { margin: 0 0 4px; font-size: 26px; color: var(--teal); }
+    .group-sub { margin: 0 0 18px; color: var(--muted); font-size: 15px; }
+
+    .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 16px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px;
+      padding: 20px; display: flex; flex-direction: column; gap: 8px; }
+    .card-head { display: flex; justify-content: space-between; align-items: center; }
+    .rank { color: var(--muted); font-weight: 700; font-size: 14px; }
+    .rating { color: var(--accent); font-weight: 700; font-size: 15px; }
+    .title { margin: 2px 0 0; font-size: 19px; }
+    .venue { color: var(--teal); font-weight: 600; text-decoration: none; font-size: 16px; }
+    .venue:hover { text-decoration: underline; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0; }
+    .chip { font-size: 13px; padding: 4px 10px; border-radius: 999px; border: 1px solid var(--line); }
+    .chip.eta { background: #fff8dc; color: #8a4a18; border-color: #ecd9a6; }
+    .chip.role { background: var(--teal-soft); color: #214946; border-color: #cfe6e3; }
+    .snack { margin: 4px 0 0; font-weight: 600; font-size: 15px; }
+    .why { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+
+    footer { margin-top: 48px; color: var(--muted); font-size: 14px; text-align: center; }
+    footer a { color: var(--teal); }
+
+    @media (prefers-color-scheme: dark) {
+      :root { --bg: #10201f; --card: #18302e; --ink: #eaf5f3; --muted: #9dbab6;
+        --teal: #0e5963; --teal-soft: #143b39; --accent: #e89a5b; --line: #224240; }
+      .legend { background: #2a2410; border-color: #4a3f1c; color: #e7d29a; }
+      .chip.eta { background: #2a2410; color: #e7d29a; border-color: #4a3f1c; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <h1>Закуски к вину</h1>
+      <p class="lead">20 вариантов еды на двоих в Батуми. Вино берёшь отдельно - тут только закуски: лёгкие, салаты и чуть посытнее.</p>
+      <p class="note">Подборка еды-закусок к вину на двоих в Батуми. Вино здесь не подбирается. Точные цены и состав по меню Wolt сейчас недоступны через read-only запрос, поэтому цен в карточках нет - их, наличие, доставку, сервисный сбор и адрес проверяйте вручную в Wolt перед заказом. Это не заказ и не корзина.</p>
+      <p class="stamp">Проверено 4 июня 2026, Wolt Batumi, read-only</p>
+    </header>
+
+    <div class="legend">Это не заказ и не корзина. Цены, наличие, доставку, сервисный сбор и адрес проверяйте вручную в Wolt перед заказом. Рейтинг - публичный рейтинг заведения в Wolt на момент проверки.</div>
+
+      <section class="group">
+        <div class="group-head">
+          <h2>Вино + борд в одном месте</h2>
+          <p class="group-sub">Одна доставка: и закуска, и вино у одного заведения.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#1</span>
+            <span class="rating">★ 9.8</span>
+          </div>
+          <h3 class="title">Сырные и мясные борды</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/8000-vintages-batumi" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
+          <div class="meta">
+            <span class="chip eta">около 35 мин</span>
+            <span class="chip role">универсально, и под красное, и под белое</span>
+          </div>
+          <p class="snack">Сырные и мясные тарелки-борды, нарезки под бокал</p>
+          <p class="why">Прямое попадание в запрос и топ-рейтинг по городу: профильная винотека, где борд - основная закуска. Самый удобный вариант на двоих.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#2</span>
+            <span class="rating">★ 9.8</span>
+          </div>
+          <h3 class="title">Закуски винного формата</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wine-hub-batumi" target="_blank" rel="noopener">Wine Hub Batumi</a>
+          <div class="meta">
+            <span class="chip eta">около 35 мин</span>
+            <span class="chip role">универсально</span>
+          </div>
+          <p class="snack">Сет закусок под вино: сыры, нарезки</p>
+          <p class="why">Винотека того же топ-уровня, что и 8000 Vintages. Хорошая альтернатива, если состав бордов там понравится больше.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#3</span>
+            <span class="rating">★ 9.0</span>
+          </div>
+          <h3 class="title">Бистро винного формата</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/cork-bistro-coffee" target="_blank" rel="noopener">Cork Bistro &amp; Coffee</a>
+          <div class="meta">
+            <span class="chip eta">около 50 мин</span>
+            <span class="chip role">под белое и розе</span>
+          </div>
+          <p class="snack">Хумус и лёгкие закуски бистро</p>
+          <p class="why">Винный бистро-формат с лёгкими закусками. Минус - доставка дольше 40 мин, на любителя.</p>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Гастро-закуски</h2>
+          <p class="group-sub">Карпаччо, брускетта, хумус - лёгкое под бокал.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#4</span>
+            <span class="rating">★ 9.6</span>
+          </div>
+          <h3 class="title">Карпаччо и нарезки</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/gastronome-batumi" target="_blank" rel="noopener">Gastronome Batumi</a>
+          <div class="meta">
+            <span class="chip eta">около 35 мин</span>
+            <span class="chip role">под красное</span>
+          </div>
+          <p class="snack">Карпаччо, гастрономические мясные нарезки</p>
+          <p class="why">Высокий рейтинг, быстрая доставка в пределах лимита. Карпаччо - классическая лёгкая закуска под бокал.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#5</span>
+            <span class="rating">★ 9.2</span>
+          </div>
+          <h3 class="title">Карпаччо, быстрый вариант</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/caravann" target="_blank" rel="noopener">Caravan</a>
+          <div class="meta">
+            <span class="chip eta">около 35 мин</span>
+            <span class="chip role">под красное</span>
+          </div>
+          <p class="snack">Карпаччо и закуски</p>
+          <p class="why">Альтернатива Gastronome с тем же быстрым временем. Запасной вариант по карпаччо.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#6</span>
+            <span class="rating">★ 9.4</span>
+          </div>
+          <h3 class="title">Брускетта</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/place" target="_blank" rel="noopener">Place</a>
+          <div class="meta">
+            <span class="chip eta">около 40 мин</span>
+            <span class="chip role">универсально</span>
+          </div>
+          <p class="snack">Брускетта - тёплые гренки с топпингами</p>
+          <p class="why">Простая тёплая закуска, хорошо идёт под оба цвета вина. Высокий рейтинг.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#7</span>
+            <span class="rating">★ 9.0</span>
+          </div>
+          <h3 class="title">Хумус и средиземноморские закуски</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/veranda-acropol" target="_blank" rel="noopener">Veranda Acropol</a>
+          <div class="meta">
+            <span class="chip eta">около 40 мин</span>
+            <span class="chip role">под белое и розе</span>
+          </div>
+          <p class="snack">Хумус, мезе, лёгкие средиземноморские закуски</p>
+          <p class="why">Не тяжёлое, как ты и просил. Мезе и хумус - удобный набор маленьких закусок на двоих.</p>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Салаты</h2>
+          <p class="group-sub">Свежие лёгкие салаты, чаще под белое.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#8</span>
+            <span class="rating">★ 9.2</span>
+          </div>
+          <h3 class="title">Капрезе</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/cloudspace" target="_blank" rel="noopener">CloudSpace</a>
+          <div class="meta">
+            <span class="chip eta">около 40 мин</span>
+            <span class="chip role">под белое</span>
+          </div>
+          <p class="snack">Капрезе: моцарелла, томаты, базилик</p>
+          <p class="why">Лёгкая классика-салат под белое. Свежий вариант, если хочется без мяса.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#9</span>
+            <span class="rating">★ 9.4</span>
+          </div>
+          <h3 class="title">Салаты и капрезе</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/good-vibess-batumi" target="_blank" rel="noopener">Good Vibes Batumi</a>
+          <div class="meta">
+            <span class="chip eta">около 45 мин</span>
+            <span class="chip role">под белое</span>
+          </div>
+          <p class="snack">Свежие салаты, капрезе</p>
+          <p class="why">Высокий рейтинг по салатам. Хороший лёгкий вариант для контраста к мясным закускам.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#10</span>
+            <span class="rating">★ 9.4</span>
+          </div>
+          <h3 class="title">Французские салаты и закуски</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/provence" target="_blank" rel="noopener">Provence</a>
+          <div class="meta">
+            <span class="chip eta">около 45 мин</span>
+            <span class="chip role">под белое</span>
+          </div>
+          <p class="snack">Салаты и лёгкие закуски во французском стиле</p>
+          <p class="why">Французский акцент хорошо ложится на вино. Альтернатива другим салатным местам.</p>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Морепродукты</h2>
+          <p class="group-sub">Креветки, кальмары, тартар - под белое.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#11</span>
+            <span class="rating">★ 9.0</span>
+          </div>
+          <h3 class="title">Креветки и тартар</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/copacabana" target="_blank" rel="noopener">Copacabana</a>
+          <div class="meta">
+            <span class="chip eta">около 45 мин</span>
+            <span class="chip role">под белое</span>
+          </div>
+          <p class="snack">Креветки, тартар, морепродукты</p>
+          <p class="why">Твоё любимое место (в избранном). Морепродукты - отличная закуска под белое. Время чуть за лимит в 40 мин.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#12</span>
+            <span class="rating">★ 9.8</span>
+          </div>
+          <h3 class="title">Кальмары и мясная тарелка</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/hopibeer-kobaladze" target="_blank" rel="noopener">hopi.beer Kobaladze</a>
+          <div class="meta">
+            <span class="chip eta">около 30 мин</span>
+            <span class="chip role">под белое (кальмары) и красное (мясо)</span>
+          </div>
+          <p class="snack">Жареные кальмары, мясная тарелка-ассорти</p>
+          <p class="why">Топ-рейтинг и самая быстрая доставка. Закусочный формат: и морепродукты, и мясное ассорти в одном месте.</p>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Посытнее</h2>
+          <p class="group-sub">Если хочется плотнее: рёбра, стейк, жареный сыр.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#13</span>
+            <span class="rating">★ 9.6</span>
+          </div>
+          <h3 class="title">Рёбра и тартар</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/rustaveli-georgian-european-restaurant-batumi" target="_blank" rel="noopener">Rustaveli Georgian-European</a>
+          <div class="meta">
+            <span class="chip eta">около 40 мин</span>
+            <span class="chip role">под красное</span>
+          </div>
+          <p class="snack">Рёбра, тартар, грузинско-европейская кухня</p>
+          <p class="why">Если хочется посытнее: рёбра под красное. Высокий рейтинг, в пределах лимита по времени.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#14</span>
+            <span class="rating">★ 9.4</span>
+          </div>
+          <h3 class="title">Стейк и гриль</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/grill-town1" target="_blank" rel="noopener">Grill Town</a>
+          <div class="meta">
+            <span class="chip eta">около 45 мин</span>
+            <span class="chip role">под красное</span>
+          </div>
+          <p class="snack">Стейк, мясо на гриле</p>
+          <p class="why">Сытный мясной вариант под плотное красное. Запасной к Rustaveli по грилю.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#15</span>
+            <span class="rating">★ 9.4</span>
+          </div>
+          <h3 class="title">Жареный сыр и сырные палочки</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1" target="_blank" rel="noopener">Burger Hub</a>
+          <div class="meta">
+            <span class="chip eta">около 40 мин</span>
+            <span class="chip role">универсально</span>
+          </div>
+          <p class="snack">Жареный сыр, сырные палочки, снеки</p>
+          <p class="why">Рядом с твоим любимым burger-hub. Жареный сыр - простая сытная закуска к бокалу без полноценного бургера.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#16</span>
+            <span class="rating">★ 9.6</span>
+          </div>
+          <h3 class="title">Жареные закуски</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/fryup" target="_blank" rel="noopener">FryUp</a>
+          <div class="meta">
+            <span class="chip eta">около 45 мин</span>
+            <span class="chip role">универсально</span>
+          </div>
+          <p class="snack">Жареный сыр и закуски во фритюре</p>
+          <p class="why">Высокий рейтинг по жареным закускам. Вариант, когда хочется тёплого и хрустящего к вину.</p>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Грузинское лёгкое</h2>
+          <p class="group-sub">Местный колорит: пхали, хачапури, лобиани.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#17</span>
+            <span class="rating">★ 9.6</span>
+          </div>
+          <h3 class="title">Пхали</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/nisha" target="_blank" rel="noopener">Nisha</a>
+          <div class="meta">
+            <span class="chip eta">около 45 мин</span>
+            <span class="chip role">под красное</span>
+          </div>
+          <p class="snack">Пхали - овощные паштеты с орехами</p>
+          <p class="why">Местный колорит и лёгкая закуска. Пхали хорошо идёт под красное, добавляет разнообразия в набор.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#18</span>
+            <span class="rating">★ 8.8</span>
+          </div>
+          <h3 class="title">Хачапури и лобиани</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/chveni-kutkhe" target="_blank" rel="noopener">Chveni Kutkhe</a>
+          <div class="meta">
+            <span class="chip eta">около 40 мин</span>
+            <span class="chip role">под красное</span>
+          </div>
+          <p class="snack">Хачапури, лобиани, грузинская выпечка</p>
+          <p class="why">Если хочется тёплого и сытного к столу. Хачапури-сырное и лобиани - понятный грузинский вариант.</p>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Собрать тарелку самому</h2>
+          <p class="group-sub">Сыр, хамон, оливки из маркета - свой борд.</p>
+        </div>
+        <div class="cards">
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#19</span>
+            <span class="rating">★ 9.6</span>
+          </div>
+          <h3 class="title">Своя тарелка из маркета</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wolt-market-batumi" target="_blank" rel="noopener">Wolt Market Batumi</a>
+          <div class="meta">
+            <span class="chip eta">около 30 мин</span>
+            <span class="chip role">универсально</span>
+          </div>
+          <p class="snack">Сыры, оливки, антипасто, нарезки - собрать борд самому</p>
+          <p class="why">Твоё любимое и самая быстрая доставка. Собираешь тарелку под свой вкус: сыр, оливки, нарезки - часто дешевле готового борда.</p>
+        </article>
+        <article class="card">
+          <div class="card-head">
+            <span class="rank">#20</span>
+            <span class="rating">★ 9.4</span>
+          </div>
+          <h3 class="title">Хамон и сыры из гастронома</h3>
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/europroduct-batumi" target="_blank" rel="noopener">Europroduct Batumi</a>
+          <div class="meta">
+            <span class="chip eta">около 30 мин</span>
+            <span class="chip role">под красное и белое</span>
+          </div>
+          <p class="snack">Прошутто/хамон, европейские сыры</p>
+          <p class="why">Европейский гастроном с хамоном и сырами. Дополняет Wolt Market, если хочется конкретно мясную нарезку получше.</p>
+        </article>
+        </div>
+      </section>
+
+    <footer>
+      Собрано по read-only данным Wolt Batumi. Ссылки ведут на страницы заведений в Wolt.
+    </footer>
+  </div>
+</body>
+</html>
