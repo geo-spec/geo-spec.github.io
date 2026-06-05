@@ -37,9 +37,10 @@
       padding: clamp(40px, 7vw, 80px) clamp(28px, 5vw, 52px); border: none;
       background: #2a1410; isolation: isolate; }
     .hero::before { content: ""; position: absolute; inset: 0; z-index: -2;
-      background-image: var(--hero-photo); background-size: cover; background-position: center 58%; }
+      background-image: var(--hero-photo); background-size: cover; background-position: center 58%;
+      filter: brightness(1.06); }
     .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
-      background: linear-gradient(105deg, rgba(28,12,8,.92) 0%, rgba(28,12,8,.72) 48%, rgba(28,12,8,.34) 100%); }
+      background: linear-gradient(105deg, rgba(26,12,7,.84) 0%, rgba(26,12,7,.60) 46%, rgba(26,12,7,.26) 100%); }
     .kicker { margin: 0 0 14px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
       color: #f1c98f; font-weight: 700; }
     .hero h1 { margin: 0 0 16px; font-family: var(--font-display); font-size: clamp(40px, 8vw, 76px);
@@ -48,6 +49,9 @@
       color: #f3e7df; max-width: 620px; }
     .hero .note { margin: 0; font-size: 14px; line-height: 1.5; color: #d6c3ba; max-width: 640px; }
     .hero .stamp { margin-top: 16px; font-size: 12.5px; color: #b39a90; letter-spacing: .02em; }
+    /* Лёгкая тень держит текст читаемым поверх осветлённого фото. */
+    .hero h1, .hero .lead, .hero .note, .hero .stamp, .kicker {
+      text-shadow: 0 1px 16px rgba(15,7,3,.6), 0 1px 4px rgba(15,7,3,.45); }
 
     .legend { background: var(--legend-bg); border: 1px solid var(--legend-line); color: var(--legend-ink);
       border-radius: 12px; padding: 14px 18px; margin: 22px 0 6px; font-size: 14.5px; }
