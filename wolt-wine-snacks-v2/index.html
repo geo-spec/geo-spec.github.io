@@ -31,8 +31,8 @@
     a { color: inherit; }
     .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
 
-    /* Фото-герой: крупное аппетитное фото фоном, текст поверх затемнения.
-       Уводит страницу от "голой текстовой шапки". */
+    /* Hero-блок (первый экран): крупное аппетитное фото фоном, текст поверх
+       затемнения. Уводит страницу от голого текстового первого экрана. */
     .hero { position: relative; overflow: hidden; color: #fff; border-radius: var(--radius-lg);
       padding: clamp(40px, 7vw, 80px) clamp(28px, 5vw, 52px); border: none;
       background: #2a1410; isolation: isolate; }
@@ -62,21 +62,6 @@
     .sets { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
     .set { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
       padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
-
-    /* Первый набор - крупный "герой": большое фото слева, состав справа.
-       Ломает одинаковость ровной сетки карточек. */
-    .set.feature { grid-column: 1 / -1; flex-direction: row; align-items: stretch; gap: 0;
-      padding: 0; overflow: hidden; }
-    .set.feature .feature-photo { flex: 0 0 42%; min-height: 320px; object-fit: cover;
-      background: var(--ph-bg); }
-    .set.feature .feature-body { flex: 1; padding: 28px 30px; display: flex; flex-direction: column; gap: 10px; }
-    .set.feature .set-title { font-size: clamp(24px, 3vw, 30px); }
-    .set.feature .badge { align-self: flex-start; font-size: 12px; letter-spacing: .12em;
-      text-transform: uppercase; font-weight: 700; color: var(--accent); margin-bottom: 2px; }
-    @media (max-width: 720px) {
-      .set.feature { flex-direction: column; }
-      .set.feature .feature-photo { flex: none; width: 100%; height: 220px; min-height: 0; }
-    }
 
     .set-title { margin: 0; font-family: var(--font-display); font-size: 22px; color: var(--head);
       font-weight: var(--display-weight); line-height: 1.18; letter-spacing: var(--display-spacing); }
@@ -137,10 +122,7 @@
     <h2 class="block">Готовые наборы</h2>
     <p class="block-sub">Каждый набор - на двоих, из одного заведения. Сумма - сложение цен позиций.</p>
     <div class="sets">
-      <article class="set feature">
-        <img class="feature-photo" loading="lazy" alt="Винная доска под красное" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5ea8148d878d3ecb17ced6d6/b6e295ba-a2a9-11f0-ad3b-6e760057f8e2_cheese.jpg">
-        <div class="feature-body">
-          <span class="badge">Набор недели</span>
+      <article class="set">
         <h3 class="set-title">Винная доска под красное</h3>
         <div class="set-venue">
           <a class="venue" href="https://wolt.com/en/geo/batumi/venue/8000-vintages-batumi" target="_blank" rel="noopener">8000 Vintages (Wine and Boards)</a>
@@ -154,7 +136,6 @@
           <li class="total"><span>Итого на двоих</span><span class="li-price">91.3 GEL</span></li>
         </ul>
         <p class="why">Профильная винотека, топ-рейтинг по городу. Сырная доска плюс хумус с хлебом - классический набор под красное, всё из одного места, одна доставка.</p>
-        </div>
       </article>
       <article class="set">
         <h3 class="set-title">Лёгкое и салаты под белое</h3>
