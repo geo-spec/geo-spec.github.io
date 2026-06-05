@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ужин на двоих до 50 GEL - Wolt Batumi</title>
+  <meta name="description" content="20 наборов ужина на двоих до 50 GEL в Батуми: 10 вокруг пиццы и 10 по личной истории. Реальные цены и фото из меню Wolt.">
+  <style>
+    /* Тема Light Editorial: светлая журнальная, кремовый фон, тёмный текст,
+       винно-красный акцент, serif-заголовки. Выбрана пользователем 4 июня 2026
+       как читаемая замена прежней низкоконтрастной тёмной теме. */
+    :root {
+      --font-body: "Charter", "Iowan Old Style", Georgia, serif;
+      --font-display: "Charter", "Iowan Old Style", Georgia, serif;
+      --display-weight: 700; --display-spacing: -0.01em;
+      --bg: #faf6ef; --card: #ffffff; --ink: #20201d; --muted: #6b665c;
+      --head: #1a1a17; --accent: #8a2b2b; --link: #8a2b2b;
+      --line: #e7e0d2; --total-line: #c9bfa9; --chip-line: #e0d8c7;
+      --radius: 14px; --radius-lg: 20px; --shadow: 0 1px 2px rgba(40,30,10,.05);
+      --ph-bg: #efe9dd;
+      --hero-bg: #ffffff; --hero-ink: #20201d; --hero-kicker: #8a2b2b;
+      --hero-lead: #46423a; --hero-note: #6b665c; --hero-stamp: #908a7d;
+      --hero-border: 1px solid #e7e0d2;
+      --legend-bg: #fbf3df; --legend-line: #ecdcb4; --legend-ink: #6a531c;
+      --rating-bg: #f6ecdb; --rating-ink: #7a4d12; --rating-line: #e6d4b3;
+      --role-bg: #f1ece1; --role-ink: #4a463c; --role-line: #e0d8c7;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.5;
+      font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+
+    /* Hero-блок (первый экран): крупное аппетитное фото фоном, текст поверх
+       затемнения. Уводит страницу от голого текстового первого экрана. */
+    .hero { position: relative; overflow: hidden; color: #fff; border-radius: var(--radius-lg);
+      padding: clamp(40px, 7vw, 80px) clamp(28px, 5vw, 52px); border: none;
+      background: #2a1410; isolation: isolate; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -2;
+      background-image: var(--hero-photo); background-size: cover; background-position: center 58%;
+      filter: brightness(1.06); }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(105deg, rgba(26,12,7,.84) 0%, rgba(26,12,7,.60) 46%, rgba(26,12,7,.26) 100%); }
+    .kicker { margin: 0 0 14px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+      color: #f1c98f; font-weight: 700; }
+    .hero h1 { margin: 0 0 16px; font-family: var(--font-display); font-size: clamp(40px, 8vw, 76px);
+      line-height: 0.96; font-weight: var(--display-weight); letter-spacing: -0.02em; max-width: 14ch; }
+    .hero .lead { margin: 0 0 14px; font-size: clamp(17px, 2.4vw, 20px); line-height: 1.5;
+      color: #f3e7df; max-width: 620px; }
+    .hero .note { margin: 0; font-size: 14px; line-height: 1.5; color: #d6c3ba; max-width: 640px; }
+    .hero .stamp { margin-top: 16px; font-size: 12.5px; color: #b39a90; letter-spacing: .02em; }
+    /* Лёгкая тень держит текст читаемым поверх осветлённого фото. */
+    .hero h1, .hero .lead, .hero .note, .hero .stamp, .kicker {
+      text-shadow: 0 1px 16px rgba(15,7,3,.6), 0 1px 4px rgba(15,7,3,.45); }
+
+    .legend { background: var(--legend-bg); border: 1px solid var(--legend-line); color: var(--legend-ink);
+      border-radius: 12px; padding: 14px 18px; margin: 22px 0 6px; font-size: 14.5px; }
+
+    /* Заголовок секции с тонкой decorative-линией справа - ритм между блоками. */
+    h2.block { font-family: var(--font-display); font-size: clamp(28px, 4.5vw, 38px); color: var(--head);
+      margin: 56px 0 6px; font-weight: var(--display-weight); letter-spacing: -0.015em;
+      display: flex; align-items: center; gap: 18px; }
+    h2.block::after { content: ""; flex: 1; height: 1px; background: var(--total-line); opacity: .6; }
+    .block-sub { margin: 0 0 20px; color: var(--muted); font-size: 15.5px; max-width: 640px; }
+
+    .sets { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+    .set { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+
+    .set-title { margin: 0; font-family: var(--font-display); font-size: 22px; color: var(--head);
+      font-weight: var(--display-weight); line-height: 1.18; letter-spacing: var(--display-spacing); }
+    .set-venue { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .set-items { list-style: none; margin: 4px 0 0; padding: 0; }
+    .set-items li { display: flex; justify-content: space-between; gap: 12px;
+      padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+    .set-items li.total { border-bottom: none; border-top: 2px solid var(--total-line);
+      margin-top: 4px; padding-top: 11px; font-weight: 800; color: var(--accent); font-size: 16px; }
+    .li-price { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+    .group { margin-top: 30px; }
+    .group-head h2 { margin: 0 0 4px; font-family: var(--font-display); font-size: 23px; color: var(--head);
+      font-weight: var(--display-weight); }
+    .group-sub { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+    .dishes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .dish { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+    .photo { width: 100%; height: 185px; object-fit: cover; display: block; background: var(--ph-bg); }
+    .ph { width: 100%; height: 185px; display: grid; place-items: center; background: var(--ph-bg);
+      color: var(--muted); font-size: 14px; }
+    .dish-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 7px; }
+    .dish-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .dish-top h4 { margin: 0; font-size: 16.5px; line-height: 1.3; font-weight: 700; }
+    .price { font-family: var(--font-display); font-weight: var(--display-weight); color: var(--accent);
+      white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 21px; line-height: 1; }
+    .price .cur { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: .05em;
+      color: var(--muted); margin-left: 3px; text-transform: uppercase; }
+    .orig { color: var(--muted); font-size: 13px; }
+    .dish-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 3px; }
+    .venue { color: var(--link); font-weight: 700; text-decoration: none; font-size: 14px;
+      text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+    .venue:hover { text-decoration-color: var(--link); }
+    /* Рейтинг и роль - тонкие инлайновые метки, без залитых "таблеток":
+       рейтинг звёздочкой в цвет акцента, роль приглушённой подписью. */
+    .chip { font-size: 13px; }
+    .chip.rating { color: var(--rating-ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+    .chip.role { color: var(--muted); font-style: italic; }
+    .chip.role::before { content: "· "; }
+    .why { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    footer { margin-top: 52px; color: var(--muted); font-size: 14px; text-align: center; }
+    footer a { color: var(--link); }
+  
+    .set { overflow: hidden; padding: 0; }
+    .set-photo { width: 100%; height: 160px; object-fit: cover; display: block; background: var(--ph-bg); }
+    .set-pad { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 10px; }
+    .chip.eta { color: var(--muted); }
+    .chip.eta::before { content: "· "; }
+    .badge { display: inline-block; background: var(--accent); color: #fff; font-size: 11px;
+      font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 3px 9px;
+      border-radius: 999px; vertical-align: middle; }
+    .li-qty { color: var(--muted); font-variant-numeric: tabular-nums; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero" style="--hero-photo: url('https://imageproxy.wolt.com/assets/6715f777183111168682eec2')">
+      <p class="kicker">Wolt Batumi · ужин на двоих</p>
+      <h1>20 ужинов до 50 GEL</h1>
+      <p class="lead">На двоих с женой, каждый набор в пределах 50 лари. Слева - 10 вариантов вокруг пиццы, справа - 10 моих, собранных по вашей истории заказов и вкусам. С реальными ценами и фото из Wolt.</p>
+      <p class="note">20 наборов ужина на двоих в Батуми, каждый в пределах 50 GEL. Слева - 10 вариантов вокруг пиццы, справа - 10 моих, по вашей истории и вкусам. Цены и фото реальные, из меню Wolt на момент снимка. Перед заказом сверьте цену, наличие, доставку и сервисный сбор в Wolt: они меняются. Это не заказ и не корзина.</p>
+      <p class="stamp">Цены и фото из меню Wolt Batumi, снимок 5 июня 2026, read-only</p>
+    </header>
+
+    <div class="legend">Это не заказ и не корзина. Суммы наборов - простой подсчёт по позициям, без доставки и сервисного сбора. Цены, наличие, доставку и сборы сверяйте в Wolt перед заказом.</div>
+
+    <h2 class="block">Вокруг пиццы</h2>
+    <p class="block-sub">10 наборов на двоих от пиццерий Батуми: от топ-рейтинга города до фьюжна и грузинского твиста. Каждый - в пределах 50 GEL.</p>
+    <div class="sets">
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Большая пепперони из лучшей пиццерии" src="https://imageproxy.wolt.com/assets/6715f777183111168682eec2">
+        <div class="set-pad">
+          <h3 class="set-title">Большая пепперони из лучшей пиццерии</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/pizza-room-batumi" target="_blank" rel="noopener">Pizza Room Batumi</a>
+            <span class="chip rating">★ 9.6</span>
+            <span class="chip eta">30 мин</span>
+            <span class="chip role">топ-рейтинг города</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-room-batumi/itemid-a11f11bd31afeb641b4dad0c" target="_blank" rel="noopener">Пепперони, 33 см</a></span><span class="li-price">33</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">33 GEL</span></li>
+          </ul>
+          <p class="why">Pizza Room - топ по рейтингу в городе (9.6). Одной большой 33 см на двоих хватает, остаётся запас до 50 на напитки.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Две пиццы: каждому своя" src="https://imageproxy.wolt.com/assets/67d44fdd9f3f5515b9d98f1d">
+        <div class="set-pad">
+          <h3 class="set-title">Две пиццы: каждому своя <span class="badge">скидка</span></h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/mamapizza" target="_blank" rel="noopener">Mama Pizza</a>
+            <span class="chip rating">★ 9.2</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">две пиццы + скидка</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/mamapizza/itemid-6095465e0a99edd13e2f54e3" target="_blank" rel="noopener">Пепперони Дабл</a></span><span class="li-price">22.5</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/mamapizza/itemid-6095462e332d4135e6f131f3" target="_blank" rel="noopener">Маргарита</a></span><span class="li-price">19.2</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">41.7 GEL</span></li>
+          </ul>
+          <p class="why">Две целые пиццы под 42 - по одной на каждого. Маргарита идёт со скидкой (24 -&gt; 19.2), это видно прямо в меню.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Классика: маргарита и пепперони" src="https://imageproxy.wolt.com/assets/6810b62237ab058cca27098d">
+        <div class="set-pad">
+          <h3 class="set-title">Классика: маргарита и пепперони</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/pizza-di-roma-batumi" target="_blank" rel="noopener">Pizza Di Roma Batumi</a>
+            <span class="chip rating">★ 8.8</span>
+            <span class="chip eta">40 мин</span>
+            <span class="chip role">две большие 33 см</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-di-roma-batumi/itemid-a228e6ce00cd25d58dbb51c6" target="_blank" rel="noopener">Маргарита, 33 см</a></span><span class="li-price">22</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-di-roma-batumi/itemid-fec76ea6155efbfb0c359ad8" target="_blank" rel="noopener">Пепперони, 33 см</a></span><span class="li-price">23</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">45 GEL</span></li>
+          </ul>
+          <p class="why">Две большие 33 см за 45. Ровно тот случай, когда на двоих берут две разные и делят пополам.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Pizza Hut: три мини-пиццы на пробу" src="https://wolt-menu-images-cdn.wolt.com/menu-images/676d370cc0ab14e57b2acc48/80a5e53c-60a0-11f1-b822-bef856fe3a80_924.jpg_c_20260605093628">
+        <div class="set-pad">
+          <h3 class="set-title">Pizza Hut: три мини-пиццы на пробу</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/pizza-hut-batumii" target="_blank" rel="noopener">Pizza Hut Batumi</a>
+            <span class="chip rating">★ 9.0</span>
+            <span class="chip eta">45 мин</span>
+            <span class="chip role">ваше любимое · мини-трио</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-hut-batumii/itemid-69b09b88fcab644bcef3f1d0" target="_blank" rel="noopener">Комбо 3 пиццы, 19 см</a></span><span class="li-price">31.62</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">31.62 GEL</span></li>
+          </ul>
+          <p class="why">Pizza Hut у вас в избранном. Комбо из трёх маленьких 19 см - три вкуса за один заказ, дёшево и под бюджет с запасом.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Black JAY: маргарита и пепперони" src="https://imageproxy.wolt.com/assets/69747aee5790090b1e1ce347">
+        <div class="set-pad">
+          <h3 class="set-title">Black JAY: маргарита и пепперони</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/pizza-black-jay" target="_blank" rel="noopener">Pizza Black JAY</a>
+            <span class="chip rating">★ 8.6</span>
+            <span class="chip eta">30 мин</span>
+            <span class="chip role">две пиццы под потолок</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-black-jay/itemid-fa683b4935c76f4f0b8e8b7d" target="_blank" rel="noopener">Маргарита, 28 см</a></span><span class="li-price">23</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-black-jay/itemid-3206d3caa9ad6ddf3a59c56b" target="_blank" rel="noopener">Пепперони, 28 см</a></span><span class="li-price">26</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">49 GEL</span></li>
+          </ul>
+          <p class="why">Две пиццы 28 см за 49 - впритык к 50, но это две целые пиццы на двоих от крепкой пиццерии 8.6.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Итало-вечер: пицца и паста" src="https://imageproxy.wolt.com/assets/692d6453061174aecd7b8f06">
+        <div class="set-pad">
+          <h3 class="set-title">Итало-вечер: пицца и паста</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/pastachi-batumi" target="_blank" rel="noopener">Pastachi Batumi</a>
+            <span class="chip rating">★ 8.8</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">пицца + домашняя паста</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pastachi-batumi/itemid-3d62bfb812e28397cc50e97b" target="_blank" rel="noopener">Пицца Маргарита, Medium</a></span><span class="li-price">16.99</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pastachi-batumi/itemid-eb84a6aa52f87119e98ac9ed" target="_blank" rel="noopener">Паста Болоньезе, Medium</a></span><span class="li-price">19.99</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">36.98 GEL</span></li>
+          </ul>
+          <p class="why">Не только пицца: к маргарите добавлена домашняя паста болоньезе. Два разных блюда на двоих за 37.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Неаполитанская на тонком тесте" src="https://wolt-menu-images-cdn.wolt.com/menu-images/6630b71a72324d353778db4a/872bbfae-5e1f-11f1-ad2b-aaf6aade8ead_pitsa_neapolitanuri.jpeg_v_202606020408">
+        <div class="set-pad">
+          <h3 class="set-title">Неаполитанская на тонком тесте</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/don-peppi" target="_blank" rel="noopener">Don Peppi&#x27;s Pizza Pasta &amp; Burger</a>
+            <span class="chip rating">★ 7.0</span>
+            <span class="chip eta">45 мин</span>
+            <span class="chip role">тонкое тесто</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/don-peppi/itemid-90673f9dad5f4df12095fbae" target="_blank" rel="noopener">Пицца Неаполитана</a></span><span class="li-price">29</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">29 GEL</span></li>
+          </ul>
+          <p class="why">Тонкое неаполитанское тесто за 29 - другой формат после толстых американских. Одна большая на двоих плюс запас на напитки.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Пицца в формате дога" src="https://wolt-menu-images-cdn.wolt.com/menu-images/6759dc4b59feca26d127aca9/85ee7938-5e1f-11f1-8f33-ea0d264074bf_pitsa_dogi.jpeg_v_202606020408">
+        <div class="set-pad">
+          <h3 class="set-title">Пицца в формате дога</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/bao-wok-pizza" target="_blank" rel="noopener">BAO WOK &amp; PIZZA</a>
+            <span class="chip rating">★ 8.6</span>
+            <span class="chip eta">50 мин</span>
+            <span class="chip role">фьюжн-новинка</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/bao-wok-pizza/itemid-4e638a3d18c61d64ac0b9105" target="_blank" rel="noopener">Пицца-дог</a></span><span class="li-price">22</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/bao-wok-pizza/itemid-57004037c56fa6bcdfed9efd" target="_blank" rel="noopener">Болоньезе-дог</a></span><span class="li-price">22</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">44 GEL</span></li>
+          </ul>
+          <p class="why">Креативный угол: пицца, свёрнутая в формат хот-дога. Два разных дога за 44 - не как все, для разнообразия.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Пять сыров от топ-пиццерии" src="https://imageproxy.wolt.com/assets/6715f775183111168682eebc">
+        <div class="set-pad">
+          <h3 class="set-title">Пять сыров от топ-пиццерии</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/pizza-room-batumi" target="_blank" rel="noopener">Pizza Room Batumi</a>
+            <span class="chip rating">★ 9.6</span>
+            <span class="chip eta">30 мин</span>
+            <span class="chip role">для сырного вечера</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/pizza-room-batumi/itemid-df8240cae085d45f0e15c060" target="_blank" rel="noopener">Пицца 5 сыров, 33 см</a></span><span class="li-price">35</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">35 GEL</span></li>
+          </ul>
+          <p class="why">Сырный вариант от той же Pizza Room 9.6. Под вашу любовь к сырному комфорту - большая на двоих за 35.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Пицца-хачапури и BBQ" src="https://imageproxy.wolt.com/assets/67e51b4a4b3b3ba18a3cfc05">
+        <div class="set-pad">
+          <h3 class="set-title">Пицца-хачапури и BBQ <span class="badge">скидка</span></h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/mamapizza" target="_blank" rel="noopener">Mama Pizza</a>
+            <span class="chip rating">★ 9.2</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">грузинский твист</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/mamapizza/itemid-1155655bd4f6234d10c42071" target="_blank" rel="noopener">Пицца Хачапури</a></span><span class="li-price">20</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/mamapizza/itemid-609546a6cff75fc03861bef2" target="_blank" rel="noopener">Пицца BBQ</a></span><span class="li-price">22.5</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">42.5 GEL</span></li>
+          </ul>
+          <p class="why">Локальный твист: пицца на тесте хачапури плюс мясная BBQ. Две пиццы за 42.5, грузинский акцент к привычной пицце.</p>
+        </div>
+      </article>
+    </div>
+
+    <h2 class="block">Мой выбор - не пицца</h2>
+    <p class="block-sub">10 наборов по вашей истории и предпочтениям: бургеры, суши, паста, азиатская лапша, грузинское и ваш личный фаворит 10/10.</p>
+    <div class="sets">
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Два бургера из любимой бургерной" src="https://imageproxy.wolt.com/assets/69219ae6765a8ef53e4252ff">
+        <div class="set-pad">
+          <h3 class="set-title">Два бургера из любимой бургерной</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1" target="_blank" rel="noopener">Burger Hub</a>
+            <span class="chip rating">★ 9.4</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">ваше любимое</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/burger-hub1/itemid-620a36a8543a568a6d6f4e15" target="_blank" rel="noopener">Чизбургер</a></span><span class="li-price">23.9</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/burger-hub1/itemid-620a35bd3ee551268da62279" target="_blank" rel="noopener">Классик бургер</a></span><span class="li-price">19.9</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">43.8 GEL</span></li>
+          </ul>
+          <p class="why">Burger Hub у вас в избранном (9.4). Два бургера за 43.8 - по одному на каждого, остаётся на соус или фри.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Суши-сет на двоих, 16 кусков" src="https://imageproxy.wolt.com/assets/68313f420399ffae08627517">
+        <div class="set-pad">
+          <h3 class="set-title">Суши-сет на двоих, 16 кусков</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/sushi-shvili-batumi" target="_blank" rel="noopener">Sushi Shvili Batumi</a>
+            <span class="chip rating">★ 9.2</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">суши-сет</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/sushi-shvili-batumi/itemid-0586cb7aa307f2064877179d" target="_blank" rel="noopener">Сет Bijo, 16 шт, 475 г</a></span><span class="li-price">47</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">47 GEL</span></li>
+          </ul>
+          <p class="why">Sushi Shvili 9.2 - сет на двоих 16 кусков за 47, ровно под бюджет. Один заказ, делить удобно.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Паста-вечер: карбонара и альфредо" src="https://imageproxy.wolt.com/assets/68cc03669f81778612411296">
+        <div class="set-pad">
+          <h3 class="set-title">Паста-вечер: карбонара и альфредо</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/cheese-lovers1" target="_blank" rel="noopener">Cheese Lovers</a>
+            <span class="chip rating">★ 9.2</span>
+            <span class="chip eta">40 мин</span>
+            <span class="chip role">сырный комфорт</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/cheese-lovers1/itemid-4817c867d02cb7eb89331220" target="_blank" rel="noopener">Паста Карбонара</a></span><span class="li-price">22</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/cheese-lovers1/itemid-06c12d8df13ab48d820ec5a2" target="_blank" rel="noopener">Паста Альфредо</a></span><span class="li-price">17.5</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">39.5 GEL</span></li>
+          </ul>
+          <p class="why">Cheese Lovers 9.2 под вашу любовь к сырному. Две сливочные пасты за 35 - остаётся на чесночный хлеб или соус.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Две большие шаурмы" src="https://imageproxy.wolt.com/assets/69ae8260f86278773c620df9">
+        <div class="set-pad">
+          <h3 class="set-title">Две большие шаурмы</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/hot-grill-shawarma" target="_blank" rel="noopener">Hot Grill Shawarma</a>
+            <span class="chip rating">★ 9.4</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">топ-рейтинг</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/hot-grill-shawarma/itemid-6a21651449a79363fcbdfbdc" target="_blank" rel="noopener">Сырная шаурма</a></span><span class="li-price">21</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/hot-grill-shawarma/itemid-37277e5b7d854a80655f07ea" target="_blank" rel="noopener">Корейская шаурма</a></span><span class="li-price">17</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">38 GEL</span></li>
+          </ul>
+          <p class="why">Hot Grill Shawarma 9.4 - две сытные шаурмы за 38. Быстрый понятный ужин на двоих с хорошим рейтингом.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Лёгкий полезный ужин: два салата" src="https://imageproxy.wolt.com/assets/698b0bcc5b01ba0990cc9218">
+        <div class="set-pad">
+          <h3 class="set-title">Лёгкий полезный ужин: два салата</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/bowlance" target="_blank" rel="noopener">Bowlance</a>
+            <span class="chip rating">★ 9.8</span>
+            <span class="chip eta">40 мин</span>
+            <span class="chip role">самый высокий рейтинг</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/bowlance/itemid-eea0d8c71ad85a0137ba1f4b" target="_blank" rel="noopener">Салат с курицей в лимонном соусе</a></span><span class="li-price">20</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/bowlance/itemid-2f1a5e8c308d719fb003243e" target="_blank" rel="noopener">Чука-салат с арахисовым соусом</a></span><span class="li-price">19</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">39 GEL</span></li>
+          </ul>
+          <p class="why">Bowlance - самый высокий рейтинг во всей выдаче (9.8). Если хочется не тяжёлого: два салата за 39, свежо и под бюджет.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Своя тарелка из гастронома" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5f0c802f38cf405b367feeb7/f1832412-5cb5-11f0-8deb-52ed9632a5a4_8001250152039.jpg">
+        <div class="set-pad">
+          <h3 class="set-title">Своя тарелка из гастронома <span class="badge">скидка</span></h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/gastronome-batumi" target="_blank" rel="noopener">Gastronome Batumi</a>
+            <span class="chip rating">★ 9.6</span>
+            <span class="chip eta">30 мин</span>
+            <span class="chip role">ваш проверенный 10/10</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-1b932449c2adc5ee2ab6042d" target="_blank" rel="noopener">Паста De Cecco Тальятелле, 500 г</a></span><span class="li-price">9.95</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-bf80710b04ef7b07e7b8c34e" target="_blank" rel="noopener">Моцарелла Sorrentina, 125 г</a></span><span class="li-price">9.95</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-88b42779e10b5813b0707e79" target="_blank" rel="noopener">Чоризо Galar, 100 г</a></span><span class="li-price">4.95</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-eb7923589d9c7b1412cddf22" target="_blank" rel="noopener">Плавленый сыр Bel, пластины</a></span><span class="li-price">7.95</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/gastronome-batumi/itemid-fc1c8d71517541f2672d659f" target="_blank" rel="noopener">Куриный лор Volys</a></span><span class="li-price">6.95</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">39.75 GEL</span></li>
+          </ul>
+          <p class="why">Gastronome - единственное место с вашей личной оценкой 10/10. Самосбор: паста, моцарелла, чоризо и сыр - антипасто плюс паста дома за 39.75, дешевле готовой доски.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Борщ и печёночный торт" src="https://imageproxy.wolt.com/assets/69c67b4449d0c19e440b86a0">
+        <div class="set-pad">
+          <h3 class="set-title">Борщ и печёночный торт</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/georgian-ukrainian-restaurant" target="_blank" rel="noopener">Pani Irina (грузинско-украинский)</a>
+            <span class="chip rating">★ 9.6</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">из вашей истории</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/georgian-ukrainian-restaurant/itemid-9e4b0cd50fcd594875bba396" target="_blank" rel="noopener">Украинский борщ</a></span><span class="li-price">18</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/georgian-ukrainian-restaurant/itemid-0f4cbf6df08bfc08a032a950" target="_blank" rel="noopener">Печёночный торт</a></span><span class="li-price">20</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">38 GEL</span></li>
+          </ul>
+          <p class="why">Pani Irina уже была в ваших заказах (9.6). Домашний борщ и печёночный торт за 38 - тёплый комфорт-ужин.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Азиатская лапша: курица, свинина, крылья" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5f9bbe1b28261ea1e4b5bf6d/331ecaa8-4a8b-11eb-a24e-5221c14ad239____________________.jpeg">
+        <div class="set-pad">
+          <h3 class="set-title">Азиатская лапша: курица, свинина, крылья</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/woknroll-batumi" target="_blank" rel="noopener">Wok&#x27;n&#x27;Roll</a>
+            <span class="chip rating">★ 8.0</span>
+            <span class="chip eta">40 мин</span>
+            <span class="chip role">вместо Wang&#x27;s Wok</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/woknroll-batumi/itemid-64bfbe99f45bcd0209d5c74d" target="_blank" rel="noopener">Лапша с курицей</a></span><span class="li-price">14</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/woknroll-batumi/itemid-64bfbe99f45bcd0209d5c717" target="_blank" rel="noopener">Лапша со свининой</a></span><span class="li-price">14.5</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/woknroll-batumi/itemid-64bfbe99f45bcd0209d5c73a" target="_blank" rel="noopener">Острые крылья</a></span><span class="li-price">10</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">38.5 GEL</span></li>
+          </ul>
+          <p class="why">Вы любите азиатскую лапшу, но Wang&#x27;s Wok в чёрном списке. Wok&#x27;n&#x27;Roll - замена: две лапши плюс крылья за 38.5, понятные английские названия.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Стрит-фуд набор, быстрая доставка" src="https://imageproxy.wolt.com/assets/67669f3edf447703b56520ac">
+        <div class="set-pad">
+          <h3 class="set-title">Стрит-фуд набор, быстрая доставка</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/holly-rolly" target="_blank" rel="noopener">Holly Rolly</a>
+            <span class="chip rating">★ 9.0</span>
+            <span class="chip eta">25 мин</span>
+            <span class="chip role">самая быстрая · 25 мин</span>
+          </div>
+          <ul class="set-items">
+              <li><span><span class="li-qty">2× </span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/holly-rolly/itemid-4c69ae02a6c34ac379852e3b" target="_blank" rel="noopener">Шаурма</a></span><span class="li-price">24</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/holly-rolly/itemid-65d31f60b3863036849ad7a2" target="_blank" rel="noopener">Картофель фри</a></span><span class="li-price">5</span></li>
+              <li><span><span class="li-qty">2× </span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/holly-rolly/itemid-b4e5a24052b97a2a65450f28" target="_blank" rel="noopener">Кола 0.5 л</a></span><span class="li-price">6</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">35 GEL</span></li>
+          </ul>
+          <p class="why">Holly Rolly - самая быстрая доставка в выдаче, 25 мин. Две шаурмы, фри и две колы за 35, когда нужно поесть быстро.</p>
+        </div>
+      </article>
+      <article class="set">
+        <img class="set-photo" loading="lazy" alt="Грузинский стол-ассорти" src="https://imageproxy.wolt.com/assets/676940445f89b563272387ae">
+        <div class="set-pad">
+          <h3 class="set-title">Грузинский стол-ассорти</h3>
+          <div class="set-venue">
+            <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/blinebi" target="_blank" rel="noopener">Blinebi</a>
+            <span class="chip rating">★ 9.2</span>
+            <span class="chip eta">35 мин</span>
+            <span class="chip role">уютно и очень бюджетно</span>
+          </div>
+          <ul class="set-items">
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/blinebi/itemid-551348168a6ba75a97c481f8" target="_blank" rel="noopener">Слоёный хачапури</a></span><span class="li-price">5</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/blinebi/itemid-644cbfe18ac7d9f57669e241" target="_blank" rel="noopener">Ачма хачапури</a></span><span class="li-price">5</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/blinebi/itemid-c3fc25726aca3321db3ba9b2" target="_blank" rel="noopener">Чебурек</a></span><span class="li-price">5</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/blinebi/itemid-40b28482f0f89449a7b66339" target="_blank" rel="noopener">Слоёный лобиани</a></span><span class="li-price">2.5</span></li>
+              <li><span><a class="venue" href="https://wolt.com/en/geo/batumi/venue/blinebi/itemid-88a0dd628590239e68ab2695" target="_blank" rel="noopener">Блин с шоколадом и бананом</a></span><span class="li-price">3.5</span></li>
+            <li class="total"><span>Итого на двоих</span><span class="li-price">21 GEL</span></li>
+          </ul>
+          <p class="why">Blinebi 9.2 - выпечка и блины. Хачапури, ачма, чебурек, лобиани и блин на десерт за 21 - уютный стол на двоих за полцены бюджета.</p>
+        </div>
+      </article>
+    </div>
+
+    <footer>
+      Собрано по read-only меню Wolt Batumi через consumer-assortment API. Рейтинги и время доставки - из поиска Wolt. Ссылки ведут на позиции и заведения в Wolt.
+    </footer>
+  </div>
+</body>
+</html>
