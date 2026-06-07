@@ -153,7 +153,42 @@
       background: #1e293b;
       line-height: 0;
     }
-    .frame img { width: 100%; height: auto; display: block; }
+    .frame img { width: 100%; height: auto; display: block; cursor: zoom-in; }
+    .frame::after {
+      content: "нажмите, чтобы увеличить";
+      position: absolute;
+      right: 10px; bottom: 10px;
+      font-size: 12px; font-weight: 600;
+      color: #fff; background: rgba(15, 23, 42, 0.72);
+      padding: 4px 10px; border-radius: 999px;
+      opacity: 0; transition: opacity 0.15s;
+      pointer-events: none;
+    }
+    .frame:hover::after { opacity: 1; }
+
+    /* Lightbox - увеличение скрина по клику */
+    .lightbox {
+      position: fixed; inset: 0; z-index: 100;
+      display: none;
+      background: rgba(8, 12, 24, 0.92);
+      padding: 24px;
+      cursor: zoom-out;
+    }
+    .lightbox.open { display: grid; place-items: center; }
+    .lightbox img {
+      max-width: 96vw; max-height: 92vh;
+      width: auto; height: auto;
+      border-radius: 10px;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.5);
+    }
+    .lightbox .close {
+      position: fixed; top: 16px; right: 22px;
+      width: 42px; height: 42px; border-radius: 50%;
+      background: rgba(255,255,255,0.14); color: #fff;
+      border: none; font-size: 24px; line-height: 1; cursor: pointer;
+      display: grid; place-items: center;
+    }
+    .lightbox .close:hover { background: rgba(255,255,255,0.26); }
 
     .ring {
       position: absolute;
@@ -203,8 +238,8 @@
     /* Галерея */
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+      gap: 18px;
       margin-top: 22px;
     }
     .gallery figure { margin: 0; }
@@ -832,11 +867,13 @@
 <!-- ───────────────── КУДА ДАЛЬШЕ ───────────────── -->
 <section class="future">
   <div class="wrap">
-    <span class="eyebrow">идея · ещё не сделано</span>
-    <h2><span class="num">07</span>Куда дальше: оценка звонка по шкале</h2>
+    <span class="eyebrow">механика в коде · ждёт промптов</span>
+    <h2><span class="num">07</span>Оценка звонка по шкале: механика готова, дело за промптами</h2>
     <p class="sub">
-      Сейчас критерий чаще всего отвечает «да / нет» - выполнен или нет. Следующий шаг - оценка по
-      шкале (1-5 или 1-10). Это <b>идея на будущее</b>, в коде её пока нет.
+      Сейчас критерий чаще всего отвечает «да / нет» - выполнен или нет. Следующий шаг - балл по
+      шкале (1-5 или 1-10). <b>Механика для этого уже написана в коде</b> и пока выключена: она не
+      идёт в боевую оценку. Чтобы её включить, нужны две вещи - промпты с числовым выходом и
+      калибровка шкалы. Первое - зона аналитика, который ведёт промпты.
     </p>
 
     <div class="scale-demo">
@@ -846,32 +883,43 @@
         <p style="margin:0;font-size:14px;color:var(--muted)">Критерий выполнен или нет. Просто, но грубо: «почти получилось» и «совсем мимо» сливаются в одно «нет».</p>
       </div>
       <div class="scale-card">
-        <h4>Идея: по шкале</h4>
+        <h4>Дальше: по шкале</h4>
         <div class="scale-bar graded"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
-        <p style="margin:0;font-size:14px;color:var(--muted)">Видна степень: насколько хорошо отработан критерий, а не только факт «да/нет».</p>
+        <p style="margin:0;font-size:14px;color:var(--muted)">Виден уровень: насколько хорошо отработан критерий, а не только факт «да/нет».</p>
       </div>
     </div>
 
     <h3>Что это даст</h3>
     <ul class="feat">
-      <li><span class="mark">📊</span><span class="body"><b>Различать оттенки.</b> «Тройка» и «пятёрка» по критерию - разные сигналы; на бинарной шкале они одинаковые «да».</span></li>
-      <li><span class="mark">📈</span><span class="body"><b>Тонкая статистика тренда.</b> Видно не только «стало больше успехов», а сдвиг среднего балла - мельче и раньше ловит изменения.</span></li>
-      <li><span class="mark">🎯</span><span class="body"><b>Приоритизация обучения.</b> Звонки с низким, но не нулевым баллом - точки роста, где операторы «почти дотягивают».</span></li>
+      <li><span class="mark">📊</span><span class="body"><b>Различать оттенки.</b> «Тройка» и «пятёрка» по критерию - разные сигналы; на бинарной шкале они сливаются в одно «да».</span></li>
+      <li><span class="mark">📈</span><span class="body"><b>Тонкая статистика тренда.</b> Видно не только «стало больше успехов», а сдвиг среднего балла - мельче и раньше ловит изменения после правки промпта.</span></li>
+      <li><span class="mark">🎯</span><span class="body"><b>Точки роста.</b> Звонки с низким, но не нулевым баллом - там, где операторы почти дотягивают. На «да/нет» они невидимы.</span></li>
+      <li><span class="mark">🔬</span><span class="body"><b>Чувствительнее к правкам промпта.</b> Балльная разница ловит улучшение там, где «да/нет» ещё не переключилось - проверять гипотезы можно на меньшей выборке.</span></li>
     </ul>
 
+    <div class="why" style="border-left-color:var(--idea)">
+      <b>Что нужно сделать с промптами (это ведёт аналитик).</b>
+      Сейчас промпт спрашивает «критерий выполнен?» и ждёт «да/нет». Под шкалу промпт должен просить
+      <b>балл</b>: «оцени критерий по шкале 1-5». Но просто попросить балл мало - к каждому критерию
+      нужна короткая рубрика, что значит каждая ступень: что такое «на тройку», а что «на пятёрку».
+      Это содержательная работа того, кто ведёт промпты: только он знает, как разложить критерий по
+      уровням. Без такой рубрики баллы у разных критериев будут означать разное и окажутся
+      несопоставимы. Реестр версий это подхватит без переделок - каждая такая формулировка станет
+      обычной новой версией промпта.
+    </div>
+
     <div class="need">
-      <h4>Что для этого нужно</h4>
+      <h4>Что нужно сверх промптов</h4>
       <ul>
-        <li>Переписать промпты на числовой выход вместо «да/нет» - и согласовать новые формулировки.</li>
-        <li>Откалибровать шкалу на размеченных примерах, чтобы баллы у разных критериев значили сопоставимое.</li>
-        <li>Решить саму шкалу (1-5 или 1-10) под задачу - это не требование извне, а наш выбор инструмента.</li>
+        <li><b>Калибровка шкалы.</b> Прогнать промпты с баллами на размеченных вручную примерах (gold-набор) и сверить: балл модели совпадает с экспертным? Иначе «4» у модели будет значить не то, что у человека.</li>
+        <li><b>Выбор самой шкалы</b> (1-5 или 1-10) под задачу - это не требование извне, а наш выбор инструмента под нужную точность.</li>
       </ul>
     </div>
 
     <div class="callout-idea">
-      <b>Статус: идея, ещё не реализовано.</b> Заготовки под дискретизацию баллов лежат в коде в
-      выключенном виде и не влияют на текущую боевую оценку. Шкала оживёт только после согласования
-      новых промптов.
+      <b>Статус: механика в коде написана и пока выключена.</b> Дискретизаторы баллов лежат в реестре
+      в неактивном виде и не влияют на текущую боевую оценку «да/нет». Шкала включится, когда промпты
+      переведут на числовой выход (зона аналитика) и откалибруют на размеченных примерах.
     </div>
   </div>
 </section>
@@ -911,6 +959,40 @@
     <p style="margin-top:12px">Обновлено: 2026-06-07</p>
   </div>
 </footer>
+
+<div class="lightbox" id="lightbox" aria-hidden="true">
+  <button class="close" id="lbClose" aria-label="Закрыть">×</button>
+  <img id="lbImg" src="" alt="">
+</div>
+
+<script>
+  (function () {
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lbImg');
+    var lbClose = document.getElementById('lbClose');
+
+    function open(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      lb.classList.add('open');
+      lb.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.remove('open');
+      lb.setAttribute('aria-hidden', 'true');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+    }
+
+    document.querySelectorAll('.frame img').forEach(function (img) {
+      img.addEventListener('click', function () { open(img.src, img.alt); });
+    });
+    lb.addEventListener('click', function (e) { if (e.target !== lbImg) close(); });
+    lbClose.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+  })();
+</script>
 
 </body>
 </html>
