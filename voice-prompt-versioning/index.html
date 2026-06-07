@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Версионирование промптов оценки звонков - что это даёт аналитику</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f5f7fb;
+      --fg: #172033;
+      --muted: #536079;
+      --soft: #64748b;
+      --card: #ffffff;
+      --line: #d8dfea;
+      --accent: #2563eb;
+      --accent-soft: #dbeafe;
+      --good: #15803d;
+      --good-soft: #dcfce7;
+      --warn: #b45309;
+      --warn-soft: #fef3c7;
+      --idea: #7c3aed;
+      --idea-soft: #ede9fe;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .wrap {
+      width: min(1040px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    header.hero {
+      padding: 64px 0 36px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      display: inline-block;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 5px 11px;
+      border-radius: 999px;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0 0 16px;
+      font-size: clamp(30px, 5vw, 50px);
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+    }
+
+    .lede {
+      max-width: 720px;
+      font-size: clamp(17px, 2.2vw, 21px);
+      color: var(--muted);
+      margin: 0 0 8px;
+    }
+
+    .meta-line {
+      margin-top: 22px;
+      font-size: 14px;
+      color: var(--soft);
+    }
+
+    section { padding: 44px 0; border-bottom: 1px solid var(--line); }
+    section:last-of-type { border-bottom: none; }
+
+    h2 {
+      font-size: clamp(23px, 3.2vw, 32px);
+      line-height: 1.15;
+      margin: 0 0 6px;
+      letter-spacing: -0.01em;
+    }
+
+    h2 .num {
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+      margin-right: 10px;
+    }
+
+    .sub {
+      color: var(--muted);
+      font-size: 17px;
+      max-width: 760px;
+      margin: 0 0 26px;
+    }
+
+    h3 {
+      font-size: 19px;
+      margin: 28px 0 8px;
+    }
+
+    p { margin: 0 0 14px; }
+    p.tight { margin-bottom: 6px; }
+
+    .why {
+      margin: 16px 0 0;
+      padding: 14px 16px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      font-size: 15px;
+      color: var(--muted);
+    }
+    .why b { color: var(--fg); }
+
+    /* Карточки боли */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin-top: 22px;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px 18px 16px;
+    }
+    .card .ico {
+      font-size: 22px;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .card h4 { margin: 0 0 6px; font-size: 16px; }
+    .card p { margin: 0; font-size: 14.5px; color: var(--muted); }
+
+    /* Скрины с пометками */
+    figure.shot { margin: 26px 0 8px; }
+    .frame {
+      position: relative;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 6px 22px rgba(20, 33, 61, 0.08);
+      background: #1e293b;
+      line-height: 0;
+    }
+    .frame img { width: 100%; height: auto; display: block; }
+
+    .ring {
+      position: absolute;
+      border: 2.5px solid var(--accent);
+      border-radius: 7px;
+      background: rgba(37, 99, 235, 0.08);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+      pointer-events: none;
+    }
+    .ring.good { border-color: var(--good); background: rgba(21,128,61,0.08); box-shadow: 0 0 0 3px rgba(21,128,61,0.12); }
+    .ring.warn { border-color: var(--warn); background: rgba(180,83,9,0.08); box-shadow: 0 0 0 3px rgba(180,83,9,0.12); }
+
+    .pin {
+      position: absolute;
+      width: 26px; height: 26px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      transform: translate(-50%, -50%);
+    }
+    .pin.good { background: var(--good); }
+    .pin.warn { background: var(--warn); }
+
+    figcaption {
+      font-size: 14.5px;
+      color: var(--soft);
+      line-height: 1.5;
+      margin-top: 12px;
+    }
+    .legend { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 7px; }
+    .legend li { display: flex; gap: 10px; align-items: flex-start; font-size: 14.5px; color: var(--muted); }
+    .legend .dot {
+      flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
+      color: #fff; font-size: 12.5px; font-weight: 700; display: grid; place-items: center;
+    }
+    .legend .dot.b { background: var(--accent); }
+    .legend .dot.g { background: var(--good); }
+    .legend .dot.w { background: var(--warn); }
+    .legend b { color: var(--fg); font-weight: 600; }
+
+    /* Галерея */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 22px;
+    }
+    .gallery figure { margin: 0; }
+    .gallery .frame { box-shadow: 0 3px 12px rgba(20,33,61,0.07); }
+    .gallery figcaption { margin-top: 9px; font-size: 13.5px; }
+    .gallery .tag {
+      display: inline-block; font-size: 12px; font-weight: 600;
+      color: var(--good); background: var(--good-soft);
+      padding: 2px 8px; border-radius: 6px; margin-bottom: 6px;
+    }
+
+    /* SVG-диаграммы */
+    .diagram {
+      margin: 22px 0 8px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 22px 18px 14px;
+      overflow-x: auto;
+    }
+    .diagram svg { width: 100%; height: auto; display: block; min-width: 520px; }
+    .diagram .cap { font-size: 14px; color: var(--soft); margin-top: 12px; text-align: center; }
+
+    /* Списки */
+    ul.feat { list-style: none; padding: 0; margin: 20px 0 0; display: grid; gap: 12px; }
+    ul.feat > li {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 14px 16px;
+      display: flex; gap: 12px; align-items: flex-start;
+    }
+    ul.feat .mark { flex: 0 0 auto; font-size: 18px; line-height: 1.4; }
+    ul.feat b { font-weight: 600; }
+    ul.feat .body { color: var(--muted); font-size: 15px; }
+    ul.feat .body b { color: var(--fg); }
+
+    .badge-row { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 0; }
+    .chip {
+      font-size: 12.5px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+    }
+    .chip.done { color: var(--good); background: var(--good-soft); }
+    .chip.plan { color: var(--warn); background: var(--warn-soft); }
+    .chip.idea { color: var(--idea); background: var(--idea-soft); }
+
+    /* Блок-статус */
+    .status {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 22px;
+    }
+    @media (max-width: 680px) { .status { grid-template-columns: 1fr; } }
+    .status .col {
+      border: 1px solid var(--line); border-radius: 12px; padding: 18px; background: var(--card);
+    }
+    .status .col.done { border-top: 3px solid var(--good); }
+    .status .col.plan { border-top: 3px solid var(--warn); }
+    .status .col h3 { margin-top: 0; display: flex; align-items: center; gap: 8px; }
+    .status ul { margin: 10px 0 0; padding-left: 20px; }
+    .status li { margin-bottom: 8px; font-size: 14.5px; color: var(--muted); }
+    .status li b { color: var(--fg); }
+
+    /* Примеры */
+    .example {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+      padding: 20px 20px 8px; margin-top: 18px;
+    }
+    .example h4 { margin: 0 0 12px; font-size: 17px; }
+    .example ol { margin: 0 0 8px; padding-left: 22px; }
+    .example li { margin-bottom: 7px; color: var(--muted); font-size: 15px; }
+    .example .outcome {
+      margin-top: 10px; padding: 12px 14px; background: var(--accent-soft);
+      border-radius: 8px; font-size: 14.5px; color: #1e3a8a;
+    }
+
+    /* Секция «куда дальше» */
+    .future {
+      background: linear-gradient(180deg, var(--idea-soft), var(--card));
+      border: 1px solid #d6cdf5;
+    }
+    @media (prefers-color-scheme: dark) {
+      .future { background: linear-gradient(180deg, rgba(124,58,237,0.18), var(--card)); border-color: #3b2a63; }
+    }
+    .future .eyebrow { color: var(--idea); background: var(--idea-soft); }
+    .scale-demo {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px;
+    }
+    @media (max-width: 680px) { .scale-demo { grid-template-columns: 1fr; } }
+    .scale-card {
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+    }
+    .scale-card h4 { margin: 0 0 10px; font-size: 16px; }
+    .scale-bar { display: flex; gap: 6px; margin: 12px 0; }
+    .scale-bar span {
+      flex: 1; text-align: center; padding: 8px 0; border-radius: 6px;
+      font-size: 13px; font-weight: 600; border: 1px solid var(--line);
+    }
+    .scale-bar.binary span:first-child { background: var(--good-soft); color: var(--good); }
+    .scale-bar.binary span:last-child { background: #fee2e2; color: #b91c1c; }
+    .scale-bar.graded span:nth-child(1){background:#fee2e2;color:#b91c1c;}
+    .scale-bar.graded span:nth-child(2){background:#fef3c7;color:#b45309;}
+    .scale-bar.graded span:nth-child(3){background:#fef9c3;color:#a16207;}
+    .scale-bar.graded span:nth-child(4){background:#ecfccb;color:#4d7c0f;}
+    .scale-bar.graded span:nth-child(5){background:var(--good-soft);color:var(--good);}
+
+    .need {
+      margin-top: 18px; padding: 16px 18px; background: var(--card);
+      border: 1px solid var(--line); border-radius: 10px;
+    }
+    .need h4 { margin: 0 0 8px; font-size: 15px; }
+    .need ul { margin: 0; padding-left: 20px; }
+    .need li { font-size: 14.5px; color: var(--muted); margin-bottom: 6px; }
+
+    .callout-idea {
+      margin-top: 18px; padding: 14px 16px; border-radius: 10px;
+      background: var(--idea-soft); border: 1px solid #d6cdf5;
+      font-size: 15px; color: #5b21b6;
+    }
+    @media (prefers-color-scheme: dark) {
+      .callout-idea { background: rgba(124,58,237,0.15); border-color: #3b2a63; color: #d8c9f7; }
+    }
+    .callout-idea b { font-weight: 700; }
+
+    /* Атрибуция / футер */
+    .attr {
+      margin-top: 22px; font-size: 14.5px; color: var(--muted);
+      background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 18px;
+    }
+    .attr ul { margin: 10px 0 0; padding-left: 20px; }
+    .attr li { margin-bottom: 6px; }
+
+    footer {
+      padding: 34px 0 56px;
+      font-size: 13.5px;
+      color: var(--soft);
+    }
+    footer p { margin: 0 0 8px; }
+    footer .privacy {
+      border: 1px dashed var(--line); border-radius: 10px; padding: 14px 16px; margin-top: 6px;
+    }
+
+    .kicker { font-weight: 600; color: var(--fg); }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --fg: #f1f5f9;
+        --muted: #b6c2d6;
+        --soft: #93a3bd;
+        --card: #1a2436;
+        --line: #2c3a52;
+        --accent: #60a5fa;
+        --accent-soft: rgba(96,165,250,0.16);
+        --good: #4ade80;
+        --good-soft: rgba(74,222,128,0.15);
+        --warn: #fbbf24;
+        --warn-soft: rgba(251,191,36,0.15);
+        --idea: #c084fc;
+        --idea-soft: rgba(192,132,252,0.15);
+      }
+      .example .outcome { color: #bfdbfe; }
+      .scale-bar.binary span:last-child { background: rgba(185,28,28,0.25); color: #fca5a5; }
+      .scale-bar.graded span:nth-child(1){background:rgba(185,28,28,0.25);color:#fca5a5;}
+      .scale-bar.graded span:nth-child(2){background:rgba(180,83,9,0.25);color:#fcd34d;}
+      .scale-bar.graded span:nth-child(3){background:rgba(161,98,7,0.25);color:#fde68a;}
+      .scale-bar.graded span:nth-child(4){background:rgba(77,124,15,0.25);color:#bef264;}
+    }
+  </style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">VoiceAnalitix · оценка звонков</span>
+    <h1>Версионирование промптов: правка перестаёт быть действием наугад</h1>
+    <p class="lede">
+      Каждая правка формулировки оценки звонка становится проверяемой гипотезой с измеримым
+      результатом. Эта страница объясняет на пальцах, что уже работает, что в плане и зачем это
+      аналитику оценки звонков.
+    </p>
+    <p class="meta-line">Без кода и жаргона · обезличенные примеры · демонстрация на тестовом стенде</p>
+  </div>
+</header>
+
+<!-- ───────────────── КОНТЕКСТ ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">00</span>Где это в работе</h2>
+    <p class="sub">
+      Звонок проходит путь от записи до оценки. Промпт - это формулировка, по которой
+      LLM-модель оценивает разговор на шаге VoiceAnalitix. Версионирование добавляется именно тут.
+    </p>
+
+    <div class="diagram">
+      <svg viewBox="0 0 920 150" role="img" aria-label="Путь звонка: Бит.АТС, транскрипция, стенограмма, оценка, отчёты">
+        <defs>
+          <marker id="arr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#94a3b8"/>
+          </marker>
+        </defs>
+        <!-- boxes -->
+        <g font-family="inherit" font-size="14" text-anchor="middle">
+          <rect x="8"   y="48" width="120" height="54" rx="9" fill="#eef2f9" stroke="#cbd5e1"/>
+          <text x="68"  y="71" fill="#172033" font-weight="600">Бит.АТС</text>
+          <text x="68"  y="89" fill="#64748b" font-size="12">запись звонка</text>
+
+          <rect x="178" y="48" width="148" height="54" rx="9" fill="#eef2f9" stroke="#cbd5e1"/>
+          <text x="252" y="71" fill="#172033" font-weight="600">Whisper / Newton</text>
+          <text x="252" y="89" fill="#64748b" font-size="12">распознавание речи</text>
+
+          <rect x="376" y="48" width="130" height="54" rx="9" fill="#eef2f9" stroke="#cbd5e1"/>
+          <text x="441" y="71" fill="#172033" font-weight="600">Стенограмма</text>
+          <text x="441" y="89" fill="#64748b" font-size="12">текст разговора</text>
+
+          <rect x="556" y="40" width="160" height="70" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="636" y="66" fill="#1e3a8a" font-weight="700">VoiceAnalitix</text>
+          <text x="636" y="84" fill="#1e40af" font-size="12">LLM-оценка по промпту</text>
+          <text x="636" y="100" fill="#2563eb" font-size="11" font-weight="600">◆ здесь промпт ◆</text>
+
+          <rect x="766" y="48" width="146" height="54" rx="9" fill="#eef2f9" stroke="#cbd5e1"/>
+          <text x="839" y="71" fill="#172033" font-weight="600">K7 · BI</text>
+          <text x="839" y="89" fill="#64748b" font-size="12">отчёты, аналитика</text>
+        </g>
+        <!-- arrows -->
+        <g stroke="#94a3b8" stroke-width="2" fill="none">
+          <line x1="130" y1="75" x2="174" y2="75" marker-end="url(#arr)"/>
+          <line x1="328" y1="75" x2="372" y2="75" marker-end="url(#arr)"/>
+          <line x1="508" y1="75" x2="552" y2="75" marker-end="url(#arr)"/>
+          <line x1="718" y1="75" x2="762" y2="75" marker-end="url(#arr)"/>
+        </g>
+      </svg>
+      <p class="cap">Версионирование живёт на шаге оценки: фиксирует, какой именно версией промпта оценён каждый звонок.</p>
+    </div>
+
+    <div class="why">
+      <b>Зачем.</b> Раньше промпт на этом шаге правили «вживую», и связь оценки с конкретной
+      формулировкой терялась. Версионирование делает этот шаг прослеживаемым: видно, чем оценивали.
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── БОЛЬ ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">01</span>Какую боль лечим</h2>
+    <p class="sub">
+      Сейчас живут около десяти формулировок-промптов, их правят прямо в работе. Когда формулировку
+      меняют, старая просто перестаёт применяться. Отсюда три повторяющиеся проблемы.
+    </p>
+
+    <div class="cards">
+      <div class="card">
+        <span class="ico">🔍</span>
+        <h4>Чем оценивали - непонятно</h4>
+        <p>По готовой оценке звонка трудно восстановить, какой именно версией промпта её получили.</p>
+      </div>
+      <div class="card">
+        <span class="ico">⚖️</span>
+        <h4>«Было / стало» не сравнить</h4>
+        <p>После правки формулировки нет честного способа измерить, стало лучше или хуже.</p>
+      </div>
+      <div class="card">
+        <span class="ico">💢</span>
+        <h4>Промпты спорят</h4>
+        <p>Разные формулировки оценивают один аспект по-разному, и расхождения никто не считает - видно только на глаз.</p>
+      </div>
+    </div>
+
+    <div class="why">
+      <b>Главная мысль.</b> Версионирование промптов - это не «откат ради отката». Это инфраструктура
+      под вашу настоящую работу: проверять гипотезы и собирать по ним статистику. Каждая правка
+      формулировки превращается в управляемый эксперимент с измеримым результатом.
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── ЧТО ПОМЕНЯЛОСЬ (СКРИНЫ) ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">02</span>Что функционально поменялось</h2>
+    <p class="sub">
+      Рабочий процесс правки промпта не меняется. Меняется то, что происходит «под капотом» в момент
+      сохранения. Ниже - демонстрация на тестовом стенде (данные синтетические).
+    </p>
+
+    <h3>Шаг 1. Промпт правят в админке - как и раньше</h3>
+    <figure class="shot">
+      <div class="frame">
+        <img src="img/01-create-form.png" alt="Форма правки промпта: поле Value с текстом, галка Is Active">
+        <div class="ring" style="left:21%; top:38%; width:77%; height:7.5%"></div>
+        <span class="pin" style="left:21%; top:41.5%">1</span>
+        <div class="ring good" style="left:33%; top:43.5%; width:4%; height:7%"></div>
+        <span class="pin good" style="left:31%; top:47%">2</span>
+      </div>
+      <ul class="legend">
+        <li><span class="dot b">1</span><span><b>Текст промпта (Value)</b> - та самая формулировка, которую правят. Здесь и дальше используется синтетический демо-текст.</span></li>
+        <li><span class="dot g">2</span><span><b>Галка «активный»</b> решает, идёт ли промпт в боевую оценку прямо сейчас.</span></li>
+      </ul>
+    </figure>
+
+    <h3>Шаг 2. Сохранили - правка автоматически легла отдельной версией</h3>
+    <figure class="shot">
+      <div class="frame">
+        <img src="img/05-registry-versions-2.png" alt="Реестр версий: две версии одного промпта, новая и старая">
+        <div class="ring good" style="left:20%; top:34%; width:78%; height:8.5%"></div>
+        <span class="pin good" style="left:20%; top:37.6%">1</span>
+        <div class="ring" style="left:20%; top:40.5%; width:78%; height:8.5%"></div>
+        <span class="pin" style="left:20%; top:43.9%">2</span>
+      </div>
+      <ul class="legend">
+        <li><span class="dot g">1</span><span><b>Новая версия (№2)</b> появилась сама в момент сохранения правки. В демо она помечена «[v2]».</span></li>
+        <li><span class="dot b">2</span><span><b>Старая версия (№1) осталась на месте.</b> История не теряется - к прежней формулировке можно вернуться.</span></li>
+      </ul>
+      <figcaption>Это ядро всей работы: одна правка текста = одна новая пронумерованная версия, прошлые версии живут рядом.</figcaption>
+    </figure>
+
+    <h3>Шаг 3. Указатель «боевая / черновик» переезжает на нужную версию</h3>
+    <figure class="shot">
+      <div class="frame">
+        <img src="img/06-registry-label-draft.png" alt="Реестр меток: метка draft указывает на версию 2">
+        <div class="ring warn" style="left:20%; top:33.5%; width:78%; height:8%"></div>
+        <span class="pin warn" style="left:20%; top:37.6%">1</span>
+      </div>
+      <ul class="legend">
+        <li><span class="dot w">1</span><span><b>Метка-указатель</b> (здесь <b>draft</b>) показывает на конкретную версию. Снятие активности сдвинуло указатель и <b>не создало лишней версии</b> - текст ведь не менялся.</span></li>
+      </ul>
+    </figure>
+
+    <div class="why">
+      <b>Почему так.</b> Версия - неизменна, а указатель «какая сейчас боевая» - подвижный. Это
+      разделение даёт две вещи сразу: историю правок не затирают и «текущую боевую» переключают
+      одним движением, без дублей.
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── КАК УСТРОЕНО (ДИАГРАММЫ) ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">03</span>Как это устроено внутри</h2>
+    <p class="sub">Три схемы бэкенда - на уровне идеи, без кода.</p>
+
+    <h3>Схема А. Модель: логический промпт → версии → указатели</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 920 330" role="img" aria-label="Логический промпт, его версии и метки-указатели, оценка ссылается на версию">
+        <defs>
+          <marker id="arr2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#94a3b8"/>
+          </marker>
+          <marker id="arr3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/>
+          </marker>
+        </defs>
+        <g font-family="inherit" font-size="14">
+          <!-- логический промпт -->
+          <rect x="20" y="120" width="190" height="86" rx="11" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="115" y="150" text-anchor="middle" fill="#1e3a8a" font-weight="700" font-size="15">Логический промпт</text>
+          <text x="115" y="172" text-anchor="middle" fill="#1e40af" font-size="12">напр. «оценка вежливости»</text>
+          <text x="115" y="190" text-anchor="middle" fill="#2563eb" font-size="11">«папка» под версии</text>
+
+          <!-- версии -->
+          <rect x="330" y="34" width="250" height="52" rx="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+          <text x="350" y="58" fill="#172033" font-weight="600">Версия 1</text>
+          <text x="350" y="76" fill="#64748b" font-size="12">иммутабельная · первый текст</text>
+          <text x="565" y="64" text-anchor="end" font-size="18">🔒</text>
+
+          <rect x="330" y="138" width="250" height="52" rx="9" fill="#ecfdf5" stroke="#15803d"/>
+          <text x="350" y="162" fill="#14532d" font-weight="600">Версия 2</text>
+          <text x="350" y="180" fill="#15803d" font-size="12">иммутабельная · правка текста</text>
+          <text x="565" y="168" text-anchor="end" font-size="18">🔒</text>
+
+          <rect x="330" y="242" width="250" height="52" rx="9" fill="#f1f5f9" stroke="#cbd5e1"/>
+          <text x="350" y="266" fill="#172033" font-weight="600">Версия 3</text>
+          <text x="350" y="284" fill="#64748b" font-size="12">иммутабельная · следующая правка</text>
+          <text x="565" y="272" text-anchor="end" font-size="18">🔒</text>
+
+          <!-- указатели -->
+          <rect x="650" y="138" width="180" height="44" rx="22" fill="#15803d"/>
+          <text x="740" y="165" text-anchor="middle" fill="#fff" font-weight="700">● production</text>
+
+          <rect x="650" y="242" width="180" height="44" rx="22" fill="#b45309"/>
+          <text x="740" y="269" text-anchor="middle" fill="#fff" font-weight="700">● draft</text>
+
+          <!-- связи промпт->версии -->
+          <g stroke="#94a3b8" stroke-width="2" fill="none">
+            <path d="M210,150 C270,150 280,60 326,60" marker-end="url(#arr2)"/>
+            <path d="M210,163 C270,163 280,164 326,164" marker-end="url(#arr2)"/>
+            <path d="M210,176 C270,176 280,268 326,268" marker-end="url(#arr2)"/>
+          </g>
+          <!-- указатели -> версии -->
+          <g stroke="#15803d" stroke-width="2" fill="none">
+            <line x1="648" y1="160" x2="584" y2="164" marker-end="url(#arr2)"/>
+          </g>
+          <g stroke="#b45309" stroke-width="2" fill="none">
+            <line x1="648" y1="264" x2="584" y2="268" marker-end="url(#arr2)"/>
+          </g>
+
+          <!-- оценка -->
+          <rect x="20" y="250" width="220" height="58" rx="10" fill="#fff" stroke="#2563eb" stroke-dasharray="5 4"/>
+          <text x="130" y="274" text-anchor="middle" fill="#1e3a8a" font-weight="600">Оценка звонка</text>
+          <text x="130" y="293" text-anchor="middle" fill="#2563eb" font-size="12">ссылается на конкретную версию</text>
+          <path d="M240,275 C290,275 300,170 326,166" stroke="#2563eb" stroke-width="2" fill="none" marker-end="url(#arr3)"/>
+        </g>
+      </svg>
+      <p class="cap">🔒 версия неизменна после создания · указатели production/draft переезжают между версиями · каждая оценка помнит свою версию.</p>
+    </div>
+    <div class="why">
+      <b>Зачем именно так.</b> Если бы правки затирали текст на месте, нельзя было бы ни вернуться к
+      прежней формулировке, ни честно сравнить версии. Неизменные версии + подвижные указатели решают
+      обе задачи и дают воспроизводимость «версия → результат».
+    </div>
+
+    <h3>Схема Б. Перехват записи: ни одна правка не проходит мимо истории</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 920 230" role="img" aria-label="Правка промпта пишется в боевую таблицу и параллельно зеркалится в реестр версий">
+        <defs>
+          <marker id="arr4" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#94a3b8"/>
+          </marker>
+        </defs>
+        <g font-family="inherit" font-size="14">
+          <rect x="20" y="86" width="200" height="58" rx="10" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+          <text x="120" y="110" text-anchor="middle" fill="#1e3a8a" font-weight="700">Правка промпта</text>
+          <text x="120" y="129" text-anchor="middle" fill="#1e40af" font-size="12">сохранение в админке</text>
+
+          <rect x="500" y="24" width="290" height="62" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+          <text x="645" y="49" text-anchor="middle" fill="#172033" font-weight="600">Боевая таблица промптов</text>
+          <text x="645" y="68" text-anchor="middle" fill="#64748b" font-size="12">работает ровно как раньше</text>
+
+          <rect x="500" y="142" width="290" height="64" rx="10" fill="#ecfdf5" stroke="#15803d"/>
+          <text x="645" y="168" text-anchor="middle" fill="#14532d" font-weight="600">Реестр версий (зеркало)</text>
+          <text x="645" y="187" text-anchor="middle" fill="#15803d" font-size="12">новая версия + сдвиг указателя</text>
+
+          <g stroke="#94a3b8" stroke-width="2" fill="none">
+            <path d="M220,108 C330,108 360,55 496,55" marker-end="url(#arr4)"/>
+            <path d="M220,122 C330,122 360,174 496,174" marker-end="url(#arr4)"/>
+          </g>
+          <text x="360" y="44" fill="#64748b" font-size="12">основной путь</text>
+          <text x="360" y="205" fill="#15803d" font-size="12">параллельно, «по возможности»</text>
+        </g>
+      </svg>
+      <p class="cap">Боевая запись фиксируется первой и независимо. Сбой зеркала логируется и чинится сверкой, но не роняет оценку звонков.</p>
+    </div>
+    <div class="why">
+      <b>Почему «по возможности».</b> Оценка звонков важнее, чем мгновенная полнота реестра. Поэтому
+      зеркалирование сделано «мягким»: если оно сбойнёт, боевая оценка не встанет, а расхождение
+      потом подтянут сверкой.
+    </div>
+
+    <h3>Схема В. Ради чего всё это - цикл проверки гипотезы</h3>
+    <div class="diagram">
+      <svg viewBox="0 0 920 250" role="img" aria-label="Цикл: гипотеза, новая версия, переоценка истории, сравнение, решение">
+        <defs>
+          <marker id="arr5" markerWidth="10" markerHeight="10" refX="7" refY="3" orient="auto">
+            <path d="M0,0 L7,3 L0,6 Z" fill="#2563eb"/>
+          </marker>
+        </defs>
+        <g font-family="inherit" font-size="13.5" text-anchor="middle">
+          <rect x="20"  y="100" width="150" height="56" rx="10" fill="#dbeafe" stroke="#2563eb"/>
+          <text x="95"  y="124" fill="#1e3a8a" font-weight="600">Гипотеза</text>
+          <text x="95"  y="142" fill="#1e40af" font-size="11.5">«так будет точнее»</text>
+
+          <rect x="215" y="100" width="160" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+          <text x="295" y="124" fill="#172033" font-weight="600">Новая версия</text>
+          <text x="295" y="142" fill="#64748b" font-size="11.5">промпта</text>
+
+          <rect x="420" y="100" width="180" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+          <text x="510" y="124" fill="#172033" font-weight="600">Переоценка истории</text>
+          <text x="510" y="142" fill="#64748b" font-size="11.5">пакетом по выборке</text>
+
+          <rect x="645" y="100" width="170" height="56" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+          <text x="730" y="124" fill="#172033" font-weight="600">Сравнение</text>
+          <text x="730" y="142" fill="#64748b" font-size="11.5">«было / стало» в цифрах</text>
+
+          <rect x="645" y="14" width="170" height="56" rx="10" fill="#ecfdf5" stroke="#15803d"/>
+          <text x="730" y="38" fill="#14532d" font-weight="600">Решение</text>
+          <text x="730" y="56" fill="#15803d" font-size="11.5">принять / откатить</text>
+
+          <g stroke="#2563eb" stroke-width="2" fill="none">
+            <line x1="170" y1="128" x2="211" y2="128" marker-end="url(#arr5)"/>
+            <line x1="375" y1="128" x2="416" y2="128" marker-end="url(#arr5)"/>
+            <line x1="600" y1="128" x2="641" y2="128" marker-end="url(#arr5)"/>
+            <line x1="730" y1="100" x2="730" y2="74"  marker-end="url(#arr5)"/>
+            <path d="M645,42 C360,42 200,60 95,96" marker-end="url(#arr5)"/>
+          </g>
+          <text x="380" y="34" fill="#2563eb" font-size="11.5">новая гипотеза по итогам</text>
+        </g>
+      </svg>
+      <p class="cap">Версионирование - это рельсы под этот цикл. Без него правку нельзя ни прогнать по истории, ни честно сравнить.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── УЖЕ РЕАЛИЗОВАНО ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">04</span>Что уже реализовано</h2>
+    <p class="sub">
+      Механика собрана и закрыта тестами. Ниже - возможности и демонстрация работы на тестовом стенде.
+    </p>
+
+    <ul class="feat">
+      <li>
+        <span class="mark">✅</span>
+        <span class="body"><b>Хранение версий.</b> Каждая правка - отдельная пронумерованная версия, старые не пропадают.</span>
+      </li>
+      <li>
+        <span class="mark">✅</span>
+        <span class="body"><b>Привязка оценки к версии.</b> Воспроизводимость «версия → результат»: видно, чем оценивали конкретный звонок.</span>
+      </li>
+      <li>
+        <span class="mark">✅</span>
+        <span class="body"><b>Дедупликация.</b> Один и тот же текст промпта - это одна версия, дубли не плодятся. Закрыто жёстким правилом уникальности текста внутри промпта.</span>
+      </li>
+      <li>
+        <span class="mark">✅</span>
+        <span class="body"><b>Поиск противоречий.</b> Система сама ищет пары версий, которые расходятся на одних и тех же звонках, и показывает долю несогласия.</span>
+      </li>
+      <li>
+        <span class="mark">✅</span>
+        <span class="body"><b>Показатель уверенности (score).</b> У оценки появляется мера уверенности модели - <b>в экспериментальном виде</b> (см. честную оговорку ниже).</span>
+      </li>
+    </ul>
+
+    <div class="why">
+      <b>Чем подтверждено.</b> Под механикой стоят 83 быстрых проверочных теста (зелёные) плюс
+      отдельная проверка инвариантов на «боевой» базе Postgres - неизменность уже записанной версии и
+      каскадное удаление. Ключевые гарантии закреплены тестами, а не на словах.
+    </div>
+
+    <h3>Демонстрация на тестовом стенде</h3>
+    <div class="gallery">
+      <figure>
+        <span class="tag">реализовано</span>
+        <div class="frame"><img src="img/02-prod-write.png" alt="Боевая запись промпта: один промпт в списке"></div>
+        <figcaption>Боевая запись промпта - привычный список, как и раньше.</figcaption>
+      </figure>
+      <figure>
+        <span class="tag">реализовано</span>
+        <div class="frame"><img src="img/03-registry-versions-1.png" alt="Реестр версий после создания: одна версия"></div>
+        <figcaption>Сразу после создания в реестре - версия №1.</figcaption>
+      </figure>
+      <figure>
+        <span class="tag">реализовано</span>
+        <div class="frame"><img src="img/04-registry-label-prod.png" alt="Реестр меток: production указывает на версию 1"></div>
+        <figcaption>Указатель <b>production</b> наведён на версию №1.</figcaption>
+      </figure>
+      <figure>
+        <span class="tag">реализовано</span>
+        <div class="frame"><img src="img/05-registry-versions-2.png" alt="Реестр версий: две версии после правки"></div>
+        <figcaption>После правки текста - уже две версии, прошлая цела.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── ПРИМЕРЫ ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">05</span>Как это выглядит на практике</h2>
+    <p class="sub">Два обезличенных примера - без реальных звонков, имён и текстов промптов.</p>
+
+    <div class="example">
+      <h4>Пример 1. Новый скрипт продаж</h4>
+      <p class="tight">Отдел продаж ввёл новый скрипт разговора. Нужно понять, ловит ли его текущая оценка звонков.</p>
+      <ol>
+        <li>Готовите новую версию промпта под обновлённый скрипт.</li>
+        <li>Прогоняете ей звонки за прошлый месяц - тем же пакетом, что уже оценён старой версией.</li>
+        <li>Сравниваете два прогона: где оценки совпали, где разошлись, в какую сторону.</li>
+        <li>Получаете статистику: например, новая версия чаще распознаёт нужный этап разговора.</li>
+      </ol>
+      <div class="outcome">Итог: решение «переключаться или дорабатывать» - по цифрам на месячной выборке, а не по паре показательных звонков.</div>
+    </div>
+
+    <div class="example">
+      <h4>Пример 2. Две версии спорят на одном звонке</h4>
+      <p class="tight">Есть два варианта формулировки одного критерия. На звонке версия A ставит «успех», версия B - «провал».</p>
+      <ol>
+        <li>Система помечает звонок как точку расхождения между версиями A и B.</li>
+        <li>Вы видите список всех таких звонков и общую долю несогласия между версиями.</li>
+        <li>Открываете спорные звонки, смотрите, какая версия ближе к реальности.</li>
+        <li>Оставляете более точную версию, вторую убираете или переписываете.</li>
+      </ol>
+      <div class="outcome">Итог: вместо «промпты противоречат, непонятно что делать» - разбор по звонкам и обоснованный выбор формулировки.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── ПЛАН / В РАБОТЕ ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">06</span>Готово и в работе - честно</h2>
+    <p class="sub">Разделяю прямо, чтобы не было ложных ожиданий.</p>
+
+    <div class="status">
+      <div class="col done">
+        <h3>✅ Уже реализовано</h3>
+        <p style="margin:0;color:var(--soft);font-size:14px">Механика собрана, проверена тестами.</p>
+        <ul>
+          <li><b>Хранение версий</b> промптов с нумерацией.</li>
+          <li><b>Привязка оценки к версии</b> - воспроизводимость.</li>
+          <li><b>Дедупликация</b> одинаковых текстов промпта.</li>
+          <li><b>Поиск противоречий</b> между версиями.</li>
+          <li><b>Score</b> у оценки - в экспериментальном виде.</li>
+        </ul>
+      </div>
+      <div class="col plan">
+        <h3>🛠 План и в работе</h3>
+        <p style="margin:0;color:var(--soft);font-size:14px">Механика готова, запуск на боевых данных - впереди.</p>
+        <ul>
+          <li><b>Batch-переоценка на реальной истории.</b> Ждёт обезличенные выборки и согласование, на каких данных гонять.</li>
+          <li><b>Калибровка score.</b> Чтобы значениям можно было доверять как вероятности, нужна настройка на размеченных примерах.</li>
+          <li><b>Перенос в продуктивный контур</b> оценки звонков - предмет отдельного согласования.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout-idea" style="background:var(--warn-soft);border-color:var(--warn);color:var(--warn)">
+      <b>Честная оговорка про score.</b> Показатель уверенности пока экспериментальный и помечен в коде
+      как неоткалиброванный. Он помогает расставлять приоритеты («что перепроверить в первую очередь»),
+      но его абсолютным значениям пока нельзя доверять как точной вероятности. Это инструмент сортировки
+      внимания, а не финальный приговор.
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── КУДА ДАЛЬШЕ ───────────────── -->
+<section class="future">
+  <div class="wrap">
+    <span class="eyebrow">идея · ещё не сделано</span>
+    <h2><span class="num">07</span>Куда дальше: оценка звонка по шкале</h2>
+    <p class="sub">
+      Сейчас критерий чаще всего отвечает «да / нет» - выполнен или нет. Следующий шаг - оценка по
+      шкале (1-5 или 1-10). Это <b>идея на будущее</b>, в коде её пока нет.
+    </p>
+
+    <div class="scale-demo">
+      <div class="scale-card">
+        <h4>Сейчас: бинарно</h4>
+        <div class="scale-bar binary"><span>да</span><span>нет</span></div>
+        <p style="margin:0;font-size:14px;color:var(--muted)">Критерий выполнен или нет. Просто, но грубо: «почти получилось» и «совсем мимо» сливаются в одно «нет».</p>
+      </div>
+      <div class="scale-card">
+        <h4>Идея: по шкале</h4>
+        <div class="scale-bar graded"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></div>
+        <p style="margin:0;font-size:14px;color:var(--muted)">Видна степень: насколько хорошо отработан критерий, а не только факт «да/нет».</p>
+      </div>
+    </div>
+
+    <h3>Что это даст</h3>
+    <ul class="feat">
+      <li><span class="mark">📊</span><span class="body"><b>Различать оттенки.</b> «Тройка» и «пятёрка» по критерию - разные сигналы; на бинарной шкале они одинаковые «да».</span></li>
+      <li><span class="mark">📈</span><span class="body"><b>Тонкая статистика тренда.</b> Видно не только «стало больше успехов», а сдвиг среднего балла - мельче и раньше ловит изменения.</span></li>
+      <li><span class="mark">🎯</span><span class="body"><b>Приоритизация обучения.</b> Звонки с низким, но не нулевым баллом - точки роста, где операторы «почти дотягивают».</span></li>
+    </ul>
+
+    <div class="need">
+      <h4>Что для этого нужно</h4>
+      <ul>
+        <li>Переписать промпты на числовой выход вместо «да/нет» - и согласовать новые формулировки.</li>
+        <li>Откалибровать шкалу на размеченных примерах, чтобы баллы у разных критериев значили сопоставимое.</li>
+        <li>Решить саму шкалу (1-5 или 1-10) под задачу - это не требование извне, а наш выбор инструмента.</li>
+      </ul>
+    </div>
+
+    <div class="callout-idea">
+      <b>Статус: идея, ещё не реализовано.</b> Заготовки под дискретизацию баллов лежат в коде в
+      выключенном виде и не влияют на текущую боевую оценку. Шкала оживёт только после согласования
+      новых промптов.
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── ИТОГ + АТРИБУЦИЯ ───────────────── -->
+<section>
+  <div class="wrap">
+    <h2><span class="num">08</span>Короткий итог</h2>
+    <ul class="feat">
+      <li><span class="mark">①</span><span class="body">Каждая оценка привязана к конкретной версии промпта - знаете, чем оценивали.</span></li>
+      <li><span class="mark">②</span><span class="body">Новую формулировку можно проверить на истории и сравнить со старой на цифрах.</span></li>
+      <li><span class="mark">③</span><span class="body">Противоречия между промптами стали измеримыми - видно, где и насколько они спорят.</span></li>
+      <li><span class="mark">④</span><span class="body">К оценке прилагается уверенность модели (пока экспериментальная) - помогает решать, что перепроверять первым.</span></li>
+      <li><span class="mark">⑤</span><span class="body">Версионирование - инфраструктура под проверку гипотез и статистику, а не механизм «откатить и забыть».</span></li>
+    </ul>
+
+    <div class="attr">
+      <b>Кто что сделал - честная атрибуция.</b>
+      <ul>
+        <li>Реестр версий и перехват записи (чтобы ни одна правка не прошла мимо истории) - сделано в рамках этой работы.</li>
+        <li>Ядро слоя score и дедупликации - базовые модели, разбор ответа модели, отсев дублей - сделала команда проекта; это не приписывается себе.</li>
+        <li>Вклад в этот слой - адверсариальные аудиты и фиксы: поиск мест, где механика может тихо соврать, и починка найденного.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p class="kicker">Версионирование промптов оценки звонков · VoiceAnalitix</p>
+    <p>Демонстрация - на локальном тестовом стенде, данные синтетические. Реальные звонки, тексты боевых промптов и персональные данные на странице не приводятся.</p>
+    <div class="privacy">
+      Внутренняя страница. <code>noindex</code> + <code>robots.txt</code> - в поиск не попадает.
+      Системный контекст (для своих): транскрипция - Newton (<code>w.1b▒▒▒.ru</code>); задачи и аналитика - корпоративный контур.
+      Адреса и доступы намеренно скрыты.
+    </div>
+    <p style="margin-top:12px">Обновлено: 2026-06-07</p>
+  </div>
+</footer>
+
+</body>
+</html>
