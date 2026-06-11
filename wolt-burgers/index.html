@@ -1,0 +1,554 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Бургеры на двоих - Wolt Batumi</title>
+  <meta name="description" content="Готовые наборы и каталог бургеров на двоих в Батуми: куриные и говяжьи, реальные цены и фото из меню Wolt.">
+  <style>
+    /* Тема Light Editorial (канон hero-2-light): светлая журнальная, кремовый фон,
+       тёмный текст, винно-красный акцент, serif-заголовки. */
+    :root {
+      --font-body: "Charter", "Iowan Old Style", Georgia, serif;
+      --font-display: "Charter", "Iowan Old Style", Georgia, serif;
+      --display-weight: 700; --display-spacing: -0.01em;
+      --bg: #faf6ef; --card: #ffffff; --ink: #20201d; --muted: #6b665c;
+      --head: #1a1a17; --accent: #8a2b2b; --link: #8a2b2b;
+      --line: #e7e0d2; --total-line: #c9bfa9; --chip-line: #e0d8c7;
+      --radius: 14px; --radius-lg: 20px; --shadow: 0 1px 2px rgba(40,30,10,.05);
+      --ph-bg: #efe9dd;
+      --hero-bg: #ffffff; --hero-ink: #20201d; --hero-kicker: #8a2b2b;
+      --hero-lead: #46423a; --hero-note: #6b665c; --hero-stamp: #908a7d;
+      --hero-border: 1px solid #e7e0d2;
+      --legend-bg: #fbf3df; --legend-line: #ecdcb4; --legend-ink: #6a531c;
+      --rating-bg: #f6ecdb; --rating-ink: #7a4d12; --rating-line: #e6d4b3;
+      --role-bg: #f1ece1; --role-ink: #4a463c; --role-line: #e0d8c7;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); line-height: 1.5;
+      font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 24px 20px 80px; }
+
+    .hero { position: relative; overflow: hidden; color: #fff; border-radius: var(--radius-lg);
+      padding: clamp(40px, 7vw, 80px) clamp(28px, 5vw, 52px); border: none;
+      background: #2a1410; isolation: isolate; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -2;
+      background-image: var(--hero-photo); background-size: cover; background-position: center 58%;
+      filter: brightness(1.06); }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(105deg, rgba(26,12,7,.84) 0%, rgba(26,12,7,.60) 46%, rgba(26,12,7,.26) 100%); }
+    .kicker { margin: 0 0 14px; font-size: 13px; letter-spacing: .16em; text-transform: uppercase;
+      color: #f1c98f; font-weight: 700; }
+    .hero h1 { margin: 0 0 16px; font-family: var(--font-display); font-size: clamp(40px, 8vw, 76px);
+      line-height: 0.96; font-weight: var(--display-weight); letter-spacing: -0.02em; max-width: 14ch; }
+    .hero .lead { margin: 0 0 14px; font-size: clamp(17px, 2.4vw, 20px); line-height: 1.5;
+      color: #f3e7df; max-width: 620px; }
+    .hero .note { margin: 0; font-size: 14px; line-height: 1.5; color: #d6c3ba; max-width: 640px; }
+    .hero .stamp { margin-top: 16px; font-size: 12.5px; color: #b39a90; letter-spacing: .02em; }
+    .hero h1, .hero .lead, .hero .note, .hero .stamp, .kicker {
+      text-shadow: 0 1px 16px rgba(15,7,3,.6), 0 1px 4px rgba(15,7,3,.45); }
+
+    .legend { background: var(--legend-bg); border: 1px solid var(--legend-line); color: var(--legend-ink);
+      border-radius: 12px; padding: 14px 18px; margin: 22px 0 6px; font-size: 14.5px; }
+
+    h2.block { font-family: var(--font-display); font-size: clamp(28px, 4.5vw, 38px); color: var(--head);
+      margin: 56px 0 6px; font-weight: var(--display-weight); letter-spacing: -0.015em;
+      display: flex; align-items: center; gap: 18px; }
+    h2.block::after { content: ""; flex: 1; height: 1px; background: var(--total-line); opacity: .6; }
+    .block-sub { margin: 0 0 20px; color: var(--muted); font-size: 15.5px; max-width: 640px; }
+
+    .sets { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 16px; }
+    .set { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      padding: 22px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+
+    .set-title { margin: 0; font-family: var(--font-display); font-size: 22px; color: var(--head);
+      font-weight: var(--display-weight); line-height: 1.18; letter-spacing: var(--display-spacing); }
+    .set-venue { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+    .set-items { list-style: none; margin: 4px 0 0; padding: 0; }
+    .set-items li { display: flex; justify-content: space-between; gap: 12px;
+      padding: 7px 0; border-bottom: 1px dashed var(--line); font-size: 15px; }
+    .set-items li.total { border-bottom: none; border-top: 2px solid var(--total-line);
+      margin-top: 4px; padding-top: 11px; font-weight: 800; color: var(--accent); font-size: 16px; }
+    .li-price { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 600; }
+
+    .group { margin-top: 30px; }
+    .group-head h2 { margin: 0 0 4px; font-family: var(--font-display); font-size: 23px; color: var(--head);
+      font-weight: var(--display-weight); }
+    .group-sub { margin: 0 0 16px; color: var(--muted); font-size: 15px; }
+    .dishes { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+    .dish { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+      overflow: hidden; display: flex; flex-direction: column; box-shadow: var(--shadow); }
+    .photo { width: 100%; height: 185px; object-fit: cover; display: block; background: var(--ph-bg); }
+    .ph { width: 100%; height: 185px; display: grid; place-items: center; background: var(--ph-bg);
+      color: var(--muted); font-size: 14px; }
+    .dish-body { padding: 14px 16px 16px; display: flex; flex-direction: column; gap: 7px; }
+    .dish-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+    .dish-top h4 { margin: 0; font-size: 16.5px; line-height: 1.3; font-weight: 700; }
+    .price { font-family: var(--font-display); font-weight: var(--display-weight); color: var(--accent);
+      white-space: nowrap; font-variant-numeric: tabular-nums; font-size: 21px; line-height: 1; }
+    .price .cur { font-family: var(--font-body); font-size: 11px; font-weight: 600; letter-spacing: .05em;
+      color: var(--muted); margin-left: 3px; text-transform: uppercase; }
+    .orig { color: var(--muted); font-size: 13px; }
+    .dish-meta { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 3px; }
+    .venue { color: var(--link); font-weight: 700; text-decoration: none; font-size: 14px;
+      text-decoration: underline; text-decoration-color: var(--line); text-underline-offset: 3px; }
+    .venue:hover { text-decoration-color: var(--link); }
+    .chip { font-size: 13px; }
+    .chip.rating { color: var(--rating-ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+    .chip.role { color: var(--muted); font-style: italic; }
+    .chip.role::before { content: "· "; }
+    .why { margin: 4px 0 0; color: var(--muted); font-size: 14px; }
+
+    footer { margin-top: 52px; color: var(--muted); font-size: 14px; text-align: center; }
+    footer a { color: var(--link); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero" style="--hero-photo: url('https://imageproxy.wolt.com/assets/69219b4962c0f58ea1cae600')">
+      <p class="kicker">Wolt Batumi · на двоих</p>
+      <h1>Бургеры на двоих</h1>
+      <p class="lead">Готовые наборы и каталог бургеров в Батуми. Ей - принципиально куриный, тебе - любой. Куриные и говяжьи разнесены отдельно, плюс гарниры. С реальными ценами и фото из Wolt.</p>
+      <p class="note">Подборка бургеров на двоих в Батуми: ей - куриный, тебе - любой. Цены и фото реальные, из меню Wolt на момент снимка. Перед заказом сверь цену, наличие, доставку и сервисный сбор в Wolt: они меняются. Это не заказ и не корзина.</p>
+      <p class="stamp">Цены и фото из меню Wolt Batumi, снимок 11 июня 2026, read-only</p>
+    </header>
+
+    <div class="legend">Это не заказ и не корзина. Суммы наборов - простой подсчёт по позициям, без доставки и сервисного сбора. Цены, наличие, доставку и сборы сверяй в Wolt перед заказом.</div>
+
+    <h2 class="block">Готовые наборы</h2>
+    <p class="block-sub">Каждый набор - на двоих, из одного заведения: ей куриный, тебе говяжий, гарнир пополам. Сумма - сложение цен позиций.</p>
+    <div class="sets">
+      <article class="set">
+        <h3 class="set-title">Burger Hub: проверенный набор</h3>
+        <div class="set-venue">
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1" target="_blank" rel="noopener">Burger Hub</a>
+          <span class="chip rating">★ 9.4</span>
+          <span class="chip role">ей куриный · тебе чизбургер</span>
+        </div>
+        <ul class="set-items">
+              <li><span>Куриный бургер</span><span class="li-price">21.9</span></li>
+              <li><span>Чизбургер</span><span class="li-price">23.9</span></li>
+              <li><span>Сырный фри</span><span class="li-price">12.7</span></li>
+          <li class="total"><span>Итого на двоих</span><span class="li-price">58.5 GEL</span></li>
+        </ul>
+        <p class="why">Топ-рейтинг по городу и ты его уже хвалил. Ей - куриный, тебе - чизбургер, сырный фри пополам. Всё из одного места, одна доставка.</p>
+      </article>
+      <article class="set">
+        <h3 class="set-title">Burger King: дёшево и без путаницы</h3>
+        <div class="set-venue">
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2" target="_blank" rel="noopener">Burger King Batumi</a>
+          <span class="chip rating">★ 8.6</span>
+          <span class="chip role">ей куриный · тебе говяжий</span>
+        </div>
+        <ul class="set-items">
+              <li><span>Чикен Биг Кинг</span><span class="li-price">13.25</span></li>
+              <li><span>Родео Воппер</span><span class="li-price">21</span></li>
+              <li><span>Луковые кольца, 8 шт</span><span class="li-price">4.75</span></li>
+          <li class="total"><span>Итого на двоих</span><span class="li-price">39 GEL</span></li>
+        </ul>
+        <p class="why">Куриные и говяжьи бургеры разнесены по отдельным линейкам - не перепутать. Самый бюджетный набор: Чикен Биг Кинг ей, Родео Воппер тебе, луковые кольца.</p>
+      </article>
+      <article class="set">
+        <h3 class="set-title">Wendy&#x27;s: вэлью и разнообразие</h3>
+        <div class="set-venue">
+          <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+          <span class="chip rating">★ 8.8</span>
+          <span class="chip role">ей куриный гриль · тебе двойной</span>
+        </div>
+        <ul class="set-items">
+              <li><span>Куриный бургер на гриле</span><span class="li-price">11.95</span></li>
+              <li><span>Двойной бургер Wendy&#x27;s</span><span class="li-price">18.95</span></li>
+              <li><span>Кручёный фри</span><span class="li-price">7.45</span></li>
+          <li class="total"><span>Итого на двоих</span><span class="li-price">38.35 GEL</span></li>
+        </ul>
+        <p class="why">Лучшее соотношение цена-порция. Ей - куриный на гриле (полегче, не жареный), тебе - двойной бургер, кручёный фри пополам.</p>
+      </article>
+    </div>
+
+    <h2 class="block">Каталог бургеров</h2>
+    <p class="block-sub">Отдельные позиции по типу - собери свой набор или замени бургер в готовом.</p>
+      <section class="group">
+        <div class="group-head">
+          <h2>Куриные бургеры</h2>
+          <p class="group-sub">Для неё - принципиально куриный. Вот весь выбор по городу.</p>
+        </div>
+        <div class="dishes">
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Куриный бургер" src="https://imageproxy.wolt.com/assets/69219b4962c0f58ea1cae600">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Куриный бургер</h4>
+              <span class="price">21.9<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ქათმის ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a3743d6b602df337e7ea4" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">ей · хит места</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Чикен Биг Кинг" src="https://imageproxy.wolt.com/assets/6915d0b8d63f42c8e1464cb1">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Чикен Биг Кинг</h4>
+              <span class="price">13.25<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Chicken Big King</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-72591d58e2f316717f95927d" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">ей · недорого</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Куриный бургер на гриле" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/fed9b82c-64a9-11f1-8d71-96f65ddbc818_663.jpg_c_20260610125422">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Куриный бургер на гриле</h4>
+              <span class="price">11.95<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">გრილზე შემწვარი ქათმის ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-68c016a99ee85c6b5e476e88" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">ей · полегче</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Острый куриный бургер" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/fee33348-64a9-11f1-8d71-96f65ddbc818_664.jpg_c_20260610125422">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Острый куриный бургер</h4>
+              <span class="price">11.95<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ცხარე ქათმის ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-65d7552bb44e80d96686bb67" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">ей · поострее</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Куриный чизбургер" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/fedf6ac4-64a9-11f1-8d71-96f65ddbc818_5295.jpg_c_20260610125422">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Куриный чизбургер</h4>
+              <span class="price">7.45<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ქათმის ჩიზბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-694aa5d76a8299486ee671b1" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">ей · самый дешёвый</span>
+            </div>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Говяжьи бургеры</h2>
+          <p class="group-sub">Тебе всё равно - бери говяжий: от классики до фирменных.</p>
+        </div>
+        <div class="dishes">
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Классик бургер" src="https://imageproxy.wolt.com/assets/6921996b765a8ef53e4252d5">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Классик бургер</h4>
+              <span class="price">19.9<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">კლასიკ ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a35bd3ee551268da62279" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">говядина 120 г</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Чизбургер" src="https://imageproxy.wolt.com/assets/69219ae6765a8ef53e4252ff">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Чизбургер</h4>
+              <span class="price">23.9<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ჩიზბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a36a8543a568a6d6f4e15" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">говядина + чеддер</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Бекон бургер" src="https://imageproxy.wolt.com/assets/69219b1362c0f58ea1cae5f1">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Бекон бургер</h4>
+              <span class="price">24.9<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ბეკონ ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-627247fcc32c3d737b0c8a74" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">бекон + халапеньо</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Хаб бургер" src="https://imageproxy.wolt.com/assets/69219b7362c0f58ea1cae608">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Хаб бургер</h4>
+              <span class="price">39.9<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ჰაბ ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a39814480dff0762b08fc" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">фирменный 240 г</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Родео Воппер" src="https://wolt-menu-images-cdn.wolt.com/menu-images/61c1b7a8d0a32b8919899267/b41ddefe-d127-11ec-a3f1-1aa37b5b2b9e_bk_wolt_etburger_1000x600pxrodeowhopper.jpeg">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Родео Воппер</h4>
+              <span class="price">21<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Rodeo Whopper</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-627baf059b9cbf097e872bbb" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">говядина + луковые кольца</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Мега двойной чизбургер" src="https://imageproxy.wolt.com/assets/6971f4b9412054946933decf">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Мега двойной чизбургер</h4>
+              <span class="price">25.5<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Mega Double Cheese Burger</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-434d5524f3791d190079a0f2" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">двойная котлета</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Двойной бургер Wendy&#x27;s" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/fecda71c-64a9-11f1-8d71-96f65ddbc818_653.jpg_c_20260610125422">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Двойной бургер Wendy&#x27;s</h4>
+              <span class="price">18.95<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ვენდის ორმაგი ბურგერი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-68dd317de03beaf12ae88b3d" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">две котлеты</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Бэконатор" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/fecb76e0-64a9-11f1-8d71-96f65ddbc818_656.jpg_c_20260610125422">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Бэконатор</h4>
+              <span class="price">16.25<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ბეკონატორი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-65d7552bb44e80d96686bb5b" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">говядина + много бекона</span>
+            </div>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Растительные и рыбные</h2>
+          <p class="group-sub">Для разнообразия: Beyond Meat, рыбный и растительный воппер.</p>
+        </div>
+        <div class="dishes">
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Бургер Beyond Meat" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/febfe99c-64a9-11f1-8d71-96f65ddbc818_4458.jpg_c_20260610125422">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Бургер Beyond Meat</h4>
+              <span class="price">13.45<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ვენდის ფლენთ ბურგერი (Beyond Meat)</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-674ad67eedcfd0c01d8b7b09" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">растительный</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Рыбный бургер (Fish Royal)" src="https://wolt-menu-images-cdn.wolt.com/menu-images/61c1b7a8d0a32b8919899267/f93840f8-745a-11ec-9493-5294534b9fa6_bk_gurcistanglovo_tavukburger_1000x1000px_fishroyale.jpeg">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Рыбный бургер (Fish Royal)</h4>
+              <span class="price">10<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Fish Royal</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-61dffd4ea8ccbc46ea74f53f" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">рыба</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Растительный Воппер" src="https://wolt-menu-images-cdn.wolt.com/menu-images/61c1b7a8d0a32b8919899267/45ef413e-7457-11ec-b151-7a44d821bf3d_bk_wolt_etburger_1000x600px_plant_basedwhopper__1_.jpeg">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Растительный Воппер</h4>
+              <span class="price">18.5<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Planty Whopper</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-61dff7a3f3d41fa9e5789c56" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">растительный</span>
+            </div>
+          </div>
+        </article>
+        </div>
+      </section>
+      <section class="group">
+        <div class="group-head">
+          <h2>Гарниры и снеки</h2>
+          <p class="group-sub">Фри, стрипсы, наггетсы, луковые кольца - добить ужин до полного.</p>
+        </div>
+        <div class="dishes">
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Картофель фри" src="https://imageproxy.wolt.com/assets/69219bbc765a8ef53e425315">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Картофель фри</h4>
+              <span class="price">7<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ფრი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a38381b12afc8a30c8cef" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">к любому бургеру</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Сырный фри" src="https://imageproxy.wolt.com/assets/69219bd3765a8ef53e425317">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Сырный фри</h4>
+              <span class="price">12.7<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ჩიზი ფრი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a3852219bdd7e01a50c0b" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">фри с сыром</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Куриные стрипсы" src="https://imageproxy.wolt.com/assets/69219c14765a8ef53e42531e">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Куриные стрипсы</h4>
+              <span class="price">16.9<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ქათმის ჩხირები</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a39526a1486320c68bbe6" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">к куриному набору</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Сырные палочки" src="https://imageproxy.wolt.com/assets/69219b8d765a8ef53e425312">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Сырные палочки</h4>
+              <span class="price">17.5<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">ყველის ჩხირები</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-hub1/itemid-620a37f9324bbfb25bef041f" target="_blank" rel="noopener">Burger Hub</a>
+              <span class="chip rating">★ 9.4</span>
+              <span class="chip role">снек</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Куриные тендерсы, 6 шт" src="https://wolt-menu-images-cdn.wolt.com/menu-images/613f0124cabd32075920ccb1/ca958f22-1a13-11ec-8032-560f21971a1a_bk_guricstanwebtekurunler1440x810px_6litenders.jpeg">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Куриные тендерсы, 6 шт</h4>
+              <span class="price">7.5<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Chicken Tenders 6 pc</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-61c1b7b4d9c8b0fc5e3060a2" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">снек</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Луковые кольца, 8 шт" src="https://wolt-menu-images-cdn.wolt.com/menu-images/61c1b7a8d0a32b8919899267/05d07b4a-7470-11ec-bb01-72ba559cbad4_snacks_1000x1000px_6lisoganhalkasi.jpeg">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Луковые кольца, 8 шт</h4>
+              <span class="price">4.75<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">Onion Ring 8 pc</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/burger-king-batumi2/itemid-61e01ff20e1b5aa2dfa4691a" target="_blank" rel="noopener">Burger King Batumi</a>
+              <span class="chip rating">★ 8.6</span>
+              <span class="chip role">снек</span>
+            </div>
+          </div>
+        </article>
+        <article class="dish">
+          <img class="photo" loading="lazy" alt="Кручёный фри" src="https://wolt-menu-images-cdn.wolt.com/menu-images/5d023a89098a58c7dedd4f8e/ff5798d2-64a9-11f1-8d71-96f65ddbc818_766.jpg_c_20260610125428">
+          <div class="dish-body">
+            <div class="dish-top">
+              <h4>Кручёный фри</h4>
+              <span class="price">7.45<span class="cur">GEL</span></span>
+            </div>
+            <span class="orig">დახვეული ფრი</span>
+            <div class="dish-meta">
+              <a class="venue" href="https://wolt.com/en/geo/batumi/restaurant/wendys-batumi1/itemid-674b20d1fe5b1d5882878fad" target="_blank" rel="noopener">Wendy&#x27;s Batumi</a>
+              <span class="chip rating">★ 8.8</span>
+              <span class="chip role">к любому бургеру</span>
+            </div>
+          </div>
+        </article>
+        </div>
+      </section>
+
+    <footer>
+      Собрано по read-only меню Wolt Batumi через consumer-assortment API. Ссылки ведут на позиции и заведения в Wolt.
+    </footer>
+  </div>
+</body>
+</html>
