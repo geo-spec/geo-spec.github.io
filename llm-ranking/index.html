@@ -40,6 +40,12 @@ Go). Источники пронумерованы и собраны в конц
 directive Министерства торговли США Anthropic отключил Fable 5 и Mythos
 5 глобально, дата возврата не объявлена. Реально доступный верх - Claude
 Opus 4.8 и GPT-5.5. [3][23][24]</p>
+<p><strong>Новое: Claude Sonnet 5</strong> (30 июня 2026,
+<code>claude-sonnet-5</code>) - сразу на #6. Сильна по коду и tool-use,
+вровень с Opus 4.8 на knowledge-work, но небыстрая и дорогая по задаче
+(cost-per-task ~2x Sonnet 4.6, ~15% выше Opus 4.8), поэтому ниже Gemini
+3.5 Flash и GLM-5.2. Стала дефолтом Claude Code вместо Sonnet 4.6.
+[35][36]</p>
 </blockquote>
 <h2 id="методология-что-нельзя-смешивать">Методология: что нельзя
 смешивать</h2>
@@ -247,7 +253,7 @@ Intelligence, LMArena Text/Code/Agent, HLE/GPQA/LiveBench.</li>
 </ul>
 <p>И отдельно помечаю, модель это или связка «модель + agent
 harness».</p>
-<h2 id="top-20-модели-и-агенты">Top-20: модели и агенты</h2>
+<h2 id="top-21-модели-и-агенты">Top-21: модели и агенты</h2>
 <p>Скорость читать по разделу «Как читать скорость» выше. В колонке:
 <strong>tok/s</strong> - output speed; <strong>TTFT</strong> - до
 первого токена (у reasoning-моделей включает thinking-time и сильно
@@ -327,6 +333,22 @@ MCP Atlas ~76.8 (числа Z.ai). «Max» - уровень усилия, не �
 </tr>
 <tr>
 <td style="text-align: right;">6</td>
+<td><strong>Claude Sonnet 5</strong></td>
+<td>Closed</td>
+<td>Сильный агент по коду: SWE-bench Pro 63.2 (выше GLM-5.2 62.1,
+GPT-5.5 58.6, Flash 55.1; ниже только Opus 4.8 69.2), Terminal-Bench 2.1
+= 80.4, OSWorld 81.2; на GDPval-AA v2 (1618 vs 1615) и HLE-with-tools
+(57.4 vs 57.9) вровень с Opus 4.8. AA Intelligence Index 53 (#5 по
+индексу). Ниже Flash/GLM из-за практичности: дорогая по задаче и
+небыстрая. [35][36]</td>
+<td>low/medium ~52-56 tok/s, TTFT ~1.0s; high/xhigh/max output ~58/71/85
+tok/s, но задержка до первого answer-токена с thinking 20.7/28.5/150.6s
+(это не «чистый TTFT»). [35][36]</td>
+<td>Сильный Claude Code default вместо Sonnet 4.6; не замена Opus
+4.8</td>
+</tr>
+<tr>
+<td style="text-align: right;">7</td>
 <td><strong>Claude Opus 4.7</strong></td>
 <td>Closed</td>
 <td>Сильный reasoning-вариант: Opus 4.7 Thinking у верхушки LMArena Text
@@ -335,7 +357,7 @@ Overall, высокий Intelligence Index. [4]</td>
 <td>Надёжный reasoning, fallback</td>
 </tr>
 <tr>
-<td style="text-align: right;">7</td>
+<td style="text-align: right;">8</td>
 <td><strong>Gemini 3.1 Pro Preview</strong></td>
 <td>Closed</td>
 <td>Сильная general/multimodal: высокая позиция в LMArena Text Overall,
@@ -344,7 +366,7 @@ Overall, высокий Intelligence Index. [4]</td>
 <td>General reasoning, multimodal, long-context</td>
 </tr>
 <tr>
-<td style="text-align: right;">8</td>
+<td style="text-align: right;">9</td>
 <td><strong>Qwen3.7 Max</strong></td>
 <td>Open-weight / China stack</td>
 <td>Высокая скорость, низкая цена, сильная общая позиция в AA; замена
@@ -353,7 +375,7 @@ Overall, высокий Intelligence Index. [4]</td>
 <td>Быстрый дешёвый general/coding/multilingual слой</td>
 </tr>
 <tr>
-<td style="text-align: right;">9</td>
+<td style="text-align: right;">10</td>
 <td><strong>Claude Sonnet 4.6</strong></td>
 <td>Closed</td>
 <td>Важна для Claude Code: Anthropic позиционирует Sonnet как лучшее
@@ -363,7 +385,7 @@ Overall, высокий Intelligence Index. [4]</td>
 <td>Повседневный coding-агент, баланс цены и качества</td>
 </tr>
 <tr>
-<td style="text-align: right;">10</td>
+<td style="text-align: right;">11</td>
 <td><strong>Kimi K2.6</strong></td>
 <td>Open-weight</td>
 <td>Moonshot: SWE-bench Verified = 80.2, SWE-bench Pro = 58.6, OSWorld
@@ -372,7 +394,7 @@ Verified = 73.1, Terminal-Bench 2.0 = 66.7. [21]</td>
 <td>Open-weight агент для кода и длинных tool-chain задач</td>
 </tr>
 <tr>
-<td style="text-align: right;">11</td>
+<td style="text-align: right;">12</td>
 <td><strong>Kimi K2.7 Code</strong></td>
 <td>Open-weight / coding</td>
 <td>Новая coding-ветка; LMArena добавила K2.7 Code в Code 15 июня 2026.
@@ -381,7 +403,7 @@ Verified = 73.1, Terminal-Bench 2.0 = 66.7. [21]</td>
 <td>Watchlist для coding-агента и MCP workflows</td>
 </tr>
 <tr>
-<td style="text-align: right;">12</td>
+<td style="text-align: right;">13</td>
 <td><strong>MiniMax-M3</strong></td>
 <td>Open-weight / low-cost</td>
 <td>Высокий Intelligence Index при очень низком blended cost. [1]</td>
@@ -389,7 +411,7 @@ Verified = 73.1, Terminal-Bench 2.0 = 66.7. [21]</td>
 <td>Бюджетный агент, browser/GUI эксперименты</td>
 </tr>
 <tr>
-<td style="text-align: right;">13</td>
+<td style="text-align: right;">14</td>
 <td><strong>DeepSeek V4 Pro / Pro Max</strong></td>
 <td>Open-weight / low-cost</td>
 <td>Сильный price/performance: рядом с MiniMax-M3 по Intelligence Index
@@ -399,7 +421,7 @@ Verified = 73.1, Terminal-Bench 2.0 = 66.7. [21]</td>
 <td>Экономичный reasoning/coding layer</td>
 </tr>
 <tr>
-<td style="text-align: right;">14</td>
+<td style="text-align: right;">15</td>
 <td><strong>GPT-5.3 Codex xHigh</strong></td>
 <td>Closed + Agent</td>
 <td>Отдельный агентный режим, но для нового рейтинга GPT-5.5 обычно
@@ -408,7 +430,7 @@ Verified = 73.1, Terminal-Bench 2.0 = 66.7. [21]</td>
 <td>Codex workflows, если нужен именно этот стек</td>
 </tr>
 <tr>
-<td style="text-align: right;">15</td>
+<td style="text-align: right;">16</td>
 <td><strong>Muse Spark</strong></td>
 <td>Closed / tool-agent</td>
 <td>В MCP Atlas рядом с Opus 4.8 и Fable 5 по tool-use, но публичной
@@ -417,7 +439,7 @@ speed-картины меньше. [8]</td>
 <td>Watchlist для tool orchestration</td>
 </tr>
 <tr>
-<td style="text-align: right;">16</td>
+<td style="text-align: right;">17</td>
 <td><strong>Grok Build 0.1 / Grok 4.20 beta</strong></td>
 <td>Closed</td>
 <td>Grok Build 0.1 в AA с очень низким TTFT; Grok 4.20 beta reasoning -
@@ -426,7 +448,7 @@ speed-картины меньше. [8]</td>
 <td>Быстрый build/webdev экспериментальный слой</td>
 </tr>
 <tr>
-<td style="text-align: right;">17</td>
+<td style="text-align: right;">18</td>
 <td><strong>Nex-N2-Pro</strong></td>
 <td>Closed / low-latency</td>
 <td>Неплохой speed/value в AA, меньше независимых агентных сигналов.
@@ -435,7 +457,7 @@ speed-картины меньше. [8]</td>
 <td>Быстрый недорогой general layer</td>
 </tr>
 <tr>
-<td style="text-align: right;">18</td>
+<td style="text-align: right;">19</td>
 <td><strong>MiMo-V2.5-Pro</strong></td>
 <td>Open / China stack</td>
 <td>Сильный low-cost по Intelligence Index, но без агентного веса
@@ -444,7 +466,7 @@ GLM/Kimi/DeepSeek. [1]</td>
 <td>Бюджетный reasoning, fallback</td>
 </tr>
 <tr>
-<td style="text-align: right;">19</td>
+<td style="text-align: right;">20</td>
 <td><strong>GPT-5.4 mini xHigh</strong></td>
 <td>Closed / fast small</td>
 <td>Не топовая агентная, но полезна как быстрый routing/fallback слой.
@@ -453,7 +475,7 @@ GLM/Kimi/DeepSeek. [1]</td>
 <td>Быстрые промежуточные задачи, summarization, routing</td>
 </tr>
 <tr>
-<td style="text-align: right;">20</td>
+<td style="text-align: right;">21</td>
 <td><strong>DeepSeek V4 Flash Max</strong></td>
 <td>Open-weight / ultra-low-cost</td>
 <td>Не лидер по сложной агентности, но крайне дешёвый и быстрый для
@@ -484,6 +506,14 @@ Analysis.</p>
 <td style="text-align: right;">$25.00</td>
 <td style="text-align: right;">$10.00</td>
 <td>cache read $0.50; Fast mode $10/$50</td>
+</tr>
+<tr>
+<td>Claude Sonnet 5</td>
+<td style="text-align: right;">$3.00</td>
+<td style="text-align: right;">$15.00</td>
+<td style="text-align: right;">$6.00</td>
+<td>интро $2/$10 до 31.08.2026; токенайзер +~30%, cost-per-task ~2x
+Sonnet 4.6</td>
 </tr>
 <tr>
 <td>Claude Sonnet 4.6</td>
@@ -552,9 +582,11 @@ Analysis.</p>
 </table>
 <p><strong>Средние по API:</strong></p>
 <ul>
-<li><strong>Closed frontier</strong> (Opus 4.8, Sonnet 4.6, GPT-5.5,
-Gemini Pro/Flash): ~<strong>$2.90 input / $15.20 output</strong>,
-blended ~<strong>$6.0/M</strong>.</li>
+<li><strong>Closed frontier</strong> (Opus 4.8, Sonnet 5, Sonnet 4.6,
+GPT-5.5, Gemini Pro/Flash): ~<strong>$2.90 input / $15.20
+output</strong>, blended ~<strong>$6.0/M</strong>. Оговорка по Sonnet 5:
+низкая цена за токен обманчива - из-за токен-bloat реальная цена задачи
+одна из самых высоких (2-е место после Fable 5). [36]</li>
 <li><strong>Open-weight</strong> (GLM-5.2, Qwen3.7, Kimi K2.6, DeepSeek
 V4 Pro): ~<strong>$1.18 input / $3.66 output</strong>, blended
 ~<strong>$1.8/M</strong>.</li>
@@ -688,7 +720,9 @@ Pro - оба на 5-часовом окне, но за те же $20 <strong>Cod
 у Claude требует Max 5x за $100). Claude Code Pro выгорает за 15-30
 минут (заявлен под лёгкую нагрузку), зато обычно сильнее по качеству
 кода и repo-рефакторам. Anthropic 6 мая 2026 удвоил лимиты Claude Code -
-воздуха больше, но не безлимит. [33][34]</li>
+воздуха больше, но не безлимит. С 30 июня 2026 Claude Code дефолтит на
+Sonnet 5 (дешевле за токен, но прожорливее по токенам, чем Sonnet 4.6).
+[33][34][35]</li>
 <li><strong>$20 IDE:</strong> Cursor Pro.</li>
 <li><strong>Тяжёлый ежедневный агент:</strong> Codex Pro 5x/20x
 ($100/$200), Claude Max 5x/20x ($100/$200) или Cursor Ultra $200 -
@@ -724,6 +758,9 @@ OpenCode Go $10 на открытых моделях.</p>
 <li><strong>Быстрый рабочий default:</strong> Gemini 3.5 Flash - но это
 Flash-tier и с оговоркой по надёжности; для критичного кода всё равно
 Opus 4.8 / GPT-5.5.</li>
+<li><strong>Claude Code default:</strong> с 30 июня 2026 - Claude Sonnet
+5 вместо Sonnet 4.6: сильнее по коду и tool-use, но дороже по задаче и
+небыстрая; для тяжёлого - всё равно Opus 4.8.</li>
 <li><strong>Open-weight / self-host:</strong> GLM-5.2 (Max effort)
 первым, затем Kimi K2.6 и K2.7 Code, затем DeepSeek V4 Pro и
 MiniMax-M3.</li>
@@ -779,6 +816,9 @@ Mythos 5. <a href="https://www.gtlaw.com/en/insights/2026/6/ai-company-anthropic
 <li>morphllm - AI Coding Costs 2026. <a href="https://www.morphllm.com/ai-coding-costs">https://www.morphllm.com/ai-coding-costs</a></li>
 <li>OpenAI - Codex Pricing. <a href="https://developers.openai.com/codex/pricing">https://developers.openai.com/codex/pricing</a></li>
 <li>morphllm - Codex vs Claude Code (limits comparison). <a href="https://www.morphllm.com/comparisons/codex-vs-claude-code">https://www.morphllm.com/comparisons/codex-vs-claude-code</a></li>
+<li>Anthropic - Introducing Claude Sonnet 5. <a href="https://www.anthropic.com/news/claude-sonnet-5">https://www.anthropic.com/news/claude-sonnet-5</a></li>
+<li>Artificial Analysis - Claude Sonnet 5: strong agentic performance at
+a higher cost per task. <a href="https://artificialanalysis.ai/articles/claude-sonnet-5-agentic-cost">https://artificialanalysis.ai/articles/claude-sonnet-5-agentic-cost</a></li>
 </ol>
 </article>
 </body>
