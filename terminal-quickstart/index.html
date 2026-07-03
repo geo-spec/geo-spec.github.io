@@ -234,6 +234,29 @@
   </section>
 
   <section>
+    <h2><span class="num">10.</span> 🧰 tmux + AI-агенты</h2>
+    <p>Ты много живёшь в tmux и гоняешь агентов (Claude Code, opencode, codex) - конфиг заточен под это.</p>
+    <p><b>Что настроено под агентов:</b></p>
+    <ul>
+      <li><b>truecolor + <code>allow-passthrough</code></b> - агентские TUI рисуются правильно, работают ссылки, картинки и OSC52-clipboard внутри tmux.</li>
+      <li><b>Скроллбэк 50 000 строк</b> - агенты сыплют вывод, это твой аудит-лог.</li>
+      <li><b>Визуальный сигнал</b>: когда агент в фоновой панели закончил или ждёт решения - окно розовеет в статус-баре (bell из <code>notify.sh</code>). Звук и Telegram со сводкой - это уже было.</li>
+      <li><b>Персистентность</b> (resurrect + continuum): сессии и панели авто-сохраняются и восстанавливаются после ребута.</li>
+    </ul>
+    <p><b>Ключевые бинды</b> (prefix - <kbd>Ctrl</kbd>+<kbd>A</kbd>):</p>
+    <table>
+      <tr><th>Действие</th><th>Клавиши</th></tr>
+      <tr><td>Сплит вправо / вниз</td><td><kbd>prefix</kbd> <code>|</code> / <kbd>prefix</kbd> <code>-</code></td></tr>
+      <tr><td>Навигация по панелям</td><td><kbd>prefix</kbd> + <kbd>h</kbd>/<kbd>j</kbd>/<kbd>k</kbd>/<kbd>l</kbd></td></tr>
+      <tr><td>Новое окно / выбор окна / сессий</td><td><kbd>prefix</kbd> <kbd>c</kbd> / <kbd>w</kbd> / <kbd>s</kbd></td></tr>
+      <tr><td>Мышь вкл-выкл · перезагрузка конфига</td><td><kbd>prefix</kbd> <kbd>m</kbd> · <kbd>prefix</kbd> <kbd>r</kbd></td></tr>
+      <tr><td>Копирование</td><td><kbd>prefix</kbd> <kbd>Enter</kbd> → <kbd>v</kbd> выделить, <kbd>y</kbd> копировать</td></tr>
+    </table>
+    <p><b><code>ccrc</code></b> - поднять Claude Code Remote Control в tmux-сессии: рулить агентом с <code>claude.ai/code</code> и телефона, сессия переживает закрытие терминала. <code>ccrcn</code> - ещё один демон в отдельной сессии.</p>
+    <blockquote>Привычка: одно окно на задачу, внутри сплиты - агент + shell + логи. Агент в tmux переживает отключение SSH и закрытие терминала.</blockquote>
+  </section>
+
+  <section>
     <h2>🗺️ Шпаргалка</h2>
     <table>
       <tr><th>Хочу</th><th>Делаю</th></tr>
