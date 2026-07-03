@@ -6,11 +6,43 @@
 <meta name="robots" content="noindex, nofollow">
 <title>Click-start: новый терминал</title>
 <meta name="description" content="Наглядный быстрый старт по терминальному окружению: Ghostty, Starship, atuin, zoxide, fzf, eza, bat.">
+<script>
+  // no-flash: применяем сохранённую тему до отрисовки
+  (function(){try{var t=localStorage.getItem('theme-preference');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();
+</script>
 <style>
+  /* Тёмная палитра (Catppuccin Mocha) — по умолчанию */
   :root{
+    color-scheme:dark;
     --bg:#1e1e2e; --surface:#313244; --surface2:#45475a; --overlay:#585b70;
     --text:#cdd6f4; --subtext:#a6adc8; --teal:#94e2d5; --mauve:#cba6f7;
     --blue:#89b4fa; --green:#a6e3a1; --yellow:#f9e2af; --red:#f38ba8; --peach:#fab387;
+    --hero:#2a2a3f;
+  }
+  /* Светлая (Catppuccin Latte) — авто по системе, если тема вручную не выбрана */
+  @media (prefers-color-scheme: light){
+    :root{
+      color-scheme:light;
+      --bg:#eff1f5; --surface:#ccd0da; --surface2:#bcc0cc; --overlay:#9ca0b0;
+      --text:#4c4f69; --subtext:#6c6f85; --teal:#179299; --mauve:#8839ef;
+      --blue:#1e66f5; --green:#40a02b; --yellow:#df8e1d; --red:#d20f39; --peach:#fe640b;
+      --hero:#dce0e8;
+    }
+  }
+  /* Ручной выбор темы переключателем — перекрывает системную */
+  html[data-theme="dark"]{
+    color-scheme:dark;
+    --bg:#1e1e2e; --surface:#313244; --surface2:#45475a; --overlay:#585b70;
+    --text:#cdd6f4; --subtext:#a6adc8; --teal:#94e2d5; --mauve:#cba6f7;
+    --blue:#89b4fa; --green:#a6e3a1; --yellow:#f9e2af; --red:#f38ba8; --peach:#fab387;
+    --hero:#2a2a3f;
+  }
+  html[data-theme="light"]{
+    color-scheme:light;
+    --bg:#eff1f5; --surface:#ccd0da; --surface2:#bcc0cc; --overlay:#9ca0b0;
+    --text:#4c4f69; --subtext:#6c6f85; --teal:#179299; --mauve:#8839ef;
+    --blue:#1e66f5; --green:#40a02b; --yellow:#df8e1d; --red:#d20f39; --peach:#fe640b;
+    --hero:#dce0e8;
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
@@ -18,11 +50,12 @@
     margin:0; background:var(--bg); color:var(--text);
     font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     -webkit-font-smoothing:antialiased;
+    transition:background .2s ease, color .2s ease;
   }
   .wrap{max-width:840px; margin:0 auto; padding:32px 20px 80px}
   header.hero{
     text-align:center; padding:40px 20px 28px;
-    background:radial-gradient(120% 100% at 50% 0%, #2a2a3f 0%, var(--bg) 70%);
+    background:radial-gradient(120% 100% at 50% 0%, var(--hero) 0%, var(--bg) 70%);
     border-bottom:1px solid var(--surface);
   }
   header.hero h1{font-size:2rem; margin:0 0 8px; letter-spacing:-.02em}
@@ -57,7 +90,7 @@
     border:1px solid var(--surface2)}
   summary{cursor:pointer; font-weight:600; padding:8px 0; color:var(--teal)}
   blockquote{margin:14px 0; padding:8px 16px; border-left:3px solid var(--overlay);
-    color:var(--subtext); background:rgba(255,255,255,.02); border-radius:0 8px 8px 0}
+    color:var(--subtext); background:rgba(127,127,127,.06); border-radius:0 8px 8px 0}
   .checklist{list-style:none; padding:0}
   .checklist li{padding:8px 0 8px 34px; position:relative; border-bottom:1px solid var(--surface)}
   .checklist li::before{content:"☐"; position:absolute; left:6px; color:var(--overlay); font-size:1.1rem}
@@ -65,9 +98,28 @@
     padding:1px 8px; border-radius:20px; font-weight:700; vertical-align:middle; margin-left:6px}
   footer{text-align:center; color:var(--overlay); font-size:.85rem; margin-top:50px;
     border-top:1px solid var(--surface); padding-top:22px}
+  /* Переключатель темы — фиксирован сверху справа, нейтральный над любой темой */
+  .theme-toggle{position:fixed; top:1rem; right:1rem; z-index:1000; cursor:pointer; -webkit-tap-highlight-color:transparent}
+  .theme-toggle input{position:absolute; opacity:0; width:1px; height:1px}
+  .theme-toggle-track{position:relative; display:flex; align-items:center; justify-content:space-between;
+    width:3.4rem; height:1.9rem; padding:0 .3rem; border-radius:999px;
+    border:1px solid rgba(127,127,127,.4); background:rgba(127,127,127,.18);
+    backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); box-shadow:0 1px 2px rgba(0,0,0,.15)}
+  .theme-toggle-track::before{content:""; position:absolute; top:.15rem; left:.15rem; width:1.5rem; height:1.5rem;
+    border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.35); transition:transform .2s ease}
+  .theme-toggle input:checked ~ .theme-toggle-track::before{transform:translateX(1.5rem); background:#1f2328}
+  .theme-toggle input:focus-visible ~ .theme-toggle-track{outline:2px solid var(--blue); outline-offset:2px}
+  .theme-toggle-icon{font-size:.85rem; line-height:1; position:relative; z-index:1; user-select:none}
 </style>
 </head>
 <body>
+<label class="theme-toggle" title="Светлая / тёмная тема" aria-label="Переключить тему">
+  <input type="checkbox" id="theme-toggle-checkbox">
+  <span class="theme-toggle-track">
+    <span class="theme-toggle-icon" aria-hidden="true">☀️</span>
+    <span class="theme-toggle-icon" aria-hidden="true">🌙</span>
+  </span>
+</label>
 <header class="hero">
   <h1>🚀 Click-start: твой новый терминал</h1>
   <p>Короткий наглядный гайд по окружению. Порядок - от того, что трогаешь каждую минуту, к приятным мелочам. Читать сверху вниз, привыкать по одному пункту.</p>
@@ -225,5 +277,18 @@
   </footer>
 
 </div>
+<script>
+  (function(){
+    var root=document.documentElement;
+    var cb=document.getElementById('theme-toggle-checkbox');
+    var media=window.matchMedia('(prefers-color-scheme: dark)');
+    var KEY='theme-preference';
+    function eff(){var m=root.getAttribute('data-theme');if(m==='dark'||m==='light')return m;return media.matches?'dark':'light';}
+    function sync(){cb.checked=eff()==='dark';}
+    cb.addEventListener('change',function(){var n=cb.checked?'dark':'light';root.setAttribute('data-theme',n);try{localStorage.setItem(KEY,n);}catch(e){}});
+    media.addEventListener('change',function(){var m=root.getAttribute('data-theme');if(m!=='dark'&&m!=='light')sync();});
+    sync();
+  })();
+</script>
 </body>
 </html>
