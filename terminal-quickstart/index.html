@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Click-start: новый терминал</title>
+<meta name="description" content="Наглядный быстрый старт по терминальному окружению: Ghostty, Starship, atuin, zoxide, fzf, eza, bat.">
+<style>
+  :root{
+    --bg:#1e1e2e; --surface:#313244; --surface2:#45475a; --overlay:#585b70;
+    --text:#cdd6f4; --subtext:#a6adc8; --teal:#94e2d5; --mauve:#cba6f7;
+    --blue:#89b4fa; --green:#a6e3a1; --yellow:#f9e2af; --red:#f38ba8; --peach:#fab387;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0; background:var(--bg); color:var(--text);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:840px; margin:0 auto; padding:32px 20px 80px}
+  header.hero{
+    text-align:center; padding:40px 20px 28px;
+    background:radial-gradient(120% 100% at 50% 0%, #2a2a3f 0%, var(--bg) 70%);
+    border-bottom:1px solid var(--surface);
+  }
+  header.hero h1{font-size:2rem; margin:0 0 8px; letter-spacing:-.02em}
+  header.hero p{color:var(--subtext); margin:0; max-width:640px; margin:0 auto}
+  .note{
+    background:var(--surface); border-left:3px solid var(--teal);
+    padding:12px 16px; border-radius:8px; color:var(--subtext); font-size:.94rem; margin:22px 0;
+  }
+  h2{
+    font-size:1.35rem; margin:44px 0 12px; padding-top:8px;
+    border-top:1px solid var(--surface); padding-top:28px;
+  }
+  h2 .num{color:var(--mauve); font-variant-numeric:tabular-nums}
+  section:first-of-type h2{border-top:none; padding-top:8px}
+  p{margin:.6em 0}
+  a{color:var(--blue); text-decoration:none} a:hover{text-decoration:underline}
+  code{background:var(--surface); padding:.12em .4em; border-radius:5px;
+    font:.9em "JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace; color:var(--peach)}
+  img{max-width:100%; height:auto; border-radius:10px; border:1px solid var(--surface2);
+    display:block; margin:14px 0 6px; box-shadow:0 6px 24px rgba(0,0,0,.35)}
+  .cap{color:var(--subtext); font-size:.85rem; margin:0 0 10px}
+  kbd{
+    display:inline-block; background:var(--surface2); color:var(--text);
+    border:1px solid var(--overlay); border-bottom-width:2px; border-radius:6px;
+    padding:1px 7px; font:.82em "JetBrains Mono",monospace; line-height:1.6; white-space:nowrap;
+  }
+  table{width:100%; border-collapse:collapse; margin:14px 0; font-size:.95rem}
+  th,td{text-align:left; padding:9px 12px; border-bottom:1px solid var(--surface)}
+  th{color:var(--teal); font-weight:600}
+  tr:hover td{background:rgba(148,226,213,.05)}
+  details{background:var(--surface); border-radius:10px; padding:6px 16px; margin:14px 0;
+    border:1px solid var(--surface2)}
+  summary{cursor:pointer; font-weight:600; padding:8px 0; color:var(--teal)}
+  blockquote{margin:14px 0; padding:8px 16px; border-left:3px solid var(--overlay);
+    color:var(--subtext); background:rgba(255,255,255,.02); border-radius:0 8px 8px 0}
+  .checklist{list-style:none; padding:0}
+  .checklist li{padding:8px 0 8px 34px; position:relative; border-bottom:1px solid var(--surface)}
+  .checklist li::before{content:"☐"; position:absolute; left:6px; color:var(--overlay); font-size:1.1rem}
+  .tag{display:inline-block; font-size:.75rem; color:var(--bg); background:var(--teal);
+    padding:1px 8px; border-radius:20px; font-weight:700; vertical-align:middle; margin-left:6px}
+  footer{text-align:center; color:var(--overlay); font-size:.85rem; margin-top:50px;
+    border-top:1px solid var(--surface); padding-top:22px}
+</style>
+</head>
+<body>
+<header class="hero">
+  <h1>🚀 Click-start: твой новый терминал</h1>
+  <p>Короткий наглядный гайд по окружению. Порядок - от того, что трогаешь каждую минуту, к приятным мелочам. Читать сверху вниз, привыкать по одному пункту.</p>
+</header>
+
+<div class="wrap">
+
+  <div class="note">
+    Одно правило привыкания: <b>не старайся выучить всё сразу</b>. Возьми пункт 1
+    (поиск истории), поживи с ним день, потом следующий.
+  </div>
+
+  <section>
+    <h2><span class="num">1.</span> 🔍 Поиск по истории - <kbd>Ctrl</kbd>+<kbd>R</kbd> <span class="tag">самое полезное</span></h2>
+    <p>Раньше жал ↑ много раз, чтобы найти старую команду. Теперь жми
+      <kbd>Ctrl</kbd>+<kbd>R</kbd> и <b>печатай кусок</b> команды - atuin ищет по всей
+      истории с контекстом (когда, в каком каталоге, код выхода).</p>
+    <img src="https://raw.githubusercontent.com/atuinsh/atuin/main/demo.gif" alt="atuin поиск по истории" loading="lazy">
+    <p class="cap"><kbd>Ctrl</kbd>+<kbd>R</kbd> - живой поиск, стрелками выбираешь, Enter вставляет.</p>
+    <table>
+      <tr><th>Клавиши</th><th>Действие</th></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>R</kbd></td><td>открыть поиск, печатай фрагмент</td></tr>
+      <tr><td>↑ / ↓</td><td>двигаться по совпадениям</td></tr>
+      <tr><td><kbd>Enter</kbd></td><td>подставить команду (запуск - вторым Enter)</td></tr>
+      <tr><td><kbd>Ctrl</kbd>+<kbd>R</kbd> внутри</td><td>переключить фильтр: вся история → хост → сессия → каталог</td></tr>
+    </table>
+    <blockquote>Старая история уже импортирована (596 команд), искать есть по чему.</blockquote>
+  </section>
+
+  <section>
+    <h2><span class="num">2.</span> 👻 Автоподсказки и подсветка</h2>
+    <p><b>Серый текст</b> после курсора - подсказка по истории. Принять целиком -
+      <kbd>→</kbd> или <kbd>End</kbd>, одно слово - <kbd>Alt</kbd>+<kbd>→</kbd>.</p>
+    <p><b>Цвет команды</b>: зелёная - найдена, красная - опечатка. Видно ошибку
+      <b>до</b> нажатия Enter. Ничего жать не надо - просто печатай и поглядывай.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">3.</span> 🧭 Умный переход по папкам - <code>z</code></h2>
+    <p>Вместо длинного <code>cd ~/work/projects/foo/bar</code> пиши <code>z bar</code> -
+      zoxide помнит, куда ходишь, и прыгает туда сам.</p>
+    <img src="https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/contrib/tutorial.webp" alt="zoxide demo" loading="lazy">
+    <table>
+      <tr><th>Команда</th><th>Что делает</th></tr>
+      <tr><td><code>z bar</code></td><td>прыгнуть в самую частую папку с "bar"</td></tr>
+      <tr><td><code>z foo bar</code></td><td>уточнить двумя кусками пути</td></tr>
+      <tr><td><code>zi</code></td><td>интерактивно выбрать из списка</td></tr>
+    </table>
+    <blockquote>Чем больше ходишь обычным <code>cd</code>, тем умнее <code>z</code>. Обычный <code>cd</code> тоже работает.</blockquote>
+  </section>
+
+  <section>
+    <h2><span class="num">4.</span> 📂 Красивый список файлов - <code>ls</code> / <code>ll</code></h2>
+    <p><code>ls</code> теперь это <b>eza</b>: иконки, цвета, git-статус файлов.</p>
+    <img src="https://raw.githubusercontent.com/eza-community/eza/main/docs/images/screenshots.png" alt="eza" loading="lazy">
+    <table>
+      <tr><th>Команда</th><th>Что делает</th></tr>
+      <tr><td><code>ls</code></td><td>компактный список с иконками</td></tr>
+      <tr><td><code>ll</code></td><td>длинный: права, размер, дата, git</td></tr>
+      <tr><td><code>la</code></td><td>то же + скрытые файлы</td></tr>
+      <tr><td><code>lt</code></td><td>дерево на 2 уровня</td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2><span class="num">5.</span> ⚡ Fuzzy-поиск файлов - <kbd>Ctrl</kbd>+<kbd>T</kbd> и <kbd>Alt</kbd>+<kbd>C</kbd></h2>
+    <p><kbd>Ctrl</kbd>+<kbd>T</kbd> - вставить файл в текущую команду нечётким поиском.
+      <kbd>Alt</kbd>+<kbd>C</kbd> - прыгнуть в подкаталог тем же поиском.</p>
+    <img src="https://raw.githubusercontent.com/junegunn/i/master/fzf.png" alt="fzf" loading="lazy">
+    <p>Пример: напиши <code>nvim </code> и жми <kbd>Ctrl</kbd>+<kbd>T</kbd> - выбери файл, он подставится.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">6.</span> 🐈 Просмотр файлов - <code>bat</code></h2>
+    <p><code>bat file.py</code> - как <code>cat</code>, но с подсветкой синтаксиса, номерами строк и git-разметкой.</p>
+    <img src="https://i.imgur.com/2lSW4RE.png" alt="bat" loading="lazy">
+    <p><code>bat -p file</code> - чистый вывод без рамок. Обычный <code>cat</code> оставлен как есть - для пайпов и скриптов.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">7.</span> 🛰️ Промпт Starship - читай контекст строки</h2>
+    <p>Слева направо: каталог → git-ветка и статус → версии языков → облачный контекст → длительность прошлой команды.</p>
+    <img src="https://raw.githubusercontent.com/starship/starship/master/media/demo.gif" alt="starship" loading="lazy">
+    <p>Сразу видно, в какой ты ветке, есть ли незакоммиченное (<code>!</code>), и в каком профиле сидишь.</p>
+  </section>
+
+  <section>
+    <h2><span class="num">8.</span> 🖥️ Возможности Ghostty</h2>
+    <details>
+      <summary>Развернуть: вкладки, сплиты, быстрый терминал, тема</summary>
+      <table>
+        <tr><th>Действие</th><th>Клавиши</th></tr>
+        <tr><td>Новая вкладка</td><td><kbd>Cmd</kbd>+<kbd>T</kbd></td></tr>
+        <tr><td>Сплит вправо</td><td><kbd>Cmd</kbd>+<kbd>D</kbd></td></tr>
+        <tr><td>Сплит вниз</td><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>D</kbd></td></tr>
+        <tr><td>Между сплитами</td><td><kbd>Cmd</kbd>+<kbd>Alt</kbd>+<kbd>←↑↓→</kbd></td></tr>
+        <tr><td>Фуллскрин</td><td><kbd>Cmd</kbd>+<kbd>Enter</kbd></td></tr>
+        <tr><td>Quick Terminal (выпадающий)</td><td><kbd>Cmd</kbd>+<kbd>Ctrl</kbd>+<kbd>`</kbd></td></tr>
+        <tr><td>Перезагрузить конфиг</td><td><kbd>Cmd</kbd>+<kbd>Shift</kbd>+<kbd>,</kbd></td></tr>
+      </table>
+      <p><b>Quick Terminal</b> - терминал из любого приложения одним хоткеем (первый вызов
+        попросит разрешение Accessibility). <b>Тема</b> сама переключается светлая/тёмная по режиму macOS.</p>
+    </details>
+    <img src="https://ghostty.org/social-share-card.jpg" alt="Ghostty" loading="lazy">
+  </section>
+
+  <section>
+    <h2><span class="num">9.</span> 🔧 Приятные мелочи</h2>
+    <p><b><code>git diff</code> / <code>git show</code></b> теперь через <b>delta</b> - читаемые цветные диффы. Листать конфликты - <code>n</code> / <code>N</code>.</p>
+    <img src="https://user-images.githubusercontent.com/52205/147996902-9829bd3f-cd33-466e-833e-49a6f3ebd623.png" alt="delta" loading="lazy">
+    <p><b><code>btop</code></b> - монитор системы (выход <code>q</code>). <b><code>tldr &lt;команда&gt;</code></b> - короткая шпаргалка с примерами вместо длинного <code>man</code>.</p>
+  </section>
+
+  <section>
+    <h2>🗺️ Шпаргалка</h2>
+    <table>
+      <tr><th>Хочу</th><th>Делаю</th></tr>
+      <tr><td>Найти старую команду</td><td><kbd>Ctrl</kbd>+<kbd>R</kbd>, печатай кусок</td></tr>
+      <tr><td>Принять серую подсказку</td><td><kbd>→</kbd></td></tr>
+      <tr><td>Прыгнуть в частую папку</td><td><code>z кусок-пути</code></td></tr>
+      <tr><td>Список файлов</td><td><code>ll</code></td></tr>
+      <tr><td>Вставить файл в команду</td><td><kbd>Ctrl</kbd>+<kbd>T</kbd></td></tr>
+      <tr><td>Перейти в подкаталог</td><td><kbd>Alt</kbd>+<kbd>C</kbd></td></tr>
+      <tr><td>Посмотреть файл красиво</td><td><code>bat файл</code></td></tr>
+      <tr><td>Быстрый терминал откуда угодно</td><td><kbd>Cmd</kbd>+<kbd>Ctrl</kbd>+<kbd>`</kbd></td></tr>
+      <tr><td>Сплит-панель</td><td><kbd>Cmd</kbd>+<kbd>D</kbd></td></tr>
+      <tr><td>Шпаргалка по команде</td><td><code>tldr команда</code></td></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>✅ Чек-лист привыкания (по одному в день)</h2>
+    <ul class="checklist">
+      <li>День 1: искать историю через <kbd>Ctrl</kbd>+<kbd>R</kbd> вместо долгого ↑↑↑</li>
+      <li>День 2: ходить по папкам через <code>z</code> вместо длинных <code>cd</code></li>
+      <li>День 3: замечать серые автоподсказки и принимать <kbd>→</kbd></li>
+      <li>День 4: <code>ll</code> вместо <code>ls -la</code>, <code>bat</code> вместо <code>cat</code></li>
+      <li>День 5: <kbd>Ctrl</kbd>+<kbd>T</kbd> / <kbd>Alt</kbd>+<kbd>C</kbd> в командах</li>
+      <li>День 6: сплиты в Ghostty (<kbd>Cmd</kbd>+<kbd>D</kbd>) вместо кучи вкладок</li>
+      <li>День 7: Quick Terminal <kbd>Cmd</kbd>+<kbd>Ctrl</kbd>+<kbd>`</kbd> как основной способ открыть терминал</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>🛟 Если что-то не так</h2>
+    <ul>
+      <li>Промпт/подсказки не появились - открой новую вкладку или <code>exec zsh</code>.</li>
+      <li>Иконки - квадратики: шрифт должен быть <i>JetBrainsMono Nerd Font</i> (в Ghostty уже задан).</li>
+      <li>Где что лежит: конфиги в <code>~/dotfiles/</code>, промпт - <code>~/.config/starship.toml</code>, терминал - <code>~/.config/ghostty/config</code>.</li>
+    </ul>
+  </section>
+
+  <footer>
+    Не жми всё сразу - бери по пункту. Через неделю будет казаться, что так было всегда.
+  </footer>
+
+</div>
+</body>
+</html>

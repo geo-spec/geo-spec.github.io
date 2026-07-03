@@ -1,2 +1,3 @@
 User-agent: *
 Disallow: /llm-ranking/
+Disallow: /terminal-quickstart/
