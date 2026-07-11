@@ -1,3 +1,4 @@
 User-agent: *
 Disallow: /llm-ranking/
 Disallow: /terminal-quickstart/
+Disallow: /meal-prep-nedelya-01/
