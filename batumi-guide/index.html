@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Батуми для родителей · спокойный гид на лето</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbf6ec; --paper:#fffdf8; --ink:#2b2418; --muted:#6f6552;
+  --sea:#0b6e75; --sea-deep:#0a565c; --coral:#e07a5f; --gold:#c98a2a; --gold2:#bf8b34;
+  --line:#e7ddc9; --shadow:0 10px 30px rgba(60,45,20,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Manrope',system-ui,Segoe UI,Roboto,sans-serif;line-height:1.65;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;color:#241d12;margin:0}
+a{color:var(--sea)}
+img{max-width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+/* HERO */
+.hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;
+  background-image:linear-gradient(180deg,rgba(20,15,8,.15) 0%,rgba(20,15,8,.72) 100%),
+    linear-gradient(135deg,#0b6e75,#123b46);
+  background-size:cover;background-position:center}
+.hero .wrap{padding-bottom:44px;padding-top:120px;color:#fff}
+.kicker{display:inline-block;letter-spacing:.22em;text-transform:uppercase;font-size:12px;
+  font-weight:700;color:#ffe6b0;background:rgba(0,0,0,.25);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,60px);font-weight:800;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{max-width:640px;font-size:clamp(16px,2.4vw,20px);color:#f4ecdd;margin:16px 0 0}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:100px;font-size:14px;font-weight:600;backdrop-filter:blur(3px)}
+
+/* SECTIONS */
+section{padding:52px 0}
+.lead{font-size:20px;color:#3a3a2e}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.eyebrow .num{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#fff;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;flex:none}
+.eyebrow .k{letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;font-weight:700;color:var(--sea)}
+h2.big{font-size:clamp(26px,4.4vw,40px);font-weight:800;margin:2px 0 10px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 26px}
+
+/* banner image */
+.banner{position:relative;height:340px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:8px 0 6px;
+  background-image:linear-gradient(135deg,#0b6e75,#2a4a55);background-size:cover;background-position:center}
+.banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6))}
+
+/* cards grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .ph{height:190px;background-image:linear-gradient(135deg,#0b6e75,#38585f);background-size:cover;background-position:center}
+.card .body{padding:16px 18px 18px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f0ead9;color:#6a5c3c;border:1px solid var(--line)}
+.tag.sea{background:#e2f1f1;color:#0a565c;border-color:#cfe7e7}
+.tag.warn{background:#fbe9df;color:#b2482c;border-color:#f4d3c4}
+.card p{margin:0;color:#463c2b;font-size:15.5px}
+
+/* callout */
+.note{background:#fff7e8;border:1px solid var(--line);border-left:5px solid var(--gold2);
+  border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.warn{border-left-color:var(--coral);background:#fdf1ec}
+.note.sea{border-left-color:var(--sea);background:#eef7f7}
+.note b{color:#241d12}
+
+/* essentials */
+.ess{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.ess .item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.ess .item h4{font-size:18px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.ess .item p{margin:0;color:#463c2b;font-size:15px}
+
+/* plan list */
+.rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.rhythm .b{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+.rhythm .b .t{font-family:'Playfair Display',serif;font-size:19px;color:var(--sea);font-weight:700}
+.rhythm .b .d{font-size:14.5px;color:#463c2b;margin-top:4px}
+
+/* checklist */
+.check{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:8px 6px;box-shadow:var(--shadow)}
+.check .row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line)}
+.check .row:last-child{border-bottom:0}
+.check .n{flex:none;width:26px;height:26px;border-radius:50%;background:#eef7f7;color:var(--sea-deep);display:grid;place-items:center;font-weight:700;font-size:13px}
+.check .row div p{margin:0;font-size:15.5px}
+
+.divider{height:1px;background:var(--line);margin:6px 0}
+.foodlist{columns:2;column-gap:26px}
+@media(max-width:760px){
+  .grid,.ess,.rhythm{grid-template-columns:1fr}
+  .foodlist{columns:1}
+  section{padding:40px 0}
+  .banner{height:230px}
+}
+footer{background:#241d12;color:#e9e0cf;padding:40px 0 60px;margin-top:20px}
+footer a{color:#ffd98a}
+footer h3{color:#fff;font-size:22px;margin-bottom:10px}
+footer .cred{font-size:12.5px;color:#b7ab93;line-height:1.9}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-size:13.5px;text-decoration:none;background:var(--paper);border:1px solid var(--line);
+  padding:7px 14px;border-radius:100px;color:#4a3f2b;font-weight:600}
+.toc a:hover{border-color:var(--sea);color:var(--sea)}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero" style="background-image:linear-gradient(180deg,rgba(20,15,8,.12),rgba(20,15,8,.72)),url('https://commons.wikimedia.org/wiki/Special:FilePath/Changing_skyline_of_Batumi,_Georgia.jpg?width=1600')">
+  <div class="wrap">
+    <span class="kicker">Спокойный гид для родителей · лето 2026</span>
+    <h1>Батуми, не спеша<br>и в удовольствие</h1>
+    <p>Маленькие уютные вылазки по городу, спокойные ужины у моря и одна большая поездка в горы и пещеры. Всё — под тёплую погоду, тень и неспешный ритм.</p>
+    <div class="meta">
+      <span class="pill">✈️ Прилёт поздно вечером</span>
+      <span class="pill">🏠 11 ночей у моря</span>
+      <span class="pill">🛫 Обратный вылет днём</span>
+    </div>
+    <div class="toc">
+      <a href="#zaranee">Собрать заранее</a>
+      <a href="#gorod">Прогулки по городу</a>
+      <a href="#ryadom">Поездки рядом</a>
+      <a href="#kutaisi">Большая вылазка</a>
+      <a href="#eda">Где вкусно поесть</a>
+      <a href="#praktika">Полезно знать</a>
+    </div>
+  </div>
+</header>
+
+<!-- INTRO / ESSENTIALS -->
+<section id="zaranee">
+  <div class="wrap">
+    <div class="eyebrow"><span class="k">С чего начать</span></div>
+    <h2 class="big">Четыре вещи — собрать дома, до вылета</h2>
+    <p class="sub">Мелочи, которые лучше решить заранее, чтобы на месте всё было спокойно и без суеты.</p>
+    <div class="ess">
+      <div class="item"><h4>💵 Наличные</h4><p>Российские карты (Visa/MC/«Мир») в Грузии не работают. Возьмите <b>наличные доллары или евро</b> — обменяете в Батуми. В такси Bolt платите наличными.</p></div>
+      <div class="item"><h4>🛡️ Страховка</h4><p>С 1 января 2026 для въезда нужна <b>туристическая страховка</b>. Оформите онлайн заранее, с хорошим покрытием и медпомощью.</p></div>
+      <div class="item"><h4>📱 Интернет</h4><p>Заранее подключим <b>eSIM</b> (Yesim или Unisim — принимают «Мир»), чтобы связь была сразу в аэропорту. Местную SIM купим в первый день.</p></div>
+      <div class="item"><h4>🚕 Встреча</h4><p>Прилёт поздний, уже вечером. <b>Трансфер закажем заранее</b> или вызовем Bolt — на ночной автобус не рассчитываем.</p></div>
+    </div>
+
+    <div class="note sea" style="margin-top:26px"><b>Ритм под жару.</b> Конец июля — самое тёплое и влажное время (днём +28…+33 °C). Поэтому договоримся просто: гуляем утром и вечером, а знойный полдень проводим в тени, в кафе с кондиционером или отдыхаем дома.</div>
+    <div class="rhythm">
+      <div class="b"><div class="t">Утро</div><div class="d">Прогулки, сад, набережная — пока свежо</div></div>
+      <div class="b"><div class="t">Полдень</div><div class="d">Обед, тень, кондиционер, тихий час</div></div>
+      <div class="b"><div class="t">Вечер</div><div class="d">Канатка, фонтаны, ужин, закат</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 1: CITY -->
+<section id="gorod" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">1</span><span class="k">Небольшие вылазки</span></div>
+    <h2 class="big">Прогулки по Батуми</h2>
+    <p class="sub">Всё рядом, ровно, с лавочками и тенью. Идеально — короткими петлями, с остановками на кофе и мороженое.</p>
+
+    <div class="banner" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Black_Sea_coast_of_Georgia_(country),_with_skyline_of_Batumi_on_the_horizon.jpg?width=1400')">
+      <div class="cap">Батумский бульвар — 7 км моря, сосен и лавочек. Здесь приятно в любое время дня.</div>
+    </div>
+    <div class="note"><b>🌊 Бульвар и набережная.</b> Главное место отдыха: ровные дорожки, много тени и скамеек, кафе на каждом шагу. Можно пройти сто метров и сесть у воды. Бесплатно, открыто всегда. Лучше всего — на рассвете и на закате.</div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Argo_Cable_Car,_Batumi_(51155087475).jpg?width=800')"></div>
+        <div class="body">
+          <h3>Канатная дорога «Арго»</h3>
+          <div class="meta"><span class="tag sea">сидя, без ходьбы</span><span class="tag">≈ 39 GEL</span><span class="tag warn">уточнить часы</span></div>
+          <p>Поднимаетесь в кабинке 15 минут — наверху смотровая площадка, кафе и панорама города и моря. На станциях есть лифты. Красивее всего на закате.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Piazza,_Batumi.JPG?width=800')"></div>
+        <div class="body">
+          <h3>Пьяцца и Старый город</h3>
+          <div class="meta"><span class="tag sea">спокойно</span><span class="tag">бесплатно</span></div>
+          <p>Уютная площадь в итальянском стиле и тихие улочки XIX века. Кофе под навесом, вечерняя подсветка, живая музыка. Гулять — сколько захочется.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Nino_and_Ali_Statues_in_Batumi,_2016.jpg?width=800')"></div>
+        <div class="body">
+          <h3>«Али и Нино»</h3>
+          <div class="meta"><span class="tag sea">пару минут</span><span class="tag">бесплатно</span></div>
+          <p>Две восьмиметровые фигуры медленно движутся навстречу и проходят сквозь друг друга. Смотреть можно сидя на лавочке; вечером они подсвечиваются.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Alphabet_Tower,_Batumi.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Алфавитная башня</h3>
+          <div class="meta"><span class="tag sea">лифт наверх</span><span class="tag warn">смотровая — как повезёт</span></div>
+          <p>Эффектная башня с буквами грузинского алфавита. Наверх — на лифте, но смотровая работает не всегда. Красива и просто снаружи, особенно в подсветке.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/View_of_Batumi_skyline_from_the_Botanical_Garden_(cropped).jpg?width=800')"></div>
+        <div class="body">
+          <h3>Ботанический сад</h3>
+          <div class="meta"><span class="tag sea">утром</span><span class="tag">≈ 20 GEL</span><span class="tag warn">взять электрокар</span></div>
+          <p>Роскошный субтропический сад над морем. Но он на склоне — берите <b>электрокар</b> и спускайтесь пешком короткими участками в тени. Приезжать к открытию, с водой.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:linear-gradient(135deg,#0b6e75,#155e69);display:grid;place-items:center;color:#dff3f3;font-family:'Playfair Display',serif;font-size:44px">🐬</div>
+        <div class="body">
+          <h3>Вечерние радости</h3>
+          <div class="meta"><span class="tag sea">сидя</span></div>
+          <p><b>Дельфинарий</b> (шоу ~35 минут, кроме понедельника) и <b>танцующие фонтаны</b> на озере Ардагани, которые смотрят с лавочек около 21:00. Ноль нагрузки, сплошное удовольствие.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: NEARBY -->
+<section id="ryadom">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">2</span><span class="k">Полдня — день</span></div>
+    <h2 class="big">Поездки рядом с городом</h2>
+    <p class="sub">Короткие вылазки в горную Аджарию и вдоль побережья — с тенью, кафе и живописными видами. Лучше всего — с частным русскоязычным водителем-гидом на машине с кондиционером.</p>
+
+    <div class="banner" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Makhuntseti_Bridge,_Adjara,_Georgia_(3).jpg?width=1400')">
+      <div class="cap">Арочный «мост царицы Тамары» и водопад Махунцети — короткая прогулка, тень и кафе прямо над водой.</div>
+    </div>
+    <div class="note"><b>💧 Махунцети — лучший выбор рядом.</b> Старинный арочный мост и водопад в получасе езды. К мосту — короткий спуск, к водопаду — пять минут пешком. Рядом кафе с видом на воду, чача и чурчхела. Живописно и совсем необременительно.</div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Gonio-Apsaros_Fortress-Museum,_Georgia.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Крепость Гонио</h3>
+          <div class="meta"><span class="tag sea">ровно</span><span class="tag warn">мало тени</span><span class="tag">≈ 10–15 GEL</span></div>
+          <p>Римская крепость в 20 минутах от города. Внутри ровно и просторно, есть небольшой музей. Тени мало — ехать лучше ранним утром или под вечер, с головным убором.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Wine_Cellar-Museum_Numisi_(9460997536).jpg?width=800')"></div>
+        <div class="body">
+          <h3>Дегустация вина и чачи</h3>
+          <div class="meta"><span class="tag sea">сидя, в прохладе</span></div>
+          <p>Финал многих туров по горной Аджарии — семейная винодельня: домашнее вино, чача, сыр и горячий хачапури. Спокойно и по-домашнему; для непьющих всё подстроят.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Georgian_Kvevri.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Аджарский винный дом</h3>
+          <div class="meta"><span class="tag sea">сидя, в прохладе</span><span class="tag">11:00–22:00</span><span class="tag warn">бронь по телефону</span></div>
+          <p>Известный винный дом в селе Аджарисцкали, ~30 минут по дороге на Кеда: ресторан среди виноградников, погреб с квеври и дегустация местного розового <b>чхавери</b>. Всё сидя и не спеша; удобно совместить с Махунцети — это та же дорога. Тел. +995 577 21-40-02.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Shekvetili_Park.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Дендропарк в Шекветили</h3>
+          <div class="meta"><span class="tag sea">ровно, много тени</span><span class="tag">бесплатно</span><span class="tag warn">закрыт пн и чт</span></div>
+          <p>Огромный парк у моря в ~45 минутах к северу: гигантские деревья, привезённые со всего света, пруды, павлины, фламинго и лемуры. Дорожки ровные, всюду лавочки, фонтанчики с водой и беседки. Ехать утром; вход свободный, выходные — понедельник и четверг.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note warn" style="margin-top:22px"><b>🌅 Cafe del Mar в Шекветили.</b> Новый пляжный клуб у моря, о котором сейчас много говорят. На момент подготовки гида он ещё <b>не открылся</b> («ожидается летом 2026»). Ближе к приезду проверим: если откроется — съездим к закату (не на ночную программу) и заранее закажем обратное такси. Шекветили — рядом с дендропарком, так что обе радости легко сложить в одну поездку.</div>
+    <div class="note"><b>🚗 Долина Мачахела</b> — живописная поездка: мосты, мельница, крепость — почти всё осматривается от машины с короткими выходами. А вот полный подъём к водопаду в парке Мтирала — уже тяжело, его пропускаем.</div>
+
+    <div class="eyebrow" style="margin-top:44px"><span class="k">Если захочется настоящих гор</span></div>
+    <h3 style="font-size:26px;margin-bottom:10px">День в верхней Аджарии — до Хуло</h3>
+    <p class="sub">Самая красивая дорога региона: серпантин вдоль реки Аджарисцкали, деревни на склонах, прохладный горный воздух вместо приморской духоты. Почти весь день — сидя в машине с видами, выходы короткие.</p>
+
+    <div class="banner" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Acharistskali_Gorge_near_Khulo.jpg?width=1400')">
+      <div class="cap">Ущелье Аджарисцкали у Хуло — зелёные хребты, деревни на склонах и облака под ногами.</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Khulo,_wiev_from_Tago_Cableway_Station.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Канатка Хуло — Таго</h3>
+          <div class="meta"><span class="tag sea">виды сверху</span><span class="tag">пара лари</span><span class="tag warn">по желанию</span></div>
+          <p>Легендарная канатная дорога длиной 1,7 км <b>без единой опоры</b> — кабинка плывёт над ущельем на высоте ~350 м к деревне Таго. Кабинка маленькая и совсем не новая — это аттракцион «на смелость»: можно прокатиться, а можно просто полюбоваться и выпить кофе с видом на ущелье.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body" style="padding-top:18px">
+          <h3>🗺️ Как спланировать</h3>
+          <div class="meta"><span class="tag sea">с частным водителем</span><span class="tag warn">не дальше Хуло</span></div>
+          <p>До Хуло ~88 км, около 2 часов по асфальту — выезжать утром, обед в горном кафе, по пути короткий заезд в действующий монастырь <b>Схалта</b> (XIII век) и к водопаду Махунцети. Дальше Хуло — на перевал Годердзи и Зелёное озеро — идёт грунтовка, туда не едем: тряско и долго. Домой — к раннему вечеру.</p>
+        </div>
+      </div>
+    </div>
+    <div class="note sea" style="margin-top:22px"><b>Стоит ли ехать?</b> Это дальняя из «ближних» поездок — целый день. Зато в горах на 5–7 градусов свежее, а виды — лучшие в Аджарии. Хороший план на день, когда захочется отдохнуть от жары и моря. Частная машина с кондиционером и русскоязычным гидом — ориентир $100–170 за день на двоих, уточним при заказе.</div>
+  </div>
+</section>
+
+<!-- SECTION 3: KUTAISI -->
+<section id="kutaisi" style="background:linear-gradient(180deg,#f7efe0,#fff)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">3</span><span class="k">Та самая большая вылазка</span></div>
+    <h2 class="big">День в Кутаиси и Имерети</h2>
+    <p class="sub">Один насыщенный день среди пещер и каньонов — прохладных даже в самую жару. Едем с русскоязычным гидом-водителем, выезжаем рано, темп спокойный, с остановками.</p>
+
+    <div class="banner" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Sataplia_Managed_Reserve_34.jpg?width=1400')">
+      <div class="cap">Имерети — зелёные заповедники, пещеры со стабильными +14 °C и стеклянные смотровые над лесом.</div>
+    </div>
+
+    <div class="grid" style="margin-top:8px">
+      <div class="card">
+        <div class="body" style="padding-top:18px">
+          <h3>🕳️ Пещера Прометея</h3>
+          <div class="meta"><span class="tag sea">прохладно, +14 °C</span><span class="tag warn">много ступеней</span></div>
+          <p>Подсвеченные залы со сталактитами, маршрут около часа. Идти в основном вниз, есть перила; возьмите лёгкую кофту и удобную нескользкую обувь. От кассы ко входу возит паровозик.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body" style="padding-top:18px">
+          <h3>🛶 Каньон Мартвили</h3>
+          <div class="meta"><span class="tag sea">самый лёгкий</span><span class="tag">лодка ≈ 20 GEL</span></div>
+          <p>Короткая тропа в тени и спокойная прогулка на лодке по бирюзовой воде — сидя, без нагрузки. Самый приятный и «отдыхающий» пункт дня.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note sea" style="margin-top:22px"><b>Рекомендуемый маршрут:</b> <b>Прометей + Мартвили</b> — лучшее сочетание красоты и посильности. Хотите ещё мягче — <b>Прометей + Сатаплия</b> (динозавры и стеклянная смотровая, меньше ходьбы).</div>
+    <div class="note warn"><b>Каньон Окаце — пропускаем.</b> Подвесная тропа почти в километр с сотнями ступеней и подъёмом на солнце — это уже испытание, не отдых.</div>
+    <div class="note"><b>Как поедем.</b> Готовые туры из Батуми с забором от дома есть от ~$55–95 с человека (например, GetYourGuide, Tripster) — уточним русский язык, кондиционер и что маршрут без Окаце. Дорога в одну сторону ~2,5–3 часа, так что день длинный: выезжаем рано и никуда не торопимся.</div>
+
+    <div class="eyebrow" style="margin-top:44px"><span class="k">Рядом с Кутаиси — если захочется ещё</span></div>
+    <h3 style="font-size:26px;margin-bottom:10px">Монастыри над каньонами и стометровый водопад</h3>
+    <p class="sub">Эти места легко добавить к поездке, если взять её с ночёвкой в Кутаиси, — или заменить ими одну из природных точек. Всё — короткие выходы из машины.</p>
+
+    <div class="grid" style="margin-top:8px">
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Gelati_monastery_complex.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Монастырь Гелати</h3>
+          <div class="meta"><span class="tag sea">ЮНЕСКО</span><span class="tag">вход свободный</span><span class="tag warn">идёт реставрация</span></div>
+          <p>Главная святыня Западной Грузии (1106 г.): золотые мозаики XII века и могила царя Давида Строителя. От парковки — короткая дорожка, территория компактная и ровная. Часть храма может стоять в лесах — реставрацию ведут уже несколько лет. Женщинам — платок и прикрытые плечи (накидки обычно есть у входа).</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Motsameta_monastery_above_river.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Моцамета</h3>
+          <div class="meta"><span class="tag sea">10 минут от Гелати</span><span class="tag">вход свободный</span></div>
+          <p>Маленький монастырь на утёсе над красной рекой — одно из самых живописных мест Имерети. От парковки — спокойная дорожка минут на пять, наверху тень, прохлада от каньона и виды, ради которых сюда и едут.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Kinchkha_25.jpg?width=800')"></div>
+        <div class="body">
+          <h3>Водопад Кинчха</h3>
+          <div class="meta"><span class="tag sea">смотровая близко</span><span class="tag warn">часы и вход уточнить</span></div>
+          <p>Стометровый каскад в каньоне реки Окаце — но, в отличие от самого каньона Окаце, сюда идти легко: асфальт до парковки и минут 7–10 пешком до смотровой. Красивая «водная» альтернатива, если лодки в Мартвили вдруг не работают.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body" style="padding-top:18px">
+          <h3>🌙 Вариант с ночёвкой</h3>
+          <div class="meta"><span class="tag sea">самый щадящий</span></div>
+          <p>Если один день кажется слишком длинным — ночуем в Кутаиси: в первый день Прометей и Гелати с Моцаметой, вечером прогулка к Колхидскому фонтану, на второй — Мартвили и спокойная дорога домой. Получается вдвое мягче за те же впечатления.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: FOOD -->
+<section id="eda">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">4</span><span class="k">Вкусно и спокойно</span></div>
+    <h2 class="big">Где приятно поесть</h2>
+    <p class="sub">Спокойные места с кондиционером и хорошими отзывами. Маленький секрет: у многих грузинских ресторанов вечером громкая живая музыка — поэтому лучше приходить на обед или ранний ужин и садиться в зале, подальше от сцены.</p>
+
+    <div class="banner" style="background-image:url('https://commons.wikimedia.org/wiki/Special:FilePath/Adjaruli_Khachapuri_(48).jpg?width=1400')">
+      <div class="cap">Аджарский хачапури — лодочка из теста с сыром, маслом и яйцом. Главное блюдо здешнего застолья.</div>
+    </div>
+
+    <div class="grid" style="margin-top:8px">
+      <div class="card"><div class="body" style="padding-top:18px">
+        <h3>🧀 Грузинская классика</h3>
+        <div class="meta"><span class="tag sea">спокойно + кондиционер</span></div>
+        <p><b>Heart of Batumi</b> — маленький уютный зал в Старом городе (бронировать заранее). <b>Cafe Daphna</b> и <b>Adjika</b> — домашние, прохладные. Хачапури, хинкали, шашлык.</p>
+      </div></div>
+      <div class="card"><div class="body" style="padding-top:18px">
+        <h3>🐟 Рыба у моря</h3>
+        <div class="meta"><span class="tag sea">вид на море</span><span class="tag warn">уточнить цену готовки</span></div>
+        <p><b>Black Sea</b> (закрытый зал с кондиционером) и <b>Blue Wave</b> (терраса на пирсе) у рыбного рынка. Можно выбрать рыбу и её приготовят — заранее договоритесь о цене за кг.</p>
+      </div></div>
+      <div class="card"><div class="body" style="padding-top:18px">
+        <h3>🍷 Вино без спешки</h3>
+        <div class="meta"><span class="tag sea">прохладный погреб</span></div>
+        <p><b>«Марани»</b> — прохладный винный погреб с сомелье и мягкой скрипкой, дегустация в 19:00. <b>8000 Vintages</b> — вино по бокалам и сырные тарелки с видом на порт.</p>
+      </div></div>
+      <div class="card"><div class="body" style="padding-top:18px">
+        <h3>☕ Кофе, завтрак, десерт</h3>
+        <div class="meta"><span class="tag sea">вид + кондиционер</span></div>
+        <p><b>Panorama</b> (31-й этаж, лифт, панорама) и терраса <b>Sheraton</b> на бульваре. Завтрак — <b>Freeduchio</b>, мороженое — <b>Luca Polare</b>, тихо переждать жару — <b>Chocolatte</b>.</p>
+      </div></div>
+    </div>
+
+    <div class="note warn" style="margin-top:22px"><b>Лучше обойти стороной:</b> Pirosmani (жалобы, что не работают кондиционеры) и рестораны с громким фолк-шоу вечером (Terrassa Askaneli, Tavaduri, Megrul-Lazuri). За хачапури «Retro» — только на вынос, там очереди.</div>
+  </div>
+</section>
+
+<!-- SECTION 5: PRACTICAL -->
+<section id="praktika" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">5</span><span class="k">Спокойно и уверенно</span></div>
+    <h2 class="big">Полезно знать на месте</h2>
+    <p class="sub">Несколько простых правил — и всё будет гладко.</p>
+    <div class="ess">
+      <div class="item"><h4>💳 Деньги</h4><p>Расчёт — <b>наличными</b> (доллары/евро меняем в городе, не в аэропорту — там курс хуже). Держите мелкие купюры. Курс ≈ 2,6–2,7 лари за доллар.</p></div>
+      <div class="item"><h4>🚕 Такси</h4><p>Приложение <b>Bolt</b> (цена видна заранее, оплата наличными). По центру 4–10 лари. «С руки» не берём — завышают.</p></div>
+      <div class="item"><h4>📶 Связь</h4><p>Местную <b>SIM</b> (Silknet/Magti) купим в центре по загранпаспорту. Wi-Fi в кафе и жилье есть, но нестабильный.</p></div>
+      <div class="item"><h4>☀️ Жара</h4><p>Пить, не дожидаясь жажды; вода — <b>бутилированная</b>; шляпа, очки, крем SPF 50. В полдень — в тень и кондиционер.</p></div>
+      <div class="item"><h4>💊 Аптеки</h4><p>Аптек в центре много (PSP, Aversi, GPC), часто с русскоязычными фармацевтами. Многое — без рецепта.</p></div>
+      <div class="item"><h4>🚑 Помощь</h4><p>Единый номер <b>112</b> — бесплатно, есть операторы на русском. При лёгком недомогании удобен выезд врача на дом (AMC).</p></div>
+    </div>
+
+    <div class="eyebrow" style="margin-top:40px"><span class="k">Перед выходом — минутка на проверку</span></div>
+    <h3 style="font-size:24px;margin-bottom:14px">Что стоит уточнить в день визита</h3>
+    <div class="check">
+      <div class="row"><span class="n">1</span><div><p><b>Дельфинарий и «Арго».</b> Часы, цена, выходной понедельник; при ветре канатку могут закрыть.</p></div></div>
+      <div class="row"><span class="n">2</span><div><p><b>Ботанический сад.</b> Доступен ли электрокар; идти к открытию, пока прохладно.</p></div></div>
+      <div class="row"><span class="n">3</span><div><p><b>Ресторан на вечер.</b> Бронь, кондиционер и нет ли громкой живой музыки; сервисный сбор в чеке.</p></div></div>
+      <div class="row"><span class="n">4</span><div><p><b>Тур в Кутаиси.</b> Русский гид, кондиционер, маршрут без Окаце; работают ли лодки в пещере и каньоне; открыт ли храм в Гелати.</p></div></div>
+      <div class="row"><span class="n">5</span><div><p><b>Cafe del Mar и дендропарк.</b> Открылся ли клуб; помнить: парк закрыт по понедельникам и четвергам.</p></div></div>
+      <div class="row"><span class="n">6</span><div><p><b>Аджарский винный дом.</b> Забронировать стол и дегустацию по телефону; уточнить цены.</p></div></div>
+      <div class="row"><span class="n">7</span><div><p><b>Поездка в Хуло.</b> Работает ли канатка, прогноз в горах; договориться о спокойном темпе и остановках.</p></div></div>
+      <div class="row"><span class="n">8</span><div><p><b>Деньги и страховка.</b> Полис оформлен заранее; расчёт — на наличные.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Хорошей поездки! 🌊</h3>
+    <p style="color:#e9e0cf;max-width:60ch">Пусть эти одиннадцать дней будут тёплыми, вкусными и неспешными. Всё важное — под рукой, а близкие рядом, в получасе ходьбы.</p>
+    <p class="cred" style="margin-top:24px">
+      Фотографии — Wikimedia Commons (свободные лицензии):
+      <a href="https://commons.wikimedia.org/wiki/File:Changing_skyline_of_Batumi,_Georgia.jpg">панорама Батуми</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Black_Sea_coast_of_Georgia_(country),_with_skyline_of_Batumi_on_the_horizon.jpg">побережье</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Argo_Cable_Car,_Batumi_(51155087475).jpg">канатка «Арго»</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Piazza,_Batumi.JPG">Пьяцца</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Nino_and_Ali_Statues_in_Batumi,_2016.jpg">«Али и Нино»</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Alphabet_Tower,_Batumi.jpg">Алфавитная башня</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:View_of_Batumi_skyline_from_the_Botanical_Garden_(cropped).jpg">ботанический сад</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Makhuntseti_Bridge,_Adjara,_Georgia_(3).jpg">мост Махунцети</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Gonio-Apsaros_Fortress-Museum,_Georgia.jpg">Гонио</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Sataplia_Managed_Reserve_34.jpg">Сатаплия</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Wine_Cellar-Museum_Numisi_(9460997536).jpg">винный погреб</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Adjaruli_Khachapuri_(48).jpg">хачапури</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Georgian_Kvevri.jpg">квеври</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Shekvetili_Park.jpg">парк в Шекветили</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Acharistskali_Gorge_near_Khulo.jpg">ущелье Аджарисцкали</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Khulo,_wiev_from_Tago_Cableway_Station.jpg">канатка Хуло—Таго</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Gelati_monastery_complex.jpg">Гелати</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Motsameta_monastery_above_river.jpg">Моцамета</a>,
+      <a href="https://commons.wikimedia.org/wiki/File:Kinchkha_25.jpg">водопад Кинчха</a>.
+    </p>
+    <p class="cred">Полная версия с источниками и деталями — в файле <b>parents-batumi-guide.md</b>. Собрано в июле 2026; цены и часы стоит сверять на месте.</p>
+  </div>
+</footer>
+
+</body>
+</html>
