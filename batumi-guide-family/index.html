@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Батуми рядом · гид на 10-19 августа</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbf6ec; --paper:#fffdf8; --ink:#2b2418; --muted:#6f6552;
+  --sea:#0b6e75; --sea-deep:#0a565c; --coral:#e07a5f; --gold:#c98a2a; --gold2:#bf8b34;
+  --line:#e7ddc9; --shadow:0 10px 30px rgba(60,45,20,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Manrope',system-ui,Segoe UI,Roboto,sans-serif;line-height:1.65;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;color:#241d12;margin:0}
+a{color:var(--sea)}
+img{max-width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+/* page nav between three guides */
+.pagenav{position:sticky;top:0;z-index:20;background:rgba(251,246,236,.94);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px)}
+.pagenav .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:10px 22px}
+.pagenav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#4a3f2b;background:var(--paper);
+  border:1px solid var(--line);padding:6px 13px;border-radius:100px}
+.pagenav a.here{background:var(--sea);color:#fff;border-color:var(--sea)}
+.pagenav a:hover{border-color:var(--sea);color:var(--sea)}
+.pagenav a.here:hover{color:#fff}
+
+/* HERO */
+.hero{position:relative;min-height:74vh;display:flex;align-items:flex-end;
+  background-image:linear-gradient(180deg,rgba(20,15,8,.15) 0%,rgba(20,15,8,.72) 100%),
+    linear-gradient(135deg,#0b6e75,#123b46);
+  background-size:cover;background-position:center}
+.hero .wrap{padding-bottom:44px;padding-top:110px;color:#fff}
+.kicker{display:inline-block;letter-spacing:.22em;text-transform:uppercase;font-size:12px;
+  font-weight:700;color:#ffe6b0;background:rgba(0,0,0,.25);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,60px);font-weight:800;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{max-width:640px;font-size:clamp(16px,2.4vw,20px);color:#f4ecdd;margin:16px 0 0}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:100px;font-size:14px;font-weight:600;backdrop-filter:blur(3px)}
+
+/* SECTIONS */
+section{padding:52px 0}
+.lead{font-size:20px;color:#3a3a2e}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.eyebrow .num{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#fff;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;flex:none}
+.eyebrow .k{letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;font-weight:700;color:var(--sea)}
+h2.big{font-size:clamp(26px,4.4vw,40px);font-weight:800;margin:2px 0 10px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 26px}
+
+/* banner image */
+.banner{position:relative;height:340px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:8px 0 6px;
+  background-image:linear-gradient(135deg,#0b6e75,#2a4a55);background-size:cover;background-position:center}
+.banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6))}
+
+/* cards grid */
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .ph{height:190px;background-image:linear-gradient(135deg,#0b6e75,#38585f);background-size:cover;background-position:center}
+.card .body{padding:16px 18px 18px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f0ead9;color:#6a5c3c;border:1px solid var(--line)}
+.tag.sea{background:#e2f1f1;color:#0a565c;border-color:#cfe7e7}
+.tag.warn{background:#fbe9df;color:#b2482c;border-color:#f4d3c4}
+.card p{margin:0;color:#463c2b;font-size:15.5px}
+
+/* callout */
+.note{background:#fff7e8;border:1px solid var(--line);border-left:5px solid var(--gold2);
+  border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.warn{border-left-color:var(--coral);background:#fdf1ec}
+.note.sea{border-left-color:var(--sea);background:#eef7f7}
+.note b{color:#241d12}
+
+/* essentials */
+.ess{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.ess .item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.ess .item h4{font-size:18px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.ess .item p{margin:0;color:#463c2b;font-size:15px}
+
+/* rhythm */
+.rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.rhythm .b{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+.rhythm .b .t{font-family:'Playfair Display',serif;font-size:19px;color:var(--sea);font-weight:700}
+.rhythm .b .d{font-size:14.5px;color:#463c2b;margin-top:4px}
+
+/* checklist */
+.check{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:8px 6px;box-shadow:var(--shadow)}
+.check .row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line)}
+.check .row:last-child{border-bottom:0}
+.check .n{flex:none;width:26px;height:26px;border-radius:50%;background:#eef7f7;color:var(--sea-deep);display:grid;place-items:center;font-weight:700;font-size:13px}
+.check .row div p{margin:0;font-size:15.5px}
+
+/* day plan */
+.days{display:grid;gap:12px}
+.day{display:grid;grid-template-columns:118px 1fr;gap:16px;background:var(--paper);border:1px solid var(--line);
+  border-radius:16px;padding:14px 18px;box-shadow:var(--shadow)}
+.day .when{font-family:'Playfair Display',serif;font-weight:700;color:var(--sea-deep);font-size:18px;line-height:1.25}
+.day .when span{display:block;font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.day h4{font-size:18px;margin-bottom:3px}
+.day p{margin:0;font-size:15.5px;color:#463c2b}
+.day.dry{border-color:#cfe7e7;background:#f4fbfa}
+.day.wet{border-color:#f4d3c4;background:#fdf5f1}
+
+/* cta button */
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#fff;text-decoration:none;
+  font-weight:700;padding:13px 22px;border-radius:100px;box-shadow:var(--shadow);margin-top:6px}
+.cta:hover{background:var(--sea-deep);color:#fff}
+.cta.gold{background:var(--gold2)}
+.cta.gold:hover{background:#a8762b}
+
+.divider{height:1px;background:var(--line);margin:6px 0}
+.foodlist{columns:2;column-gap:26px}
+.foodlist p{margin:0 0 12px;font-size:15.5px;break-inside:avoid}
+@media(max-width:760px){
+  .grid,.ess,.rhythm{grid-template-columns:1fr}
+  .foodlist{columns:1}
+  section{padding:40px 0}
+  .banner{height:230px}
+  .day{grid-template-columns:1fr;gap:6px}
+}
+footer{background:#241d12;color:#e9e0cf;padding:40px 0 60px;margin-top:20px}
+footer a{color:#ffd98a}
+footer h3{color:#fff;font-size:22px;margin-bottom:10px}
+footer .cred{font-size:12.5px;color:#b7ab93;line-height:1.9}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-size:13.5px;text-decoration:none;background:var(--paper);border:1px solid var(--line);
+  padding:7px 14px;border-radius:100px;color:#4a3f2b;font-weight:600}
+.toc a:hover{border-color:var(--sea);color:var(--sea)}
+</style>
+</head>
+<body>
+
+<nav class="pagenav">
+  <div class="wrap">
+    <a class="here" href="index.html">Общий гид</a>
+    <a href="rain.html">🌧 Если дождь</a>
+    <a href="weekend.html">🍷 Выходные 15-16</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero" style="background-image:linear-gradient(180deg,rgba(16,26,34,.42),rgba(12,18,22,.82)),url('img/batumi-skyline.jpg')">
+  <div class="wrap">
+    <span class="kicker">Батуми для своих · 10-19 августа 2026</span>
+    <h1>Батуми рядом,<br>без беготни</h1>
+    <p>Почти всё интересное лежит в пятнадцати минутах от дома или в получасе на машине. Неделя обещает дожди, поэтому у каждого плана здесь есть крыша про запас.</p>
+    <div class="meta">
+      <span class="pill">👨‍👩‍👧 4 человека, часто 5-6</span>
+      <span class="pill">🏠 База у парка 6 мая</span>
+      <span class="pill">🚗 Машина есть</span>
+      <span class="pill">🌦 22-28 °C, дожди</span>
+    </div>
+    <div class="toc">
+      <a href="#kak">Как устроена неделя</a>
+      <a href="#ryadom">Всё рядом с домом</a>
+      <a href="#gorod">Город впервые</a>
+      <a href="#vyezdy">Короткие выезды</a>
+      <a href="#vyhodnye">Выходные</a>
+      <a href="#eda">Где поесть</a>
+      <a href="#praktika">Полезно знать</a>
+      <a href="#plan">План по дням</a>
+    </div>
+  </div>
+</header>
+
+<!-- 1. КАК УСТРОЕНА НЕДЕЛЯ -->
+<section id="kak">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">1</span><span class="k">С чего начать</span></div>
+    <h2 class="big">Как устроена эта неделя</h2>
+    <p class="sub">Главная идея простая: жить рядом с парком и морем, спокойно гулять по району и держать один выход в день. Всё остальное - по желанию и по погоде.</p>
+
+    <div class="ess">
+      <div class="item"><h4>🏠 База</h4><p>Квартира в районе парка 6 мая и озера Нури. Парк, дельфинарий, магазины и выход к бульвару - пешком. Это опора всей поездки.</p></div>
+      <div class="item"><h4>🚗 Машина</h4><p>Есть, и это большая свобода: выезды не привязаны к экскурсиям, можно вернуться домой, как только кто-то устал. Правило одно: <b>если пьём вино - за руль не садимся</b>, в Грузии нулевая норма.</p></div>
+      <div class="item"><h4>🌦 Погода</h4><p>22-28 °C и дожди почти каждый день. Жары нет, гулять можно и в полдень. Зато ливни приходят на 30-60 минут, поэтому у плана всегда должна быть крыша поблизости.</p></div>
+      <div class="item"><h4>👣 Ритм</h4><p>Один активный выход в день, отрезками по 40-60 минут с паузой на кофе. Если день выпал - это не провал плана, а нормальный тихий день.</p></div>
+    </div>
+
+    <div class="note sea" style="margin-top:26px"><b>Про дожди без паники.</b> В Батуми в августе идут не затяжные дожди, а грозы и ливни: налетает, полчаса льёт, потом снова светло. Поэтому смотреть надо не в календарь, а в небо утром, и держать в голове ближайшее укрытие. Полный набор вариантов под крышей - на странице <a href="rain.html">«Если дождь»</a>.</div>
+
+    <div class="rhythm">
+      <div class="b"><div class="t">Утро</div><div class="d">Смотрим на небо и решаем: выезд или район</div></div>
+      <div class="b"><div class="t">Ливень</div><div class="d">Полчаса под крышей: кафе, музей, аквариум</div></div>
+      <div class="b"><div class="t">Вечер</div><div class="d">Самое приятное время: бульвар, фонтаны, ужин</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. РАЙОН -->
+<section id="ryadom" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">2</span><span class="k">Пешком от дома</span></div>
+    <h2 class="big">Всё нужное - в пятнадцати минутах</h2>
+    <p class="sub">Район у парка 6 мая устроен удачно: парк, озеро, дельфинарий, магазины и выход к морю - всё в пешей доступности. В дни, когда никуда не хочется, программа берётся отсюда.</p>
+
+    <div class="banner" style="background-image:url('img/nuri-lake.jpg')">
+      <div class="cap">Озеро Нури в парке 6 мая - самый простой ежедневный маршрут, ровные дорожки и лавочки</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/nuri-lake.jpg')"></div>
+        <div class="body">
+          <h3>Парк 6 мая и озеро Нури</h3>
+          <div class="meta"><span class="tag sea">5-10 минут пешком</span><span class="tag">бесплатно</span><span class="tag sea">ровно, есть лавочки</span></div>
+          <p>Круг вокруг озера, тень, утки, кафе по пути. Открыт круглосуточно, вход свободный. Идеально для «выйти на час без плана».</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/dolphinarium.jpg')"></div>
+        <div class="body">
+          <h3>Дельфинарий</h3>
+          <div class="meta"><span class="tag sea">шоу 35 минут, сидя</span><span class="tag">20 GEL днём, 25 вечером</span><span class="tag warn">закрыт по понедельникам</span></div>
+          <p>Руставели 51, в том же парке. Летние шоу в <b>16:00, 19:00 и 21:00</b>. Билеты в сезон разбирают в тот же день - брать заранее. Первые пять рядов в финале обливают водой, лучше сесть выше.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Аквариум и зоопарк</h3>
+          <div class="meta"><span class="tag">≈ 2 GEL</span><span class="tag sea">аквариум под крышей</span><span class="tag warn">зоопарк открытый</span></div>
+          <p>Аквариум - рядом с дельфинарием, маленький, на полчаса, зато спасает в ливень. Зоопарк тут же: два сектора бесплатны, сектор с приматами и птицами ~2 GEL.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/boulevard-panorama.jpg')"></div>
+        <div class="body">
+          <h3>Бульвар и море</h3>
+          <div class="meta"><span class="tag sea">15 минут пешком</span><span class="tag">бесплатно</span></div>
+          <p>Из парка выход на Батумский бульвар: ровная набережная, тень, лавочки каждые сто метров, кафе и велодорожка. Вечером - лучшая часть города.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Магазины</h3>
+          <div class="meta"><span class="tag sea">пешком</span><span class="tag">Goodwill - на машине</span></div>
+          <p>Ежедневное - вода, хлеб, молочка, фрукты - в маленьких магазинах у дома. Большая закупка: Goodwill в Batumi Mall на Горгиладзе, туда на машине. Фрукты берите на 1-2 дня: во влажности портятся быстро.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Аптека</h3>
+          <div class="meta"><span class="tag warn">найти в первый день</span><span class="tag sea">PSP, Aversi, GPC</span></div>
+          <p>Отметьте на карте ближайшую аптеку и одну запасную. Много лекарств продаётся по рецепту, поэтому своё привычное лучше иметь с собой.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ГОРОД -->
+<section id="gorod">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">3</span><span class="k">Обязательный минимум</span></div>
+    <h2 class="big">Батуми, если видите его впервые</h2>
+    <p class="sub">Полный набор того, что стоит увидеть в самом городе. Ничего не пропущено специально: пусть лучше будет выбор, чем попытка вспомнить, что уже видели в прошлые разы. Каждый пункт - отрезок на 40-60 минут, между ними пауза.</p>
+
+    <div class="banner" style="background-image:url('img/europe-square.jpg')">
+      <div class="cap">Площадь Европы - отсюда удобно начинать любую прогулку по центру</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/ali-nino.jpg')"></div>
+        <div class="body">
+          <h3>«Али и Нино» на бульваре</h3>
+          <div class="meta"><span class="tag sea">пара минут</span><span class="tag">бесплатно</span><span class="tag sea">вечером красивее</span></div>
+          <p>Движущаяся скульптура: две фигуры медленно проходят друг через друга. Полный цикл ~7 минут, лучше смотреть в подсветке. Рядом башня Алфавита и колесо обозрения.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/alphabet-tower.jpg')"></div>
+        <div class="body">
+          <h3>Башня Алфавита</h3>
+          <div class="meta"><span class="tag sea">лифт наверх</span><span class="tag warn">смотровая - как повезёт</span></div>
+          <p>130 метров, по спирали выложены буквы грузинского алфавита. Наверху смотровая и кафе-шар. ⚠️ Площадку периодически закрывают, а в низкой облачности вида нет - спрашивайте внизу, прежде чем брать билет.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/europe-square.jpg')"></div>
+        <div class="body">
+          <h3>Площадь Европы и часы</h3>
+          <div class="meta"><span class="tag sea">ровно</span><span class="tag">бесплатно</span></div>
+          <p>Статуя Медеи с золотым руном, астрономические часы на фасаде, вокруг кафе с зонтами. Отсюда пять минут до Пьяццы и десять до порта.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/piazza.jpg')"></div>
+        <div class="body">
+          <h3>Пьяцца и Старый город</h3>
+          <div class="meta"><span class="tag sea">кофе и десерт</span><span class="tag warn">вечером шумно</span></div>
+          <p>Площадь с мозаиками и витражами, вокруг спокойные улицы старого Батуми с балконами. Хорошо зайти на кофе. Вечером на самой Пьяцце бывает громкая живая музыка.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Поющие фонтаны</h3>
+          <div class="meta"><span class="tag sea">вечер, сидя</span><span class="tag">бесплатно</span><span class="tag warn">отменяют в ветер</span></div>
+          <p>Танцующие фонтаны на озере Ардагани с музыкой и подсветкой, начинают в темноте. От дома доехать 5-7 минут на такси. ⚠️ В сильный ветер и грозу не включают.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/argo-panorama.jpg')"></div>
+        <div class="body">
+          <h3>Канатка «Арго»</h3>
+          <div class="meta"><span class="tag sea">10 минут, сидя</span><span class="tag">≈ 30 GEL в одну сторону</span><span class="tag warn">только в ясный день</span></div>
+          <p>2,5 км наверх, сверху весь город и море, есть кафе и смотровая. ⚠️ Смысл только в хорошую погоду: в облаке видно белую стену, при ветре и грозе не работает. Часы в источниках расходятся - уточняйте по телефону.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note"><b>Как гулять по центру.</b> Доехать на такси до первой точки, дальше идти отрезками по 40-60 минут с остановками. Бульвар и Старый город ровные, лавочек хватает. Если устали или начался ливень - Bolt до дома стоит 4-10 GEL, это не повод терпеть.</div>
+  </div>
+</section>
+
+<!-- 4. ВЫЕЗДЫ -->
+<section id="vyezdy" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">4</span><span class="k">С машиной, недалеко</span></div>
+    <h2 class="big">Короткие выезды на 2-4 часа</h2>
+    <p class="sub">Всё в пределах часа от Батуми, с расчётом «выехали после завтрака - к обеду дома». Ничего героического: смотрим одну точку, сидим, возвращаемся.</p>
+
+    <div class="banner" style="background-image:url('img/makhuntseti-waterfall.jpg')">
+      <div class="cap">Водопад Махунцети - самая простая горная вылазка, 30-40 минут от города</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/botanical-garden.jpg')"></div>
+        <div class="body">
+          <h3>Ботанический сад и Мцване Концхи</h3>
+          <div class="meta"><span class="tag sea">20 минут езды</span><span class="tag">20 GEL, дети 2 GEL</span><span class="tag warn">не обходить целиком</span></div>
+          <p>Летом 9:00-19:30, касса до 19:00. Сад огромный и на склоне: заезжайте к верхнему входу, гуляйте по одному участку с видом на море, вниз - на электрокаре. Рядом пляж Зелёного мыса.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/gonio.jpg')"></div>
+        <div class="body">
+          <h3>Крепость Гонио</h3>
+          <div class="meta"><span class="tag sea">20 минут езды</span><span class="tag">5-8 GEL, гид 10</span><span class="tag warn">мало тени</span></div>
+          <p>Римская крепость I века: большие стены, ровный двор, маленький музей. Работает 9:00-18:00 ежедневно. В пасмурный день даже приятнее, чем на солнце. По дороге - пляж Гонио.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/makhuntseti-bridge.jpg')"></div>
+        <div class="body">
+          <h3>Махунцети и мост царицы Тамары</h3>
+          <div class="meta"><span class="tag sea">30-40 минут езды</span><span class="tag">бесплатно</span><span class="tag warn">камни скользкие</span></div>
+          <p>Водопад в двух шагах от парковки, рядом арочный мост XII века и кафе с видом. ⚠️ К самой воде по камням не идти, особенно после дождя. По этой же дороге стоит Аджарский винный дом.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/mtirala-waterfall.jpg')"></div>
+        <div class="body">
+          <h3>Национальный парк Мтирала</h3>
+          <div class="meta"><span class="tag sea">прохладный лес</span><span class="tag">вход бесплатный</span><span class="tag warn">дорога после дождей</span></div>
+          <p>Самое влажное место Грузии, реликтовый лес, водопад и озерцо. Есть лёгкая тропа - её и хватит. ⚠️ Последний участок дороги грунтовый, после сильных ливней лучше не ехать.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/kvariati.jpg')"></div>
+        <div class="body">
+          <h3>Квариати и Сарпи</h3>
+          <div class="meta"><span class="tag sea">25-30 минут езды</span><span class="tag">вода чище</span><span class="tag warn">галька, нужны тапки</span></div>
+          <p>Юг у турецкой границы: вода прозрачнее, чем в центре, меньше людей. В Сарпи - променад и вид на границу. Здесь же то самое место с вином у моря, о нём на странице <a href="weekend.html">выходных</a>.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/ureki-beach.jpg')"></div>
+        <div class="body">
+          <h3>Уреки: чёрный магнитный песок</h3>
+          <div class="meta"><span class="tag sea">45-60 минут езды</span><span class="tag">песок, а не галька</span></div>
+          <p>Единственный песчаный пляж поблизости, вход в воду мягкий и плавный. Песок магнетитовый, считается полезным для сосудов и суставов. Ехать стоит на полдня.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note warn"><b>Правило выезда на этой неделе.</b> Проверьте прогноз утром. В грозу горы отменяются: дорога, скользкие камни и низкая облачность превращают красивую поездку в нервную. Замена всегда есть - крепость, ботсад или крытая программа в городе.</div>
+  </div>
+</section>
+
+<!-- 5. ВЫХОДНЫЕ -->
+<section id="vyhodnye">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">5</span><span class="k">15-16 августа</span></div>
+    <h2 class="big">Выходные, когда собираются все</h2>
+    <p class="sub">Суббота и воскресенье - единственные дни, когда компания в полном составе. Для них отдельная страница: не программа, а меню вариантов с честными ценниками по силам и времени.</p>
+
+    <div class="note sea"><b>Что важно решить до пятницы, 14 августа.</b> Дегустацию с обедом на винодельне бронируют за 1-2 дня, и на выходные места разбирают быстрее. А место с вином у моря требует звонка хозяину - без него ехать наугад не стоит. Подробности и все варианты - на странице выходных.</div>
+
+    <p><a class="cta gold" href="weekend.html">🍷 Открыть варианты на выходные →</a></p>
+  </div>
+</section>
+
+<!-- 6. ЕДА -->
+<section id="eda" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">6</span><span class="k">Без лишней суеты</span></div>
+    <h2 class="big">Где поесть</h2>
+    <p class="sub">Это список вариантов, а не обязательная программа. Фильтр под компанию: кондиционер, нормальные стулья, туалет и короткая дорога домой.</p>
+
+    <div class="banner" style="background-image:url('img/khachapuri.jpg')">
+      <div class="cap">Аджарский хачапури - лодочка с сыром, маслом и желтком. Одной порции хватает на двоих</div>
+    </div>
+
+    <div class="note warn" style="margin-top:20px"><b>Главная засада Батуми.</b> У популярных грузинских ресторанов вечером включают громкую живую музыку - разговаривать невозможно. Поэтому лучше обед или ранний ужин в 18:00-19:30, столик в зале под кондиционером и подальше от колонок. Маленькие места бронируйте. И проверяйте счёт: сервисный сбор 10-11 % часто уже включён.</div>
+
+    <div class="foodlist" style="margin-top:22px">
+      <p><b>Рядом с домом.</b> Retro - простая грузинская еда и аджарский хачапури, ориентир прямо из описания квартиры. Kafune у озера - короткая остановка после прогулки.</p>
+      <p><b>Завтрак и кофе.</b> Green Waffle, Kava ginda, GROTTO - кофе, вафли, сэндвичи, десерты, без тяжёлого застолья.</p>
+      <p><b>Хачапури как цель.</b> Laguna - известное место именно за аджарули. Порции большие, берите на стол и делите.</p>
+      <p><b>Хинкали.</b> Хинкальная №1 в центре - понятный обед без пафоса. Khinkali Ludi - совсем простое место, зато честное; лучше днём и с наличными.</p>
+      <p><b>Грузинская классика.</b> Dzveli Gemo, Traditsiuli, Pirosmani - хинкали, чкмерули, долма, картошка по-домашнему. В час пик шумно.</p>
+      <p><b>Старый город.</b> Heart of Batumi - маленький прохладный зал, тихо, без шоу; бронировать обязательно. Privet iz Batuma - спокойное кафе для прогулки по центру.</p>
+      <p><b>Рыба.</b> Рыбный рынок - это отдельная поездка, а не ужин рядом. Заказывайте по меню с ценами, а не «на глаз» у прилавка.</p>
+      <p><b>Вино с ужином.</b> Ресторан «Марани» на Брцкинвале, 24: прохладный погреб, дегустация ~30 GEL с человека в 19:00, тихая скрипка вместо ансамбля.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ПРАКТИКА -->
+<section id="praktika">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">7</span><span class="k">Бытовое</span></div>
+    <h2 class="big">Полезно знать на месте</h2>
+    <p class="sub">Короткие ответы на то, что обычно спрашивают в первые дни.</p>
+
+    <div class="ess">
+      <div class="item"><h4>💵 Деньги</h4><p>Российские карты не работают. Меняйте наличные в банке или обменнике с табло и чеком, не у людей на улице. Ориентир курса: 1 GEL ≈ $0,37 (⚠️ уточняйте). Держите мелкие купюры 5, 10, 20 лари - для такси, фруктов и кафе.</p></div>
+      <div class="item"><h4>📱 Связь</h4><p>Местную SIM берите в официальном салоне оператора, не с рук. Wi-Fi есть почти во всех кафе. Для навигации хватит Google Maps, для такси - Bolt с русским интерфейсом.</p></div>
+      <div class="item"><h4>🚕 Такси</h4><p>Bolt: по центру 4-10 GEL, до Гонио ~15 GEL, до ботсада 10-15 GEL. В дождь и час пик дороже и ждать дольше. «С руки» не брать - завышают в разы. Оплата наличными возможна.</p></div>
+      <div class="item"><h4>💊 Аптека и врач</h4><p>Аптеки на каждом шагу, но многое по рецепту - привычные лекарства держите свои. Скорая - 112. В аптеке проще объясниться, показав название препарата на телефоне.</p></div>
+    </div>
+
+    <div class="note warn" style="margin-top:26px"><b>Про дождь по-практически.</b> Зонт в Батуми часто бесполезен: ветер с моря выворачивает его за минуту. Дождевик или капюшон надёжнее. Обувь - нескользкая: плитка на бульваре и в Старом городе после ливня скользкая, как лёд. Во время грозы из воды выходить, а после сильных ливней вода у берега мутнеет от речных стоков - купаться не стоит.</div>
+
+    <div class="divider" style="margin:26px 0 18px"></div>
+
+    <div class="check">
+      <div class="row"><div class="n">1</div><div><p><b>Прогноз утром.</b> На этой неделе планы держатся плохо, смотрите погоду перед выходом.</p></div></div>
+      <div class="row"><div class="n">2</div><div><p><b>Часы и цены.</b> В Батуми они меняются быстро. Всё, что помечено ⚠️, проверяйте в день визита.</p></div></div>
+      <div class="row"><div class="n">3</div><div><p><b>Билеты в дельфинарий</b> - заранее, и помните: по понедельникам он закрыт.</p></div></div>
+      <div class="row"><div class="n">4</div><div><p><b>Столик в маленьком ресторане</b> - звонком, особенно вечером и в выходные.</p></div></div>
+      <div class="row"><div class="n">5</div><div><p><b>Вода и головные уборы в машине</b> - всегда, даже если едете на два часа.</p></div></div>
+      <div class="row"><div class="n">6</div><div><p><b>Адрес квартиры и телефон хозяина</b> - в телефоне у каждого, а не у одного человека.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. ПЛАН ПО ДНЯМ -->
+<section id="plan" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">8</span><span class="k">11-19 августа</span></div>
+    <h2 class="big">Мягкий план по дням</h2>
+    <p class="sub">Собран под прогноз от 11 августа: голубым отмечены дни, когда обещают сухо, розовым - самые мокрые. Это подсказка, а не расписание: меняйте местами что угодно.</p>
+
+    <div class="days">
+      <div class="day wet">
+        <div class="when">11 августа<span>вторник · гроза, 45 %</span></div>
+        <div><h4>Район и дельфинарий</h4><p>Спокойный день рядом с домом: круг у озера Нури, магазины, кафе. Хороший вариант на вечер - шоу дельфинов в 19:00, оно под крышей и в пяти минутах от дома.</p></div>
+      </div>
+      <div class="day dry">
+        <div class="when">12 августа<span>среда · ясно, 10 %</span></div>
+        <div><h4>Единственный сухой день - тратим на выезд</h4><p>Лучший день недели для моря и дальней точки: Квариати с прозрачной водой или Ботанический сад с видом на море. Вечером - бульвар и «Али и Нино» в подсветке.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">13 августа<span>четверг · ливни, 63 %</span></div>
+        <div><h4>Центр между дождями</h4><p>Площадь Европы, Пьяцца, Старый город - короткими отрезками, с кофе в пути. Как только полило - заходим под крышу и ждём полчаса, ливни здесь быстрые.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">14 августа<span>пятница · ливни, 79 %</span></div>
+        <div><h4>Крытый день + брони на выходные</h4><p>День для музея Аджарии: он работает без выходных, и там есть экскурсия. Вечером решить выходные - позвонить на винодельню и хозяину места у моря.</p></div>
+      </div>
+      <div class="day dry">
+        <div class="when">15 августа<span>суббота · 36 %, самый сухой из выходных</span></div>
+        <div><h4>Большой день всей компанией</h4><p>Сюда ставим главную вылазку: вино у моря на юге, винный дом в горах или море в Квариати. Варианты и что бронировать - на странице <a href="weekend.html">выходных</a>.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">16 августа<span>воскресенье · гроза, 54 %</span></div>
+        <div><h4>Спокойное воскресенье</h4><p>Без дальних поездок: погреб с дегустацией в самом городе, музей или кино, вечером бульвар, если проясняется. Дельфинарий тоже работает.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">17 августа<span>понедельник · гроза, 81 %</span></div>
+        <div><h4>Самый мокрый день</h4><p>Полностью крытая программа. Музей Аджарии открыт, а дельфинарий по понедельникам закрыт - учитывайте. Хороший день для длинного обеда и подарков.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">18 августа<span>вторник · ливни, 84 %</span></div>
+        <div><h4>Покупки и кино</h4><p>Batumi Mall: подарки, чурчхела, вино и специи домой, там же кафе и кинотеатр. Вечером - домашний ужин без выхода в город.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">19 августа<span>среда · морось, 44 %</span></div>
+        <div><h4>Выезд</h4><p>Собраться без спешки: зарядки, документы, лекарства, ключи. Если есть время до дороги - последний круг по бульвару и кофе у моря.</p></div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:22px"><b>Если день выпал.</b> Ничего страшного: тихий день дома или в районе - это нормальная часть отдыха, а не сорванный план. Батуми маленький, всё пропущенное легко подобрать в другой день.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Ещё две страницы</h3>
+    <p style="margin:0 0 18px">
+      <a href="rain.html">🌧 Если дождь - что делать под крышей</a> ·
+      <a href="weekend.html">🍷 Выходные 15-16 августа: варианты</a>
+    </p>
+    <p class="cred">
+      Собрано 11 августа 2026 под поездку 10-19 августа. Цены и часы - ориентиры на этот момент, всё помеченное ⚠️ проверяйте в день визита.<br>
+      Прогноз погоды: Open-Meteo. Фотографии: Wikimedia Commons. Часть фактуры - из гида, сделанного для родителей в июле 2026.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>

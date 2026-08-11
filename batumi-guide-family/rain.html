@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Батуми под дождём · что делать, когда льёт</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbf6ec; --paper:#fffdf8; --ink:#2b2418; --muted:#6f6552;
+  --sea:#0b6e75; --sea-deep:#0a565c; --coral:#e07a5f; --gold:#c98a2a; --gold2:#bf8b34;
+  --line:#e7ddc9; --shadow:0 10px 30px rgba(60,45,20,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Manrope',system-ui,Segoe UI,Roboto,sans-serif;line-height:1.65;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;color:#241d12;margin:0}
+a{color:var(--sea)}
+img{max-width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+.pagenav{position:sticky;top:0;z-index:20;background:rgba(251,246,236,.94);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px)}
+.pagenav .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:10px 22px}
+.pagenav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#4a3f2b;background:var(--paper);
+  border:1px solid var(--line);padding:6px 13px;border-radius:100px}
+.pagenav a.here{background:var(--sea);color:#fff;border-color:var(--sea)}
+.pagenav a:hover{border-color:var(--sea);color:var(--sea)}
+.pagenav a.here:hover{color:#fff}
+
+.hero{position:relative;min-height:64vh;display:flex;align-items:flex-end;
+  background-image:linear-gradient(180deg,rgba(10,20,26,.35) 0%,rgba(8,16,20,.80) 100%),
+    linear-gradient(135deg,#2b4a52,#16262c);
+  background-size:cover;background-position:center}
+.hero .wrap{padding-bottom:44px;padding-top:100px;color:#fff}
+.kicker{display:inline-block;letter-spacing:.22em;text-transform:uppercase;font-size:12px;
+  font-weight:700;color:#cfe7e7;background:rgba(0,0,0,.3);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,58px);font-weight:800;text-shadow:0 2px 20px rgba(0,0,0,.4)}
+.hero p{max-width:640px;font-size:clamp(16px,2.4vw,20px);color:#e8f1f1;margin:16px 0 0}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:100px;font-size:14px;font-weight:600;backdrop-filter:blur(3px)}
+
+section{padding:52px 0}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.eyebrow .num{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#fff;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;flex:none}
+.eyebrow .k{letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;font-weight:700;color:var(--sea)}
+h2.big{font-size:clamp(26px,4.4vw,40px);font-weight:800;margin:2px 0 10px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 26px}
+
+.banner{position:relative;height:320px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:8px 0 6px;
+  background-image:linear-gradient(135deg,#0b6e75,#2a4a55);background-size:cover;background-position:center}
+.banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6))}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .ph{height:180px;background-image:linear-gradient(135deg,#0b6e75,#38585f);background-size:cover;background-position:center}
+.card .body{padding:16px 18px 18px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f0ead9;color:#6a5c3c;border:1px solid var(--line)}
+.tag.sea{background:#e2f1f1;color:#0a565c;border-color:#cfe7e7}
+.tag.warn{background:#fbe9df;color:#b2482c;border-color:#f4d3c4}
+.card p{margin:0;color:#463c2b;font-size:15.5px}
+
+.note{background:#fff7e8;border:1px solid var(--line);border-left:5px solid var(--gold2);
+  border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.warn{border-left-color:var(--coral);background:#fdf1ec}
+.note.sea{border-left-color:var(--sea);background:#eef7f7}
+.note b{color:#241d12}
+
+.ess{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.ess .item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.ess .item h4{font-size:18px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.ess .item p{margin:0;color:#463c2b;font-size:15px}
+
+/* star block for the museum */
+.star{background:var(--paper);border:1px solid #cfe7e7;border-left:6px solid var(--sea);border-radius:18px;
+  padding:22px 24px;box-shadow:var(--shadow)}
+.star h3{font-size:25px;margin-bottom:8px}
+.star .facts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px 22px;margin:16px 0 6px;font-size:15.5px}
+.star .facts div{border-bottom:1px dashed var(--line);padding-bottom:6px}
+.star .facts b{color:var(--sea-deep)}
+
+/* stop list */
+.stop{background:var(--paper);border:1px solid #f4d3c4;border-radius:18px;padding:8px 6px;box-shadow:var(--shadow)}
+.stop .row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line);align-items:flex-start}
+.stop .row:last-child{border-bottom:0}
+.stop .x{flex:none;width:26px;height:26px;border-radius:50%;background:#fbe9df;color:#b2482c;display:grid;place-items:center;font-weight:700;font-size:14px}
+.stop .row p{margin:0;font-size:15.5px}
+
+/* three plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.plan{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.plan .h{font-family:'Playfair Display',serif;font-weight:700;font-size:20px;color:var(--sea-deep);margin-bottom:8px}
+.plan ol{margin:0;padding-left:20px;font-size:15px;color:#463c2b}
+.plan li{margin-bottom:6px}
+
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#fff;text-decoration:none;
+  font-weight:700;padding:13px 22px;border-radius:100px;box-shadow:var(--shadow);margin-top:6px}
+.cta:hover{background:var(--sea-deep);color:#fff}
+.divider{height:1px;background:var(--line);margin:6px 0}
+@media(max-width:760px){
+  .grid,.ess,.plans,.star .facts{grid-template-columns:1fr}
+  section{padding:40px 0}
+  .banner{height:220px}
+}
+footer{background:#16262c;color:#dfeaea;padding:40px 0 60px;margin-top:20px}
+footer a{color:#ffd98a}
+footer h3{color:#fff;font-size:22px;margin-bottom:10px}
+footer .cred{font-size:12.5px;color:#9fb4b6;line-height:1.9}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-size:13.5px;text-decoration:none;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);
+  padding:7px 14px;border-radius:100px;color:#fff;font-weight:600}
+.toc a:hover{background:rgba(255,255,255,.2)}
+</style>
+</head>
+<body>
+
+<nav class="pagenav">
+  <div class="wrap">
+    <a href="index.html">Общий гид</a>
+    <a class="here" href="rain.html">🌧 Если дождь</a>
+    <a href="weekend.html">🍷 Выходные 15-16</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="kicker">Батуми под дождём · 10-19 августа 2026</span>
+    <h1>Льёт - и это<br>не повод сидеть дома</h1>
+    <p>На эту неделю дожди обещают почти каждый день. Хорошая новость: здесь они приходят на полчаса и уходят, а под крышей в Батуми есть чем заняться - начиная с музея, от которого предыдущие гости были в полном восторге.</p>
+    <div class="meta">
+      <span class="pill">🌧 дождь 8 дней из 9</span>
+      <span class="pill">⏱ ливень 30-60 минут</span>
+      <span class="pill">🏛 музей - 6 GEL</span>
+      <span class="pill">🐬 аквариум в 5 минутах</span>
+    </div>
+    <div class="toc">
+      <a href="#muzey">Музей Аджарии</a>
+      <a href="#doma">Рядом с домом</a>
+      <a href="#centr">Музеи центра</a>
+      <a href="#nemuzei">Не музеи</a>
+      <a href="#zakryto">Что закрывают</a>
+      <a href="#logistika">Мокрая логистика</a>
+      <a href="#plany">Три плана</a>
+    </div>
+  </div>
+</header>
+
+<!-- 1. МУЗЕЙ АДЖАРИИ -->
+<section id="muzey">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">1</span><span class="k">Главная ставка</span></div>
+    <h2 class="big">Музей Аджарии - проверено на людях</h2>
+    <p class="sub">Из всего, что мы пробовали в дождливые дни, это единственное место, про которое сказали «очень понравилось» без всяких «но». Гости, которые были здесь в июле, остались довольны и экспозицией, и экскурсией.</p>
+
+    <div class="star">
+      <h3>🏛 Государственный музей Аджарии имени Харитона Ахвледиани</h3>
+      <p>Четыре отдела в одном здании: природа, археология, этнография и история края. Спокойным шагом с экскурсией - часа полтора-два, ровные полы, есть туалет, никакой ходьбы под дождём.</p>
+      <div class="facts">
+        <div><b>Адрес:</b> ул. Харитона Ахвледиани, 4</div>
+        <div><b>Часы:</b> 10:00-18:00, <b>без выходных</b></div>
+        <div><b>Билет:</b> около 6 GEL с человека</div>
+        <div><b>Телефон:</b> +995 422 27 11 75</div>
+        <div><b>Языки:</b> подписи на русском, английском, грузинском</div>
+        <div><b>Сколько закладывать:</b> 1,5-2 часа</div>
+      </div>
+    </div>
+
+    <div class="note warn"><b>⚠️ Про экскурсию на русском - главное.</b> У предыдущих гостей экскурсия на русском была <b>в 16:00</b>, и именно она сделала визит. Но это их опыт, а не расписание музея: постоянного времени нет, всё зависит от того, кто из гидов на смене. <b>Позвоните с утра</b> по номеру выше и спросите, будет ли сегодня русская экскурсия и в какое время. Один звонок - и день спланирован.</div>
+
+    <div class="note sea"><b>Если экскурсии сегодня нет</b> - идти всё равно стоит: подписи на русском есть, а рядом, в десяти минутах, ещё два музея. Из одного дождливого дня легко собрать музейный маршрут.</div>
+  </div>
+</section>
+
+<!-- 2. РЯДОМ С ДОМОМ -->
+<section id="doma" style="background:linear-gradient(180deg,#fff,#f2f7f7)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">2</span><span class="k">Пять минут пешком</span></div>
+    <h2 class="big">Крытое рядом с домом</h2>
+    <p class="sub">Когда льёт совсем не хочется никуда ехать. В парке 6 мая есть варианты в двух шагах от квартиры.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/dolphinarium.jpg')"></div>
+        <div class="body">
+          <h3>Дельфинарий</h3>
+          <div class="meta"><span class="tag sea">под крышей, сидя</span><span class="tag">20 GEL днём, 25 вечером</span><span class="tag warn">по понедельникам закрыт</span></div>
+          <p>Руставели 51. Шоу в <b>16:00, 19:00, 21:00</b>, идёт 35 минут. Дождь на него никак не влияет. Билеты в сезон разбирают в тот же день - лучше взять заранее. Первые пять рядов обливают водой, садитесь выше.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Аквариум у дельфинария</h3>
+          <div class="meta"><span class="tag">≈ 2 GEL</span><span class="tag sea">30 минут</span><span class="tag sea">спасает от ливня</span></div>
+          <p>Маленький, без размаха, но за два лари и в пяти минутах от дома - ровно то, что нужно, чтобы переждать ливень с толком, а не под козырьком магазина.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/nuri-lake.jpg')"></div>
+        <div class="body">
+          <h3>Кафе у озера Нури</h3>
+          <div class="meta"><span class="tag sea">Kafune и соседние</span><span class="tag">кофе и десерт</span></div>
+          <p>Дождь над озером - это красиво, если смотреть из-под навеса с кофе. Хороший план на час: дойти до кафе, сесть у окна и подождать, пока пройдёт.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Домашний вечер</h3>
+          <div class="meta"><span class="tag sea">без выхода</span><span class="tag">хинкали и вино</span></div>
+          <p>Тоже вариант, а не проигрыш: взять хинкали и хачапури на вынос рядом, бутылку саперави, нарды. В ливень с грозой это честно лучше, чем мокнуть ради галочки.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. МУЗЕИ ЦЕНТРА -->
+<section id="centr">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">3</span><span class="k">10-15 минут на такси</span></div>
+    <h2 class="big">Музеи центра</h2>
+    <p class="sub">Все три - в пешей доступности друг от друга, так что из них складывается целый день, если погода совсем не отпускает.</p>
+
+    <div class="banner" style="background-image:url('img/art-museum.jpg')">
+      <div class="cap">Музей искусств Аджарии - грузинская и европейская живопись, небольшие залы, час-полтора спокойного хода</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/art-museum.jpg')"></div>
+        <div class="body">
+          <h3>Музей искусств Аджарии</h3>
+          <div class="meta"><span class="tag sea">ул. Горгиладзе</span><span class="tag">10:00-18:00, без выходных</span><span class="tag sea">час-полтора</span></div>
+          <p>Грузинская живопись XX века и европейские работы. Залы небольшие, ходить недалеко, есть где сесть. Хорошо совмещается с обедом в центре.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Батумский археологический музей</h3>
+          <div class="meta"><span class="tag sea">ул. Чавчавадзе, 77</span><span class="tag warn">часы уточнить</span><span class="tag">≈ час</span></div>
+          <p>22 000 экспонатов, история Аджарии по порядку - от Колхиды до античных находок. Один из лучших археологических музеев Грузии. ⚠️ Часы работы в источниках не подтверждены, позвоните перед выходом.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Этнографический Борджгало</h3>
+          <div class="meta"><span class="tag warn">не в дождь</span><span class="tag sea">оставить на сухой день</span></div>
+          <p>Деревня под открытым небом на склоне: старые дома, мельницы, утварь. Место хорошее, но в ливень бессмысленное и скользкое. Держите на случай, если выпадет сухое окно.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Порядок на музейный день</h3>
+          <div class="meta"><span class="tag sea">маршрут</span></div>
+          <p>Музей Аджарии к экскурсии, потом обед в центре, потом музей искусств или археологический - по силам. Между ними 10 минут пешком или 4-5 GEL на такси, чтобы не мокнуть.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. НЕ МУЗЕИ -->
+<section id="nemuzei" style="background:linear-gradient(180deg,#fff,#f2f7f7)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">4</span><span class="k">Если музеи надоели</span></div>
+    <h2 class="big">Не музеи</h2>
+    <p class="sub">Дождливый день не обязан быть познавательным. Иногда лучше вино, кино или долгий обед.</p>
+
+    <div class="ess">
+      <div class="item"><h4>🍷 Погреб с дегустацией</h4><p>Марани Ваджи Давитадзе - семейный погреб в самом городе, ехать за город не надо. Дегустация обычно около 19:00, хозяин ведёт сам, есть мастер-классы по чурчхеле и хинкали. В погребе прохладно и сухо в любую погоду. ⚠️ Звонить и договариваться заранее.</p></div>
+      <div class="item"><h4>🎬 Кино</h4><p>Apollo Batumi - лучший шанс на сеанс с русским дубляжом, 3-4 фильма в день. Cavea в Grand Mall новее, но крутит на грузинском и английском. Есть и клубные залы с показами на русском. ⚠️ Афишу и язык сеанса проверять на день визита.</p></div>
+      <div class="item"><h4>🛍 Торговые центры</h4><p>Batumi Mall на Горгиладзе и Grand Mall: магазины, фудкорт, кофе, кино под одной крышей. Заодно закрывается тема подарков - чурчхела, вино, специи, чай.</p></div>
+      <div class="item"><h4>🍲 Долгий обед</h4><p>Самое недооценённое занятие в дождь. Взять большой стол в зале с кондиционером, заказать не спеша: хинкали, чкмерули, лобио, хачапури. Днём в ресторанах тихо - без вечерней живой музыки.</p></div>
+      <div class="item"><h4>🧖 Баня или SPA</h4><p>В больших отелях центра есть SPA с бассейном и хаммамом, куда пускают по дневному тарифу. ⚠️ Внятного списка с ценами найти не удалось - спрашивайте на ресепшене отелей на бульваре.</p></div>
+      <div class="item"><h4>☕ Кофе на штормовое море</h4><p>Кафе на бульваре с окнами к воде: в шторм море серое и высокое, смотреть на это из тепла - отдельное удовольствие. Заодно проверенная тактика переждать полчаса ливня.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. ЧТО ЗАКРЫВАЮТ -->
+<section id="zakryto">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">5</span><span class="k">Не строить на этом день</span></div>
+    <h2 class="big">Что дождь отменяет</h2>
+    <p class="sub">Чтобы не приехать к закрытым воротам: вот список того, что в дождь либо не работает, либо становится небезопасным.</p>
+
+    <div class="stop">
+      <div class="row"><div class="x">✕</div><div><p><b>Канатка «Арго».</b> При ветре и грозе не работает, а в низкой облачности сверху видно только белую стену. 30 GEL за туман - обидно.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Смотровая башни Алфавита.</b> Технически работает, но вида нет по той же причине - облако.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Поющие фонтаны.</b> В сильный ветер и грозу не включают.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Стеклянный мост в каньоне Мартвили.</b> Закрывают в дождь. И лодки по каньону тоже не ходят при высокой воде.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Лодка по подземной реке в пещере Прометея.</b> Не ходит при высокой воде. Сама пещера работает, но это 4 часа дороги в одну сторону - не дождевой вариант.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Водопады Махунцети и Мтирала.</b> Камни мокрые и скользкие - это реальный риск падения. Плюс грунтовую дорогу в Мтиралу после ливней размывает.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Море.</b> В грозу из воды выходить сразу. После сильных ливней вода у берега мутная от речных стоков - купаться не стоит день-два.</p></div></div>
+      <div class="row"><div class="x">✕</div><div><p><b>Борджгало и всё «под открытым небом».</b> Ботанический сад в ливень тоже теряет смысл: он на склоне и очень скользкий.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. ЛОГИСТИКА -->
+<section id="logistika" style="background:linear-gradient(180deg,#fff,#f2f7f7)">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">6</span><span class="k">Бытовое</span></div>
+    <h2 class="big">Мокрая логистика</h2>
+    <p class="sub">Мелочи, из-за которых дождливый день получается неприятным, хотя мог быть нормальным.</p>
+
+    <div class="ess">
+      <div class="item"><h4>🌂 Дождевик вместо зонта</h4><p>Ветер с моря выворачивает зонт за минуту. Капюшон или дождевик надёжнее и освобождает руки.</p></div>
+      <div class="item"><h4>👟 Нескользкая обувь</h4><p>Плитка на бульваре и в Старом городе после ливня скользкая, как лёд. Это главный риск дня, серьёзнее промокших ног.</p></div>
+      <div class="item"><h4>🚕 Bolt дороже и дольше</h4><p>В дождь спрос подскакивает: цена выше, машина едет дольше. Заказывайте заранее, из-под крыши, и не рассчитывайте уехать мгновенно.</p></div>
+      <div class="item"><h4>🚗 За рулём осторожнее</h4><p>Ливень в Батуми стеной: видимость падает, на улицах стоят лужи по колено, ливнёвки не справляются. Лучше подождать 20 минут, чем ехать в самый разгар.</p></div>
+      <div class="item"><h4>🏠 Где переждать</h4><p>Кафе, торговый центр, музей, подземный переход, лобби отеля. Полчаса - и обычно снова светло.</p></div>
+      <div class="item"><h4>🧺 Сушка</h4><p>Влажность 70-80 %: мокрые вещи сами не высохнут. В квартире есть стиральная машина - развешивайте сразу и при кондиционере.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. ТРИ ПЛАНА -->
+<section id="plany">
+  <div class="wrap">
+    <div class="eyebrow"><span class="num">7</span><span class="k">Готовые сценарии</span></div>
+    <h2 class="big">Три плана под разный дождь</h2>
+    <p class="sub">Выберите по прогнозу и по настроению - и не придумывайте заново каждое утро.</p>
+
+    <div class="plans">
+      <div class="plan">
+        <div class="h">Дождь на 2 часа</div>
+        <ol>
+          <li>Кафе у озера Нури, кофе и десерт.</li>
+          <li>Аквариум за 2 лари, если ещё льёт.</li>
+          <li>Как прояснилось - круг по парку.</li>
+        </ol>
+      </div>
+      <div class="plan">
+        <div class="h">Дождь на полдня</div>
+        <ol>
+          <li>С утра звонок в музей Аджарии про русскую экскурсию.</li>
+          <li>Музей, 1,5-2 часа.</li>
+          <li>Долгий обед в центре, в зале.</li>
+          <li>Вечером дельфинарий в 19:00 - кроме понедельника.</li>
+        </ol>
+      </div>
+      <div class="plan">
+        <div class="h">Льёт весь день</div>
+        <ol>
+          <li>Музей Аджарии с экскурсией.</li>
+          <li>Обед рядом, без спешки.</li>
+          <li>Музей искусств или археологический.</li>
+          <li>Batumi Mall: подарки и кино.</li>
+          <li>Вечером погреб с дегустацией или хинкали дома.</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="note sea" style="margin-top:24px"><b>И главное.</b> Дождь в Батуми - не испорченный отдых, а другой его режим. Здесь под дождём сидят в кафе, ходят в музеи и едут в погреб, а не отменяют неделю. Проясняется обычно к вечеру, и это лучшее время для бульвара.</div>
+
+    <p><a class="cta" href="weekend.html">🍷 Посмотреть варианты на выходные →</a></p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Остальные страницы</h3>
+    <p style="margin:0 0 18px">
+      <a href="index.html">Общий гид: район, город, выезды, план по дням</a> ·
+      <a href="weekend.html">🍷 Выходные 15-16 августа</a>
+    </p>
+    <p class="cred">
+      Собрано 11 августа 2026. Часы, цены и расписания проверены в этот день, но в Батуми они меняются быстро - всё с пометкой ⚠️ уточняйте звонком.<br>
+      Опыт с музеем Аджарии - от гостей, которые были там в июле 2026.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
