@@ -32,7 +32,6 @@
   h1,h2,h3{font-family:Georgia,"Times New Roman",serif;font-weight:600;line-height:1.2;letter-spacing:.2px}
   h1{font-size:2rem;margin:.2em 0 .1em}
   .sub{color:var(--muted);font-size:1.02rem;margin:0 0 4px}
-  .meta{color:var(--muted);font-size:.82rem;margin-top:6px}
   .rule{height:3px;width:66px;background:var(--wine);border-radius:2px;margin:16px 0 26px}
   .verdict{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--wine);
     border-radius:12px;padding:16px 18px;margin:0 0 26px}
@@ -40,9 +39,6 @@
   h2{font-size:1.32rem;margin:34px 0 6px;color:var(--wine)}
   h2 .n{color:var(--wine-soft);font-size:.9em;margin-right:.35em}
   .lead{color:var(--muted);margin:.1em 0 14px}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 4px}
-  .chip{background:var(--chip);border:1px solid var(--line);border-radius:999px;
-    padding:5px 12px;font-size:.86rem}
   .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:12px;margin:10px 0 6px;background:var(--card)}
   table{border-collapse:collapse;width:100%;min-width:620px;font-size:.92rem}
   th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--line);vertical-align:top}
@@ -62,12 +58,12 @@
   li{margin:.35em 0}
   a{color:var(--wine);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--wine) 40%,transparent)}
   a:hover{border-bottom-color:var(--wine)}
-  code{background:var(--chip);border-radius:5px;padding:1px 5px;font-size:.9em;
-    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;word-break:break-all}
-  ol.route-list{margin:.2em 0 0}
-  ol.route-list li{margin:.5em 0}
+  details{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:10px 14px;margin:12px 0}
+  summary{cursor:pointer;font-weight:600;color:var(--wine);font-size:.95rem}
+  details[open] summary{margin-bottom:8px}
+  details .note{margin-top:.4em}
   footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.82rem}
-  @media print{body{background:#fff}.verdict,.box,.tablewrap{break-inside:avoid}}
+  @media print{body{background:#fff}.verdict,.box,.tablewrap{break-inside:avoid}details{display:block}}
 </style>
 </head>
 <body>
@@ -78,38 +74,28 @@
   <div class="rule"></div>
 
   <div class="verdict">
-    Короткий вывод для взрослого: <b>ничего колоть заранее не нужно</b>. Собрать любые прививочные
-    бумаги, какие есть, привезти их на осмотр - недостающее врач доколет на месте. <b>Одной дозы
-    достаточно</b>, даже если по-хорошему нужна серия из трёх: остаток закрывается штатной отметкой
-    в форме, а доделывать уже в США. График «успеть поставить всю серию до интервью», который
-    кочует по чатам, - не требование Госдепа.
-  </div>
-
-  <div class="box warnbox">
-    <h3>Что это за страница и чему тут верить</h3>
-    <p class="note" style="margin:.1em 0 .6em">Это конспект двух документов CDC для panel physicians,
-    сверенный по первоисточникам <b>20 августа 2026</b>: Table 1 в редакции <b>11 марта 2025</b>
-    (та самая, где убрали COVID-19) и Addendum по полиомиелиту в редакции <b>19 марта 2026</b>.
-    Ссылки - в конце страницы.</p>
-    <p class="note" style="margin:0">Источник правды - сами страницы CDC, а не этот текст. Требования
-    меняются: перед осмотром откройте обе ссылки и сверьте редакцию. Страница не является
-    медицинской или юридической консультацией.</p>
+    Короткий вывод для взрослого: <b>ничего колоть заранее не нужно</b>. Принести любые прививочные
+    записи, какие найдутся, - хоть фотографии старой карты, - недостающее врач доколет на месте.
+    <b>Одной дозы достаточно</b>, даже если по-хорошему нужна серия из трёх: остаток закрывается
+    штатной отметкой в форме, а доделывать уже в США. График «успеть поставить всю серию до
+    интервью», который кочует по чатам, - не требование Госдепа.
   </div>
 
   <h2><span class="n">1.</span>Что требуют от взрослого</h2>
-  <p class="lead">Table 1, колонка 18-64 года. Список для иммиграции <b>уже</b> обычного взрослого
-  календаря прививок: сюда входят только болезни с потенциалом вспышки либо уже побеждённые в США.</p>
+  <p class="lead">Table 1, колонка 18-64 года. Это главное на странице, остальное - детали вокруг.
+  Список для иммиграции <b>уже</b> обычного взрослого календаря: только болезни с потенциалом
+  вспышки либо уже побеждённые в США.</p>
 
   <div class="tablewrap">
   <table>
     <thead><tr><th>Прививка</th><th>Нужна в 18-64</th><th>Что считается «в порядке»</th></tr></thead>
     <tbody>
-      <tr><td>Корь, паротит, краснуха (MMR)</td><td class="yes">Да</td><td>если родился в 1957 году или позже; документ о вакцинации либо титры IgG</td></tr>
-      <tr><td>Ветряная оспа (varicella)</td><td class="yes">Да</td><td>документ, титры <b>или</b> внятная история болезни</td></tr>
+      <tr><td>Корь, паротит, краснуха (MMR)</td><td class="yes">Да</td><td>если родился в 1957 году или позже; запись о вакцинации либо титры IgG</td></tr>
+      <tr><td>Ветряная оспа (varicella)</td><td class="yes">Да</td><td>запись, титры <b>или</b> внятная история болезни - тут верят на слово</td></tr>
       <tr><td>Столбняк + дифтерия (+ коклюш): Td / Tdap, в постсоветских картах АДС-М</td><td class="yes">Да</td><td>первичная серия из 3 доз плюс ревакцинация не позже 10 лет назад</td></tr>
-      <tr><td>Гепатит B</td><td class="yes">Да, по 59 включительно</td><td>документ о серии либо anti-HBs</td></tr>
+      <tr><td>Гепатит B</td><td class="yes">Да, по 59 включительно</td><td>запись о серии либо anti-HBs</td></tr>
       <tr><td>Полиомиелит</td><td>только если <b>нет</b> первичной серии</td><td>3 дозы ИПВ или ОПВ в любой комбинации</td></tr>
-      <tr><td>Грипп</td><td class="yes">Да, когда вакцина есть в стране осмотра</td><td>сезонная, ставится на месте</td></tr>
+      <tr><td>Грипп</td><td class="yes">Да, когда вакцина есть у врача</td><td>сезонная, ставится на месте; летом обычно «not available»</td></tr>
       <tr><td>Гепатит A</td><td class="no">Нет</td><td>требуется только с 12 месяцев по 18 лет</td></tr>
       <tr><td>Менингококк MenACWY</td><td class="no">Нет</td><td>требуется только с 11 по 18 лет</td></tr>
       <tr><td>Пневмококк</td><td class="no">Нет</td><td>требуется с 65 лет</td></tr>
@@ -118,204 +104,148 @@
   </table>
   </div>
   <p class="note">Возрастные пороги, которые стоит держать в голове: <b>60 лет</b> - гепатит B
-  перестаёт быть обязательным; <b>65 лет</b> - появляется пневмококк.</p>
+  перестаёт быть обязательным; <b>65 лет</b> - появляется пневмококк. COVID-19 из списка убран
+  11 марта 2025.</p>
 
-  <blockquote><p>The vaccine must be an age-appropriate vaccine, as recommended by the Advisory
-  Committee on Immunization Practices (ACIP) for the general U.S. population.</p></blockquote>
-
-  <h2><span class="n">2.</span>Главное послабление: хватает одной дозы</h2>
-  <p class="lead">Это снимает всю панику вокруг «не успею поставить серию».</p>
-
-  <blockquote><p>Vaccine series have minimum age requirements and typically require months to years
-  to complete. Therefore, it is usually not possible for applicants to receive all vaccinations for
-  the diseases listed above prior to departure, and they are instead required to receive from the
-  panel physician <b>at least one dose of each age-appropriate vaccine</b> listed in Table 1 for
-  which the applicant is not currently up to date.</p></blockquote>
-
-  <p>Недоделанная серия - штатная отметка в форме, а не проблема:</p>
-
-  <blockquote><p>If administration of the single dose of a vaccine at the time of the medical
-  examination does not complete the series for that vaccine, the <b>"Insufficient time interval to
-  complete series"</b> reason should be documented to indicate that additional doses will be needed
-  to complete the series.</p></blockquote>
-
-  <p>Практический смысл: даже если у человека нет вообще ни одной прививочной бумаги, за один визит
-  он получает по одной дозе нужных вакцин, врач проставляет waiver-ы, и медосмотр закрыт.</p>
-
-  <h2><span class="n">3.</span>Шесть «blanket waiver»</h2>
-  <p class="lead">Когда прививка не нужна и это нормально. Заявителю оформлять ничего не надо -
-  waiver проставляет сам врач в форме DS-3025.</p>
-
-  <blockquote><p>The applicant does not need to apply for a Blanket Waiver.</p></blockquote>
-
-  <ol class="route-list">
-    <li><b>Not age-appropriate</b> - прививка не по возрасту. У взрослого это гарантированно Hib,
-    ротавирус, детский DTaP, а также гепатит A и менингококк.</li>
-    <li><b>Insufficient time interval to complete series</b> - серия не доделана, интервал не подошёл.</li>
-    <li><b>Not routinely available</b> - вакцины нет в стране, где практикует врач.</li>
-    <li><b>Flu vaccine not available</b> - не сезон.</li>
-    <li><b>Contraindication</b> - противопоказание; сюда же попадают живые вакцины при беременности.</li>
-    <li><b>Documented chronic hepatitis B infection</b> - тогда гепатит B не ставят. Специально
-    тестировать на гепатит B в рамках медосмотра не будут: «testing for hepatitis B virus infection
-    should not be performed as part of the applicant exam».</li>
-  </ol>
-
-  <div class="box warnbox">
-    <h3>Отказ по убеждениям - это не waiver</h3>
-    <p class="note" style="margin:0">Отказ от прививки по религиозным или моральным убеждениям -
-    <b>не</b> blanket waiver, а индивидуальное ходатайство в USCIS, и решает его USCIS, а не врач.
-    Отказ от медицински показанной дозы без такого ходатайства = <b>Class A</b>, то есть
-    недопустимость к въезду.</p>
-  </div>
-
-  <h2><span class="n">4.</span>Полиомиелит: требование по стране осмотра</h2>
-  <p class="lead">Отдельный аддендум поверх Table 1. Действует <b>не по гражданству и не по
-  поездкам</b>, а по стране, где проходит осмотр.</p>
-
-  <blockquote><p>The instructions in this addendum are in effect for all panel physicians who are
-  conducting examinations in the following countries infected with WPV1, cVDPV1, cVDPV2, or
-  cVDPV3.</p></blockquote>
-
-  <p>Список из редакции <b>19 марта 2026</b>:</p>
-  <div class="tablewrap">
-  <table>
-    <thead><tr><th>Штамм</th><th>Страны осмотра</th></tr></thead>
-    <tbody>
-      <tr><td><b>WPV1</b></td><td>Афганистан, Германия, Пакистан</td></tr>
-      <tr><td><b>cVDPV1</b></td><td>Алжир, ДР Конго, Джибути, Израиль, Лаос</td></tr>
-      <tr><td><b>cVDPV2</b></td><td>Алжир, Ангола, Бенин, Буркина-Фасо, Камерун, ЦАР, Чад, Кот-д'Ивуар, ДР Конго, Джибути, Эфиопия, Газа, Германия, Израиль, Намибия, Нигер, Нигерия, Папуа - Новая Гвинея, Польша, Сенегал, Сомали, Южный Судан, Судан, Великобритания, Танзания, Йемен</td></tr>
-      <tr><td><b>cVDPV3</b></td><td>Камерун, Чад, Гвинея</td></tr>
-    </tbody>
-  </table>
-  </div>
-
-  <p>Две поправки к тому, что пишут в чатах:</p>
-  <ul>
-    <li>Формулировка «резидент указанных стран или был там больше 4 недель за последний год» -
-    это трактовка отдельных офисов МОМ, а не текст CDC. У CDC критерий один: <b>где проходит осмотр</b>.</li>
-    <li>В списке есть Германия, Польша, Великобритания и Израиль. Мысль «полиомиелит - это только
-    про Африку и Азию» неверна.</li>
-  </ul>
-
-  <p>И жёсткое: по аддендуму титры не спасают, нужна именно доза.</p>
-  <blockquote><p>Laboratory confirmation of immunity cannot be used to meet this vaccination
-  requirement.</p></blockquote>
-  <p class="note">Для обычного полиомиелита из Table 1 титры, наоборот, годятся - но с условием:
-  «Titers must include all three poliovirus types to be acceptable».</p>
-
-  <h2><span class="n">5.</span>Грипп: привязка к наличию вакцины, а не к дате</h2>
-  <blockquote><p>Influenza vaccine is required when available in the country the panel physician is
-  practicing... If influenza vaccine is not available because it is not vaccination season in your
-  region, document the <b>"Flu vaccine not available"</b> reason.</p></blockquote>
-  <p>В северном полушарии вакцина нового сезона приходит в сентябре-октябре, так что на летнем
-  осмотре её обычно просто нет. Если есть - поставят на месте, это одна доза, спорить не о чем.</p>
-  <p class="note">Правило «грипп нужен, если интервью с 1 октября по 31 марта», которое кочует по
-  чатам, в тексте CDC отсутствует. Там привязка не к дате интервью, а к наличию вакцины у врача.</p>
-
-  <h2><span class="n">6.</span>Чем доказывать прививки</h2>
-  <p class="lead">Требования к бумагам жёстче, чем кажется.</p>
+  <h2><span class="n">2.</span>Чем доказывать: годится копия, в том числе фото</h2>
+  <p class="lead">Формат записи не важен - важно, чтобы это была настоящая запись врача с полными
+  датами. Оригинал на руках иметь не обязательно.</p>
 
   <blockquote><p>Acceptable vaccination documentation must come from a vaccination record, either a
-  personal vaccination record or a copy of a medical chart with entries made by a physician or other
-  appropriate medical personnel. <b>Only those records of vaccine doses that include the dates of
-  receipt (month, day, and year) are acceptable.</b> The document must not appear to have been
-  altered... <b>Self-reported vaccine doses without written documentation are not
-  acceptable.</b></p></blockquote>
-
-  <ul>
-    <li>Годится и советская форма 063, и российский сертификат, и выписка из карты, и запись из
-    местной поликлиники. Формат неважен, важны <b>полные даты</b>: число, месяц, год.</li>
-    <li>Запись «АДС-М, 2014» без числа и месяца формально не проходит. Не трагедия - эту позицию
-    просто доколют.</li>
-    <li>«Я точно прививался, просто бумаги нет» не считается вообще. Либо бумага, либо титры, либо
-    доза на месте.</li>
-    <li>Подчищать и дописывать бумаги нельзя: «must not appear to have been altered».</li>
-  </ul>
-
-  <div class="box">
-    <h3>Титры - законная альтернатива</h3>
-    <blockquote style="margin-top:.2em"><p>Laboratory evidence of immunity is acceptable for measles,
-    mumps, rubella, hepatitis A, hepatitis B, polio, and varicella if the applicant lacks acceptable
-    documented history of vaccination.</p></blockquote>
-    <p class="note" style="margin:.6em 0 0">Но экономически они обычно бессмысленны: анализ стоит
-    примерно как сама прививка, а результат надо успеть получить до осмотра. Титры оправданы в одном
-    случае - когда живую вакцину ставить нельзя.</p>
-  </div>
+  personal vaccination record or <b>a copy of a medical chart</b> with entries made by a physician or
+  other appropriate medical personnel.</p></blockquote>
 
   <div class="box route">
-    <h3>Ветрянка - единственное исключение, где верят на слово</h3>
-    <blockquote style="margin-top:.2em"><p>An applicant who provides a reliable written or oral
-    history of varicella disease does not require laboratory confirmation or further
-    vaccination.</p></blockquote>
-    <p class="note" style="margin:.6em 0 0">Оговорка: врач должен убедиться, что история внятная -
-    либо был контакт с подтверждённым случаем, либо болезнь подтверждали лабораторно. На практике
-    хватает уверенного «болел в детстве». Если сомневаетесь - проще согласиться на прививку, чем
-    спорить.</p>
+    <h3>Фотографии прививочной карты - рабочий вариант</h3>
+    <p style="margin:.1em 0 .6em">Слово «copy» в инструкции закрывает вопрос: если карта осталась
+    у родителей в другом городе или стране, достаточно попросить их сфотографировать её и прислать.
+    Ехать за оригиналом, заказывать выписку и заверять её нотариально не нужно.</p>
+    <ul style="margin:0">
+      <li>Снимать <b>страницу целиком</b>, а не отдельные строки: врачу нужно видеть, что это карта,
+      а не вырванный кусок.</li>
+      <li>Проверить, что читаются <b>даты, названия вакцин, печати и подписи</b>. Смазанное фото -
+      это просто нечитаемое фото, его завернут.</li>
+      <li>Все страницы, где есть прививки, включая обороты и вклейки.</li>
+      <li>Ничего не подрисовывать и не «улучшать» в редакторе: «The document must not appear to have
+      been altered».</li>
+    </ul>
   </div>
 
-  <h2><span class="n">7.</span>Что взять с собой и о чём подумать заранее</h2>
+  <p>Годится любой бланк: советская форма 063, российский сертификат, выписка из карты, запись из
+  местной поликлиники. Единственное содержательное требование - <b>полные даты</b>:</p>
 
-  <div class="chips">
-    <span class="chip">📄 Любые прививочные бумаги, в любом виде</span>
-    <span class="chip">💵 Наличные на вакцины</span>
-    <span class="chip">📋 Копия DS-3025 на руки</span>
-    <span class="chip">💊 Рецепты и выписки по хроническим болезням</span>
-  </div>
+  <blockquote><p>Only those records of vaccine doses that include the dates of receipt (month, day,
+  and year) are acceptable... <b>Self-reported vaccine doses without written documentation are not
+  acceptable.</b></p></blockquote>
 
-  <ul>
-    <li>Прививочные записи обычно не требуют перевода, если врач читает язык оригинала. Уточните
-    в клинике заранее.</li>
-    <li>Бумаг нет вообще - это не повод переносить осмотр.</li>
-    <li>Деньги: базовый осмотр взрослого - порядка нескольких сотен долларов в зависимости от
-    страны и клиники, плюс отдельно каждая вакцина (по опыту заявителей - десятки долларов за
-    дозу). Уточняйте прайс и способ оплаты в своей клинике, цифры сильно разнятся.</li>
-    <li><b>Заберите копию DS-3025.</b> Это постоянный прививочный документ, он понадобится в США в
-    школах, у врачей и при подаче на натурализацию. Требование прямо в инструкции: «an extra copy
-    must be provided to the applicant».</li>
-    <li><b>Беременность или её планирование.</b> MMR и ветрянка - живые вакцины, при беременности
-    противопоказаны. Для медосмотра это не проблема, врач ставит waiver «contraindication». Но
-    сказать врачу надо <b>до</b> укола, а не после.</li>
-    <li><b>Аллергия на компоненты вакцин</b> и тяжёлые реакции в прошлом - тоже до укола.</li>
-  </ul>
+  <p class="note">То есть «АДС-М, 2014» без числа и месяца формально не проходит, а «я точно
+  прививался, бумаги нет» не считается вообще. И то и другое - не проблема: такую позицию просто
+  доколют одной дозой на месте, см. следующий раздел.</p>
 
-  <div class="box">
-    <h3>Что спросить у клиники до визита</h3>
-    <ol class="route-list">
-      <li>Какие вакцины есть в наличии - Tdap (Adacel или Boostrix), MMR, гепатит B, ветрянка.</li>
-      <li>Есть ли уже вакцина от гриппа текущего сезона или будет отметка «not available».</li>
-      <li>Сколько стоит каждая доза и чем платить - местная валюта, доллары, карта.</li>
-      <li>Отдадут ли копию DS-3025 на руки сразу или вместе с конвертом.</li>
-      <li>Нужен ли второй визит, если ставят несколько доз, или всё в один день.</li>
+  <details>
+    <summary>Титры и ветрянка - две альтернативы бумаге</summary>
+    <p class="note" style="margin:.2em 0 .6em"><b>Титры</b> принимают для кори, паротита, краснухи,
+    гепатита A и B, полиомиелита и ветрянки, если записи о вакцинации нет. Но по деньгам анализ
+    выходит примерно как сама прививка, а результат надо успеть получить до осмотра, так что смысл
+    в них появляется в основном тогда, когда живую вакцину ставить нельзя. Для полиомиелита есть
+    оговорка: «Titers must include all three poliovirus types to be acceptable».</p>
+    <p class="note" style="margin:0"><b>Ветрянка</b> - единственное место, где верят на слово:
+    «An applicant who provides a reliable written or oral history of varicella disease does not
+    require laboratory confirmation or further vaccination». Врач должен убедиться, что история
+    внятная; на практике хватает уверенного «болел в детстве». Спорить дороже, чем согласиться на
+    укол.</p>
+  </details>
+
+  <h2><span class="n">3.</span>Хватает одной дозы</h2>
+  <p class="lead">Главное послабление, которое снимает панику вокруг «не успею поставить серию».</p>
+
+  <blockquote><p>...they are instead required to receive from the panel physician <b>at least one
+  dose of each age-appropriate vaccine</b> listed in Table 1 for which the applicant is not currently
+  up to date.</p>
+  <p>If administration of the single dose... does not complete the series, the <b>"Insufficient time
+  interval to complete series"</b> reason should be documented.</p></blockquote>
+
+  <p>Даже если прививочных бумаг нет вообще, за один визит человек получает по одной дозе нужных
+  вакцин, врач проставляет отметки, и медосмотр закрыт. Серию доделывают уже в США.</p>
+
+  <details>
+    <summary>Шесть «blanket waiver» - когда прививку не ставят и это нормально</summary>
+    <p class="note" style="margin:.2em 0 .5em">Оформлять ничего не надо, waiver проставляет сам врач
+    в форме DS-3025: «The applicant does not need to apply for a Blanket Waiver».</p>
+    <ol style="margin:0">
+      <li class="note"><b>Not age-appropriate</b> - не по возрасту (у взрослого это Hib, ротавирус,
+      DTaP, гепатит A, менингококк).</li>
+      <li class="note"><b>Insufficient time interval to complete series</b> - серия не доделана.</li>
+      <li class="note"><b>Not routinely available</b> - вакцины нет в стране осмотра.</li>
+      <li class="note"><b>Flu vaccine not available</b> - не сезон.</li>
+      <li class="note"><b>Contraindication</b> - противопоказание; сюда же живые вакцины при
+      беременности. Про беременность и аллергии сказать врачу <b>до</b> укола.</li>
+      <li class="note"><b>Documented chronic hepatitis B infection</b>.</li>
     </ol>
-  </div>
+    <p class="note" style="margin:.6em 0 0">Отказ по религиозным или моральным убеждениям - <b>не</b>
+    blanket waiver, а отдельное ходатайство в USCIS. Отказ от показанной дозы без него = Class A,
+    то есть недопустимость к въезду.</p>
+  </details>
 
-  <h2><span class="n">8.</span>Что проверить самому перед осмотром</h2>
+  <h2><span class="n">4.</span>Полиомиелит: смотрят страну осмотра</h2>
+  <p class="lead">Отдельный аддендум поверх Table 1. Действует не по гражданству и не по поездкам,
+  а по стране, где проходит осмотр. Если страна не в списке - дополнительная доза не нужна,
+  остаётся только обычное требование Table 1.</p>
+
+  <details>
+    <summary>Список стран, редакция 19 марта 2026</summary>
+    <ul style="margin:.2em 0 0">
+      <li class="note"><b>WPV1</b>: Афганистан, Германия, Пакистан.</li>
+      <li class="note"><b>cVDPV1</b>: Алжир, ДР Конго, Джибути, Израиль, Лаос.</li>
+      <li class="note"><b>cVDPV2</b>: Алжир, Ангола, Бенин, Буркина-Фасо, Камерун, ЦАР, Чад,
+      Кот-д'Ивуар, ДР Конго, Джибути, Эфиопия, Газа, Германия, Израиль, Намибия, Нигер, Нигерия,
+      Папуа - Новая Гвинея, Польша, Сенегал, Сомали, Южный Судан, Судан, Великобритания, Танзания,
+      Йемен.</li>
+      <li class="note"><b>cVDPV3</b>: Камерун, Чад, Гвинея.</li>
+    </ul>
+    <p class="note" style="margin:.6em 0 0">Список обновляется вслед за заявлениями ВОЗ, примерно
+    раз в квартал - перед осмотром сверьте по ссылке в конце страницы.</p>
+  </details>
+
+  <p class="note">Две поправки к тому, что пишут в чатах. Первая: «резидент указанных стран или был
+  там больше 4 недель за последний год» - это трактовка отдельных офисов МОМ, а не текст CDC; у CDC
+  критерий один, где проходит осмотр. Вторая: в списке есть Германия, Польша, Великобритания и
+  Израиль, так что «полиомиелит - это только про Африку и Азию» неверно. И по аддендуму титры не
+  спасают, нужна именно доза.</p>
+
+  <h2><span class="n">5.</span>Перед визитом</h2>
   <ul>
-    <li>Действует ли та же редакция Table 1 - сверка на этой странице от 20 августа 2026, редакция от 11 марта 2025.</li>
-    <li>Свежесть списка стран по полиомиелиту - обновляется вслед за заявлениями ВОЗ, примерно раз
-    в квартал.</li>
-    <li>Наличие конкретных вакцин в клинике - это знает только сама клиника.</li>
+    <li>Взять все прививочные записи, какие нашлись, в любом виде. Нет ничего - не повод переносить
+    осмотр.</li>
+    <li>Наличные на вакцины: каждая доза оплачивается отдельно от осмотра, прайс и способ оплаты
+    уточнить в клинике заранее.</li>
+    <li>Спросить, какие вакцины есть в наличии и хватит ли одного визита, если ставят несколько доз.</li>
+    <li><b>Забрать копию DS-3025.</b> Это постоянный прививочный документ, он понадобится в США в
+    школах, у врачей и при натурализации: «an extra copy must be provided to the applicant».</li>
+    <li>Сверить актуальность Table 1 и списка стран по полиомиелиту - ссылки ниже.</li>
   </ul>
 
-  <h2><span class="n">9.</span>Источники</h2>
+  <div class="box warnbox">
+    <h3>Чему тут верить</h3>
+    <p class="note" style="margin:0">Это конспект документов CDC для panel physicians, сверенный по
+    первоисточникам <b>20 августа 2026</b>: Table 1 в редакции 11 марта 2025 и аддендум по
+    полиомиелиту от 19 марта 2026. Источник правды - сами страницы CDC, а не этот текст. Страница не
+    является медицинской или юридической консультацией.</p>
+  </div>
+
+  <h2><span class="n">6.</span>Источники</h2>
   <ul>
-    <li>Table 1: Vaccine Requirements According to Applicant Age for Panel Physicians, effective
-    March 11, 2025 -
-    <a href="https://www.cdc.gov/immigrant-refugee-health/media/pdfs/Vaccine-Requirements-According-to-Applicant-Age-panel-physicians-p.pdf">cdc.gov, PDF</a></li>
-    <li>Vaccination. Technical Instructions for Panel Physicians, 11 марта 2025 -
-    <a href="https://www.cdc.gov/immigrant-refugee-health/hcp/panel-physicians/vaccination.html">cdc.gov</a></li>
-    <li>Addendum to Technical Instructions for Vaccinations: Polio, 19 марта 2026 -
-    <a href="https://www.cdc.gov/immigrant-refugee-health/hcp/panel-physicians/polio-addendum.html">cdc.gov</a></li>
-    <li>ACIP Adult Immunization Schedule, notes -
-    <a href="https://www.cdc.gov/vaccines/hcp/imz-schedules/adult-notes.html">cdc.gov</a></li>
-    <li>Отмена требования COVID-19 для иммиграционных виз, 11 марта 2025 -
-    <a href="https://travel.state.gov/content/travel/en/News/visas-news/cdc-removes-covid-19-vaccination-requirement-for-immigrant-visa-applicants.html">travel.state.gov</a></li>
+    <li><a href="https://www.cdc.gov/immigrant-refugee-health/media/pdfs/Vaccine-Requirements-According-to-Applicant-Age-panel-physicians-p.pdf">Table 1: Vaccine Requirements According to Applicant Age</a>, effective March 11, 2025 (PDF)</li>
+    <li><a href="https://www.cdc.gov/immigrant-refugee-health/hcp/panel-physicians/vaccination.html">Vaccination. Technical Instructions for Panel Physicians</a>, 11 марта 2025</li>
+    <li><a href="https://www.cdc.gov/immigrant-refugee-health/hcp/panel-physicians/polio-addendum.html">Addendum to Technical Instructions for Vaccinations: Polio</a>, 19 марта 2026</li>
+    <li><a href="https://www.cdc.gov/vaccines/hcp/imz-schedules/adult-notes.html">ACIP Adult Immunization Schedule, notes</a></li>
+    <li><a href="https://travel.state.gov/content/travel/en/News/visas-news/cdc-removes-covid-19-vaccination-requirement-for-immigrant-visa-applicants.html">Отмена требования COVID-19 для иммиграционных виз</a>, 11 марта 2025</li>
   </ul>
 
   <footer>
     Конспект требований CDC к прививкам при медосмотре на иммиграционную визу США.
-    Сверено по первоисточникам 20 августа 2026. Не медицинская и не юридическая консультация:
-    перед осмотром откройте ссылки выше и проверьте действующую редакцию.
+    Сверено по первоисточникам 20 августа 2026. Перед осмотром откройте ссылки выше и проверьте
+    действующую редакцию.
   </footer>
 
 </div>
