@@ -5,3 +5,4 @@ Disallow: /meal-prep-nedelya-01/
 Disallow: /batumi-guide/
 Disallow: /roach-batumi/
 Disallow: /batumi-guide-family/
+Disallow: /medosmotr-privivki/
