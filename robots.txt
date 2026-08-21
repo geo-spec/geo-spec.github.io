@@ -6,3 +6,4 @@ Disallow: /batumi-guide/
 Disallow: /roach-batumi/
 Disallow: /batumi-guide-family/
 Disallow: /medosmotr-privivki/
+Disallow: /support-approach/
