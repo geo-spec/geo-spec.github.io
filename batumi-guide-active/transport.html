@@ -7,63 +7,184 @@
 <title>Транспорт Батуми · шпаргалка</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="guide.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbf6ec; --paper:#fffdf8; --ink:#2b2418; --muted:#6f6552;
+  --sea:#0b6e75; --sea-deep:#0a565c; --coral:#e07a5f; --gold:#c98a2a; --gold2:#bf8b34;
+  --line:#e7ddc9; --shadow:0 10px 30px rgba(60,45,20,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Manrope',system-ui,Segoe UI,Roboto,sans-serif;line-height:1.65;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;color:#241d12;margin:0}
+a{color:var(--sea)}
+img{max-width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+.pagenav{position:sticky;top:0;z-index:20;background:rgba(251,246,236,.94);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px)}
+.pagenav .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:10px 22px}
+.pagenav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#4a3f2b;background:var(--paper);
+  border:1px solid var(--line);padding:6px 13px;border-radius:100px}
+.pagenav a.here{background:var(--sea);color:#fff;border-color:var(--sea)}
+.pagenav a:hover{border-color:var(--sea);color:var(--sea)}
+.pagenav a.here:hover{color:#fff}
+
+.hero{position:relative;min-height:74vh;display:flex;align-items:flex-end;
+  background-image:linear-gradient(180deg,rgba(20,15,8,.15) 0%,rgba(20,15,8,.72) 100%),
+    linear-gradient(135deg,#0b6e75,#123b46);
+  background-size:cover;background-position:center}
+.hero .wrap{padding-bottom:44px;padding-top:110px;color:#fff}
+.kicker{display:inline-block;letter-spacing:.22em;text-transform:uppercase;font-size:12px;
+  font-weight:700;color:#ffe6b0;background:rgba(0,0,0,.25);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,60px);font-weight:800;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{max-width:640px;font-size:clamp(16px,2.4vw,20px);color:#f4ecdd;margin:16px 0 0}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:100px;font-size:14px;font-weight:600;backdrop-filter:blur(3px)}
+
+section{padding:52px 0}
+.lead{font-size:20px;color:#3a3a2e}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.eyebrow .num{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#fff;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;flex:none}
+.eyebrow .k{letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;font-weight:700;color:var(--sea)}
+h2.big{font-size:clamp(26px,4.4vw,40px);font-weight:800;margin:2px 0 10px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 26px}
+
+.banner{position:relative;height:340px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:8px 0 6px;
+  background-image:linear-gradient(135deg,#0b6e75,#2a4a55);background-size:cover;background-position:center}
+.banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6))}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .ph{height:190px;background-image:linear-gradient(135deg,#0b6e75,#38585f);background-size:cover;background-position:center}
+.card .body{padding:16px 18px 18px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f0ead9;color:#6a5c3c;border:1px solid var(--line)}
+.tag.sea{background:#e2f1f1;color:#0a565c;border-color:#cfe7e7}
+.tag.warn{background:#fbe9df;color:#b2482c;border-color:#f4d3c4}
+.card p{margin:0;color:#463c2b;font-size:15.5px}
+.card p + p{margin-top:9px}
+
+.note{background:#fff7e8;border:1px solid var(--line);border-left:5px solid var(--gold2);
+  border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.warn{border-left-color:var(--coral);background:#fdf1ec}
+.note.sea{border-left-color:var(--sea);background:#eef7f7}
+.note b{color:#241d12}
+
+.ess{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.ess .item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.ess .item h4{font-size:18px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.ess .item p{margin:0;color:#463c2b;font-size:15px}
+
+.rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.rhythm .b{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+.rhythm .b .t{font-family:'Playfair Display',serif;font-size:19px;color:var(--sea);font-weight:700}
+.rhythm .b .d{font-size:14.5px;color:#463c2b;margin-top:4px}
+
+.check{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:8px 6px;box-shadow:var(--shadow)}
+.check .row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line)}
+.check .row:last-child{border-bottom:0}
+.check .n{flex:none;width:26px;height:26px;border-radius:50%;background:#eef7f7;color:var(--sea-deep);display:grid;place-items:center;font-weight:700;font-size:13px}
+.check .row div p{margin:0;font-size:15.5px}
+
+.days{display:grid;gap:12px}
+.day{display:grid;grid-template-columns:150px 1fr;gap:16px;background:var(--paper);border:1px solid var(--line);
+  border-radius:16px;padding:14px 18px;box-shadow:var(--shadow)}
+.day .when{font-family:'Playfair Display',serif;font-weight:700;color:var(--sea-deep);font-size:18px;line-height:1.25}
+.day .when span{display:block;font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.day h4{font-size:18px;margin-bottom:3px}
+.day p{margin:0;font-size:15.5px;color:#463c2b}
+.day.dry{border-color:#cfe7e7;background:#f4fbfa}
+.day.wet{border-color:#f4d3c4;background:#fdf5f1}
+
+.cmpwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;
+  background:var(--paper);box-shadow:var(--shadow)}
+table.cmp{border-collapse:collapse;width:100%;min-width:660px;font-size:15px}
+table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp thead th{background:#f6efe2;font-family:'Manrope',sans-serif;font-size:12.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:#6a5c3c;font-weight:700;white-space:nowrap}
+table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp td.name{font-weight:700;color:var(--sea-deep);white-space:nowrap}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#fff;text-decoration:none;
+  font-weight:700;padding:13px 22px;border-radius:100px;box-shadow:var(--shadow);margin-top:6px}
+.cta:hover{background:var(--sea-deep);color:#fff}
+.cta.gold{background:var(--gold2)}
+.cta.gold:hover{background:#a8762b}
+
+.divider{height:1px;background:var(--line);margin:6px 0}
+.foodlist{columns:2;column-gap:26px}
+.foodlist p{margin:0 0 12px;font-size:15.5px;break-inside:avoid}
+@media(max-width:760px){
+  .grid,.ess,.rhythm{grid-template-columns:1fr}
+  .foodlist{columns:1}
+  section{padding:40px 0}
+  .banner{height:230px}
+  .day{grid-template-columns:1fr;gap:6px}
+}
+footer{background:#241d12;color:#e9e0cf;padding:40px 0 60px;margin-top:20px}
+footer a{color:#ffd98a}
+footer h3{color:#fff;font-size:22px;margin-bottom:10px}
+footer .cred{font-size:12.5px;color:#b7ab93;line-height:1.9}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-size:13.5px;text-decoration:none;background:var(--paper);border:1px solid var(--line);
+  padding:7px 14px;border-radius:100px;color:#4a3f2b;font-weight:600}
+.toc a:hover{border-color:var(--sea);color:var(--sea)}
+</style>
 </head>
-<body id="top">
-<a class="skip-link" href="#content">К содержанию</a>
-<nav class="pagenav" aria-label="Страницы путеводителя">
+<body>
+<nav class="pagenav">
   <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Батуми — главная страница">Батуми<span> / сентябрь 2026</span></a>
-    <div class="navlinks">
     <a href="index.html">Гид</a>
-    <a class="here" aria-current="page" href="transport.html">Транспорт</a>
-    <a href="vylazki.html">Выезды на день</a>
-    </div>
+    <a class="here" href="transport.html">🚌 Транспорт: шпаргалка</a>
+    <a href="vylazki.html">⛰ Выезды на день</a>
   </div>
 </nav>
-<header class="hero hero-small wrap">
-  <div class="cover-copy">
-    <span class="kicker">Практика · 01</span>
-    <h1>Транспорт Батуми<br>в одной таблице</h1>
+<header class="hero" style="min-height:auto;background-image:linear-gradient(180deg,rgba(16,26,34,.55),rgba(12,18,22,.85)),url('img/boulevard-panorama.jpg')">
+  <div class="wrap" style="padding-top:70px;padding-bottom:36px">
+    <span class="kicker">Шпаргалка</span>
+    <h1 style="font-size:clamp(30px,5vw,46px)">Транспорт Батуми<br>в одной таблице</h1>
     <p>Открывать стоя на остановке. Всё, что нужно, чтобы доехать куда угодно за
       70 тетри и не переплатить таксисту.</p>
-    <a class="cover-link" href="index.html">Вернуться к гиду <span aria-hidden="true">↗</span></a>
   </div>
-  <figure class="cover-photo"><img src="img/boulevard-sunset.jpg" alt="Батумский бульвар" fetchpriority="high"><figcaption>Батумский бульвар</figcaption></figure>
 </header>
-
-<main id="content">
 
 <section>
   <div class="wrap">
-    <div class="eyebrow"><div class="num">01</div><div class="k">Оплата</div></div>
+    <div class="eyebrow"><div class="num">1</div><div class="k">Оплата</div></div>
     <h2 class="big">Как платить</h2>
 
     <div class="ess">
       <div class="item">
-        <h4>Автобус</h4>
+        <h4>🚌 Автобус</h4>
         <p><b>Только карта.</b> Наличные не берут вообще. Прикладываете к валидатору
           при входе. <b>70 тетри</b> на любое расстояние. Одной картой можно оплатить
           за двоих - приложить дважды.</p>
       </div>
       <div class="item">
-        <h4>Маршрутка</h4>
+        <h4>🚐 Маршрутка</h4>
         <p><b>Только наличные</b>, водителю, <b>при выходе</b>. 70 тетри по городу,
           2 GEL до ботсада, 3 GEL до Кеды, 10 GEL до Хуло. Держите мелочь.</p>
       </div>
       <div class="item">
-        <h4>Какие карты подходят</h4>
+        <h4>💳 Какие карты подходят</h4>
         <p>Batumi Card, бесконтактные карты Bank of Georgia, транспортные карты
           Тбилиси (MetroMoney), иностранные Visa и Mastercard. Российские карты в
           Грузии не работают.</p>
       </div>
       <div class="item">
-        <h4>Где взять Batumi Card</h4>
+        <h4>🏷 Где взять Batumi Card</h4>
         <p>Metro Service+, ул. Вахтанга Горгасали, 55 - с паспортом. Оранжевые
           терминалы Express Pay Bank of Georgia (меню «Order the Transport card»),
           супермаркеты Spar, Goodwill, Nikora, киоски у остановок. Около 2 GEL,
-          баланс нулевой. <span class="verify">уточнить</span></p>
+          баланс нулевой. ⚠️</p>
       </div>
     </div>
 
@@ -74,29 +195,28 @@
   </div>
 </section>
 
-<section>
+<section style="background:linear-gradient(180deg,#fff,#f7efe0)">
   <div class="wrap">
-    <div class="eyebrow"><div class="num">02</div><div class="k">Маршруты</div></div>
+    <div class="eyebrow"><div class="num">2</div><div class="k">Маршруты</div></div>
     <h2 class="big">Куда каким номером</h2>
     <p class="sub">Города всего 16-17 автобусных номеров, и вам из них нужны четыре.
-      Всё с пометкой «уточнить» подтверждено слабо - уточняйте на остановке.</p>
+      Всё помеченное ⚠️ подтверждено слабо - уточняйте на остановке.</p>
 
-    <p class="table-scroll-hint">На телефоне таблицу можно листать вбок →</p>
-    <div class="cmpwrap" role="region" aria-label="Справочная таблица; на узком экране прокручивается по горизонтали" tabindex="0">
+    <div class="cmpwrap">
       <table class="cmp">
         <thead>
-          <tr><th scope="col">Куда</th><th scope="col">Номер</th><th scope="col">Цена с человека</th><th scope="col">Время</th><th scope="col">Что учесть</th></tr>
+          <tr><th>Куда</th><th>Номер</th><th>Цена с человека</th><th>Время</th><th>Что учесть</th></tr>
         </thead>
         <tbody>
-          <tr><td class="name">Ботсад, верхний вход</td><td>автобус 10a, 15</td><td>70 тетри</td><td>25-40 мин</td><td>то, что нужно для схемы «сверху вниз» <span class="verify">уточнить</span></td></tr>
-          <tr><td class="name">Ботсад, нижний вход</td><td>автобус 10<br>маршрутка 31</td><td>70 тетри<br>60 тетри - 2 GEL <span class="verify">уточнить</span></td><td>15-25 мин</td><td>маршрутка от площади у фуникулёра, каждые 15 мин</td></tr>
-          <tr><td class="name">Гонио</td><td>автобус 16<br>маршрутки 88, 33, 17</td><td>30-80 тетри <span class="verify">уточнить</span></td><td>20-25 мин</td><td>16-й идёт от Бони-городка через аэропорт</td></tr>
-          <tr><td class="name">Квариати</td><td>автобус 16, маршрутка 17</td><td>30-80 тетри <span class="verify">уточнить</span></td><td>25-35 мин</td><td>каждые ~17 минут, с 6:40 до 23:06</td></tr>
-          <tr><td class="name">Сарпи (граница)</td><td>автобус 16</td><td>30-80 тетри <span class="verify">уточнить</span></td><td>~1 час</td><td>конечная; паспорт держите при себе</td></tr>
-          <tr><td class="name">Аэропорт</td><td>автобус 10, 10a, 9</td><td>70 тетри</td><td>~20 мин</td><td>последний рейс около 21:55 <span class="verify">уточнить</span></td></tr>
+          <tr><td class="name">Ботсад, верхний вход</td><td>автобус 10a, 15</td><td>70 тетри</td><td>25-40 мин</td><td>то, что нужно для схемы «сверху вниз» ⚠️</td></tr>
+          <tr><td class="name">Ботсад, нижний вход</td><td>автобус 10<br>маршрутка 31</td><td>70 тетри<br>60 тетри - 2 GEL ⚠️</td><td>15-25 мин</td><td>маршрутка от площади у фуникулёра, каждые 15 мин</td></tr>
+          <tr><td class="name">Гонио</td><td>автобус 16<br>маршрутки 88, 33, 17</td><td>30-80 тетри ⚠️</td><td>20-25 мин</td><td>16-й идёт от Бони-городка через аэропорт</td></tr>
+          <tr><td class="name">Квариати</td><td>автобус 16, маршрутка 17</td><td>30-80 тетри ⚠️</td><td>25-35 мин</td><td>каждые ~17 минут, с 6:40 до 23:06</td></tr>
+          <tr><td class="name">Сарпи (граница)</td><td>автобус 16</td><td>30-80 тетри ⚠️</td><td>~1 час</td><td>конечная; паспорт держите при себе</td></tr>
+          <tr><td class="name">Аэропорт</td><td>автобус 10, 10a, 9</td><td>70 тетри</td><td>~20 мин</td><td>последний рейс около 21:55 ⚠️</td></tr>
           <tr><td class="name">Махунцети</td><td>маршрутка 77</td><td>~2 GEL</td><td>40 мин</td><td>наличными водителю</td></tr>
-          <tr><td class="name">Кобулети</td><td>поезд / маршрутка</td><td>уточнить</td><td>37 мин / 30-40 мин</td><td>поезд дважды в день <span class="verify">уточнить</span></td></tr>
-          <tr><td class="name">Уреки</td><td>поезд</td><td>уточнить</td><td>~1 ч 10 мин</td><td>например 14:55 → 16:06; расписание сезонное <span class="verify">уточнить</span></td></tr>
+          <tr><td class="name">Кобулети</td><td>поезд / маршрутка</td><td>уточнить</td><td>37 мин / 30-40 мин</td><td>поезд дважды в день ⚠️</td></tr>
+          <tr><td class="name">Уреки</td><td>поезд</td><td>уточнить</td><td>~1 ч 10 мин</td><td>например 14:55 → 16:06; расписание сезонное ⚠️</td></tr>
         </tbody>
       </table>
     </div>
@@ -108,7 +228,7 @@
 
 <section>
   <div class="wrap">
-    <div class="eyebrow"><div class="num">03</div><div class="k">Приложения</div></div>
+    <div class="eyebrow"><div class="num">3</div><div class="k">Приложения</div></div>
     <h2 class="big">Чем смотреть, где автобус</h2>
 
     <div class="grid">
@@ -137,32 +257,32 @@
   </div>
 </section>
 
-<section>
+<section style="background:linear-gradient(180deg,#fff,#f7efe0)">
   <div class="wrap">
-    <div class="eyebrow"><div class="num">04</div><div class="k">Альтернативы</div></div>
+    <div class="eyebrow"><div class="num">4</div><div class="k">Альтернативы</div></div>
     <h2 class="big">Велосипед, самокат, такси</h2>
 
     <div class="ess">
       <div class="item">
-        <h4>BatumVelo</h4>
+        <h4>🚲 BatumVelo</h4>
         <p>Карточка 20 GEL, из них 10 - прокатный лимит; час катания 2 GEL. Станции
           вдоль всего бульвара: взял в начале, оставил в конце. Оформление в
-          туринфоцентре у входа на бульвар или на batumvelo.ge, тел. +995 577 37 76 76. <span class="verify">уточнить</span>
+          туринфоцентре у входа на бульвар или на batumvelo.ge, тел. +995 577 37 76 76. ⚠️
           Цена в источниках расходится.</p>
       </div>
       <div class="item">
-        <h4>Самокаты</h4>
+        <h4>🛴 Самокаты</h4>
         <p>toGO, Scroll (Bird), Jet и Bolt. У Bolt - 0.29 GEL за минуту плюс 0.35 за
           старт. Двадцать минут по бульвару выходят примерно в 6 GEL - дороже автобуса,
           дешевле такси.</p>
       </div>
       <div class="item">
-        <h4>Bolt</h4>
+        <h4>🚕 Bolt</h4>
         <p>Цена известна заранее. По центру 4-10 GEL, до аэропорта 7-15, до ботсада
-          10-15, до Гонио около 15. Ночью и в дождь дороже. <span class="verify">уточнить</span> Ориентиры июля-августа.</p>
+          10-15, до Гонио около 15. Ночью и в дождь дороже. ⚠️ Ориентиры июля-августа.</p>
       </div>
       <div class="item">
-        <h4>Такси с руки</h4>
+        <h4>✋ Такси с руки</h4>
         <p>Завышают в три-пять раз, особенно ночью и у туристических точек. Если всё же
           садитесь - договаривайтесь о цене до поездки, а не после.</p>
       </div>
@@ -175,14 +295,12 @@
   </div>
 </section>
 
-</main>
-
 <footer>
   <div class="wrap">
     <h3>Остальные страницы</h3>
     <p style="margin:0 0 18px">
       <a href="index.html">← Основной гид</a> ·
-      <a href="vylazki.html">Выезды на день</a>
+      <a href="vylazki.html">⛰ Выезды на день</a>
     </p>
     <p class="cred">
       Собрано 6 сентября 2026 по официальным источникам перевозчика и туристических

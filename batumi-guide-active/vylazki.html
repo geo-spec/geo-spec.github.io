@@ -7,45 +7,165 @@
 <title>Выезды на день из Батуми</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="guide.css">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbf6ec; --paper:#fffdf8; --ink:#2b2418; --muted:#6f6552;
+  --sea:#0b6e75; --sea-deep:#0a565c; --coral:#e07a5f; --gold:#c98a2a; --gold2:#bf8b34;
+  --line:#e7ddc9; --shadow:0 10px 30px rgba(60,45,20,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Manrope',system-ui,Segoe UI,Roboto,sans-serif;line-height:1.65;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;color:#241d12;margin:0}
+a{color:var(--sea)}
+img{max-width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+.pagenav{position:sticky;top:0;z-index:20;background:rgba(251,246,236,.94);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px)}
+.pagenav .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:10px 22px}
+.pagenav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#4a3f2b;background:var(--paper);
+  border:1px solid var(--line);padding:6px 13px;border-radius:100px}
+.pagenav a.here{background:var(--sea);color:#fff;border-color:var(--sea)}
+.pagenav a:hover{border-color:var(--sea);color:var(--sea)}
+.pagenav a.here:hover{color:#fff}
+
+.hero{position:relative;min-height:74vh;display:flex;align-items:flex-end;
+  background-image:linear-gradient(180deg,rgba(20,15,8,.15) 0%,rgba(20,15,8,.72) 100%),
+    linear-gradient(135deg,#0b6e75,#123b46);
+  background-size:cover;background-position:center}
+.hero .wrap{padding-bottom:44px;padding-top:110px;color:#fff}
+.kicker{display:inline-block;letter-spacing:.22em;text-transform:uppercase;font-size:12px;
+  font-weight:700;color:#ffe6b0;background:rgba(0,0,0,.25);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,60px);font-weight:800;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{max-width:640px;font-size:clamp(16px,2.4vw,20px);color:#f4ecdd;margin:16px 0 0}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:100px;font-size:14px;font-weight:600;backdrop-filter:blur(3px)}
+
+section{padding:52px 0}
+.lead{font-size:20px;color:#3a3a2e}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.eyebrow .num{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#fff;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;flex:none}
+.eyebrow .k{letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;font-weight:700;color:var(--sea)}
+h2.big{font-size:clamp(26px,4.4vw,40px);font-weight:800;margin:2px 0 10px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 26px}
+
+.banner{position:relative;height:340px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:8px 0 6px;
+  background-image:linear-gradient(135deg,#0b6e75,#2a4a55);background-size:cover;background-position:center}
+.banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6))}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .ph{height:190px;background-image:linear-gradient(135deg,#0b6e75,#38585f);background-size:cover;background-position:center}
+.card .body{padding:16px 18px 18px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f0ead9;color:#6a5c3c;border:1px solid var(--line)}
+.tag.sea{background:#e2f1f1;color:#0a565c;border-color:#cfe7e7}
+.tag.warn{background:#fbe9df;color:#b2482c;border-color:#f4d3c4}
+.card p{margin:0;color:#463c2b;font-size:15.5px}
+.card p + p{margin-top:9px}
+
+.note{background:#fff7e8;border:1px solid var(--line);border-left:5px solid var(--gold2);
+  border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.warn{border-left-color:var(--coral);background:#fdf1ec}
+.note.sea{border-left-color:var(--sea);background:#eef7f7}
+.note b{color:#241d12}
+
+.ess{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.ess .item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.ess .item h4{font-size:18px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.ess .item p{margin:0;color:#463c2b;font-size:15px}
+
+.rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.rhythm .b{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+.rhythm .b .t{font-family:'Playfair Display',serif;font-size:19px;color:var(--sea);font-weight:700}
+.rhythm .b .d{font-size:14.5px;color:#463c2b;margin-top:4px}
+
+.check{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:8px 6px;box-shadow:var(--shadow)}
+.check .row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line)}
+.check .row:last-child{border-bottom:0}
+.check .n{flex:none;width:26px;height:26px;border-radius:50%;background:#eef7f7;color:var(--sea-deep);display:grid;place-items:center;font-weight:700;font-size:13px}
+.check .row div p{margin:0;font-size:15.5px}
+
+.days{display:grid;gap:12px}
+.day{display:grid;grid-template-columns:150px 1fr;gap:16px;background:var(--paper);border:1px solid var(--line);
+  border-radius:16px;padding:14px 18px;box-shadow:var(--shadow)}
+.day .when{font-family:'Playfair Display',serif;font-weight:700;color:var(--sea-deep);font-size:18px;line-height:1.25}
+.day .when span{display:block;font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.day h4{font-size:18px;margin-bottom:3px}
+.day p{margin:0;font-size:15.5px;color:#463c2b}
+.day.dry{border-color:#cfe7e7;background:#f4fbfa}
+.day.wet{border-color:#f4d3c4;background:#fdf5f1}
+
+.cmpwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;
+  background:var(--paper);box-shadow:var(--shadow)}
+table.cmp{border-collapse:collapse;width:100%;min-width:660px;font-size:15px}
+table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp thead th{background:#f6efe2;font-family:'Manrope',sans-serif;font-size:12.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:#6a5c3c;font-weight:700;white-space:nowrap}
+table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp td.name{font-weight:700;color:var(--sea-deep);white-space:nowrap}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#fff;text-decoration:none;
+  font-weight:700;padding:13px 22px;border-radius:100px;box-shadow:var(--shadow);margin-top:6px}
+.cta:hover{background:var(--sea-deep);color:#fff}
+.cta.gold{background:var(--gold2)}
+.cta.gold:hover{background:#a8762b}
+
+.divider{height:1px;background:var(--line);margin:6px 0}
+.foodlist{columns:2;column-gap:26px}
+.foodlist p{margin:0 0 12px;font-size:15.5px;break-inside:avoid}
+@media(max-width:760px){
+  .grid,.ess,.rhythm{grid-template-columns:1fr}
+  .foodlist{columns:1}
+  section{padding:40px 0}
+  .banner{height:230px}
+  .day{grid-template-columns:1fr;gap:6px}
+}
+footer{background:#241d12;color:#e9e0cf;padding:40px 0 60px;margin-top:20px}
+footer a{color:#ffd98a}
+footer h3{color:#fff;font-size:22px;margin-bottom:10px}
+footer .cred{font-size:12.5px;color:#b7ab93;line-height:1.9}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-size:13.5px;text-decoration:none;background:var(--paper);border:1px solid var(--line);
+  padding:7px 14px;border-radius:100px;color:#4a3f2b;font-weight:600}
+.toc a:hover{border-color:var(--sea);color:var(--sea)}
+</style>
 </head>
-<body id="top">
-<a class="skip-link" href="#content">К содержанию</a>
-<nav class="pagenav" aria-label="Страницы путеводителя">
+<body>
+<nav class="pagenav">
   <div class="wrap">
-    <a class="brand" href="index.html" aria-label="Батуми — главная страница">Батуми<span> / сентябрь 2026</span></a>
-    <div class="navlinks">
     <a href="index.html">Гид</a>
-    <a href="transport.html">Транспорт</a>
-    <a class="here" aria-current="page" href="vylazki.html">Выезды на день</a>
-    </div>
+    <a href="transport.html">🚌 Транспорт: шпаргалка</a>
+    <a class="here" href="vylazki.html">⛰ Выезды на день</a>
   </div>
 </nav>
-<header class="hero hero-small wrap">
-  <div class="cover-copy">
-    <span class="kicker">Маршруты · 02</span>
-    <h1>Выезды на день<br>без машины</h1>
+<header class="hero" style="min-height:auto;background-image:linear-gradient(180deg,rgba(16,26,34,.45),rgba(12,18,22,.85)),url('img/mtirala-waterfall.jpg')">
+  <div class="wrap" style="padding-top:70px;padding-bottom:36px">
+    <span class="kicker">Дальше города</span>
+    <h1 style="font-size:clamp(30px,5vw,46px)">Выезды на день<br>без машины</h1>
     <p>Пять направлений, до которых реально добраться рейсовым транспортом. С ценами
       на двоих и честной оценкой, сколько это займёт.</p>
-    <a class="cover-link" href="index.html">Вернуться к гиду <span aria-hidden="true">↗</span></a>
   </div>
-  <figure class="cover-photo"><img src="img/mtirala-waterfall.jpg" alt="Водопад в лесу Мтиралы" fetchpriority="high"><figcaption>Водопад в лесу Мтиралы</figcaption></figure>
 </header>
-
-<main id="content">
 
 <section>
   <div class="wrap">
-    <div class="eyebrow"><div class="num">01</div><div class="k">Самое доступное</div></div>
+    <div class="eyebrow"><div class="num">1</div><div class="k">Самое доступное</div></div>
     <h2 class="big">Махунцети: водопад и мост</h2>
     <p class="sub">Лучший первый выезд: дёшево, близко, без организации. Маршрутка
       №77 идёт около 40 минут и стоит примерно 2 GEL с человека.</p>
 
-    <figure class="banner">
-      <img src="img/makhuntseti-bridge.jpg" alt="Арочный мост царицы Тамары" loading="lazy">
-      <figcaption>Арочный мост царицы Тамары - ему около трёхсот лет. Водопад в километре от него</figcaption>
-    </figure>
+    <div class="banner" style="background-image:url('img/makhuntseti-bridge.jpg')">
+      <div class="cap">Арочный мост царицы Тамары - ему около трёхсот лет. Водопад в километре от него</div>
+    </div>
 
     <div class="grid" style="margin-top:22px">
       <div class="card">
@@ -71,23 +191,23 @@
   </div>
 </section>
 
-<section>
+<section style="background:linear-gradient(180deg,#fff,#f7efe0)">
   <div class="wrap">
-    <div class="eyebrow"><div class="num">02</div><div class="k">Для тех, кто ходит</div></div>
+    <div class="eyebrow"><div class="num">2</div><div class="k">Для тех, кто ходит</div></div>
     <h2 class="big">Нацпарк Мтирала</h2>
     <p class="sub">Самое влажное место Грузии и, соответственно, самый настоящий
       субтропический лес в получасе от моря. Вход бесплатный.</p>
 
     <div class="grid">
       <div class="card">
-        <img class="ph" src="img/mtirala-waterfall.jpg" alt="Дальний маршрут" loading="lazy">
+        <div class="ph" style="background-image:url('img/mtirala-waterfall.jpg')"></div>
         <div class="body">
           <h3>Дальний маршрут</h3>
           <div class="meta"><span class="tag sea">~4 км в гору</span><span class="tag">бесплатно</span><span class="tag warn">грунтовка в конце</span></div>
           <p>Тропа к водопаду и озеру - около четырёх километров подъёма по лесу.
             В прошлых гидах её вычёркивали как слишком тяжёлую; для вас это основная
             причина сюда ехать. Наверху водопад с озерцом, в котором купаются.</p>
-          <p><span class="verify">уточнить</span> Последний участок дороги грунтовый - после сильных ливней туда лучше
+          <p>⚠️ Последний участок дороги грунтовый - после сильных ливней туда лучше
             не соваться.</p>
         </div>
       </div>
@@ -96,7 +216,7 @@
           <h3>Как добраться</h3>
           <div class="meta"><span class="tag warn">рейсового транспорта нет</span></div>
           <p>Прямого автобуса в парк нет: обычно едут до села Чаквисткали, дальше
-            договариваются с местными, либо берут машину на день. <span class="verify">уточнить</span> Это единственное
+            договариваются с местными, либо берут машину на день. ⚠️ Это единственное
             направление из списка, где без торга не обойтись - уточните варианты на
             месте, в том числе через хозяев жилья.</p>
           <p>У входа - ручная канатная переправа через реку за пару лари. Аттракцион
@@ -109,7 +229,7 @@
 
 <section>
   <div class="wrap">
-    <div class="eyebrow"><div class="num">03</div><div class="k">Целый день</div></div>
+    <div class="eyebrow"><div class="num">3</div><div class="k">Целый день</div></div>
     <h2 class="big">Кутаиси и пещеры Имерети</h2>
     <p class="sub">Самый дальний и самый дорогой выезд: 145-185 км в одну сторону,
       два с половиной-три часа дороги. Полный день - это 10-12 часов от выхода до
@@ -117,7 +237,7 @@
 
     <div class="grid">
       <div class="card">
-        <img class="ph" src="img/prometheus-cave.jpg" alt="Пещера Прометея" loading="lazy">
+        <div class="ph" style="background-image:url('img/prometheus-cave.jpg')"></div>
         <div class="body">
           <h3>Пещера Прометея</h3>
           <div class="meta"><span class="tag">~40 GEL</span><span class="tag sea">+14 °C внутри</span><span class="tag">~800 ступеней</span></div>
@@ -133,7 +253,7 @@
           <div class="meta"><span class="tag">30-40 GEL</span><span class="tag sea">тропа 700 м</span><span class="tag">лодка 20 GEL</span></div>
           <p>Бирюзовая река в известняковом каньоне, круговая тропа 700 метров, два
             моста. Лодка на 15-20 минут по самому каньону - за отдельные деньги.
-            <span class="verify">уточнить</span> Стеклянный мост закрывают в дождь, лодки не ходят при высокой воде.</p>
+            ⚠️ Стеклянный мост закрывают в дождь, лодки не ходят при высокой воде.</p>
         </div>
       </div>
       <div class="card">
@@ -153,7 +273,7 @@
           <p>Своим ходом: маршрутки и поезда на Кутаиси ходят регулярно, дальше по
             объектам - местный транспорт или такси, что съедает время. Организованная
             поездка из Батуми выходит от 55 до 95 долларов с человека, машина с
-            водителем на весь день - около 200-220 GEL. <span class="verify">уточнить</span> Цены августовские.</p>
+            водителем на весь день - около 200-220 GEL. ⚠️ Цены августовские.</p>
           <p>Считайте честно: если брать два объекта и ехать самостоятельно, день
             получится длинным и не самым дешёвым.</p>
         </div>
@@ -162,9 +282,9 @@
   </div>
 </section>
 
-<section>
+<section style="background:linear-gradient(180deg,#fff,#f7efe0)">
   <div class="wrap">
-    <div class="eyebrow"><div class="num">04</div><div class="k">Горы</div></div>
+    <div class="eyebrow"><div class="num">4</div><div class="k">Горы</div></div>
     <h2 class="big">Хуло и канатка над ущельем</h2>
     <p class="sub">88 километров вглубь Аджарии, около двух часов по асфальту. В горах
       на пять-семь градусов свежее, чем на побережье.</p>
@@ -185,7 +305,7 @@
           <h3>Как добраться</h3>
           <div class="meta"><span class="tag">маршрутка 10 GEL</span><span class="tag warn">целый день</span></div>
           <p>Маршрутка до Хуло стоит около 10 GEL с человека и идёт примерно два часа.
-            Уезжать надо рано, возвращаться засветло: вечерних рейсов мало. <span class="verify">уточнить</span> Уточните
+            Уезжать надо рано, возвращаться засветло: вечерних рейсов мало. ⚠️ Уточните
             расписание обратных маршруток до того, как поедете.</p>
           <p>Дальше Хуло, на перевал Годердзи, идёт грунтовка - туда без машины делать
             нечего.</p>
@@ -197,7 +317,7 @@
 
 <section>
   <div class="wrap">
-    <div class="eyebrow"><div class="num">05</div><div class="k">Вино</div></div>
+    <div class="eyebrow"><div class="num">5</div><div class="k">Вино</div></div>
     <h2 class="big">Винодельни Аджарии</h2>
     <p class="sub">Сентябрь - ртвели, сбор винограда. Формально это лучшее время, но
       без машины винный день собирается сложнее прочих.</p>
@@ -211,7 +331,7 @@
             доской: 50 GEL с человека, если вас от двух до десяти (одному - 100).
             Виноградники на высоте 500 метров, местные сорта цоликоури, чхавери,
             сацури. Тел. +995 599 71 62 63, chateauiveri.ge.</p>
-          <p><span class="verify">уточнить</span> Часов работы на сайте нет - только по звонку.</p>
+          <p>⚠️ Часов работы на сайте нет - только по звонку.</p>
         </div>
       </div>
       <div class="card">
@@ -234,18 +354,16 @@
   </div>
 </section>
 
-</main>
-
 <footer>
   <div class="wrap">
     <h3>Остальные страницы</h3>
     <p style="margin:0 0 18px">
       <a href="index.html">← Основной гид</a> ·
-      <a href="transport.html">Транспорт</a>
+      <a href="transport.html">🚌 Транспорт: шпаргалка</a>
     </p>
     <p class="cred">
       Собрано 6 сентября 2026. Цены на входы и дегустации - ориентиры июля-августа
-      2026, проверенные выборочно; всё с пометкой «уточнить» уточняйте перед выездом.
+      2026, проверенные выборочно; всё помеченное ⚠️ уточняйте перед выездом.
       Фотографии: Wikimedia Commons и открытые источники.
     </p>
   </div>
