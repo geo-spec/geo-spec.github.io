@@ -8,3 +8,4 @@ Disallow: /batumi-guide-family/
 Disallow: /medosmotr-privivki/
 Disallow: /support-approach/
 Disallow: /batumi-guide-active/
+Disallow: /batumi-guide-editorial/
