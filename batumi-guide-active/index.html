@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Батуми на автобусе · море, рынки и один сад</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#fbf6ec; --paper:#fffdf8; --ink:#2b2418; --muted:#6f6552;
+  --sea:#0b6e75; --sea-deep:#0a565c; --coral:#e07a5f; --gold:#c98a2a; --gold2:#bf8b34;
+  --line:#e7ddc9; --shadow:0 10px 30px rgba(60,45,20,.10);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--cream);color:var(--ink);
+  font-family:'Manrope',system-ui,Segoe UI,Roboto,sans-serif;line-height:1.65;font-size:17px}
+h1,h2,h3,h4{font-family:'Playfair Display',Georgia,serif;line-height:1.15;color:#241d12;margin:0}
+a{color:var(--sea)}
+img{max-width:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 22px}
+
+.pagenav{position:sticky;top:0;z-index:20;background:rgba(251,246,236,.94);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(6px)}
+.pagenav .wrap{display:flex;flex-wrap:wrap;gap:8px;padding:10px 22px}
+.pagenav a{font-size:13.5px;font-weight:600;text-decoration:none;color:#4a3f2b;background:var(--paper);
+  border:1px solid var(--line);padding:6px 13px;border-radius:100px}
+.pagenav a.here{background:var(--sea);color:#fff;border-color:var(--sea)}
+.pagenav a:hover{border-color:var(--sea);color:var(--sea)}
+.pagenav a.here:hover{color:#fff}
+
+.hero{position:relative;min-height:74vh;display:flex;align-items:flex-end;
+  background-image:linear-gradient(180deg,rgba(20,15,8,.15) 0%,rgba(20,15,8,.72) 100%),
+    linear-gradient(135deg,#0b6e75,#123b46);
+  background-size:cover;background-position:center}
+.hero .wrap{padding-bottom:44px;padding-top:110px;color:#fff}
+.kicker{display:inline-block;letter-spacing:.22em;text-transform:uppercase;font-size:12px;
+  font-weight:700;color:#ffe6b0;background:rgba(0,0,0,.25);padding:7px 14px;border-radius:100px;margin-bottom:18px}
+.hero h1{color:#fff;font-size:clamp(34px,6vw,60px);font-weight:800;text-shadow:0 2px 20px rgba(0,0,0,.35)}
+.hero p{max-width:640px;font-size:clamp(16px,2.4vw,20px);color:#f4ecdd;margin:16px 0 0}
+.hero .meta{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.28);color:#fff;padding:8px 14px;border-radius:100px;font-size:14px;font-weight:600;backdrop-filter:blur(3px)}
+
+section{padding:52px 0}
+.lead{font-size:20px;color:#3a3a2e}
+.eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.eyebrow .num{width:38px;height:38px;border-radius:50%;background:var(--sea);color:#fff;
+  display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:18px;flex:none}
+.eyebrow .k{letter-spacing:.16em;text-transform:uppercase;font-size:12.5px;font-weight:700;color:var(--sea)}
+h2.big{font-size:clamp(26px,4.4vw,40px);font-weight:800;margin:2px 0 10px}
+.sub{color:var(--muted);max-width:70ch;margin:0 0 26px}
+
+.banner{position:relative;height:340px;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin:8px 0 6px;
+  background-image:linear-gradient(135deg,#0b6e75,#2a4a55);background-size:cover;background-position:center}
+.banner .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 18px;color:#fff;font-size:13.5px;
+  background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.6))}
+
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.card .ph{height:190px;background-image:linear-gradient(135deg,#0b6e75,#38585f);background-size:cover;background-position:center}
+.card .body{padding:16px 18px 18px}
+.card h3{font-size:21px;margin-bottom:6px}
+.card .meta{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 10px}
+.tag{font-size:12px;font-weight:600;padding:4px 10px;border-radius:100px;background:#f0ead9;color:#6a5c3c;border:1px solid var(--line)}
+.tag.sea{background:#e2f1f1;color:#0a565c;border-color:#cfe7e7}
+.tag.warn{background:#fbe9df;color:#b2482c;border-color:#f4d3c4}
+.card p{margin:0;color:#463c2b;font-size:15.5px}
+.card p + p{margin-top:9px}
+
+.note{background:#fff7e8;border:1px solid var(--line);border-left:5px solid var(--gold2);
+  border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.note.warn{border-left-color:var(--coral);background:#fdf1ec}
+.note.sea{border-left-color:var(--sea);background:#eef7f7}
+.note b{color:#241d12}
+
+.ess{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:10px}
+.ess .item{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+.ess .item h4{font-size:18px;margin-bottom:4px;display:flex;gap:8px;align-items:center}
+.ess .item p{margin:0;color:#463c2b;font-size:15px}
+
+.rhythm{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
+.rhythm .b{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--shadow)}
+.rhythm .b .t{font-family:'Playfair Display',serif;font-size:19px;color:var(--sea);font-weight:700}
+.rhythm .b .d{font-size:14.5px;color:#463c2b;margin-top:4px}
+
+.check{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:8px 6px;box-shadow:var(--shadow)}
+.check .row{display:flex;gap:12px;padding:12px 16px;border-bottom:1px dashed var(--line)}
+.check .row:last-child{border-bottom:0}
+.check .n{flex:none;width:26px;height:26px;border-radius:50%;background:#eef7f7;color:var(--sea-deep);display:grid;place-items:center;font-weight:700;font-size:13px}
+.check .row div p{margin:0;font-size:15.5px}
+
+.days{display:grid;gap:12px}
+.day{display:grid;grid-template-columns:150px 1fr;gap:16px;background:var(--paper);border:1px solid var(--line);
+  border-radius:16px;padding:14px 18px;box-shadow:var(--shadow)}
+.day .when{font-family:'Playfair Display',serif;font-weight:700;color:var(--sea-deep);font-size:18px;line-height:1.25}
+.day .when span{display:block;font-family:'Manrope',sans-serif;font-size:12.5px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.day h4{font-size:18px;margin-bottom:3px}
+.day p{margin:0;font-size:15.5px;color:#463c2b}
+.day.dry{border-color:#cfe7e7;background:#f4fbfa}
+.day.wet{border-color:#f4d3c4;background:#fdf5f1}
+
+.cmpwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:16px;
+  background:var(--paper);box-shadow:var(--shadow)}
+table.cmp{border-collapse:collapse;width:100%;min-width:660px;font-size:15px}
+table.cmp th,table.cmp td{text-align:left;padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+table.cmp thead th{background:#f6efe2;font-family:'Manrope',sans-serif;font-size:12.5px;text-transform:uppercase;
+  letter-spacing:.08em;color:#6a5c3c;font-weight:700;white-space:nowrap}
+table.cmp tbody tr:last-child td{border-bottom:0}
+table.cmp td.name{font-weight:700;color:var(--sea-deep);white-space:nowrap}
+.hint{font-size:13.5px;color:var(--muted);margin:10px 0 0}
+
+.cta{display:inline-flex;align-items:center;gap:10px;background:var(--sea);color:#fff;text-decoration:none;
+  font-weight:700;padding:13px 22px;border-radius:100px;box-shadow:var(--shadow);margin-top:6px}
+.cta:hover{background:var(--sea-deep);color:#fff}
+.cta.gold{background:var(--gold2)}
+.cta.gold:hover{background:#a8762b}
+
+.divider{height:1px;background:var(--line);margin:6px 0}
+.foodlist{columns:2;column-gap:26px}
+.foodlist p{margin:0 0 12px;font-size:15.5px;break-inside:avoid}
+@media(max-width:760px){
+  .grid,.ess,.rhythm{grid-template-columns:1fr}
+  .foodlist{columns:1}
+  section{padding:40px 0}
+  .banner{height:230px}
+  .day{grid-template-columns:1fr;gap:6px}
+}
+footer{background:#241d12;color:#e9e0cf;padding:40px 0 60px;margin-top:20px}
+footer a{color:#ffd98a}
+footer h3{color:#fff;font-size:22px;margin-bottom:10px}
+footer .cred{font-size:12.5px;color:#b7ab93;line-height:1.9}
+.toc{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.toc a{font-size:13.5px;text-decoration:none;background:var(--paper);border:1px solid var(--line);
+  padding:7px 14px;border-radius:100px;color:#4a3f2b;font-weight:600}
+.toc a:hover{border-color:var(--sea);color:var(--sea)}
+</style>
+</head>
+<body>
+
+<nav class="pagenav">
+  <div class="wrap">
+    <a class="here" href="index.html">Гид</a>
+    <a href="transport.html">🚌 Транспорт: шпаргалка</a>
+    <a href="vylazki.html">⛰ Выезды на день</a>
+  </div>
+</nav>
+
+<header class="hero" style="background-image:linear-gradient(180deg,rgba(16,26,34,.42),rgba(12,18,22,.82)),url('img/batumi-skyline.jpg')">
+  <div class="wrap">
+    <span class="kicker">Батуми в сентябре · без машины</span>
+    <h1>Море, рынок<br>и один большой сад</h1>
+    <p>Гид для двоих, которые ездят на автобусах, едят там же, где местные, и не хотят
+      платить за вид на море дважды. Сентябрь для этого - лучший месяц в году.</p>
+    <div class="meta">
+      <span class="pill">🌊 Море +22...+27</span>
+      <span class="pill">🚌 Только автобусы и маршрутки</span>
+      <span class="pill">💸 80-120 GEL на двоих в день</span>
+      <span class="pill">🗓 Неделя-полторы</span>
+    </div>
+    <div class="toc">
+      <a href="#nedelya">Как устроена неделя</a>
+      <a href="#karta">Карта для автобуса</a>
+      <a href="#gorod">Город пешком</a>
+      <a href="#botsad">Ботанический сад</a>
+      <a href="#more">Море</a>
+      <a href="#eda">Еда за копейки</a>
+      <a href="#vecher">Вечер</a>
+      <a href="#smeta">Сколько стоит</a>
+      <a href="#proverit">Перед выходом</a>
+    </div>
+  </div>
+</header>
+
+<section id="nedelya">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">1</div><div class="k">Рамка</div></div>
+    <h2 class="big">Как устроена эта неделя</h2>
+    <p class="sub">Три вещи задают всё остальное: у вас нет машины, есть потолок бюджета
+      и есть сентябрь. Из них складывается простое правило - дорогие дни чередуются
+      с дешёвыми, а не идут подряд.</p>
+
+    <div class="ess">
+      <div class="item">
+        <h4>💸 Бюджет</h4>
+        <p>80-120 GEL на двоих в день без жилья. Реально держится, если обедать в
+          столовых и не покупать вино на набережной. Один день с платными входами
+          съедает почти весь дневной лимит - такие дни ставьте через два-три дешёвых.</p>
+      </div>
+      <div class="item">
+        <h4>🚌 Транспорт</h4>
+        <p>Автобус - 70 тетри за поездку любой длины, маршрутка примерно столько же.
+          Это значит, что дорога почти никогда не проблема: доехать до соседнего
+          пляжа дешевле, чем купить бутылку воды на бульваре.</p>
+      </div>
+      <div class="item">
+        <h4>🌊 Сентябрь</h4>
+        <p>Вода +22...+27, воздух +21...+26, в начале месяца до +30. Людей меньше,
+          чем в августе, цены ниже. Дождливых дней за месяц около пяти - они короткие,
+          но влажность держится до 90%.</p>
+      </div>
+      <div class="item">
+        <h4>⏱ Ритм</h4>
+        <p>Утро - вода и дорога, день - рынок и обед, вечер - бульвар. Жары, ради
+          которой надо прятаться в полдень, в сентябре уже нет, так что день можно
+          не разрывать.</p>
+      </div>
+    </div>
+
+    <div class="note sea" style="margin-top:26px"><b>Про пометку ⚠️.</b> В Батуми
+      быстро меняются цены и часы работы. За два месяца ботанический сад подорожал
+      на четверть, а дельфинарий подешевел. Всё, что помечено ⚠️, проверяйте в день
+      визита - остальное держится.</div>
+  </div>
+</section>
+
+<section id="karta" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">2</div><div class="k">Первым делом</div></div>
+    <h2 class="big">Карта для автобуса - до всего остального</h2>
+    <p class="sub">В городских автобусах Батуми <b>не берут наличные</b>. Вообще.
+      Оплата только прикладыванием карты к валидатору, и без подходящей карты вы
+      просто не сядете. Поэтому это первый пункт, а не примечание в конце.</p>
+
+    <div class="ess">
+      <div class="item">
+        <h4>💳 Чем платить</h4>
+        <p>Подходят: Batumi Card, бесконтактные карты Bank of Georgia, транспортные
+          карты Тбилиси и обычные иностранные Visa/Mastercard. <b>Российские карты не
+          работают в Грузии вообще</b> - если других нет, Batumi Card обязательна.</p>
+      </div>
+      <div class="item">
+        <h4>🏷 Где взять Batumi Card</h4>
+        <p>Сервис-центр Metro Service+ на ул. Вахтанга Горгасали, 55 (с паспортом),
+          оранжевые терминалы Express Pay Bank of Georgia, супермаркеты Spar, Goodwill,
+          Nikora, киоски у остановок. Карта стоит около 2 GEL и приходит с нулём на
+          счету - пополнить сразу. ⚠️</p>
+      </div>
+      <div class="item">
+        <h4>🎫 Сколько стоит поездка</h4>
+        <p>70 тетри на любое расстояние - одинаково по местной и по иностранной карте.
+          ⚠️ Половина сайтов до сих пор пишет 30 тетри: это устаревшая цифра, тариф
+          поднимали. Проверьте по списанию на первой поездке.</p>
+      </div>
+      <div class="item">
+        <h4>👥 Одна карта на двоих</h4>
+        <p>Валидатор принимает несколько оплат подряд с одной карты - приложите два
+          раза, и вы оба оплачены. Вторую карту заводить не нужно.</p>
+      </div>
+    </div>
+
+    <div class="note warn" style="margin-top:22px"><b>Маршрутки - наоборот.</b>
+      В них платят <b>только наличными и только водителю, при выходе</b>. Держите
+      мелочь: 70 тетри по городу, 2 GEL до ботанического сада. Останавливаются
+      маршрутки где угодно: чтобы сесть - поднимите руку, чтобы выйти - скажите
+      «гамичеред» (გამიჩერეთ).</div>
+
+    <p style="margin-top:18px">Приложение официального перевозчика BatAuto работает
+      нестабильно, сайт batauto.ge на 6 сентября лежал. Рабочие альтернативы -
+      <b>BatBus</b> (batbus.app, есть мини-приложение в Telegram: автобусы на карте,
+      маршрут A→B, будильник на автобус), <b>Bustime</b> и <b>Moovit</b>.</p>
+
+    <a class="cta" href="transport.html">🚌 Шпаргалка по маршрутам и ценам</a>
+  </div>
+</section>
+
+<section id="gorod">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">3</div><div class="k">База</div></div>
+    <h2 class="big">Город пешком и почти бесплатно</h2>
+    <p class="sub">Первые день-два уходят на то, чтобы понять город. Хорошая новость:
+      почти всё центральное - бесплатно или стоит пару лари, и лежит на одной линии
+      вдоль моря.</p>
+
+    <div class="banner" style="background-image:url('img/boulevard-panorama.jpg')">
+      <div class="cap">Батумский бульвар - семь километров парка вдоль моря. Главная ось города и самый простой способ понять, как он устроен</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="body">
+          <h3>Парк у морвокзала</h3>
+          <div class="meta"><span class="tag sea">новый</span><span class="tag">бесплатно</span><span class="tag warn">часы не подтверждены</span></div>
+          <p>Два гектара между морвокзалом и колесом обозрения, на месте снесённой
+            «Башни чачи». Падел-корты, футбольное поле, фонтаны, вело- и пешеходные
+            дорожки, 600 новых деревьев, поилки и лапомойки для собак. Проект датского
+            бюро, открыт в сентябре 2025 - местные сравнивают с «Зарядьем».</p>
+          <p>⚠️ Официального названия в источниках нет, часы работы и цена падел-корта
+            нигде не опубликованы. Дойти пешком от центра - и посмотреть.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/boulevard-sunset.jpg')"></div>
+        <div class="body">
+          <h3>Бульвар и велосипед</h3>
+          <div class="meta"><span class="tag">2 GEL за час</span><span class="tag sea">7 км вдоль моря</span></div>
+          <p>Прокат BatumVelo: карточка 20 GEL, из них 10 - прокатный лимит, час
+            катания 2 GEL. Станции по всему бульвару, взял в начале - оставил в конце.
+            Оформление в туристическом инфоцентре у входа на бульвар или на batumvelo.ge. ⚠️</p>
+          <p>Есть и самокаты: toGO, Scroll, Jet, Bolt - у последнего 0.29 GEL за минуту
+            плюс 0.35 за старт.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/piazza.jpg')"></div>
+        <div class="body">
+          <h3>Старый город и Пьяцца</h3>
+          <div class="meta"><span class="tag">бесплатно</span><span class="tag sea">вечером живая музыка</span></div>
+          <p>Компактный квартал старых домов с балконами, площадь Пьяцца с мозаиками,
+            рядом площадь Европы с астрономическими часами. Смотреть снаружи ничего не
+            стоит, а вот кофе на самой площади дороже, чем в двух кварталах отсюда.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/ali-nino.jpg')"></div>
+        <div class="body">
+          <h3>«Али и Нино» и Алфавитная башня</h3>
+          <div class="meta"><span class="tag">скульптура бесплатно</span><span class="tag">башня 20 GEL</span><span class="tag warn">смотровая нестабильно</span></div>
+          <p>Движущаяся скульптура на набережной: две фигуры сходятся и проходят друг
+            сквозь друга, полный цикл около десяти минут. Рядом 130-метровая Алфавитная
+            башня с грузинскими буквами по спирали - подъём на смотровую 20 GEL. ⚠️
+            Работает не каждый день.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/argo-panorama.jpg')"></div>
+        <div class="body">
+          <h3>Канатка «Арго»</h3>
+          <div class="meta"><span class="tag warn">25-40 GEL, уточнить</span><span class="tag sea">11:00-00:00</span></div>
+          <p>2600 метров над городом, наверху смотровая, кафе и панорама всего Батуми.
+            Нижняя станция - ул. Бако, 1, у Старого города.</p>
+          <p>⚠️ С ценой беда: источники называют и 25, и 30, и 39 GEL, официальный сайт
+            цену не публикует вовсе. Спрашивайте на кассе. В ветер и низкую облачность
+            не работает или наверху просто туман - в такой день не стоит.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/nuri-lake.jpg')"></div>
+        <div class="body">
+          <h3>Парк 6 мая и дельфинарий</h3>
+          <div class="meta"><span class="tag">парк бесплатно</span><span class="tag">шоу 20-25 GEL</span><span class="tag warn">пн выходной</span></div>
+          <p>Тенистый старый парк с озером Нуригели в центре города. Здесь же
+            дельфинарий: шоу 35 минут, в мае-сентябре в 16:00, 19:00 и 21:00, кроме
+            понедельника. Днём 20 GEL, вечером 25. Аквариум рядом - около 2 GEL.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note" style="margin-top:22px"><b>Фонтаны на Ардагани.</b> Бесплатное
+      вечернее шоу на озере: включают около 21:00 и до полуночи, после 22:00 иногда
+      добавляют лазер. ⚠️ В сильный ветер и грозу не работают.</div>
+  </div>
+</section>
+
+<section id="botsad" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">4</div><div class="k">Главная вылазка внутри города</div></div>
+    <h2 class="big">Ботанический сад: сверху вниз</h2>
+    <p class="sub">114 гектаров субтропиков на склоне над морем, в девяти километрах
+      от центра. Главное, что нужно знать заранее: сад стоит на горе, и от того, с
+      какого входа вы зайдёте, зависит, будет это прогулка или подъём.</p>
+
+    <div class="banner" style="background-image:url('img/botanical-garden.jpg')">
+      <div class="cap">Сад разбит на три части - Верхний, Нижний и Приморский парки. Главный маршрут тянется на 2,8 км с юга на север</div>
+    </div>
+
+    <div class="note sea" style="margin-top:22px"><b>Главный приём: заходите сверху.</b>
+      Доезжайте до <b>верхнего</b> входа и идите вниз, к морю - весь маршрут получится
+      на спуск, а закончится он у пляжа Зелёного мыса. Если зайти снизу, первая
+      половина пути будет в гору. Отсюда важное следствие: <b>туда и обратно вы едете
+      разными маршрутами</b> - наверх одним номером, обратно другим уже от нижнего
+      входа. По привычке поехать обратно тем же - главная ошибка.</div>
+
+    <h3 style="margin-top:28px;font-size:22px">Как доехать</h3>
+    <div class="cmpwrap" style="margin-top:12px">
+      <table class="cmp">
+        <thead>
+          <tr><th>Вариант</th><th>На двоих</th><th>К какому входу</th><th>Что учесть</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Автобус №10a</td><td>~1.4 GEL</td><td>верхний</td><td>то, что нужно для схемы «сверху вниз» ⚠️</td></tr>
+          <tr><td class="name">Автобус №15</td><td>~1.4 GEL</td><td>верхний</td><td>через вокзал и в гору; подтверждён слабо ⚠️</td></tr>
+          <tr><td class="name">Автобус №10</td><td>~1.4 GEL</td><td>главный, нижний</td><td>идёт через Химшиашвили, Руставели, Махинджаури</td></tr>
+          <tr><td class="name">Маршрутка №31</td><td>1.2-4 GEL</td><td>главный, нижний</td><td>от площади у фуникулёра, каждые 15 минут, 15-25 мин в пути. Цена: сайт сада пишет 60 тетри, все остальные - 2 GEL ⚠️</td></tr>
+          <tr><td class="name">Электричка</td><td>не проверено</td><td>рядом с нижним</td><td>станция Мцване Концхи, расписание сезонное ⚠️</td></tr>
+          <tr><td class="name">Bolt</td><td>10-15 GEL</td><td>любой</td><td>если не хочется угадывать с номерами</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">Маршрутки ловятся на улицах Пиросмани и Парнаваз Мепе, у магазина TechnoBoom.
+      Если водитель не понимает по-русски, покажите с экрана: <b>ბათუმის ბოტანიკური ბაღი</b>
+      (сад) или <b>მწვანე კონცხი</b> (Зелёный мыс).</p>
+
+    <h3 style="margin-top:28px;font-size:22px">По шагам</h3>
+    <div class="check" style="margin-top:12px">
+      <div class="row"><div class="n">1</div><div><p>Выезжайте утром: и людей меньше, и времени на весь спуск хватит с запасом.</p></div></div>
+      <div class="row"><div class="n">2</div><div><p>Садитесь на автобус к <b>верхнему</b> входу. Наличные всё равно возьмите - обратно, скорее всего, поедете маршруткой.</p></div></div>
+      <div class="row"><div class="n">3</div><div><p>Билет - <b>25 GEL с человека</b>. Касса и вход работают <b>09:00-19:00</b>. Студенческие скидки только для грузинских вузов.</p></div></div>
+      <div class="row"><div class="n">4</div><div><p>Идите вниз по главному маршруту: 2,8 км, три парка, виды на море почти всю дорогу. Полный обход - 3-4 часа, короткий вариант по верхней части - около часа.</p></div></div>
+      <div class="row"><div class="n">5</div><div><p>Воду возьмите с собой: кафе только у входа и пара точек с напитками по пути. Туалет у входа платный, около 1 GEL.</p></div></div>
+      <div class="row"><div class="n">6</div><div><p>Внизу выходите к пляжу Зелёного мыса и купайтесь - это логичный финал дня. Там же работает прокат сапов.</p></div></div>
+      <div class="row"><div class="n">7</div><div><p>Обратно - маршрутка №31 или автобус №10 уже от нижнего входа, с прибрежной дороги.</p></div></div>
+    </div>
+
+    <div class="note warn" style="margin-top:22px"><b>Честно про деньги.</b> Вход
+      50 GEL на двоих плюс дорога плюс обед - это 80-95 GEL, то есть почти весь
+      дневной бюджет. Ставьте сад в день, когда больше ничего платного не планируете.
+      Электрокар по саду (10 GEL с человека) для тех, кто нормально ходит, не нужен -
+      он тут именно для того, чтобы не подниматься обратно в гору.</div>
+
+    <div class="note" style="margin-top:14px"><b>И про погоду.</b> После дождя дорожки
+      на склоне скользкие, а в ливень сад теряет смысл вообще. Обувь - с цепкой
+      подошвой, а не пляжные шлёпки.</div>
+  </div>
+</section>
+
+<section id="more">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">5</div><div class="k">Главное ради чего</div></div>
+    <h2 class="big">Море: куда ехать на автобусе</h2>
+    <p class="sub">В самом Батуми пляж галечный и людный. Всё интересное - южнее, по
+      дороге к турецкой границе: туда идёт один автобус №16, и он же связывает
+      Гонио, Квариати и Сарпи. Ехать 20-60 минут, стоит копейки.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/kvariati.jpg')"></div>
+        <div class="body">
+          <h3>Квариати</h3>
+          <div class="meta"><span class="tag sea">самая прозрачная вода</span><span class="tag">17 км</span><span class="tag warn">крутой вход</span></div>
+          <p>Общее мнение и местных, и приезжих: вода здесь чище, чем где-либо ещё на
+            грузинском побережье. Бухта между Гонио и Сарпи, зелёные горы подходят
+            к самому берегу. Галька, вход резкий - сразу глубина. Есть кафе и лежаки.</p>
+          <p>Здесь же дайвинг-центр: погружение 150-200 GEL с человека, есть курсы с
+            сертификацией. ⚠️ Для вашего бюджета это трата целого дня на одного -
+            решайте осознанно.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Сарпи</h3>
+          <div class="meta"><span class="tag sea">скалы и прозрачная вода</span><span class="tag">20 км, ~1 час</span></div>
+          <p>Последняя точка перед Турцией: узкая галечная полоса шириной от пяти до
+            тридцати метров, вдоль берега скалы, вода яркая и чистая. Есть променад и
+            вид на границу. Паспорта лучше держать при себе - зона пограничная.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/gonio.jpg')"></div>
+        <div class="body">
+          <h3>Гонио</h3>
+          <div class="meta"><span class="tag">12 км</span><span class="tag sea">длинный променад</span><span class="tag warn">крепость 5-15 GEL</span></div>
+          <p>Ближайший приличный пляж за городом, людей заметно меньше - особенно в
+            северной части. Длинный променад, по которому удобно идти или ехать на
+            велосипеде. Рядом римская крепость с башнями. ⚠️ Цена входа в крепость
+            в источниках расходится вдвое.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/ureki-beach.jpg')"></div>
+        <div class="body">
+          <h3>Уреки - чёрный песок</h3>
+          <div class="meta"><span class="tag sea">единственный песок</span><span class="tag">поезд ~1:10</span></div>
+          <p>Тёмный магнитный песок, очень пологий заход, тёплое мелкое море и сосны
+            для тени - полная противоположность батумской гальке. Ехать поездом:
+            например, 14:55 из Батуми, 16:06 в Уреки, по пути Махинджаури, Чаква,
+            Кобулети. ⚠️ Расписание сезонное.</p>
+          <p>Песок называют лечебным из-за магнетита. Это местная традиция, а не
+            доказанная медицина - но лежать и правда приятно.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Кобулети</h3>
+          <div class="meta"><span class="tag">30 км</span><span class="tag sea">поезд 37 минут</span></div>
+          <p>Тихий курорт с длинной ровной набережной, зеленее и спокойнее батумского
+            центра. Рядом, в Цихисдзири, - византийская крепость Петра на скале прямо
+            над морем: короткий подъём и панорама всего побережья.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Зелёный мыс</h3>
+          <div class="meta"><span class="tag">9 км</span><span class="tag sea">прокат сапов</span></div>
+          <p>Пляж прямо под ботаническим садом. Отдельно ехать сюда незачем - а вот
+            как финал дня в саду это идеально: спустился, искупался, уехал. На пляже
+            работает точка проката сап-бордов.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note sea" style="margin-top:22px"><b>Сапы.</b> Прокат и прогулки есть
+      в Батуми, на пляже ботсада, в Квариати и Цихисдзири: почасовая аренда, туры на
+      рассвете и закате, сап-йога, выходы по реке. Жилет и инструктаж дают.
+      ⚠️ Цены нигде не опубликованы - писать в директ: supclub_batumi, supsurf.batumi,
+      supbatumi в Instagram, сайты sup-batumi.ge и supboard.ge.</div>
+
+    <div class="note warn" style="margin-top:14px"><b>Два правила сентября.</b>
+      После сильного ливня вода у берега день-два мутная от речных стоков - купаться
+      не стоит. И проверяйте время последнего обратного рейса: уехать вечером с
+      побережья сложнее, чем приехать (у №16 заявлено до 23:06 ⚠️).</div>
+  </div>
+</section>
+
+<section id="eda" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">6</div><div class="k">Второй интерес</div></div>
+    <h2 class="big">Еда за копейки</h2>
+    <p class="sub">Главное правило дешёвой еды в Батуми умещается в одну строчку:
+      отойдите от первой линии. В двух-трёх кварталах от набережной обед до 25 GEL
+      с человека - обычная история, а не удача.</p>
+
+    <div class="banner" style="background-image:url('img/khachapuri.jpg')">
+      <div class="cap">Аджарский хачапури - местное блюдо номер один. В столовой стоит вдвое дешевле, чем в ресторане на набережной</div>
+    </div>
+
+    <div class="grid" style="margin-top:22px">
+      <div class="card">
+        <div class="body">
+          <h3>Рынок Парехи</h3>
+          <div class="meta"><span class="tag sea">ул. Маяковского, 12</span><span class="tag">8:00-16:00</span><span class="tag warn">пн выходной</span></div>
+          <p>Центральный рынок в Старом Батуми: сезонные фрукты и овощи, чурчхела,
+            горный мёд, чай, специи. Цены заметно ниже магазинных, при объёме торгуются.
+            Летом работает до 19:00. ⚠️ Часы в источниках расходятся.</p>
+          <p><b>Приём:</b> приходите после 15:00 - к закрытию продавцы сбрасывают цену
+            чуть ли не вдвое, лишь бы не увозить товар обратно.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Рыбный рынок</h3>
+          <div class="meta"><span class="tag sea">выбрал - приготовили</span><span class="tag warn">только наличные</span></div>
+          <p>Механика простая: выбираете рыбу на прилавке, её чистят за 1-3 GEL за
+            килограмм, соседний ресторан готовит за 3-6 GEL за килограмм. Барабулька
+            10-20 GEL/кг, дорадо и форель около 20. ⚠️ Цены июльские, плавают.</p>
+          <p>Обвешивают здесь регулярно: следите за весами, заранее договаривайтесь о
+            цене готовки, проверяйте чек. Идти лучше утром или ранним вечером в будни.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="margin-top:28px;font-size:22px">Столовые: обед до 25 GEL с человека</h3>
+    <div class="foodlist" style="margin-top:14px">
+      <p><b>«Магули»</b> - ул. Маяковского, 4. Грузинская классика, лучший рейтинг в
+        своей категории (4.8). Прямо рядом с рынком: закупились - пообедали.</p>
+      <p><b>«У Мзео»</b> - ул. Шерифа Химшиашвили, 9а. Домашняя еда, супы и горячее.</p>
+      <p><b>«Вкусная столовая»</b> - ул. Шерифа Химшиашвили, 63, у Нового бульвара.</p>
+      <p><b>Magnolia и Buffet</b> - ул. Шерифа Химшиашвили, 4, соседние двери. Формат
+        шведского стола, берёте сколько нужно.</p>
+      <p><b>Lunch Time</b> - ул. Тбел Абусеридзе, 39. Поздние завтраки.</p>
+      <p><b>Foodhall Borani</b> - ул. Петра Меликишвили, 51. Фудхолл: бургеры, хинкали,
+        японское, кофе. Рейтинг 4.9.</p>
+      <p><b>Uzbek Tandoor</b> - ул. Вахтанга Горгасали, 150. Самса и лепёшки из тандыра.</p>
+      <p><b>Шаурма</b> - МакШаурма и Горкис на ул. Зураба Горгиладзе, 90Б и 91,
+        соседние двери, большие порции.</p>
+    </div>
+
+    <div class="note" style="margin-top:20px"><b>Ещё три места из прошлых сборов.</b>
+      Пекарня <b>Retro</b> - хачапури дёшево, но очереди. <b>Laguna</b> - порции такие,
+      что одну берут на двоих. <b>Khinkali Ludi</b> - совсем простое место про хинкали
+      и пиво, зато честное. Мороженое <b>Luca Polare</b> - 3.5-4 GEL за шарик. ⚠️</div>
+
+    <div class="note warn" style="margin-top:14px"><b>Три вещи про счёт.</b>
+      Сервисный сбор 10-11% часто уже включён - смотрите чек, чтобы не оставить чаевые
+      дважды. В дешёвых местах терминала может не быть вообще, держите наличные.
+      И ориентируйтесь на поток гостей: в столовой это единственный признак свежести.</div>
+  </div>
+</section>
+
+<section id="vecher">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">7</div><div class="k">Вечер</div></div>
+    <h2 class="big">Вечер без переплаты</h2>
+    <p class="sub">Вся экономика батумского вечера - в одной цифре. Литр вина на
+      розлив в винной лавке стоит 8-9 GEL. Тот же литр на набережной - 20 GEL.
+      Разливное пиво там же - 10 GEL за литр.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="body">
+          <h3>Вино на розлив</h3>
+          <div class="meta"><span class="tag sea">8-9 GEL за литр</span><span class="tag">на двоих 10-15 GEL</span></div>
+          <p>Разливайка в <b>AgroHub</b> (ул. Ивана Джавахишвили, 64) справа от входа;
+            лавка на <b>ул. Грибоедова рядом с церковью</b> - домашнее Цолукаури по
+            9 GEL за литр; <b>Wine Hub</b> - вино по европейской технологии, чуть дороже.</p>
+          <p>Бутылочные магазины: Tsinandali Wine Shop (Грибоедова, 6), Georgian Wine
+            House (Гамсахурдия, 18), Winedom (Бараташвили, 6).</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <h3>Крафт и простые бары</h3>
+          <div class="meta"><span class="tag sea">Sami Ludi 17:00-02:00</span><span class="tag">рейтинг 4.8</span></div>
+          <p><b>Sami Ludi</b> - ул. Мазниашвили, 5, в десяти минутах от Пьяццы: больше
+            десятка кранов с грузинским крафтом. <b>Smoke Burgers &amp; Bar</b> -
+            ул. Костава, 7а, до двух ночи. <b>Khinkali Ludi</b> - хинкали и пиво без
+            интерьера.</p>
+          <p>Винные бары подороже: <b>Bu &amp; Khari</b> в Старом городе (дегустация
+            квеври ~25 GEL) и <b>8000 Vintages</b> у порта - самый большой выбор
+            грузинских вин по бокалам. ⚠️ Цены июльские.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="note sea" style="margin-top:22px"><b>Бесплатный вечер.</b> Фонтаны на
+      Ардагани с 21:00, бульвар и новый парк у морвокзала, подсвеченная Пьяцца,
+      «Али и Нино» вечером. Литр вина из лавки на скамейке с видом на море - это, если
+      честно, лучший вечер в Батуми, и стоит он 10 GEL.</div>
+
+    <div class="note" style="margin-top:14px"><b>Что происходит сегодня.</b> Афиши
+      меняются быстро, вечным списком тут не обойтись: смотрите <b>batumi.one/events</b>
+      (фильтры Tonight и Live Music), <b>batumievents.com</b> - официальный календарь,
+      <b>teatro.ge</b> - главный клуб города, 18+. Ночью не берите такси с руки:
+      завышают втрое, вызывайте Bolt.</div>
+  </div>
+</section>
+
+<section id="vyezdy" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">8</div><div class="k">Дальше города</div></div>
+    <h2 class="big">Выезды на день</h2>
+    <p class="sub">За неделю-полторы помещается один-два дальних дня. Хорошая новость:
+      до половины интересного добираются рейсовым транспортом, без всяких экскурсий.</p>
+
+    <div class="grid">
+      <div class="card">
+        <div class="ph" style="background-image:url('img/makhuntseti-waterfall.jpg')"></div>
+        <div class="body">
+          <h3>Махунцети и мост Тамары</h3>
+          <div class="meta"><span class="tag sea">маршрутка №77</span><span class="tag">~2 GEL, 40 минут</span><span class="tag">вход бесплатный</span></div>
+          <p>Водопад и трёхсотлетний арочный мост в километре друг от друга, кафе прямо
+            над водой, прилавки с чачей и чурчхелой. Рядом зиплайн через ущелье -
+            512 метров над рекой. Самый дешёвый выезд из всех.</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="ph" style="background-image:url('img/mtirala-waterfall.jpg')"></div>
+        <div class="body">
+          <h3>Нацпарк Мтирала</h3>
+          <div class="meta"><span class="tag">вход бесплатный</span><span class="tag sea">тропа 4 км</span><span class="tag warn">дорога грунтовая</span></div>
+          <p>Самое влажное место Грузии: реликтовый лес, где свежо даже в жару. У входа
+            ручная канатная переправа через реку за пару лари. Дальний маршрут к
+            водопаду и озеру - около 4 км в гору; в родительском гиде его вычеркнули
+            как слишком тяжёлый, для вас это как раз то, что нужно.</p>
+        </div>
+      </div>
+    </div>
+
+    <a class="cta" href="vylazki.html">⛰ Все выезды с логистикой и ценами</a>
+  </div>
+</section>
+
+<section id="sentyabr">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">9</div><div class="k">Сезон</div></div>
+    <h2 class="big">Почему сентябрь - правильный месяц</h2>
+    <p class="sub">Вам повезло с датами больше, чем кажется. Август в Батуми - это
+      +35 и толпа; сентябрь - тёплое море, живой город и цены пониже.</p>
+
+    <div class="rhythm">
+      <div class="b"><div class="t">Море</div><div class="d">+22...+27 °C. Купаться комфортно весь месяц</div></div>
+      <div class="b"><div class="t">Воздух</div><div class="d">+21...+26, в начале месяца до +30. Ходить пешком уже нормально</div></div>
+      <div class="b"><div class="t">Дождь</div><div class="d">Около пяти дней за месяц. Влажность до 90%</div></div>
+    </div>
+
+    <div class="note sea" style="margin-top:22px"><b>Ртвели.</b> Сентябрь-октябрь -
+      сбор винограда по всей Грузии, включая горную Аджарию. Кое-где к нему пускают
+      гостей: подавить виноград, поужинать с семьёй хозяев. ⚠️ Конкретные даты и места
+      заранее не публикуют - спрашивайте у местных и в винных лавках уже на месте.</div>
+
+    <div class="note warn" style="margin-top:14px"><b>Если льёт.</b> Дожди здесь
+      короткие, но плотные, а зонт бесполезен - ветер с моря выворачивает его за
+      минуту. Берите дождевик. Крытые варианты на такой день: музей Аджарии
+      (ул. Ахвледиани, 4, 10:00-18:00 без выходных, билет около 6 GEL), Музей искусств,
+      кино в Apollo или Cavea, дельфинарий. В ливень не стоит: ботсад (скользко),
+      канатка (туман), пляжи (мутная вода день-два).</div>
+  </div>
+</section>
+
+<section id="smeta" style="background:linear-gradient(180deg,#fff,#f7efe0)">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">10</div><div class="k">Деньги</div></div>
+    <h2 class="big">Сколько это стоит на самом деле</h2>
+    <p class="sub">Три типовых дня на двоих. Считайте это не бюджетом, а линейкой:
+      видно, какой день дешёвый, а какой съедает лимит целиком.</p>
+
+    <div class="cmpwrap">
+      <table class="cmp">
+        <thead>
+          <tr><th>На двоих</th><th>Дешёвый день</th><th>Обычный день</th><th>День с садом</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Транспорт</td><td>3 GEL<br>две поездки на автобусе</td><td>6 GEL<br>поездка за город</td><td>6-8 GEL<br>туда автобус, обратно маршрутка</td></tr>
+          <tr><td class="name">Завтрак и обед</td><td>40 GEL<br>рынок и столовая</td><td>50 GEL<br>столовая и перекус</td><td>30 GEL<br>с собой плюс кафе внизу</td></tr>
+          <tr><td class="name">Входы</td><td>0<br>бульвар, парк, пляж</td><td>40-50 GEL<br>канатка или дельфинарий</td><td>50 GEL<br>ботанический сад</td></tr>
+          <tr><td class="name">Вечер</td><td>12 GEL<br>литр вина из лавки</td><td>50 GEL<br>ужин с вином</td><td>12 GEL<br>лавка и бульвар</td></tr>
+          <tr><td class="name">Итого</td><td><b>~55 GEL</b></td><td><b>~110-120 GEL</b></td><td><b>~100 GEL</b></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="hint">Отсюда правило: один дорогой день на два-три дешёвых. Рыбный рынок,
+      сапы и дайвинг в таблицу не влезли - это отдельные траты, которые стоит планировать
+      как «событие дня», а не добавлять сверху.</p>
+
+    <h3 style="margin-top:32px;font-size:22px">Каркас недели</h3>
+    <p class="sub" style="margin-top:8px">Не расписание по датам, а порядок сборки:
+      подставляйте дни под погоду.</p>
+    <div class="days">
+      <div class="day dry">
+        <div class="when">День 1-2<span>Освоиться</span></div>
+        <div><h4>База, транспорт, город</h4><p>Получить карту для автобуса, пройти бульвар от начала до конца, зайти в новый парк у морвокзала, поужинать в столовой. Ничего платного.</p></div>
+      </div>
+      <div class="day dry">
+        <div class="when">Морской<span>Лучшая погода</span></div>
+        <div><h4>Квариати или Сарпи</h4><p>Автобус №16 с утра, весь день у воды, обратно до последнего рейса. Самый выгодный день по соотношению «впечатления на лари».</p></div>
+      </div>
+      <div class="day">
+        <div class="when">Рыночный<span>Не понедельник</span></div>
+        <div><h4>Парехи и обед рядом</h4><p>Рынок с утра или после трёх, обед в «Магули» на той же улице, вечером рыбный рынок - выбрать рыбу и отдать в готовку.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">Садовый<span>Утро буднего дня</span></div>
+        <div><h4>Ботанический сад сверху вниз</h4><p>Выехать к девяти, спуститься к морю, искупаться на Зелёном мысе. День дорогой - вечер дешёвый.</p></div>
+      </div>
+      <div class="day dry">
+        <div class="when">Дальний<span>Сухо и ясно</span></div>
+        <div><h4>Махунцети или Мтирала</h4><p>Маршрутка №77 или выезд в нацпарк. Целый день, вернуться к вечеру.</p></div>
+      </div>
+      <div class="day wet">
+        <div class="when">Дождевой<span>Запасной</span></div>
+        <div><h4>Музеи, кино, крафт</h4><p>Музей Аджарии, кино с русским дубляжом в Apollo, вечером Sami Ludi. Дождь в Батуми короткий - к вечеру обычно проясняется.</p></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:16px"><b>Если неделя, а не полторы</b> - режьте
+      дальний день и оставляйте море. Если полторы - добавляйте Уреки с поездом и
+      второй дальний выезд.</div>
+  </div>
+</section>
+
+<section id="proverit">
+  <div class="wrap">
+    <div class="eyebrow"><div class="num">11</div><div class="k">Напоследок</div></div>
+    <h2 class="big">Проверить в день выхода</h2>
+    <p class="sub">Всё, что в Батуми устаревает быстрее, чем пишется гид.</p>
+
+    <div class="check">
+      <div class="row"><div class="n">1</div><div><p><b>Тариф на валидаторе.</b> 70 тетри или 30, и одинаково ли списывает с местной и иностранной карты. Проверяется на первой поездке.</p></div></div>
+      <div class="row"><div class="n">2</div><div><p><b>Примет ли валидатор вашу карту.</b> До того, как строить на этом день.</p></div></div>
+      <div class="row"><div class="n">3</div><div><p><b>Цену и часы ботсада.</b> 25 GEL и 09:00-19:00 - данные на 6 сентября, но за лето они менялись дважды.</p></div></div>
+      <div class="row"><div class="n">4</div><div><p><b>Какой номер идёт к верхнему входу</b> сада: 10a и 15 подтверждены слабо. Спросите на остановке.</p></div></div>
+      <div class="row"><div class="n">5</div><div><p><b>Цену канатки «Арго»</b> - на кассе, и работает ли она сегодня при этом ветре.</p></div></div>
+      <div class="row"><div class="n">6</div><div><p><b>Последний обратный рейс</b> с побережья и расписание поездов на Кобулети и Уреки - оно сезонное.</p></div></div>
+      <div class="row"><div class="n">7</div><div><p><b>Выходной рынка Парехи</b> - понедельник, и до которого часа работает в сентябре.</p></div></div>
+      <div class="row"><div class="n">8</div><div><p><b>Цену сапа и дайвинга</b> - только личным сообщением оператору, в открытом виде их нет.</p></div></div>
+      <div class="row"><div class="n">9</div><div><p><b>Прогноз.</b> После сильного ливня море мутное день-два, а склон в саду скользкий.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <h3>Ещё две страницы</h3>
+    <p style="margin:0 0 18px">
+      <a href="transport.html">🚌 Транспорт: маршруты, цены, шпаргалка</a> ·
+      <a href="vylazki.html">⛰ Выезды на день</a>
+    </p>
+    <p class="cred">
+      Собрано 6 сентября 2026. Цены и часы - ориентиры на этот день; всё помеченное ⚠️
+      проверяйте на месте. Часть фактуры взята из гидов, сделанных для других гостей
+      в июле и августе 2026, и перепроверена заново.<br>
+      Фотографии: Wikimedia Commons и открытые источники, добавлены для наглядности.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
