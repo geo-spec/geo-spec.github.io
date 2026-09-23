@@ -10,3 +10,4 @@ Disallow: /support-approach/
 Disallow: /batumi-guide-active/
 Disallow: /batumi-guide-editorial/
 Disallow: /demo-cases-1c-edo/
+Disallow: /claude-sessions-anywhere/
