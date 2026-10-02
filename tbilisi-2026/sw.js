@@ -1,7 +1,7 @@
 /* Офлайн для «Тбилиси в кармане»: оболочка сайта, тайлы карты и прогноз. */
-var V = 'tb-v1';
+var V = 'tb-v2';
 var SHELL = [
-  './', 'index.html', 'style.css', 'app.js', 'data.js', 'routes.js', 'manifest.webmanifest',
+  './', 'index.html', 'style.css', 'app.js', 'data.js', 'routes.js', 'manifest.json',
   'vendor/leaflet.js', 'vendor/leaflet.css',
   'fonts/golos-cyr.woff2', 'fonts/golos-lat.woff2', 'fonts/golos-latext.woff2',
   'fonts/yeseva-cyr.woff2', 'fonts/yeseva-lat.woff2', 'fonts/noto-georgian.woff2',
