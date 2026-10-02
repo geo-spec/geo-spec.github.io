@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ru" data-mode="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Тбилиси в кармане · 2–5 октября</title>
+<meta name="description" content="Карманный гид на четыре дня в Тбилиси: что сейчас по плану, Тбилисоба, карта, еда рядом и адрес для таксиста.">
+<meta name="theme-color" content="#f3eadb" id="theme-color">
+<meta name="color-scheme" content="light dark">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Тбилиси">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="preload" href="fonts/golos-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/yeseva-cyr.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="style.css">
+<script>
+  (function () {
+    var m = null;
+    try { m = JSON.parse(localStorage.getItem('tb:theme')); } catch (e) {}
+    if (m !== 'light' && m !== 'dark') m = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.mode = m;
+  })();
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <path id="borj-arm" d="M3.2 -3.6 Q13 -25 30.5 -12.5 Q18.5 -16.5 9.4 -0.6 Z"/>
+  </defs>
+  <symbol id="i-borj" viewBox="-32 -32 64 64"><g fill="currentColor">
+    <use href="#borj-arm"/><use href="#borj-arm" transform="rotate(51.43)"/><use href="#borj-arm" transform="rotate(102.86)"/><use href="#borj-arm" transform="rotate(154.29)"/><use href="#borj-arm" transform="rotate(205.71)"/><use href="#borj-arm" transform="rotate(257.14)"/><use href="#borj-arm" transform="rotate(308.57)"/><circle r="4.6"/></g></symbol>
+  <g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+    <symbol id="i-now" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></g></symbol>
+    <symbol id="i-days" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></g></symbol>
+    <symbol id="i-map" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4.5 3.5 6.5v13l5.5-2 6 2 5.5-2v-13l-5.5 2-6-2Z"/><path d="M9 4.5v13M15 6.5v13"/></g></symbol>
+    <symbol id="i-food" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.8 16C3.8 11.6 7.3 8.3 12 6.3c4.7 2 8.2 5.3 8.2 9.7 0 1.9-1.5 3.4-3.4 3.4H7.2c-1.9 0-3.4-1.5-3.4-3.4Z"/><path d="M12 6.3V3.6M12 6.3 8.6 11M12 6.3 15.4 11M12 6.3v5.4"/></g></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4.5h11.5a2 2 0 0 1 2 2V20H7a2 2 0 0 1-2-2Z"/><path d="M5 17.5a2 2 0 0 1 2-2h11.5M9 8.5h6M9 11.5h4"/></g></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 11 12 4l8.5 7"/><path d="M6 9.5V20h12V9.5M10 20v-5h4v5"/></g></symbol>
+    <symbol id="i-taxi" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 17h15v-4.6L17.3 7H6.7l-2.2 5.4Z"/><path d="M4.5 17v2.2M19.5 17v2.2M4.5 12.4h15M7.8 14.6h.01M16.2 14.6h.01M10 7V4.8h4V7"/></g></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5.2 3.8h3.6l1.8 4.6-2.3 1.4a11.4 11.4 0 0 0 5.9 5.9l1.4-2.3 4.6 1.8v3.6a2 2 0 0 1-2.2 2A16.4 16.4 0 0 1 3.2 6a2 2 0 0 1 2-2.2Z"/></g></symbol>
+    <symbol id="i-walk" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="4.2" r="1.7"/><path d="m9.5 21 2.3-6.2-2.3-2.6.9-4.6 3.3 2.3 3.1.9M10.4 7.6 7.6 9.4l-.9 3.6M11.8 14.8l3.3 6.2"/></g></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="18" r="2"/><circle cx="18" cy="6" r="2"/><path d="M8 18h7.5a3 3 0 0 0 0-6h-7a3 3 0 0 1 0-6H16"/></g></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.6a7 7 0 0 0-14 0C5 14.8 12 21 12 21Z"/><circle cx="12" cy="9.4" r="2.5"/></g></symbol>
+    <symbol id="i-locate" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="7.5"/><circle cx="12" cy="12" r="2.6" fill="currentColor"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22"/></g></symbol>
+    <symbol id="i-fit" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/><circle cx="12" cy="12" r="2"/></g></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"/></g></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></g></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="8.5" y="8.5" width="12" height="12" rx="2.5"/><path d="M15.5 8.5V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7.5a2 2 0 0 0 2 2h2.5"/></g></symbol>
+    <symbol id="i-ext" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></g></symbol>
+    <symbol id="i-theme-dark" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M19.5 14.6A7.8 7.8 0 0 1 9.4 4.5a7.8 7.8 0 1 0 10.1 10.1Z"/></g></symbol>
+    <symbol id="i-theme-light" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></g></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M5.3 18.7l1.4-1.4M17.3 6.7l1.4-1.4"/></g></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18.5 14.8A7 7 0 0 1 9.2 5.5a7 7 0 1 0 9.3 9.3Z"/><path d="M17 4.5v2M16 5.5h2"/></g></symbol>
+    <symbol id="i-cloud" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 18.5h10a4 4 0 0 0 .6-7.96A6 6 0 0 0 6.3 11.2a3.7 3.7 0 0 0 .9 7.3Z"/></g></symbol>
+    <symbol id="i-partly" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 3v1.5M3.5 9H5M5.2 4.7l1 1M13.8 4.7l-1 1"/><path d="M6.6 11.3a3.5 3.5 0 0 1 6.1-3"/><path d="M8.8 20h8.4a3.4 3.4 0 0 0 .5-6.77 5 5 0 0 0-9.6 1.2A2.8 2.8 0 0 0 8.8 20Z"/></g></symbol>
+    <symbol id="i-rain" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7.2 15h10a4 4 0 0 0 .6-7.96A6 6 0 0 0 6.3 7.7 3.7 3.7 0 0 0 7.2 15Z"/><path d="M8.5 18.2 7.7 20M12.5 18.2l-.8 1.8M16.5 18.2l-.8 1.8"/></g></symbol>
+    <symbol id="i-wind" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h11.5a2.8 2.8 0 1 0-2.8-2.8M3 15h14.5a2.8 2.8 0 1 1-2.8 2.8M3 12h7"/></g></symbol>
+    <symbol id="i-fog" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9h16M6 13h12M4 17h16"/></g></symbol>
+    <symbol id="i-train" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="14" rx="3"/><path d="M6 11h12M9 20.5 7.5 22M15 20.5l1.5 1.5M9.2 14h.01M14.8 14h.01M10 6h4"/></g></symbol>
+    <symbol id="i-museum" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9 12 4l9 5M5 9.5v8.5M9.7 9.5v8.5M14.3 9.5v8.5M19 9.5v8.5M3 20.5h18"/></g></symbol>
+    <symbol id="i-fest" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M9 17.5V6l10-2v11.5"/><circle cx="6.8" cy="17.5" r="2.3"/><circle cx="16.8" cy="15.5" r="2.3"/></g></symbol>
+    <symbol id="i-shop" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.1 12H6.1Z"/><path d="M9 10V6.5a3 3 0 0 1 6 0V10"/></g></symbol>
+    <symbol id="i-base" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3.5 2.5 5.3 5.8.7-4.3 4 1.1 5.7L12 16.4l-5.1 2.8L8 13.5l-4.3-4 5.8-.7Z"/></g></symbol>
+    <symbol id="i-sight" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2.5v3.5M10.4 4h3.2M8.5 12 12 6.5l3.5 5.5M7 12h10v8.5H7ZM10.3 20.5v-3.2a1.7 1.7 0 0 1 3.4 0v3.2M4 20.5h16"/></g></symbol>
+    <symbol id="i-hotel" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18.5V6.5M3 14h18v4.5M21 14v-1.5a3 3 0 0 0-3-3h-7V14"/><circle cx="7" cy="11.2" r="1.8"/></g></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.6"/><path d="M6.5 9.5h.01M17.5 14.5h.01"/></g></symbol>
+    <symbol id="i-alert" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 4.6 2.8 18a2 2 0 0 0 1.7 3h15a2 2 0 0 0 1.7-3L13.7 4.6a2 2 0 0 0-3.4 0Z"/><path d="M12 9.5v4.5M12 17.2h.01"/></g></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/></g></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path fill="currentColor" d="m12 3.5 2.5 5.3 5.8.7-4.3 4 1.1 5.7L12 16.4l-5.1 2.8L8 13.5l-4.3-4 5.8-.7Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5 9.5 17 19 7"/></g></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></g></symbol>
+    <symbol id="i-jacket" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 3.5 12 5.5l3.5-2 4.5 4-2 3.2v9.8H6v-9.8L4 7.5Z"/><path d="M12 5.5v15M9 13h1M14 13h1"/></g></symbol>
+    <symbol id="i-umbrella" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12a9 9 0 0 1 18 0Z"/><path d="M12 12v6.5a2 2 0 0 1-4 0M12 3v-.5"/></g></symbol>
+    <symbol id="i-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m3 19.5 6-10 4 5.5 3-3.5 5 8Z"/></g></symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 5.5h15v10.5H10l-5.5 4Z"/><path d="M8.5 9.5h7M8.5 12.5h4"/></g></symbol>
+    <symbol id="i-offline" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5 4.5 6.5v5.4c0 4.4 3.1 7.6 7.5 8.6 4.4-1 7.5-4.2 7.5-8.6V6.5Z"/><path d="m8.8 12.2 2.2 2.2 4.3-4.6"/></g></symbol>
+  </g>
+</svg>
+
+<div class="grain" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="brand" href="#now" aria-label="Тбилиси в кармане, на главную">
+    <svg class="spin" aria-hidden="true"><use href="#i-borj"/></svg><span>Тбилиси</span>
+  </a>
+  <div class="clock" aria-live="off" title="Время в Тбилиси, UTC+4"><b id="clk" class="num">--:--</b><span id="clkd">Тбилиси</span></div>
+  <button class="icon-btn" id="theme" type="button" aria-label="Сменить тему"><svg aria-hidden="true"><use href="#i-theme-dark"/></svg></button>
+  <button class="home-btn" type="button" data-taxi="hotel" aria-label="Адрес отеля для таксиста"><svg aria-hidden="true"><use href="#i-home"/></svg>Домой</button>
+</header>
+<div class="timebanner" id="timebanner" hidden></div>
+
+<main>
+  <!-- Сейчас -->
+  <section id="view-now" class="view" aria-label="Сейчас">
+    <div class="hero rv" data-phase="day" style="--i:0">
+      <svg class="hero-sky" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+        <defs>
+          <radialGradient id="glow"><stop offset="0" stop-color="#fff7da" stop-opacity=".9"/><stop offset="1" stop-color="#fff7da" stop-opacity="0"/></radialGradient>
+          <mask id="crescent"><rect x="0" y="0" width="400" height="300" fill="#fff"/><circle id="crescent-cut" cx="333" cy="56" r="15" fill="#000"/></mask>
+        </defs>
+        <g id="stars"></g>
+        <circle id="orb-glow" cx="330" cy="62" r="46" fill="url(#glow)" opacity=".7"/>
+        <circle id="orb" class="hero-orb" cx="330" cy="62" r="18" fill="#fff4cf"/>
+      </svg>
+      <div class="hero-text">
+        <div class="ka" lang="ka">თბილისი</div>
+        <h1>Тбилиси</h1>
+        <div class="dates" id="hero-dates">2–5 октября · Тбилисоба</div>
+      </div>
+      <svg class="hero-skyline" viewBox="0 0 400 170" aria-hidden="true">
+        <!-- дальний хребет и телебашня на Мтацминде -->
+        <path class="sk-far" d="M0 98C28 90 52 95 80 88c24-6 44 0 66-2 30-3 58-14 90-10s64-6 98-2c28 3 50 8 66 8v88H0Z"/>
+        <path class="sk-far" d="M137 87 140 50h2l3 37ZM135.5 62h11v2h-11ZM134.5 73h13v2h-13Z"/>
+        <!-- холм Нарикалы, крепость, Мать Грузии -->
+        <path class="sk-mid" d="M0 122c18-10 38-21 62-24 24-3 42 3 60 13 16 9 30 17 50 25v34H0Z"/>
+        <path class="sk-mid" d="M40 102V90h3v-3h2v3h2v-3h2v3h3v12ZM56 99v-6h34v6ZM70 94V80h2.5v-3h2v3h2v-3h2v3H81v14ZM88 100V86h2v-2.5h2V86h2v-2.5h2V86h2v14Z"/>
+        <path class="sk-mid" d="M111 105 112.3 91h1.6l1.4 14ZM114 93.2l4.6-8.4.8.5-4.3 8.6ZM112.2 93.6l-4.4 1.6v1.3l4.4-1.4Z"/>
+        <circle class="sk-mid" cx="113.1" cy="89.2" r="1.7"/>
+        <!-- холм Элиа, Самеба и наш отель -->
+        <path class="sk-mid" d="M196 142c32-16 66-28 96-31 26-3 48-11 70-16 18-4 30-3 38-2v77H196Z"/>
+        <path class="sk-mid" d="M330 104v-8l5-4 5 4v8ZM344 100v-7l4-3.5 4 3.5v7Z"/>
+        <g class="sk-mid"><rect x="283" y="99" width="34" height="13"/><rect x="288" y="92" width="24" height="8"/><rect x="295" y="80" width="10" height="13"/><path d="M291.5 92 293 88h14l1.5 4Z"/></g>
+        <path class="sk-gold" d="M294 81.5Q300 61 306 81.5Z"/>
+        <rect class="sk-gold" x="299.4" y="54" width="1.2" height="10"/><rect class="sk-gold" x="297.3" y="56.8" width="5.4" height="1.2"/>
+        <g class="sk-win"><rect x="298.8" y="84" width="2.4" height="6" rx="1.2"/><rect x="290.5" y="102" width="2" height="5" rx="1"/><rect x="299" y="101" width="2" height="6.5" rx="1"/><rect x="307.5" y="102" width="2" height="5" rx="1"/><rect x="334" y="98" width="2" height="3"/><rect x="347" y="94.5" width="2" height="3"/></g>
+        <g class="sk-here" transform="translate(366 92.5)"><circle class="ring" r="3"/><circle r="2.7" fill="#f2c25e"/><text x="0" y="-8" text-anchor="middle">отель</text></g>
+        <!-- Метехи на скале -->
+        <path class="sk-near" d="M204 152 213 134c10-5 32-7 48-5l12 23Z"/>
+        <g class="sk-near"><rect x="230" y="116" width="22" height="15"/><rect x="237" y="108" width="8" height="9"/><path d="M236 108.5 241 100l5 8.5Z"/></g>
+        <!-- дома с резными балконами, левый берег -->
+        <path class="sk-near" d="M0 152v-26l8-6 8 6v-8h18v10l8-6 8 6v-16l8-6 8 6v12h16v-8l8-6 8 6v14h10v-8l6-4 6 4v18h30v12Z"/>
+        <g class="sk-mid"><rect x="16" y="134" width="18" height="1.6"/><rect x="50" y="122" width="16" height="1.6"/><rect x="82" y="128" width="16" height="1.6"/></g>
+        <g class="sk-win"><rect x="4" y="130" width="2.4" height="4"/><rect x="10" y="130" width="2.4" height="4"/><rect x="20" y="122" width="2.4" height="4"/><rect x="27" y="122" width="2.4" height="4"/><rect x="20" y="138" width="2.4" height="4"/><rect x="36" y="134" width="2.4" height="4"/><rect x="43" y="134" width="2.4" height="4"/><rect x="54" y="114" width="2.4" height="4"/><rect x="61" y="114" width="2.4" height="4"/><rect x="57" y="128" width="2.4" height="4"/><rect x="70" y="130" width="2.4" height="4"/><rect x="76" y="130" width="2.4" height="4"/><rect x="86" y="120" width="2.4" height="4"/><rect x="93" y="120" width="2.4" height="4"/><rect x="90" y="134" width="2.4" height="4"/><rect x="102" y="136" width="2.4" height="4"/><rect x="113" y="126" width="2.4" height="4"/></g>
+        <!-- купола серных бань Абанотубани -->
+        <path class="sk-mid" d="M123 152a9 7 0 0 1 18 0ZM143 152a8 6 0 0 1 16 0Z"/>
+        <g class="sk-near"><rect x="131.2" y="142.6" width="1.6" height="3"/><rect x="150.2" y="143.6" width="1.6" height="3"/></g>
+        <!-- дома правого берега -->
+        <path class="sk-near" d="M272 152v-16l8-6 8 6v-4h18v8l8-6 8 6v-12h18v10l8-6 8 6v-4h20v-8l8-6 8 6v10h8v16Z"/>
+        <g class="sk-win"><rect x="278" y="140" width="2.4" height="4"/><rect x="292" y="138" width="2.4" height="4"/><rect x="299" y="138" width="2.4" height="4"/><rect x="326" y="132" width="2.4" height="4"/><rect x="333" y="132" width="2.4" height="4"/><rect x="346" y="140" width="2.4" height="4"/><rect x="362" y="138" width="2.4" height="4"/><rect x="369" y="138" width="2.4" height="4"/><rect x="383" y="130" width="2.4" height="4"/></g>
+        <!-- Мтквари и Мост Мира -->
+        <rect class="sk-river" x="0" y="150" width="400" height="20"/>
+        <path d="M30 156h14M92 158h10M240 156h18M322 158h12M372 155h10" stroke="#fff" stroke-opacity=".35" stroke-width="1" fill="none"/>
+        <path class="sk-bridge" d="M166 149.5c8-10 18-10 24-4s14-6 24-4" fill="none" stroke-width="2.6" stroke-linecap="round"/>
+        <path class="sk-line" d="M164 151h56" stroke-width="1.6" fill="none"/>
+        <path class="sk-near" d="M0 164c60-4 120 2 190-1s140 3 210-1v8H0Z"/>
+      </svg>
+    </div>
+    <div id="now-dyn"></div>
+  </section>
+
+  <!-- Дни -->
+  <section id="view-days" class="view" aria-label="Дни"></section>
+
+  <!-- Карта -->
+  <section id="view-map" class="view" aria-label="Карта">
+    <div id="map" role="application" aria-label="Карта Тбилиси"></div>
+    <div class="map-chips" id="map-chips"></div>
+    <div class="map-legend" id="map-legend"></div>
+    <div class="map-tools">
+      <button type="button" data-locate aria-label="Где я"><svg aria-hidden="true"><use href="#i-locate"/></svg></button>
+      <button type="button" data-fit aria-label="Показать всё"><svg aria-hidden="true"><use href="#i-fit"/></svg></button>
+      <button type="button" data-offline aria-label="Сохранить карту для офлайна"><svg aria-hidden="true"><use href="#i-download"/></svg></button>
+    </div>
+  </section>
+
+  <!-- Еда -->
+  <section id="view-food" class="view" aria-label="Еда"></section>
+
+  <!-- Справка -->
+  <section id="view-info" class="view" aria-label="Справка"></section>
+</main>
+
+<nav class="tabbar" aria-label="Разделы">
+  <button type="button" data-tab="now"><svg aria-hidden="true"><use href="#i-now"/></svg>Сейчас</button>
+  <button type="button" data-tab="days"><svg aria-hidden="true"><use href="#i-days"/></svg>Дни</button>
+  <button type="button" data-tab="map"><svg aria-hidden="true"><use href="#i-map"/></svg>Карта</button>
+  <button type="button" data-tab="food"><svg aria-hidden="true"><use href="#i-food"/></svg>Еда</button>
+  <button type="button" data-tab="info"><svg aria-hidden="true"><use href="#i-info"/></svg>Справка</button>
+</nav>
+
+<div class="scrim" id="scrim"></div>
+<aside class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Место" tabindex="-1"></aside>
+<div class="taxi" id="taxi" role="dialog" aria-modal="true" aria-label="Адрес для таксиста"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="data.js"></script>
+<script src="routes.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

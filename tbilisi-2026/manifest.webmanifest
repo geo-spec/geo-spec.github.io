@@ -1,0 +1,18 @@
+{
+  "name": "Тбилиси в кармане · 2–5 октября",
+  "short_name": "Тбилиси",
+  "description": "Карманный гид на четыре дня: что сейчас по плану, Тбилисоба, карта, еда и адрес для таксиста.",
+  "lang": "ru",
+  "start_url": "./#now",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f3eadb",
+  "theme_color": "#7a1d39",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
