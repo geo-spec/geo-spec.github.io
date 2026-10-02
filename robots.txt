@@ -12,3 +12,4 @@ Disallow: /batumi-guide-editorial/
 Disallow: /demo-cases-1c-edo/
 Disallow: /claude-sessions-anywhere/
 Disallow: /rclone-vm-backup/
+Disallow: /tbilisi-urban-bliss/

@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#221a20">
+<title>Дом на холме · Авлабари, Hotel Urban Bliss · Тбилиси, октябрь 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Manrope:wght@400;500;600;700;800&family=Noto+Serif+Georgian:wght@500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<style>
+:root {
+  --paper: #f5efe6;
+  --paper-2: #ece2d3;
+  --card: #fbf8f2;
+  --ink: #2a201c;
+  --muted: #6e625a;
+  --line: #dccfbd;
+  --wine: #7e2632;
+  --brick: #b4583a;
+  --gold: #c39033;
+  --moss: #5a6d47;
+  --river: #356a80;
+  --night: #221a20;
+  --night-2: #3a2a31;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'Manrope', system-ui, sans-serif;
+  --geo: 'Noto Serif Georgian', serif;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 64px; -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.7 var(--sans); -webkit-font-smoothing: antialiased; }
+body::before { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: .5;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .3 0 0 0 0 .2 0 0 0 .07 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+main, header, footer, nav { position: relative; z-index: 1; }
+::selection { background: #e7cfa6; color: var(--ink); }
+h1, h2, h3 { margin: 0; font-family: var(--serif); font-weight: 500; line-height: 1.08; letter-spacing: -.01em; text-wrap: balance; }
+h3 { font-size: 27px; }
+h4 { margin: 0; font: 700 15px/1.4 var(--sans); }
+p { margin: 12px 0; }
+a { color: var(--wine); text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { color: var(--brick); }
+b, strong { font-weight: 700; }
+small { font-size: 13px; }
+.wrap { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+.kicker { display: block; font: 800 10.5px/1.5 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--brick); }
+.ge { font-family: var(--geo); }
+.num-badge { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 5px; border-radius: 11px; font: 800 11px/1 var(--sans); color: #fff; background: var(--c, var(--ink)); vertical-align: 2px; cursor: pointer; border: 0; }
+.num-badge:hover { filter: brightness(1.15); }
+
+/* Верхняя полоса */
+.topbar { position: sticky; top: 0; z-index: 900; background: rgba(34, 26, 32, .94); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); color: #efe4d4; }
+.topbar .wrap { display: flex; align-items: center; gap: 18px; min-height: 52px; }
+.topbar .brand { font: 600 21px/1 var(--serif); color: #fff; text-decoration: none; white-space: nowrap; }
+.topbar .brand span { font: 600 10px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); margin-left: 8px; }
+.topbar .links { display: flex; gap: 16px; overflow-x: auto; scrollbar-width: none; margin-left: auto; padding: 4px 0; }
+.topbar .links::-webkit-scrollbar { display: none; }
+.topbar .links a { color: #d9cbb8; text-decoration: none; font-size: 12.5px; font-weight: 600; white-space: nowrap; }
+.topbar .links a:hover { color: #fff; }
+
+/* Обложка: ночной холм */
+.hero { background: radial-gradient(120% 90% at 75% 10%, #4a3340 0%, var(--night) 60%); color: #f1e7d9; overflow: hidden; position: relative; }
+.hero-inner { position: relative; display: grid; grid-template-columns: 1fr; padding-top: 44px; }
+.hero .ge-mark { display: none; position: absolute; right: 0; top: 34px; writing-mode: vertical-rl; font: 600 15px/1 var(--geo); letter-spacing: .5em; color: rgba(231, 197, 140, .5); }
+.hero h1 { font-size: clamp(56px, 11vw, 120px); font-weight: 500; line-height: .92; margin-top: 18px; color: #fff; }
+.hero h1 em { font-style: italic; color: #e8b866; }
+.hero .lead { max-width: 34em; font-size: 17px; line-height: 1.65; color: #d8c9b5; margin: 22px 0 6px; }
+.hero .lead b { color: #fff; }
+.hero .kicker { color: #e8b866; }
+.hero-art { display: block; width: 100%; height: auto; margin-top: 10px; }
+.hero-art .lbl { font-size: 26px; }
+.hero-art .sm { font-size: 21px; }
+@media (min-width: 720px) { .hero-art .lbl { font-size: 15px; } .hero-art .sm { font-size: 12px; } }
+.hero-cta { display: inline-flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; font: 700 13px/1 var(--sans); text-decoration: none; border: 1px solid currentColor; cursor: pointer; background: transparent; color: inherit; }
+.btn.solid { background: #e8b866; color: var(--night); border-color: #e8b866; }
+.btn.solid:hover { background: #f3cb83; color: var(--night); }
+.hero .btn:not(.solid) { color: #efe4d4; }
+.hero .btn:not(.solid):hover { color: #fff; }
+
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: rgba(255,255,255,.12); border-top: 1px solid rgba(255,255,255,.12); margin-top: 0; }
+.facts > div { background: var(--night); padding: 16px 18px 18px; }
+.facts .l { display: block; font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; color: #a8988a; font-weight: 700; }
+.facts strong { display: block; font: 500 34px/1.05 var(--serif); color: #fff; margin-top: 6px; }
+.facts small { font: 600 12px var(--sans); color: #bfae9b; }
+
+/* Разделы */
+section { padding: 64px 0 18px; }
+.eyebrow { display: flex; align-items: baseline; gap: 14px; margin-bottom: 10px; }
+.eyebrow .n { font: italic 500 46px/1 var(--serif); color: var(--brick); }
+.eyebrow .k { font: 800 10.5px/1 var(--sans); letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+h2.big { font-size: clamp(36px, 6vw, 58px); max-width: 16em; }
+.sub { max-width: 40em; color: var(--muted); font-size: 16.5px; margin-top: 14px; }
+.sub b { color: var(--ink); }
+.rule { height: 1px; background: var(--line); margin: 0; border: 0; }
+
+/* Коротко */
+.brief { display: grid; grid-template-columns: 1fr; gap: 0; margin-top: 26px; border-top: 1px solid var(--ink); counter-reset: b; }
+.brief li { list-style: none; padding: 16px 0 16px 46px; border-bottom: 1px solid var(--line); position: relative; }
+.brief li::before { counter-increment: b; content: counter(b); position: absolute; left: 0; top: 12px; font: italic 500 30px/1 var(--serif); color: var(--brick); }
+.brief { padding: 0; }
+
+/* Карта */
+.map-shell { margin-top: 24px; border: 1px solid var(--ink); background: var(--card); }
+.map-tools { display: flex; flex-wrap: wrap; gap: 8px; padding: 12px; border-bottom: 1px solid var(--line); }
+.map-tools .lbl { width: 100%; font: 800 10px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+.chip { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font: 700 12.5px/1 var(--sans); color: var(--ink); cursor: pointer; user-select: none; }
+.chip i { width: 10px; height: 10px; border-radius: 50%; background: var(--c); display: inline-block; }
+.chip.route i { width: 18px; height: 3px; border-radius: 2px; }
+.chip[aria-pressed="false"] { opacity: .45; background: transparent; }
+.chip[aria-pressed="true"] { border-color: var(--c, var(--ink)); }
+#map { height: 72vh; min-height: 420px; max-height: 720px; background: #e9e2d6; }
+.map-note { padding: 10px 14px; font-size: 12.5px; color: var(--muted); border-top: 1px solid var(--line); }
+.leaflet-container { font-family: var(--sans); }
+.leaflet-tile-pane { filter: saturate(.5) sepia(.18) contrast(.96) brightness(1.02); }
+.pin { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 50%; color: #fff; font: 800 11.5px/1 var(--sans); border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,.35); }
+.pin-hotel { width: 40px; height: 40px; border-radius: 50% 50% 50% 4px; transform: rotate(-45deg); background: var(--night); border: 3px solid #e8b866; box-shadow: 0 0 0 6px rgba(232,184,102,.28), 0 2px 8px rgba(0,0,0,.4); }
+.pin-hotel span { transform: rotate(45deg); color: #e8b866; font: 700 13px/1 var(--sans); }
+.leaflet-popup-content-wrapper { border-radius: 4px; box-shadow: 0 6px 22px rgba(0,0,0,.18); }
+.leaflet-popup-content { margin: 12px 14px; font-size: 13.5px; line-height: 1.5; }
+.pop h5 { margin: 0 0 4px; font: 600 20px/1.15 var(--serif); }
+.pop .meta { color: var(--muted); font-size: 12.5px; }
+.pop .walk { display: inline-block; margin-top: 6px; padding: 2px 8px; border-radius: 3px; background: var(--paper-2); font-weight: 700; font-size: 12px; }
+.pop a { font-weight: 700; }
+.legend { display: grid; grid-template-columns: 1fr; gap: 22px; margin-top: 24px; }
+.legend h4 { font: 800 10.5px/1.4 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+.legend ul { list-style: none; margin: 0; padding: 0; }
+.legend li { display: flex; gap: 10px; align-items: baseline; padding: 6px 0; border-bottom: 1px dotted var(--line); font-size: 14.5px; }
+.legend li .d { margin-left: auto; color: var(--muted); font-size: 12.5px; white-space: nowrap; }
+
+/* Отель */
+.split { display: grid; grid-template-columns: 1fr; gap: 34px; margin-top: 28px; }
+.scores { border-top: 1px solid var(--ink); }
+.score-row { display: grid; grid-template-columns: 120px 1fr 44px; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.score-row .bar { height: 8px; background: var(--paper-2); position: relative; }
+.score-row .bar span { position: absolute; inset: 0 auto 0 0; background: var(--moss); width: 0; transition: width 1.1s cubic-bezier(.2,.8,.2,1); }
+.score-row.low .bar span { background: var(--brick); }
+.score-row b { text-align: right; font: 600 22px/1 var(--serif); }
+.score-row.low { color: var(--brick); }
+.platforms { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 22px; }
+.platforms a { background: var(--card); padding: 14px; text-decoration: none; color: var(--ink); }
+.platforms a:hover { background: #fff; }
+.platforms .p { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.platforms .v { font: 500 32px/1.1 var(--serif); }
+.platforms .c { font-size: 12px; color: var(--muted); }
+blockquote.pull { margin: 6px 0 18px; padding: 0 0 0 18px; border-left: 3px solid var(--gold); font: italic 500 30px/1.15 var(--serif); color: var(--wine); }
+blockquote.pull cite { display: block; margin-top: 8px; font: 600 12px var(--sans); font-style: normal; color: var(--muted); letter-spacing: .04em; }
+.amen { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+.amen span { padding: 5px 10px; border: 1px solid var(--line); border-radius: 3px; font-size: 13px; background: var(--card); }
+.note { margin-top: 20px; padding: 16px 18px; background: var(--card); border-left: 3px solid var(--river); font-size: 15px; }
+.note.warn { border-left-color: var(--brick); }
+.note.gold { border-left-color: var(--gold); }
+.note b:first-child { display: block; margin-bottom: 4px; }
+
+/* Билет: заезд и завтрак */
+.ticket { margin-top: 26px; display: grid; grid-template-columns: repeat(2, 1fr); background: var(--night); color: #f1e7d9; border-radius: 6px; position: relative; overflow: hidden; }
+.ticket > div { padding: 18px 18px 20px; border-right: 1px dashed rgba(255,255,255,.18); border-bottom: 1px dashed rgba(255,255,255,.18); }
+.ticket .l { font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: #a8988a; font-weight: 800; }
+.ticket strong { display: block; font: 500 36px/1.05 var(--serif); color: #fff; margin-top: 6px; }
+.ticket small { color: #c4b39f; font-size: 12.5px; }
+.ticket .hl strong { color: #e8b866; }
+
+/* Рельеф */
+.profile-box { max-width: 820px; margin-top: 26px; background: var(--card); border: 1px solid var(--line); padding: 14px 6px 6px; }
+.profile-box svg { display: block; width: 100%; height: auto; }
+.drops { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 20px; }
+.drops div { background: var(--card); padding: 12px 14px; }
+.drops b { display: block; font: 500 30px/1 var(--serif); color: var(--river); }
+.drops span { font-size: 13px; color: var(--muted); }
+.drops div:last-child { grid-column: span 2; }
+.rulebox { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--ink); }
+.rulebox div { padding: 18px; }
+.rulebox div + div { border-left: 1px solid var(--ink); background: var(--night); color: #f1e7d9; }
+.rulebox .arrow { font: 500 44px/1 var(--serif); }
+.rulebox h4 { font: 600 24px/1.1 var(--serif); margin: 6px 0 4px; }
+.rulebox p { margin: 0; font-size: 14px; }
+.rulebox div + div p { color: #cdbca8; }
+
+/* Таблицы */
+.tbl-wrap { overflow-x: auto; margin-top: 22px; border-top: 1px solid var(--ink); -webkit-overflow-scrolling: touch; }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14.5px; }
+th { text-align: left; font: 800 10.5px/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 12px 10px 10px 0; border-bottom: 1px solid var(--line); }
+td { padding: 11px 10px 11px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+td:first-child { font-weight: 700; }
+.days { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 22px; }
+.day { padding: 18px; background: var(--card); border: 1px solid var(--line); }
+.day .k { color: var(--brick); }
+.day h4 { font: 600 24px/1.15 var(--serif); margin: 6px 0 6px; }
+.day p { margin: 0; font-size: 15px; }
+
+/* Еда */
+.navigator { margin-top: 24px; padding: 18px; background: var(--night); color: #f1e7d9; border-radius: 6px; }
+.navigator .q { font: 600 26px/1.15 var(--serif); color: #fff; }
+.navigator .opts { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.navigator .opts button { padding: 10px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,.3); background: transparent; color: #efe4d4; font: 700 13px/1 var(--sans); cursor: pointer; }
+.navigator .opts button[aria-pressed="true"] { background: #e8b866; border-color: #e8b866; color: var(--night); }
+.navigator .ans { margin-top: 14px; min-height: 3.4em; font-size: 16px; color: #e9dccb; }
+.navigator .ans b { color: #fff; }
+.food { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+.dish { position: relative; padding: 18px 18px 16px; background: var(--card); border: 1px solid var(--line); transition: border-color .3s, box-shadow .3s, transform .3s; }
+.dish.hit { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(195,144,51,.25); transform: translateY(-2px); }
+.dish .top { display: flex; align-items: baseline; gap: 10px; }
+.dish h3 { font-size: 27px; }
+.dish h3 a { color: var(--ink); text-decoration: none; }
+.dish h3 a:hover { color: var(--wine); }
+.dish .ge { font-size: 12.5px; color: var(--muted); }
+.dish .stats { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 8px 0 4px; font-size: 13px; color: var(--muted); }
+.dish .stats b { color: var(--ink); }
+.dish .stars { color: var(--gold); font-weight: 800; }
+.dish p { margin: 6px 0 0; font-size: 15px; }
+.dish .tag { position: absolute; top: -10px; right: 14px; background: var(--wine); color: #fff; font: 800 10px/1 var(--sans); letter-spacing: .12em; text-transform: uppercase; padding: 6px 8px; }
+
+/* Прогулки */
+.walks { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 26px; }
+.walk-card { border: 1px solid var(--ink); background: var(--card); display: grid; grid-template-rows: auto 1fr auto; }
+.walk-card header { padding: 18px 18px 12px; border-bottom: 1px solid var(--line); background: linear-gradient(90deg, var(--c) 0 6px, transparent 6px); }
+.walk-card .meta { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 8px; font: 700 12.5px/1 var(--sans); color: var(--muted); }
+.walk-card h3 { font-size: 30px; margin-top: 6px; }
+.walk-card ol { margin: 0; padding: 14px 18px 4px 38px; font-size: 15px; }
+.walk-card ol li { margin-bottom: 10px; }
+.walk-card ol li::marker { font: italic 600 18px var(--serif); color: var(--c); }
+.walk-card footer { padding: 12px 18px 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.walk-card .btn { color: var(--ink); }
+.walk-card .btn:hover { color: var(--wine); }
+
+/* Тбилисоба */
+.fest { margin-top: 24px; display: grid; grid-template-columns: 1fr; gap: 0; border-top: 1px solid var(--ink); }
+.fest-row { display: grid; grid-template-columns: 64px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--line); align-items: start; }
+.fest-row .mins { font: 500 40px/1 var(--serif); color: var(--gold); }
+.fest-row .mins small { display: block; font: 700 10px var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-top: 2px; }
+.fest-row h4 { font: 600 22px/1.2 var(--serif); }
+.fest-row p { margin: 4px 0 0; font-size: 14.5px; color: var(--muted); }
+
+/* Чек-лист */
+.check { list-style: none; margin: 24px 0 0; padding: 0; border-top: 1px solid var(--ink); }
+.check li { border-bottom: 1px solid var(--line); }
+.check label { display: flex; gap: 14px; align-items: flex-start; padding: 14px 0; cursor: pointer; font-size: 16px; }
+.check input { appearance: none; -webkit-appearance: none; flex: none; width: 24px; height: 24px; border: 1.5px solid var(--ink); border-radius: 4px; margin: 1px 0 0; display: grid; place-items: center; cursor: pointer; background: #fff; }
+.check input:checked { background: var(--moss); border-color: var(--moss); }
+.check input:checked::after { content: ""; width: 7px; height: 12px; border: solid #fff; border-width: 0 2.5px 2.5px 0; transform: rotate(45deg) translate(-1px, -1px); }
+.check input:checked + span { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--moss); }
+.check small { display: block; color: var(--muted); }
+
+/* Карточка для таксиста */
+.taxi { margin-top: 24px; background: var(--night); color: #f1e7d9; border-radius: 8px; padding: 26px 22px; text-align: center; position: relative; overflow: hidden; }
+.taxi::after { content: ""; position: absolute; inset: 10px; border: 1px solid rgba(232,184,102,.35); border-radius: 4px; pointer-events: none; }
+.taxi .ka { font: 600 clamp(34px, 9vw, 64px)/1.15 var(--geo); color: #fff; }
+.taxi .ka2 { font: 500 clamp(18px, 4.5vw, 26px)/1.3 var(--geo); color: #e8b866; margin-top: 6px; }
+.taxi .lat { font: 700 15px/1.5 var(--sans); letter-spacing: .06em; margin-top: 12px; color: #d8c9b5; }
+.taxi .hint { font-size: 13px; color: #a8988a; margin-top: 6px; }
+.taxi .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; position: relative; z-index: 2; }
+.taxi .btn { color: #efe4d4; }
+.taxi .btn:hover { color: #fff; }
+.sun { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin-top: 18px; }
+.sun div { background: var(--card); padding: 10px 12px; font-size: 13px; }
+.sun b { display: block; font: 500 22px/1.1 var(--serif); }
+
+/* Источники */
+.sources { columns: 1; font-size: 13.5px; color: var(--muted); padding-left: 18px; margin-top: 18px; }
+.sources li { margin-bottom: 6px; break-inside: avoid; }
+footer.end { padding: 40px 0 60px; color: var(--muted); font-size: 13px; }
+footer.end .ge { font-size: 18px; color: var(--brick); }
+
+@media (max-width: 599px) {
+  .tbl-wrap { border-top: 1px solid var(--ink); }
+  .tbl-wrap table, .tbl-wrap tbody, .tbl-wrap tr, .tbl-wrap td { display: block; min-width: 0; width: auto; }
+  .tbl-wrap thead { display: none; }
+  .tbl-wrap tr { padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .tbl-wrap td { border: 0; padding: 2px 0; }
+  .tbl-wrap td:first-child { font-size: 16px; margin-bottom: 4px; }
+  .tbl-wrap td[data-label]:not(:first-child)::before { content: attr(data-label); display: inline-block; min-width: 78px; color: var(--muted); font-size: 10.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .1em; }
+}
+
+/* Появление при прокрутке */
+.reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } html { scroll-behavior: auto; } }
+
+@media (min-width: 720px) {
+  .wrap { width: min(1120px, calc(100% - 80px)); }
+  .facts { grid-template-columns: repeat(4, 1fr); }
+  .brief { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .legend { grid-template-columns: repeat(3, 1fr); column-gap: 30px; }
+  .split { grid-template-columns: 1.05fr 1fr; gap: 56px; }
+  .ticket { grid-template-columns: repeat(4, 1fr); }
+  .ticket > div { border-bottom: 0; }
+  .drops { grid-template-columns: repeat(5, 1fr); }
+  .drops div:last-child { grid-column: auto; }
+  .days { grid-template-columns: repeat(3, 1fr); }
+  .food { grid-template-columns: 1fr 1fr; }
+  .walks { grid-template-columns: repeat(3, 1fr); }
+  .fest { grid-template-columns: 1fr 1fr; column-gap: 40px; }
+  .sources { columns: 2; column-gap: 40px; }
+  .hero h1 { margin-top: 26px; }
+  .hero .ge-mark { display: block; }
+  .hero .lead { max-width: 30em; }
+}
+@media (min-width: 1000px) {
+  .hero-inner { padding-top: 64px; }
+  .hero .lead { font-size: 18.5px; }
+}
+@media print {
+  .topbar, .map-shell, .navigator, .hero-cta, .taxi .row { display: none !important; }
+  .reveal { opacity: 1; transform: none; }
+}
+</style>
+</head>
+<body>
+
+<nav class="topbar" aria-label="Разделы">
+  <div class="wrap">
+    <a class="brand" href="#top">Авлабари<span>2–5 окт</span></a>
+    <div class="links">
+      <a href="#karta">Карта</a>
+      <a href="#otel">Отель</a>
+      <a href="#relief">Рельеф</a>
+      <a href="#doroga">Дорога</a>
+      <a href="#eda">Еда</a>
+      <a href="#progulki">Прогулки</a>
+      <a href="#tbilisoba">Тбилисоба</a>
+      <a href="#taxi">Такси</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <div class="ge-mark ge" aria-hidden="true">ავლაბარი · ელია</div>
+    <span class="kicker">Тбилиси · 2–5 октября 2026 · три ночи</span>
+    <h1>Дом<br><em>на холме</em></h1>
+    <p class="lead">Hotel Urban Bliss стоит на макушке старого Авлабари, на <b>488 метрах</b>. Весь город отсюда ниже: Самеба в девяти минутах, река в двадцати, площадки Тбилисобы в получасе. Спускаться пешком одно удовольствие, <b>а наверх - на такси</b>.</p>
+    <div class="hero-cta">
+      <a class="btn solid" href="#karta">Открыть карту ↓</a>
+      <a class="btn" href="#taxi">Адрес для таксиста</a>
+    </div>
+    <svg class="hero-art" id="heroArt" viewBox="0 0 1200 430" role="img" aria-label="Разрез холма: от отеля на 488 метрах через Самеба вниз к Мосту Мира на 399 метрах"></svg>
+  </div>
+  <div class="facts wrap" aria-label="Главные цифры">
+    <div><span class="l">Booking</span><strong>9,4</strong><small>529 отзывов</small></div>
+    <div><span class="l">Google</span><strong>4,9</strong><small>77 отзывов</small></div>
+    <div><span class="l">Завтрак</span><strong>9:00–11:00</strong><small>шведский стол</small></div>
+    <div><span class="l">Закат 3 октября</span><strong>18:40</strong><small>к 19:10 уже темно</small></div>
+  </div>
+</header>
+
+<main>
+
+<section id="korotko" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">01</span><span class="k">Коротко</span></div>
+    <h2 class="big">Шесть вещей, которые стоит знать до заселения</h2>
+    <ol class="brief">
+      <li><b>Отель новый и очень чистый.</b> Около двадцати номеров, свежий ремонт, балконы почти везде. Чаще всего гости хвалят завтрак и персонал.</li>
+      <li><b>Заезд с 14:00</b> без верхней границы, ресепшен круглосуточный. <b>Выезд до 12:00</b>. Завтрак с 9:00 до 11:00.</li>
+      <li><b>Отель на вершине холма.</b> Всё, куда вы пойдёте, ниже на 40–90 метров. Вниз гуляем пешком, обратно едем на такси.</li>
+      <li><b>Круглосуточные продуктовые</b> в 7 минутах. Аптеки и обменники есть только у метро «Авлабари», в 16 минутах вниз.</li>
+      <li><b>Ужин в трёх минутах:</b> «Домашняя кухня» до 21:00, Irioni до полуночи, хинкали навынос в Khinkali Master.</li>
+      <li><b>Все пять площадок Тбилисобы</b> в 23–32 минутах пешком вниз. Ближе всего Рике и площадь Европы.</li>
+    </ol>
+  </div>
+</section>
+
+<section id="karta" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">02</span><span class="k">Карта</span></div>
+    <h2 class="big">Всё, что рядом, на одной карте</h2>
+    <p class="sub">Нажмите на точку, чтобы увидеть часы работы и сколько до неё идти. Цветные линии - три прогулки и путь к метро из раздела 09: их можно включать и выключать.</p>
+  </div>
+  <div class="wrap">
+    <div class="map-shell">
+      <div class="map-tools" id="catChips"><span class="lbl">Что показать</span></div>
+      <div class="map-tools" id="routeChips"><span class="lbl">Маршруты</span></div>
+      <div id="map" role="region" aria-label="Интерактивная карта района"></div>
+      <div class="map-note">Время пешком посчитано по пешеходным дорожкам OpenStreetMap, без остановок. Между домами на холме бывают лестницы и проходы, которых нет в данных, так что на месте путь иногда короче.</div>
+    </div>
+    <div class="legend" id="legend"></div>
+  </div>
+</section>
+
+<section id="otel" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">03</span><span class="k">Отель</span></div>
+    <h2 class="big">Что пишут гости</h2>
+    <div class="split">
+      <div>
+        <blockquote class="pull">«Лучший завтрак за долгое время»<cite>из отзывов на Booking.com</cite></blockquote>
+        <p>Отель открылся недавно. Гости пишут про новый ремонт, удобные матрасы и чистоту, где не найти пылинки. Почти у всех номеров есть балкон, у многих с видом на город. Завтрак домашний и разнообразный, его хвалят чаще всего остального.</p>
+        <p>Персонал свободно говорит по-русски, с английским хуже, и в одном отзыве на это прямо жалуются. Помогают охотно: когда у одной гостьи заболел внук, ресепшен вызвал скорую и заказал лекарства. Гостям, которые уезжали на экскурсию в шесть утра, собрали ланчбокс.</p>
+        <p>Из минусов в отзывах повторяются два: крутой холм и «далековато от центра». Других жалоб не нашлось.</p>
+        <h4 style="margin-top:22px">В номере и в отеле</h4>
+        <div class="amen">
+          <span>кондиционер и отопление</span><span>сейф</span><span>холодильник</span><span>чайник, чай, кофе</span><span>вода</span><span>телевизор</span><span>письменный стол</span><span>душ и фен</span><span>лифт</span><span>сад</span><span>терраса с баром</span><span>бесплатная парковка</span><span>трансфер из аэропорта за доплату</span>
+        </div>
+      </div>
+      <div>
+        <div class="scores" id="scores">
+          <div class="score-row"><span>Wi-Fi</span><div class="bar"><span data-w="9.8"></span></div><b>9,8</b></div>
+          <div class="score-row"><span>Чистота</span><div class="bar"><span data-w="9.6"></span></div><b>9,6</b></div>
+          <div class="score-row"><span>Персонал</span><div class="bar"><span data-w="9.6"></span></div><b>9,6</b></div>
+          <div class="score-row"><span>Комфорт</span><div class="bar"><span data-w="9.5"></span></div><b>9,5</b></div>
+          <div class="score-row"><span>Цена и качество</span><div class="bar"><span data-w="9.5"></span></div><b>9,5</b></div>
+          <div class="score-row low"><span>Расположение</span><div class="bar"><span data-w="8.5"></span></div><b>8,5</b></div>
+        </div>
+        <p style="font-size:13.5px;color:var(--muted)">Оценки Booking по разделам. Ниже всех расположение, и это про холм: о нём раздел 05.</p>
+        <div class="platforms">
+          <a href="https://www.booking.com/hotel/ge/urban-bliss-bilisi.html" target="_blank" rel="noopener"><span class="p">Booking.com</span><div class="v">9,4</div><span class="c">529 отзывов</span></a>
+          <a href="https://maps.google.com/?cid=13630639076637163418" target="_blank" rel="noopener"><span class="p">Google Maps</span><div class="v">4,9</div><span class="c">77 отзывов</span></a>
+          <a href="https://www.expedia.com/Tbilisi-Hotels-Hotel-Urban-Bliss.h122625348.Hotel-Information" target="_blank" rel="noopener"><span class="p">Expedia · Hotels.com</span><div class="v">9,4</div><span class="c">516 внешних отзывов</span></a>
+          <a href="https://www.trip.com/hotels/tbilisi-hotel-detail-132830684/hotel-urban-bliss/" target="_blank" rel="noopener"><span class="p">Trip.com</span><div class="v">3 / 3</div><span class="c">все положительные</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="zaezd" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">04</span><span class="k">Заезд и завтрак</span></div>
+    <h2 class="big">Расписание отеля</h2>
+    <div class="ticket">
+      <div><span class="l">Заезд</span><strong>с 14:00</strong><small>верхней границы нет, ресепшен 24/7</small></div>
+      <div class="hl"><span class="l">Завтрак</span><strong>9:00–11:00</strong><small>шведский стол, входит в тариф</small></div>
+      <div><span class="l">Выезд</span><strong>до 12:00</strong><small>багаж можно оставить</small></div>
+      <div><span class="l">Оплата</span><strong>наличные</strong><small>так в правилах Booking</small></div>
+    </div>
+    <div class="note gold"><b>Завтрак с 8:00 или с 9:00?</b> Hotels.com и Trip.com пишут 9:00–11:00, одна поисковая выдача показала 8:00–11:00. Уточните при заселении, ниже есть чек-лист для ресепшена.</div>
+    <div class="note warn"><b>Наличные.</b> Если бронь не оплачена заранее, платить придётся лари наличными. Банкомат Liberty в 5 минутах от двери (точка 13 на карте), обменники у метро «Авлабари».</div>
+    <div class="note"><b>Понедельник.</b> Завтракаете с 9:00 до 9:30, сдаёте номер и около 9:30 едете на такси в TBC: это 5–10 минут, к открытию в 10:00 успеваете. Если захочется выехать раньше, с вечера попросите ранний завтрак или завтрак с собой. Судя по истории с ланчбоксом, отель на такое соглашается.</div>
+  </div>
+</section>
+
+<section id="relief" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">05</span><span class="k">Рельеф</span></div>
+    <h2 class="big">Дорога домой всегда идёт в гору</h2>
+    <p class="sub">Ниже - настоящий профиль прогулки от двери отеля до Моста Мира: 2,6 км и <b>89 метров вниз</b>. Это примерно 30-этажный дом. Днём налегке спуск занимает полчаса, а подъём после целого дня на ногах или под дождём даётся тяжело.</p>
+    <div class="profile-box"><svg id="profile" viewBox="0 0 640 380" role="img" aria-label="Профиль высот маршрута от отеля к Мосту Мира"></svg></div>
+    <div class="drops">
+      <div><b>−39 м</b><span>Собор Самеба</span></div>
+      <div><b>−57 м</b><span>Метро «Авлабари»</span></div>
+      <div><b>−74 м</b><span>TBC на Марджанишвили</span></div>
+      <div><b>−86 м</b><span>Метехи и площадь Европы</span></div>
+      <div><b>−89 м</b><span>Парк Рике и набережная</span></div>
+    </div>
+    <div class="rulebox">
+      <div><span class="arrow">↓</span><h4>Вниз - пешком</h4><p>К Самеба, к реке, к метро, на фестиваль. Под горку всё близко.</p></div>
+      <div><span class="arrow">↑</span><h4>Наверх - Bolt</h4><p>4–5 минут и пара лари. Особенно вечером, с рюкзаками и в дождь.</p></div>
+    </div>
+    <div class="note warn"><b>Мокрая брусчатка.</b> На 3–4 октября обещают морось и ливни. На крутых спусках старого Авлабари камень скользит, поэтому нужна обувь с протектором, а прогулку под ливнем лучше перенести.</div>
+  </div>
+</section>
+
+<section id="doroga" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">06</span><span class="k">Дорога</span></div>
+    <h2 class="big">Как добираться</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Маршрут</th><th>Пешком</th><th>Такси</th><th>Метро</th></tr></thead>
+        <tbody>
+          <tr><td>Вокзал Tbilisi Central → отель</td><td>4,1 км, ~55 мин</td><td>~4,3 км, ~8 мин</td><td>«Вагзлис моедани» → «Авлабари», 4 остановки по 1-й линии, затем 16 мин в гору</td></tr>
+          <tr><td>TBC на Марджанишвили ↔ отель</td><td>2,9 км, ~40 мин</td><td>~3,2 км, ~5 мин</td><td>«Марджанишвили» ↔ «Авлабари», 3 остановки, затем 16 мин в гору</td></tr>
+          <tr><td>Отель → метро «Авлабари»</td><td>1,3 км, ~16 мин вниз</td><td>~2 мин</td><td>-</td></tr>
+          <tr><td>Отель → собор Самеба</td><td>0,7 км, ~9 мин</td><td>-</td><td>-</td></tr>
+          <tr><td>Отель → Рике, Мост Мира</td><td>1,8 км, ~23 мин вниз</td><td>~4 мин</td><td>-</td></tr>
+          <tr><td>Отель → Метехи, площадь Европы</td><td>2,0 км, ~27 мин вниз</td><td>~5 мин, в Тбилисобу перекрыто</td><td>-</td></tr>
+          <tr><td>Отель → площадь Свободы</td><td>2,2 км, ~28 мин</td><td>~4 мин</td><td>«Авлабари» → «Тависуплебис моедани», 1 остановка</td></tr>
+          <tr><td>Отель → аэропорт</td><td>-</td><td>12 км, ~22 мин</td><td>-</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">Метро стоит 1 GEL, 90 минут пересадок бесплатно. Платить можно картой MetroMoney или банковской картой прямо на турникете. Такси - через Bolt или Yandex Go, цену приложение покажет заранее.</p>
+    <div class="days">
+      <div class="day"><span class="kicker k">Пятница, 2 октября</span><h4>Из TBC - на такси</h4><p>С рюкзаками после работы едем на машине, это 5 минут. Метро с пересадкой на подъём в гору с вещами не стоит сэкономленных лари.</p></div>
+      <div class="day"><span class="kicker k">Суббота и воскресенье</span><h4>Вниз пешком, назад на машине</h4><p>С 3 октября площадь Европы, Метехский мост и подъём перекрыты из-за Тбилисобы. Навигатор повезёт в объезд, и дорога займёт дольше обычного.</p></div>
+      <div class="day"><span class="kicker k">Понедельник, 5 октября</span><h4>Отель → TBC → вокзал</h4><p>После завтрака такси до TBC, из TBC на вокзал тоже на такси. Вещи весь день едут с вами.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="magaziny" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">07</span><span class="k">Магазины и бытовое</span></div>
+    <h2 class="big">Вода, вино и аптека</h2>
+    <p class="sub">Мелкие продуктовые стоят на каждом углу вокруг отеля. С аптеками сложнее: ближайшие у метро, в 16 минутах вниз, так что привычные лекарства лучше взять с собой.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Что</th><th>Где</th><th>Идти</th><th>Часы</th></tr></thead>
+        <tbody id="shopRows"></tbody>
+      </table>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">Ещё рядом: лавка овощей и фруктов «როლოს ხილბოსტანი» на Галавани (5,0 в Google, до 21:15) и пекарни на ул. Д. Эристави, 12 и у Самеба.</p>
+  </div>
+</section>
+
+<section id="eda" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">08</span><span class="k">Где поесть</span></div>
+    <h2 class="big">Ужин в пяти минутах от кровати</h2>
+    <p class="sub">Рейтинги и отзывы сверены с Google Maps 2 октября. Чек указан на человека.</p>
+    <div class="navigator" id="navigator">
+      <div class="q">Куда идём ужинать?</div>
+      <div class="opts" role="group" aria-label="Выберите ситуацию">
+        <button type="button" data-k="early">Успеваем до 20:30</button>
+        <button type="button" data-k="late">Уже после 20:30</button>
+        <button type="button" data-k="tired">Сил нет совсем</button>
+        <button type="button" data-k="walk">Гуляем у Самеба</button>
+        <button type="button" data-k="cheb">Хочу чебуреков</button>
+      </div>
+      <div class="ans" id="navAns" aria-live="polite">Выберите ситуацию, и подсвечу подходящее место.</div>
+    </div>
+    <div class="food" id="food"></div>
+    <div class="note"><b>Кофе и запасной завтрак.</b> Кафе BRB в 4 минутах (точка 7) и безымянная кофейня на Галавани. Natra открывается в 9:00, если отельного завтрака не хватит. У Самеба есть веганское кафе Living &amp; Jagannath, 11:00–23:00.</div>
+  </div>
+</section>
+
+<section id="progulki" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">09</span><span class="k">Прогулки</span></div>
+    <h2 class="big">Три прогулки от двери отеля</h2>
+    <p class="sub">В Тбилиси вы были раз десять, поэтому здесь нет обязательной программы. Три спуска с холма, у каждого свой характер. Все три начинаются от Самеба, и каждый можно оборвать на любой точке и вызвать такси.</p>
+    <div class="walks">
+      <article class="walk-card" style="--c: var(--wine)">
+        <header><span class="kicker">Первый вечер</span><h3>Самеба в подсветке</h3><div class="meta"><span>0,7 км</span><span>~9 мин</span><span>−39 м</span></div></header>
+        <ol>
+          <li><b>Выйти после 19:00.</b> Солнце садится около 18:40, к 19:10 уже темно, и собор подсвечен.</li>
+          <li><b>Собор Самеба.</b> Строили с 1995 по 2004 год, высота около 85 метров с крестом. Вход бесплатный. Женщинам нужны платок и юбка, плечи закрыты. На входе их обычно выдают, но свой платок надёжнее.</li>
+          <li><b>Маленькая церковь Илии Пророка</b> на той же территории. От неё получил имя весь холм Элиа.</li>
+          <li><b>Ужин на обратном пути:</b> Natra у ограды собора до часу ночи или «Домашняя кухня» у отеля до 21:00.</li>
+        </ol>
+        <footer><button class="btn" type="button" data-route="sameba">Показать на карте</button></footer>
+      </article>
+      <article class="walk-card" style="--c: var(--river)">
+        <header><span class="kicker">День, налегке</span><h3>Вниз к реке</h3><div class="meta"><span>2,6 км</span><span>~35 мин</span><span>−89 м</span></div></header>
+        <ol>
+          <li><b>Самеба</b>, дальше по склону вниз.</li>
+          <li><b>Стеклянный купол над Рике.</b> Бывшая президентская резиденция, открытая в 2009 году, потом Дворец государственных церемоний. С весны 2026 года в здании работает МИД, внутрь не пускают, но купол хорошо виден со склона.</li>
+          <li><b>Парк Рике.</b> В субботу и воскресенье здесь одна из главных площадок Тбилисобы. От парка канатка поднимается на Нарикалу: 2,5 GEL, надёжнее платить картой MetroMoney.</li>
+          <li><b>Мост Мира</b> открыли в 2010 году, автор итальянский архитектор Микеле Де Лукки. С моста начинается Старый город.</li>
+        </ol>
+        <footer><button class="btn" type="button" data-route="river">Показать на карте</button><span style="font-size:13px;color:var(--muted)">Обратно на такси, ~4 мин</span></footer>
+      </article>
+      <article class="walk-card" style="--c: var(--moss)">
+        <header><span class="kicker">Старый Авлабари</span><h3>К Метехи через дворец царицы</h3><div class="meta"><span>2,1 км</span><span>~27 мин</span><span>−86 м</span></div></header>
+        <ol>
+          <li><b>Самеба.</b> Собор стоит на месте старого армянского кладбища Ходживанк. Авлабари веками был армянским кварталом Тифлиса.</li>
+          <li><b>Дворец царицы Дареджан</b>, 1776 год. Ираклий II построил его для жены. Сейчас внутри женский монастырь, но на круглый балкон над обрывом пускают. Идти лучше днём.</li>
+          <li><b>Армянская церковь Эчмиадзин</b> начала XIX века, действующая, стоит рядом.</li>
+          <li><b>Метехи и площадь Европы.</b> Церковь на скале над Курой и конная статуя Вахтанга Горгасали. В Тбилисобу на площади авто- и мотопрограмма.</li>
+        </ol>
+        <footer><button class="btn" type="button" data-route="metekhi">Показать на карте</button></footer>
+      </article>
+    </div>
+    <div class="note gold"><b>Для любителей странного.</b> В восточном Авлабари, на ул. Каспи, 7, есть музей подпольной типографии 1903–1906 годов, с ней связан молодой Джугашвили. Работает по будням, так что на эту поездку он не попадает: в пятницу и понедельник у вас работа.</div>
+  </div>
+</section>
+
+<section id="tbilisoba" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">10</span><span class="k">3–4 октября</span></div>
+    <h2 class="big">Тбилисоба в получасе вниз</h2>
+    <p class="sub">Пять площадок праздника, и до всех от отеля можно дойти пешком, потому что всё под горку. Обратно лучше ехать на такси, помня про перекрытый Метехский мост.</p>
+    <div class="fest" id="fest"></div>
+  </div>
+</section>
+
+<section id="dozhd" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">11</span><span class="k">Если дождь</span></div>
+    <h2 class="big">План на ливень, не уходя далеко</h2>
+    <div class="days">
+      <div class="day"><span class="kicker k">10 минут</span><h4>Внутри Самеба</h4><p>Вход бесплатный, собор огромный, можно провести полчаса под крышей и выйти, когда стихнет.</p></div>
+      <div class="day"><span class="kicker k">3–11 минут</span><h4>Длинный обед</h4><p>Irioni работает до полуночи, Natra до часу ночи. В дождь здесь можно засидеться надолго.</p></div>
+      <div class="day"><span class="kicker k">0 минут</span><h4>Балкон и терраса</h4><p>Почти у всех номеров есть балкон с видом, а в отеле есть терраса с баром. Есть ли над ней навес, спросите на ресепшене.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="resepshen" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">12</span><span class="k">При заселении</span></div>
+    <h2 class="big">Что спросить на ресепшене</h2>
+    <p class="sub">Отметки сохраняются в этом телефоне, можно ставить их прямо у стойки.</p>
+    <ul class="check" id="checklist">
+      <li><label><input type="checkbox" data-id="q1"><span>Во сколько точно начинается завтрак: в 8:00 или в 9:00?</span></label></li>
+      <li><label><input type="checkbox" data-id="q2"><span>Можно ли в понедельник позавтракать раньше или взять завтрак с собой?</span></label></li>
+      <li><label><input type="checkbox" data-id="q3"><span>Можно ли в понедельник оставить рюкзаки после выезда, если понадобится?</span></label></li>
+      <li><label><input type="checkbox" data-id="q4"><span>Как платить: бронь уже оплачена или нужны наличные?</span><small></small></label></li>
+      <li><label><input type="checkbox" data-id="q5"><span>Есть ли навес над террасой и до скольки работает бар?</span></label></li>
+    </ul>
+  </div>
+</section>
+
+<section id="taxi" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">13</span><span class="k">Покажите водителю</span></div>
+    <h2 class="big">Адрес на одном экране</h2>
+    <div class="taxi">
+      <div class="ka ge">ოძისის ქუჩა 24</div>
+      <div class="ka2 ge">სასტუმრო Urban Bliss</div>
+      <div class="lat">24 ODZISI ST · 0144 · TBILISI</div>
+      <div class="hint">Верхний Авлабари, квартал Элиа, выше собора Самеба</div>
+      <div class="row">
+        <button class="btn solid" type="button" id="copyAddr">Скопировать адрес</button>
+        <a class="btn" href="tel:+995595959707">Позвонить в отель</a>
+        <a class="btn" href="https://maps.google.com/?cid=13630639076637163418" target="_blank" rel="noopener">Google Maps</a>
+        <a class="btn" href="https://yandex.ru/maps/?pt=44.82015,41.70074&amp;z=17&amp;l=map" target="_blank" rel="noopener">Яндекс Карты</a>
+      </div>
+    </div>
+    <div class="sun" aria-label="Восход и закат">
+      <div>Пт, 2 окт<b>06:58 · 18:42</b></div>
+      <div>Сб, 3 окт<b>06:59 · 18:40</b></div>
+      <div>Вс, 4 окт<b>07:00 · 18:38</b></div>
+      <div>Пн, 5 окт<b>07:01 · 18:37</b></div>
+    </div>
+    <p style="font-size:13px;color:var(--muted)">Восход и закат по местному времени. Телефон отеля: +995 595 95 97 07.</p>
+  </div>
+</section>
+
+<section id="istochniki" class="reveal">
+  <div class="wrap">
+    <div class="eyebrow"><span class="n">14</span><span class="k">Откуда данные</span></div>
+    <h2 class="big" style="font-size:clamp(30px,4vw,40px)">Источники</h2>
+    <ul class="sources">
+      <li><a href="https://www.booking.com/hotel/ge/urban-bliss-bilisi.html">Booking.com: Hotel Urban Bliss</a> - оценки по разделам, удобства, правила, оплата.</li>
+      <li><a href="https://maps.google.com/?cid=13630639076637163418">Google Maps: карточка отеля</a> - рейтинг, телефон, отзывы. Карточки кафе - по ссылкам в разделе 08.</li>
+      <li><a href="https://www.expedia.com/Tbilisi-Hotels-Hotel-Urban-Bliss.h122625348.Hotel-Information">Expedia</a>, <a href="https://www.hotels.com/ho3925011136/hotel-urban-bliss/">Hotels.com</a>, <a href="https://www.trip.com/hotels/tbilisi-hotel-detail-132830684/hotel-urban-bliss/">Trip.com</a> - заезд, ресепшен, багаж, завтрак, число номеров.</li>
+      <li><a href="https://www.openstreetmap.org/?mlat=41.70074&amp;mlon=44.82015#map=17/41.70074/44.82015">OpenStreetMap</a> - координаты, магазины, аптеки, часы. Пешие маршруты: routing.openstreetmap.de. Высоты: SRTM 30 м через opentopodata.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Holy_Trinity_Cathedral_of_Tbilisi">Wikipedia: Holy Trinity Cathedral of Tbilisi</a> - годы, высота, Ходживанк.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Darejan_Dadiani">Wikipedia: Darejan Dadiani</a>, <a href="https://travelguide.ge/en/what-to-do/darejanis-sasakhle/">travelguide.ge</a> - дворец Дареджан.</li>
+      <li><a href="https://civil.ge/archives/736931">Civil.ge</a>, <a href="https://en.wikipedia.org/wiki/Ceremonial_Palace_of_Georgia">Wikipedia: Ceremonial Palace of Georgia</a> - здание со стеклянным куполом.</li>
+      <li><a href="https://en.wikipedia.org/wiki/Bridge_of_Peace">Wikipedia: Bridge of Peace</a> - Мост Мира.</li>
+      <li><a href="https://ttc.com.ge/en/tariff/10">TTC: тарифы</a> - метро и канатная дорога.</li>
+      <li><a href="https://georgiatoday.ge/tbilisoba-2026-to-bring-two-days-of-concerts-food-and-cultural-events-across-tbilisi/">Georgia Today, 1 октября 2026</a> - даты и площадки Тбилисобы.</li>
+      <li><a href="https://armenianchurch.ge/en/churches/dejstvuyushchie-tserkvi-i-chasovni-2/existing-churches-and-chapels/st-etchmiatsin-church">armenianchurch.ge</a> - церковь Эчмиадзин.</li>
+      <li><a href="https://www.timeanddate.com/sun/georgia/tbilisi?month=10">timeanddate.com</a> - восход и закат.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer class="end">
+  <div class="wrap"><span class="ge">გზა მშვიდობისა</span> - «мирной дороги». Собрано 2 октября 2026 года.</div>
+</footer>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+const HOTEL = [41.70074, 44.82015];
+const LINES = {"sameba":[[41.70069,44.82017],[41.70061,44.81987],[41.70049,44.81933],[41.70034,44.81901],[41.70022,44.8188],[41.70011,44.81863],[41.69999,44.8185],[41.69957,44.81811],[41.69986,44.81743],[41.69975,44.81736],[41.69955,44.81722],[41.69953,44.81719],[41.69944,44.8171],[41.6994,44.81703],[41.69928,44.81712],[41.69892,44.81726],[41.69884,44.81723],[41.69875,44.81718],[41.69873,44.81717],[41.69865,44.81719],[41.69844,44.81733],[41.69835,44.81734],[41.698,44.81734],[41.69778,44.81734],[41.69757,44.81734],[41.69754,44.81734],[41.69754,44.81729],[41.69754,44.81723],[41.69754,44.81699],[41.69715,44.81698],[41.69716,44.81662],[41.69726,44.81661],[41.69726,44.81661]],"river":[[41.70069,44.82017],[41.70061,44.81987],[41.70049,44.81933],[41.70034,44.81901],[41.70022,44.8188],[41.70011,44.81863],[41.69999,44.8185],[41.69957,44.81811],[41.69986,44.81743],[41.69975,44.81736],[41.69955,44.81722],[41.69953,44.81719],[41.69944,44.8171],[41.6994,44.81703],[41.69928,44.81712],[41.69892,44.81726],[41.69884,44.81723],[41.69875,44.81718],[41.69873,44.81717],[41.69865,44.81719],[41.69844,44.81733],[41.69835,44.81734],[41.698,44.81734],[41.69778,44.81734],[41.69757,44.81734],[41.69754,44.81734],[41.69754,44.81729],[41.69754,44.81723],[41.69754,44.81699],[41.69715,44.81698],[41.69716,44.81662],[41.69726,44.81661],[41.69726,44.81661],[41.69716,44.81662],[41.69716,44.8164],[41.69738,44.81603],[41.69756,44.81603],[41.69757,44.8156],[41.69757,44.81551],[41.69757,44.81542],[41.69757,44.8153],[41.69757,44.81525],[41.69757,44.81477],[41.69758,44.8146],[41.69758,44.81438],[41.69758,44.81437],[41.69758,44.81422],[41.69758,44.81421],[41.69758,44.81416],[41.69758,44.81406],[41.69758,44.81404],[41.69758,44.81395],[41.69758,44.81394],[41.69762,44.81378],[41.69763,44.81374],[41.69747,44.81364],[41.69735,44.81355],[41.69741,44.81335],[41.69744,44.81312],[41.69739,44.81252],[41.69735,44.81238],[41.69734,44.81224],[41.6974,44.81186],[41.69745,44.81163],[41.69749,44.81148],[41.69759,44.811],[41.69769,44.81073],[41.69775,44.81055],[41.6979,44.81032],[41.69768,44.80991],[41.69764,44.80994],[41.69762,44.80998],[41.69757,44.81011],[41.69742,44.81002],[41.6974,44.81004],[41.69735,44.81005],[41.69734,44.80997],[41.6973,44.80996],[41.69727,44.80995],[41.69725,44.80991],[41.69723,44.80987],[41.69723,44.80983],[41.69724,44.8098],[41.69726,44.80974],[41.69725,44.80963],[41.69719,44.80964],[41.69716,44.80965],[41.69715,44.80956],[41.69688,44.80964],[41.69673,44.80969],[41.69651,44.80971],[41.69604,44.80987],[41.69588,44.80994],[41.69575,44.81003],[41.6955,44.81031],[41.69536,44.81043],[41.69536,44.81043],[41.6952,44.81052],[41.69364,44.81129],[41.69342,44.8114],[41.6933,44.81148],[41.69273,44.81206],[41.69265,44.81196],[41.6928,44.81182],[41.69282,44.81178],[41.69295,44.81166],[41.69303,44.81155],[41.69308,44.81151],[41.69306,44.81148],[41.69308,44.81146],[41.6932,44.81135],[41.69327,44.8113],[41.69327,44.81128],[41.69319,44.81132],[41.69316,44.81132],[41.69313,44.81131],[41.69312,44.81131],[41.6931,44.81131],[41.69306,44.81133],[41.69305,44.81131],[41.69313,44.81126],[41.69314,44.81125],[41.69315,44.81122],[41.69313,44.81116],[41.6931,44.81118],[41.69305,44.81121],[41.69302,44.81115],[41.69306,44.81113],[41.6931,44.8111],[41.69313,44.81106],[41.69315,44.81101],[41.69316,44.81095],[41.69316,44.81089],[41.69315,44.81086],[41.69314,44.81082],[41.6932,44.81069],[41.69333,44.81055],[41.69342,44.81037],[41.69343,44.81024],[41.69342,44.81013],[41.69341,44.81014],[41.69336,44.80995],[41.69336,44.80993],[41.69336,44.80988],[41.69337,44.80985],[41.69337,44.80983],[41.69335,44.80982],[41.69334,44.80982],[41.69332,44.80984],[41.69328,44.80989],[41.69324,44.80994],[41.6932,44.80998],[41.69324,44.80994],[41.69328,44.80989],[41.69332,44.80984],[41.69334,44.80982],[41.69335,44.80982],[41.69337,44.80983],[41.69337,44.80985],[41.69336,44.80988],[41.69336,44.80993],[41.69336,44.80995],[41.69341,44.81014],[41.69342,44.81013],[41.69338,44.80992],[41.69338,44.80983],[41.69336,44.8098],[41.69333,44.80981],[41.69331,44.80984],[41.69329,44.80987],[41.69326,44.80987],[41.69327,44.80983],[41.69331,44.80977],[41.69335,44.80974],[41.69335,44.80971],[41.69334,44.80965],[41.6933,44.80967],[41.69326,44.80967],[41.69324,44.80962],[41.69323,44.80959],[41.69319,44.80959],[41.69312,44.80961],[41.69306,44.80962],[41.69301,44.80962],[41.69301,44.80942],[41.69302,44.80937],[41.69301,44.80908],[41.69301,44.80904],[41.69301,44.80895],[41.693,44.80853],[41.69299,44.80826]],"metro":[[41.70069,44.82017],[41.70061,44.81987],[41.70049,44.81933],[41.70034,44.81901],[41.70022,44.8188],[41.70011,44.81863],[41.69999,44.8185],[41.69957,44.81811],[41.69986,44.81743],[41.69975,44.81736],[41.69955,44.81722],[41.69953,44.81719],[41.69944,44.8171],[41.6994,44.81703],[41.69928,44.81712],[41.69892,44.81726],[41.69884,44.81723],[41.69875,44.81718],[41.69873,44.81717],[41.69865,44.81719],[41.69844,44.81733],[41.69835,44.81734],[41.698,44.81734],[41.69778,44.81734],[41.69757,44.81734],[41.69754,44.81734],[41.69691,44.81734],[41.69684,44.81732],[41.69678,44.81731],[41.69668,44.81731],[41.69664,44.8173],[41.69651,44.81719],[41.6965,44.81716],[41.69651,44.81699],[41.69649,44.81698],[41.69644,44.81694],[41.69639,44.8169],[41.69637,44.81692],[41.6963,44.81689],[41.69622,44.81683],[41.69616,44.81677],[41.69615,44.81663],[41.69613,44.81649],[41.69592,44.81635],[41.69573,44.81627],[41.69561,44.81632],[41.69546,44.81636],[41.6952,44.8162],[41.69502,44.81614],[41.69479,44.81591],[41.69461,44.81578],[41.69459,44.81581],[41.69424,44.81557],[41.69376,44.81523],[41.69323,44.81485],[41.69324,44.81482],[41.69317,44.81482],[41.69312,44.81483],[41.69303,44.81482],[41.69293,44.8148],[41.69288,44.81492],[41.69285,44.81502],[41.69274,44.81528],[41.69264,44.81555],[41.69259,44.81568],[41.69239,44.81555],[41.6923,44.8158],[41.69229,44.81581],[41.69228,44.8158]],"metekhi":[[41.70069,44.82017],[41.70061,44.81987],[41.70049,44.81933],[41.70034,44.81901],[41.70022,44.8188],[41.70011,44.81863],[41.69999,44.8185],[41.69957,44.81811],[41.69986,44.81743],[41.69975,44.81736],[41.69955,44.81722],[41.69953,44.81719],[41.69944,44.8171],[41.6994,44.81703],[41.69928,44.81712],[41.69892,44.81726],[41.69884,44.81723],[41.69875,44.81718],[41.69873,44.81717],[41.69865,44.81719],[41.69844,44.81733],[41.69835,44.81734],[41.698,44.81734],[41.69778,44.81734],[41.69757,44.81734],[41.69754,44.81734],[41.69754,44.81729],[41.69754,44.81723],[41.69754,44.81699],[41.69715,44.81698],[41.69716,44.81662],[41.69726,44.81661],[41.69726,44.81661],[41.69716,44.81662],[41.69708,44.81662],[41.69704,44.81662],[41.69694,44.81662],[41.69688,44.81662],[41.69684,44.81662],[41.6968,44.81661],[41.69678,44.81661],[41.69673,44.81661],[41.69669,44.8165],[41.69661,44.8165],[41.69655,44.8165],[41.69651,44.81654],[41.6965,44.8166],[41.69647,44.8166],[41.69637,44.8166],[41.69636,44.8166],[41.69635,44.8166],[41.69631,44.8166],[41.69623,44.8166],[41.69618,44.8166],[41.69615,44.81663],[41.69613,44.81649],[41.69592,44.81635],[41.69573,44.81627],[41.69561,44.81632],[41.69546,44.81636],[41.6952,44.8162],[41.69502,44.81614],[41.69479,44.81591],[41.69461,44.81578],[41.69459,44.81581],[41.69424,44.81557],[41.69376,44.81523],[41.69323,44.81485],[41.69324,44.81482],[41.69317,44.81482],[41.69312,44.81483],[41.69303,44.81482],[41.69293,44.8148],[41.69286,44.81476],[41.69295,44.81443],[41.69292,44.8144],[41.69275,44.8143],[41.69262,44.81423],[41.69256,44.81418],[41.69243,44.81408],[41.69242,44.81408],[41.69236,44.81403],[41.69237,44.814],[41.6924,44.81385],[41.69239,44.81381],[41.69234,44.81348],[41.69235,44.81342],[41.69236,44.81336],[41.6923,44.81333],[41.69231,44.81327],[41.69225,44.81311],[41.69222,44.81304],[41.69216,44.81312],[41.69217,44.81329],[41.69202,44.81322],[41.69186,44.81318],[41.69185,44.81315],[41.69181,44.81313],[41.69175,44.81309],[41.69156,44.81295],[41.69158,44.81286],[41.69161,44.81276],[41.69162,44.81271],[41.69161,44.81269],[41.6916,44.81268],[41.6916,44.81266],[41.6916,44.81265],[41.6916,44.81256],[41.6916,44.81251],[41.69157,44.81249],[41.6915,44.8124],[41.69151,44.81239],[41.69155,44.81231],[41.69151,44.81239],[41.6915,44.8124],[41.69157,44.81249],[41.6916,44.81251],[41.6916,44.81256],[41.6916,44.81265],[41.6916,44.81266],[41.6916,44.81268],[41.69161,44.81269],[41.69162,44.81271],[41.69161,44.81276],[41.69158,44.81286],[41.69156,44.81295],[41.69154,44.81304],[41.69134,44.81402],[41.69133,44.81407],[41.69127,44.81402],[41.69105,44.81388],[41.69099,44.81383],[41.69078,44.81371],[41.69065,44.81363],[41.69045,44.8135],[41.69039,44.81346],[41.69023,44.81335],[41.69019,44.8133],[41.69016,44.81329],[41.69014,44.81329],[41.69014,44.81321],[41.69014,44.81316],[41.69011,44.81292],[41.69012,44.81291],[41.69011,44.81276],[41.69009,44.81275],[41.6901,44.8124],[41.69011,44.81235],[41.69011,44.81232],[41.69014,44.81226],[41.69017,44.81221],[41.69017,44.81221],[41.6902,44.81218],[41.69023,44.81217],[41.69025,44.81217],[41.69025,44.81213],[41.69024,44.81213],[41.69018,44.81213],[41.69018,44.81211],[41.69017,44.81201],[41.69017,44.81195],[41.69017,44.81186],[41.69017,44.81173],[41.69017,44.81162],[41.69017,44.81154],[41.69017,44.81141],[41.6902,44.81139],[41.69023,44.81134],[41.69023,44.81128]]};
+const PROFILE = [[0,488.0],[40,485.0],[80,480.0],[120,476.0],[160,473.0],[200,471.0],[240,469.0],[280,468.0],[320,465.0],[360,464.0],[400,465.0],[440,464.0],[480,463.0],[520,461.0],[560,460.0],[600,453.0],[640,455.0],[680,451.0],[720,449.0],[760,449.0],[800,452.0],[840,455.0],[880,453.0],[920,450.0],[960,450.0],[1000,449.0],[1040,446.0],[1080,442.0],[1120,440.0],[1160,436.0],[1200,427.0],[1240,417.0],[1280,411.0],[1320,409.0],[1360,414.0],[1400,409.0],[1440,408.0],[1480,408.0],[1520,412.0],[1560,410.0],[1600,408.0],[1640,410.0],[1680,408.0],[1720,408.0],[1760,414.0],[1800,419.0],[1840,417.0],[1880,416.0],[1920,420.0],[1960,420.0],[2000,416.0],[2040,415.0],[2080,411.0],[2120,408.0],[2160,400.0],[2200,397.0],[2240,399.0],[2280,397.0],[2320,399.0],[2360,400.0],[2400,400.0],[2440,400.0],[2480,400.0],[2520,399.0],[2555,399.0]];
+
+const CATS = {
+  food:  { name: 'Еда',              color: '#7e2632' },
+  shop:  { name: 'Магазины',         color: '#5a6d47' },
+  care:  { name: 'Деньги и аптеки',  color: '#356a80' },
+  see:   { name: 'Смотреть',         color: '#b4583a' },
+  fest:  { name: 'Тбилисоба',        color: '#c39033' },
+  move:  { name: 'Метро',            color: '#2a201c' },
+};
+
+const gm = id => 'https://maps.google.com/?cid=' + id;
+const PLACES = [
+  { n: 1,  cat: 'food', name: 'Домашняя кухня', ka: 'შინაური სამზარეულო', ll: [41.69968, 44.81807], walk: '230 м · 3 мин', hours: 'до 21:00', url: gm('7472607219856950790'),
+    rating: '4,8', reviews: 695, check: '20–30 GEL', tag: 'Главный вариант',
+    text: 'Кафе в цоколе на четыре столика. Хозяйки готовят при вас, меню на русском, порции огромные. Закрывается рано, в 21:00.' },
+  { n: 2,  cat: 'food', name: 'Cafe Irioni', ka: '1/22 Kaishauri St', ll: [41.69923, 44.81921], walk: '320 м · 4 мин', hours: 'до 00:00', url: gm('6554690222280980615'),
+    rating: '4,9', reviews: 392, check: '20–50 GEL',
+    text: 'Семейный ресторан, запасной вариант на поздний вечер. Хвалят шашлык, шкмерули, чакапули и домашнюю чачу.' },
+  { n: 3,  cat: 'food', name: 'Khinkali Master', ka: '3 Akhalubani St', ll: [41.70021, 44.81751], walk: '235 м · 3 мин', hours: 'до 20:00', url: gm('10666908006323306792'),
+    rating: '4,9', reviews: 48, check: '10–20 GEL',
+    text: 'Хинкали и шашлык навынос. Выручит, если сидеть в кафе уже нет сил и хочется поесть в номере.' },
+  { n: 4,  cat: 'food', name: 'Cafe Natra', ka: '17 Samreklo St', ll: [41.69735, 44.81379], walk: '840 м · 11 мин', hours: '9:00–01:00', url: gm('2971120437159967857'),
+    rating: '4,7', reviews: 744, check: '20–70 GEL',
+    text: 'Дороже соседей, зато стоит у Самеба. Удобно на обратном пути с вечерней прогулки и как запасной завтрак с 9:00.' },
+  { n: 5,  cat: 'food', name: 'Чебуреки Вахтангури', ka: '4 Lagodekhi St', ll: [41.69218, 44.81660], walk: '1,3 км · 18 мин вниз', hours: 'до 02:00', url: gm('404514796519340422'),
+    rating: '4,9', reviews: 2894, check: '20–70 GEL',
+    text: 'Стоит у метро «Авлабари», внизу. Обратно в гору идти 1,3 км, поэтому лучше заходить по пути из метро или с прогулки к реке.' },
+  { n: 6,  cat: 'food', name: 'Цикляуребис хинкали', ka: 'пекарня и хинкальная', ll: [41.70078, 44.82469], walk: '530 м · 7 мин', hours: 'часы не указаны' },
+  { n: 7,  cat: 'food', name: 'Кафе BRB', ka: 'кофе', ll: [41.70105, 44.81843], walk: '320 м · 4 мин', hours: 'часы не указаны' },
+  { n: 8,  cat: 'shop', name: 'Мини-маркеты на Галавани', ka: 'ул. Галавани, 2б и вдоль Одзиси', ll: [41.70133, 44.82061], walk: '100 м · 1 мин', hours: 'часы не указаны' },
+  { n: 9,  cat: 'shop', name: 'Driver 24 и Spar', ka: 'ул. Саингило, 34', ll: [41.69812, 44.82052], walk: '500 м · 7 мин', hours: 'круглосуточно' },
+  { n: 10, cat: 'shop', name: 'Мини-маркет «Гвирила»', ka: 'ул. Д. Эристави', ll: [41.69839, 44.82505], walk: '570 м · 8 мин', hours: '8:00–23:00' },
+  { n: 11, cat: 'shop', name: 'Вино «Wine time»', ka: 'у Самеба', ll: [41.69756, 44.81359], walk: '720 м · 10 мин', hours: '10:00–22:00' },
+  { n: 12, cat: 'shop', name: 'Супермаркет Nikora', ka: 'у метро «Авлабари»', ll: [41.69272, 44.81560], walk: '1,2 км · 16 мин вниз', hours: 'круглосуточно' },
+  { n: 13, cat: 'care', name: 'Банк Liberty, банкомат', ka: 'вниз по склону, к западу', ll: [41.70109, 44.81806], walk: '350 м · 5 мин', hours: 'банкомат' },
+  { n: 14, cat: 'care', name: 'Аптеки и обменники у метро', ka: 'GPC круглосуточно; Aversi, PSP, Pharmadepot', ll: [41.69287, 44.81521], walk: '1,2 км · 16 мин вниз', hours: 'GPC 24/7, остальные 8:30–23:00' },
+  { n: 15, cat: 'see',  name: 'Собор Самеба', ka: 'წმინდა სამება', ll: [41.69755, 44.81652], walk: '670 м · 9 мин', hours: 'вход бесплатный',
+    text: 'Построен в 1995–2004 годах, около 85 м с крестом. Вечером подсвечен.' },
+  { n: 16, cat: 'see',  name: 'Церковь Илии Пророка', ka: 'на территории Самеба', ll: [41.69661, 44.81660], walk: '730 м · 10 мин', hours: '' ,
+    text: 'По ней назван холм Элиа и весь квартал вокруг отеля.' },
+  { n: 17, cat: 'see',  name: 'Стеклянный купол', ka: 'бывшая президентская резиденция', ll: [41.69566, 44.81110], walk: '1,4 км · 19 мин вниз', hours: 'внутрь не пускают',
+    text: 'Открыта в 2009 году. С весны 2026 года здесь МИД Грузии.' },
+  { n: 18, cat: 'see',  name: 'Дворец царицы Дареджан', ka: 'Сачино, 1776', ll: [41.69159, 44.81235], walk: '1,5 км · 20 мин вниз', hours: 'лучше днём',
+    text: 'Женский монастырь; на круглый балкон над обрывом пускают.' },
+  { n: 19, cat: 'see',  name: 'Армянская церковь Эчмиадзин', ka: 'начало XIX века', ll: [41.69256, 44.81374], walk: '1,3 км · 17 мин вниз', hours: '' },
+  { n: 20, cat: 'see',  name: 'Метехи', ka: 'церковь на скале над Курой', ll: [41.69015, 44.81125], walk: '1,7 км · 23 мин вниз', hours: '' },
+  { n: 21, cat: 'see',  name: 'Мост Мира', ka: '2010, Микеле Де Лукки', ll: [41.69299, 44.80826], walk: '1,8 км · 24 мин вниз', hours: 'подсветка вечером' },
+  { n: 22, cat: 'fest', name: 'Рике', ka: 'Тбилисоба, 12:00–23:00', ll: [41.69320, 44.80999], walk: '1,8 км · 23 мин вниз', hours: 'сб и вс концерт в 18:00',
+    text: 'Уличная еда, ремесло, спорт, сцена. Отсюда канатка на Нарикалу.' },
+  { n: 23, cat: 'fest', name: 'Площадь Европы и Метехский мост', ka: 'Тбилисоба, 12:00–23:00', ll: [41.69113, 44.81126], walk: '2,0 км · 27 мин вниз', hours: 'авто- и мотопрограмма',
+    text: 'В воскресенье заявлено эндуро. Машины здесь не ездят.' },
+  { n: 24, cat: 'fest', name: 'Орбелиани', ka: 'Тбилисоба, 12:00–23:00', ll: [41.69736, 44.80279], walk: '1,8 км · 25 мин', hours: 'биг-бенд сб 15:00, концерты 20:00',
+    text: 'Еда, маркет, мастер-классы, итальянская зона, музыка.' },
+  { n: 25, cat: 'fest', name: 'Гудиашвили', ka: 'Тбилисоба, 12:00–23:00', ll: [41.69103, 44.80363], walk: '2,3 км · 30 мин', hours: 'группы в 20:00 и 21:00',
+    text: 'Гастрономия, маркет, открытый кинотеатр, вечерние концерты.' },
+  { n: 26, cat: 'fest', name: 'Легвтахеви', ka: 'Тбилисоба, 12:00–20:00', ll: [41.68681, 44.80900], walk: '2,4 км · 32 мин', hours: 'до 20:00',
+    text: 'Выставка-продажа, инсталляции, перформансы.' },
+  { n: 27, cat: 'move', name: 'Метро «Авлабари»', ka: '1-я линия', ll: [41.69226, 44.81584], walk: '1,3 км · 16 мин вниз', hours: '06:00–24:00' },
+];
+
+const ROUTES = {
+  sameba:  { name: 'К Самеба · 9 мин',   color: '#7e2632', on: true },
+  river:   { name: 'К реке · 35 мин',    color: '#356a80', on: false },
+  metekhi: { name: 'К Метехи · 27 мин',  color: '#5a6d47', on: false },
+  metro:   { name: 'К метро · 16 мин',   color: '#c39033', on: false },
+};
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+/* ---------- Карта ---------- */
+let map, markers = {}, catLayers = {}, routeLayers = {};
+function initMap() {
+  if (!window.L) { document.getElementById('map').innerHTML = '<p style="padding:20px">Карта не загрузилась. Проверьте интернет и обновите страницу.</p>'; return; }
+  map = L.map('map', { scrollWheelZoom: false, tap: true, zoomControl: true });
+  L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+  }).addTo(map);
+
+  for (const [k, r] of Object.entries(ROUTES)) {
+    const g = L.layerGroup();
+    L.polyline(LINES[k], { color: '#fff', weight: 8, opacity: .85 }).addTo(g);
+    L.polyline(LINES[k], { color: r.color, weight: 4.5, opacity: .95, dashArray: k === 'metro' ? '2 8' : null, lineCap: 'round' }).addTo(g);
+    routeLayers[k] = g;
+    if (r.on) g.addTo(map);
+  }
+
+  for (const k of Object.keys(CATS)) catLayers[k] = L.layerGroup().addTo(map);
+  for (const p of PLACES) {
+    const c = CATS[p.cat].color;
+    const icon = L.divIcon({ className: '', html: `<div class="pin" style="background:${c}">${p.n}</div>`, iconSize: [26, 26], iconAnchor: [13, 13], popupAnchor: [0, -12] });
+    const m = L.marker(p.ll, { icon, title: p.name, riseOnHover: true }).bindPopup(popupHtml(p), { maxWidth: 260 });
+    m.addTo(catLayers[p.cat]);
+    markers[p.n] = m;
+  }
+  const hotelIcon = L.divIcon({ className: '', html: '<div class="pin-hotel" style="display:grid;place-items:center"><span>★</span></div>', iconSize: [40, 40], iconAnchor: [20, 40], popupAnchor: [0, -38] });
+  markers.hotel = L.marker(HOTEL, { icon: hotelIcon, zIndexOffset: 1000, title: 'Hotel Urban Bliss' })
+    .bindPopup('<div class="pop"><h5>Hotel Urban Bliss</h5><div class="meta">24 Odzisi St · 488 м над морем</div><span class="walk">Вы здесь живёте</span><br><a href="' + gm('13630639076637163418') + '" target="_blank" rel="noopener">Google Maps</a></div>')
+    .addTo(map);
+
+  // Стартовый вид: отель и спуск к реке, остальное видно при отдалении.
+  map.fitBounds(L.latLngBounds([HOTEL, ...LINES.river]), { padding: [18, 18] });
+}
+function popupHtml(p) {
+  return `<div class="pop"><h5>${p.n}. ${esc(p.name)}</h5><div class="meta">${esc(p.ka || '')}${p.hours ? ' · ' + esc(p.hours) : ''}</div>`
+    + (p.rating ? `<div class="meta">Google ${p.rating} · ${p.reviews} отзывов · ${esc(p.check)}</div>` : '')
+    + (p.text ? `<div style="margin-top:4px">${esc(p.text)}</div>` : '')
+    + `<span class="walk">🚶 ${esc(p.walk)}</span>`
+    + (p.url ? `<br><a href="${p.url}" target="_blank" rel="noopener">Открыть в Google Maps</a>` : `<br><a href="https://www.google.com/maps/dir/?api=1&destination=${p.ll[0]},${p.ll[1]}&travelmode=walking" target="_blank" rel="noopener">Маршрут в Google Maps</a>`)
+    + '</div>';
+}
+function fitAll() {
+  const pts = [HOTEL, ...PLACES.filter(p => map.hasLayer(catLayers[p.cat])).map(p => p.ll)];
+  map.fitBounds(L.latLngBounds(pts), { padding: [24, 24] });
+}
+function focusPlace(n) {
+  document.getElementById('karta').scrollIntoView({ behavior: 'smooth' });
+  const p = PLACES.find(x => x.n === n);
+  if (!map || !p) return;
+  if (!map.hasLayer(catLayers[p.cat])) toggleCat(p.cat, true);
+  setTimeout(() => { map.setView(p.ll, 17); markers[n].openPopup(); }, 450);
+}
+function toggleCat(k, force) {
+  const chip = document.querySelector(`#catChips [data-k="${k}"]`);
+  const on = force ?? chip.getAttribute('aria-pressed') !== 'true';
+  chip.setAttribute('aria-pressed', on);
+  if (on) catLayers[k].addTo(map); else map.removeLayer(catLayers[k]);
+}
+function toggleRoute(k, force) {
+  const chip = document.querySelector(`#routeChips [data-k="${k}"]`);
+  const on = force ?? chip.getAttribute('aria-pressed') !== 'true';
+  chip.setAttribute('aria-pressed', on);
+  if (on) routeLayers[k].addTo(map); else map.removeLayer(routeLayers[k]);
+  return on;
+}
+function showRoute(k) {
+  document.getElementById('karta').scrollIntoView({ behavior: 'smooth' });
+  for (const r of Object.keys(ROUTES)) toggleRoute(r, r === k);
+  setTimeout(() => map.fitBounds(L.latLngBounds(LINES[k]), { padding: [40, 40] }), 450);
+}
+
+function buildChips() {
+  const cc = document.getElementById('catChips');
+  for (const [k, c] of Object.entries(CATS)) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip'; b.dataset.k = k; b.style.setProperty('--c', c.color);
+    b.setAttribute('aria-pressed', 'true');
+    b.innerHTML = `<i></i>${c.name}`;
+    b.onclick = () => toggleCat(k);
+    cc.appendChild(b);
+  }
+  const rc = document.getElementById('routeChips');
+  for (const [k, r] of Object.entries(ROUTES)) {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'chip route'; b.dataset.k = k; b.style.setProperty('--c', r.color);
+    b.setAttribute('aria-pressed', String(r.on));
+    b.innerHTML = `<i></i>${r.name}`;
+    b.onclick = () => toggleRoute(k);
+    rc.appendChild(b);
+  }
+}
+const badge = p => `<button type="button" class="num-badge" style="--c:${CATS[p.cat].color}" data-n="${p.n}" aria-label="Показать на карте: ${esc(p.name)}">${p.n}</button>`;
+
+function buildLegend() {
+  const groups = [['food', 'shop'], ['care', 'move', 'see'], ['fest']];
+  const el = document.getElementById('legend');
+  el.innerHTML = groups.map(g => '<div>' + g.map(k => `<h4 style="margin-top:${k === g[0] ? 0 : 18}px">${CATS[k].name}</h4><ul>` +
+    PLACES.filter(p => p.cat === k).map(p => `<li>${badge(p)}<span>${esc(p.name)}</span><span class="d">${esc(p.walk.split('·').pop().trim())}</span></li>`).join('') + '</ul>').join('') + '</div>').join('');
+}
+function buildShops() {
+  const rows = PLACES.filter(p => p.cat === 'shop' || p.cat === 'care');
+  document.getElementById('shopRows').innerHTML = rows.map(p => `<tr><td>${badge(p)} ${esc(p.name)}</td><td>${esc(p.ka)}</td><td>${esc(p.walk)}</td><td>${esc(p.hours)}</td></tr>`).join('');
+}
+function buildFood() {
+  const items = PLACES.filter(p => p.cat === 'food' && p.rating);
+  document.getElementById('food').innerHTML = items.map(p => `
+    <article class="dish" id="dish-${p.n}">${p.tag ? `<span class="tag">${p.tag}</span>` : ''}
+      <div class="top">${badge(p)}<h3><a href="${p.url}" target="_blank" rel="noopener">${esc(p.name)}</a></h3></div>
+      <div class="ge">${esc(p.ka)}</div>
+      <div class="stats"><span class="stars">★ ${p.rating}</span><span>${p.reviews.toLocaleString('ru-RU')} отзывов</span><span><b>${esc(p.check)}</b></span><span>${esc(p.walk)}</span><span>${esc(p.hours)}</span></div>
+      <p>${esc(p.text)}</p>
+    </article>`).join('');
+}
+function buildFest() {
+  const order = [22, 24, 23, 25, 26];
+  document.getElementById('fest').innerHTML = order.map(n => PLACES.find(p => p.n === n)).map(p => {
+    const mins = p.walk.match(/(\d+) мин/)[1];
+    return `<div class="fest-row"><div class="mins">${mins}<small>мин пешком</small></div><div><h4>${badge(p)} ${esc(p.name)}</h4><p>${esc(p.ka.replace('Тбилисоба, ', ''))}. ${esc(p.text)} ${p.hours ? 'Музыка: ' + esc(p.hours) + '.' : ''}</p></div></div>`;
+  }).join('');
+}
+
+/* ---------- Навигатор ужина ---------- */
+const NAV = {
+  early: [1, '<b>«Домашняя кухня», 3 минуты.</b> Четыре столика и огромные порции. Последний заказ лучше сделать до 20:30, закрываются в 21:00.'],
+  late:  [2, '<b>Irioni, 4 минуты.</b> Работает до полуночи. Шашлык, шкмерули, чакапули и домашняя чача.'],
+  tired: [3, '<b>Khinkali Master, 3 минуты, навынос.</b> Работают до 20:00. Позже выручат круглосуточные Driver 24 и Spar в 7 минутах (точка 9).'],
+  walk:  [4, '<b>Natra у ограды Самеба.</b> До часу ночи, дороже соседей, зато прямо по дороге с вечерней прогулки.'],
+  cheb:  [5, '<b>«Вахтангури» у метро.</b> 4,9 при почти трёх тысячах отзывов, до 02:00. Туда 18 минут вниз, обратно такси.'],
+};
+function initNavigator() {
+  const btns = document.querySelectorAll('#navigator .opts button');
+  btns.forEach(b => b.onclick = () => {
+    btns.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    const [n, html] = NAV[b.dataset.k];
+    document.getElementById('navAns').innerHTML = html;
+    document.querySelectorAll('.dish').forEach(d => d.classList.toggle('hit', d.id === 'dish-' + n));
+  });
+}
+
+/* ---------- Обложка: разрез холма ---------- */
+const smooth = (arr, r = 2) => arr.map((p, i) => { const s = arr.slice(Math.max(0, i - r), i + r + 1); return [p[0], s.reduce((a, q) => a + q[1], 0) / s.length]; });
+function drawHero() {
+  const svg = document.getElementById('heroArt');
+  const W = 1200, H = 430, x0 = 60, x1 = 1140;
+  const prof = smooth(PROFILE, 2);
+  const D = prof[prof.length - 1][0];
+  // Отель справа, река слева: так холм и стоит относительно Куры.
+  const X = d => x1 - (d / D) * (x1 - x0);
+  const Y = e => 360 - (e - 392) * 2.9;
+  const top = prof.map(([d, e]) => `${X(d).toFixed(1)},${Y(e).toFixed(1)}`).join(' L');
+  let stars = '';
+  let seed = 7; const rnd = () => (seed = (seed * 9301 + 49297) % 233280) / 233280;
+  for (let i = 0; i < 70; i++) stars += `<circle cx="${(rnd() * W).toFixed(0)}" cy="${(rnd() * 170).toFixed(0)}" r="${(rnd() * 1.3 + .3).toFixed(2)}" fill="#fff" opacity="${(rnd() * .6 + .2).toFixed(2)}"/>`;
+  const sx = X(674), sy = Y(449) - 2;
+  const hx = X(0), hy = Y(488);
+  const px = X(D - 40), py = Y(399);
+  svg.innerHTML = `
+  <defs>
+    <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5c4250"/><stop offset="1" stop-color="#1b1418"/></linearGradient>
+    <linearGradient id="far" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#30242c"/><stop offset="1" stop-color="#241b21"/></linearGradient>
+    <radialGradient id="glow"><stop offset="0" stop-color="#ffd890" stop-opacity=".55"/><stop offset="1" stop-color="#ffd890" stop-opacity="0"/></radialGradient>
+    <linearGradient id="river" x1="0" x2="1"><stop offset="0" stop-color="#5d8fa3"/><stop offset="1" stop-color="#5d8fa3" stop-opacity="0"/></linearGradient>
+  </defs>
+  ${stars}
+  <circle cx="170" cy="64" r="22" fill="#f3e3c3" opacity=".9"/><circle cx="180" cy="58" r="20" fill="#2c2028"/>
+  <path d="M0,300 C120,250 200,262 300,240 C380,222 430,250 520,266 C620,284 700,300 820,312 L1200,330 L1200,430 L0,430Z" fill="url(#far)" opacity=".9"/>
+  <path d="M0,${py + 14} L${X(D - 420)},${py + 14}" stroke="url(#river)" stroke-width="10" stroke-linecap="round" opacity=".8"/>
+  <path d="M0,${py + 26} Q60,${py + 22} 120,${py + 26} T240,${py + 26}" stroke="#7fb0c2" stroke-width="1.5" fill="none" opacity=".5"/>
+  <path d="M${x0 - 60},${py} L${top} L1200,${hy} L1200,430 L0,430 L0,${py}Z" fill="url(#hill)"/>
+  <path d="M${top}" stroke="#e8b866" stroke-width="1.6" fill="none" stroke-dasharray="3 5" opacity=".75"/>
+  <g transform="translate(${px - 30},${py - 6})"><path d="M0,0 Q30,-22 60,0" stroke="#9fd2e6" stroke-width="2.5" fill="none"/>${[6, 14, 22, 30, 38, 46, 54].map(x => `<circle cx="${x}" cy="${-Math.sin(x / 60 * Math.PI) * 11}" r="1.6" fill="#bfe8f7"/>`).join('')}</g>
+  <circle cx="${sx}" cy="${sy - 60}" r="95" fill="url(#glow)"/>
+  <g transform="translate(${sx},${sy})" fill="#f6e2b8">
+    <rect x="-30" y="-48" width="60" height="48"/><rect x="-44" y="-30" width="88" height="30"/>
+    <rect x="-13" y="-78" width="26" height="32"/><path d="M-15,-78 Q0,-104 15,-78Z" fill="#e8b866"/>
+    <rect x="-1.2" y="-118" width="2.4" height="16" fill="#e8b866"/><rect x="-6" y="-113" width="12" height="2.2" fill="#e8b866"/>
+    <rect x="-38" y="-46" width="12" height="16"/><path d="M-39,-46 Q-32,-58 -25,-46Z" fill="#e8b866"/>
+    <rect x="26" y="-46" width="12" height="16"/><path d="M25,-46 Q32,-58 39,-46Z" fill="#e8b866"/>
+    ${[-20, -8, 4, 16].map(x => `<rect x="${x}" y="-38" width="4" height="10" fill="#c99a4a"/>`).join('')}
+  </g>
+  <g transform="translate(${hx - 30},${hy})">
+    <rect x="0" y="-46" width="48" height="46" fill="#2a1f26" stroke="#e8b866" stroke-width="1"/>
+    ${[[6, -40], [20, -40], [34, -40], [6, -26], [34, -26], [20, -12]].map(([x, y]) => `<rect x="${x}" y="${y}" width="8" height="8" fill="#ffcf73"/>`).join('')}
+    <rect x="20" y="-26" width="8" height="8" fill="#5a4450"/>
+  </g>
+  <g class="lbl" font-family="Manrope, sans-serif" font-weight="700" letter-spacing=".08em" fill="#e8d6bd">
+    <text x="${hx + 18}" y="${hy - 62}" text-anchor="end">URBAN BLISS · 488 М</text>
+    <text x="${sx}" y="${sy - 132}" text-anchor="middle">САМЕБА · 449 М</text>
+    <text x="${px - 30}" y="${py - 34}" text-anchor="start">МОСТ МИРА · 399 М</text>
+    <text x="28" y="${py + 56}" fill="#7fb0c2" class="sm">КУРА</text>
+  </g>
+  <g class="sm" font-family="Manrope, sans-serif" fill="#a8988a" letter-spacing=".06em">
+    <text x="${(sx + hx) / 2}" y="${Y(470) + 34}" text-anchor="middle">9 мин ↓</text>
+    <text x="${(sx + px) / 2}" y="${Y(430) + 40}" text-anchor="middle">ещё 26 мин ↓</text>
+  </g>`;
+}
+
+/* ---------- Профиль высот ---------- */
+function drawProfile() {
+  const svg = document.getElementById('profile');
+  const W = 640, H = 380, L = 40, R = 78, T = 46, B = 34;
+  const prof = smooth(PROFILE, 1);
+  const D = prof[prof.length - 1][0];
+  const eMin = 390, eMax = 495;
+  const X = d => L + (d / D) * (W - L - R);
+  const Y = e => T + (eMax - e) / (eMax - eMin) * (H - T - B);
+  const line = prof.map(([d, e], i) => `${i ? 'L' : 'M'}${X(d).toFixed(1)},${Y(e).toFixed(1)}`).join('');
+  const area = line + `L${X(D)},${Y(eMin)}L${X(0)},${Y(eMin)}Z`;
+  let grid = '';
+  for (let e = 400; e <= 490; e += 20) grid += `<line x1="${L}" x2="${W - R}" y1="${Y(e)}" y2="${Y(e)}" stroke="#dccfbd" stroke-width="1"/><text x="${L - 6}" y="${Y(e) + 5}" text-anchor="end">${e}</text>`;
+  for (let k = 0; k <= 2.5; k += 1) grid += `<text x="${X(k * 1000)}" y="${H - B + 20}" text-anchor="middle">${String(k).replace('.', ',')} км</text>`;
+  const pts = [[0, 'Отель', 488, -1], [674, 'Самеба', 449, -1], [1641, 'Купол', 412, -1], [2287, 'Рике', 398, 1], [2555, 'Мост Мира', 399, -1]];
+  const marks = pts.map(([d, name, e, dir], i) => {
+    const y = Y(prof.reduce((a, p) => Math.abs(p[0] - d) < Math.abs(a[0] - d) ? p : a)[1]);
+    const anchor = i === 0 ? 'start' : (i === pts.length - 1 ? 'end' : 'middle');
+    return `<line x1="${X(d)}" x2="${X(d)}" y1="${y}" y2="${Y(eMin)}" stroke="#2a201c" stroke-dasharray="2 4" opacity=".35"/>
+      <circle cx="${X(d)}" cy="${y}" r="5.5" fill="${i ? '#356a80' : '#7e2632'}" stroke="#fff" stroke-width="2"/>
+      <text x="${X(d) + (i === 0 ? 8 : i === pts.length - 1 ? 4 : 0)}" y="${dir < 0 ? y - 14 : y + 44}" text-anchor="${anchor}" font-weight="800" fill="#2a201c">${name}</text>
+      <text x="${X(d) + (i === 0 ? 8 : i === pts.length - 1 ? 4 : 0)}" y="${dir < 0 ? y - 31 : y + 27}" text-anchor="${anchor}" fill="#6e625a">${e} м</text>`;
+  }).join('');
+  // Масштаб: 30-этажный дом рядом с перепадом.
+  const bx = W - R + 16, by0 = Y(399), by1 = Y(488);
+  let floors = '';
+  for (let i = 0; i < 30; i++) floors += `<rect x="${bx}" y="${by0 - (i + 1) * (by0 - by1) / 30 + .6}" width="18" height="${(by0 - by1) / 30 - 1.2}" fill="#b4583a" opacity="${.35 + (i % 2) * .15}"/>`;
+  svg.innerHTML = `
+    <defs><linearGradient id="pa" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#356a80" stop-opacity=".35"/><stop offset="1" stop-color="#356a80" stop-opacity=".03"/></linearGradient></defs>
+    <g font-family="Manrope, sans-serif" font-size="13" fill="#6e625a">${grid}</g>
+    <path d="${area}" fill="url(#pa)"/>
+    <path id="profLine" d="${line}" fill="none" stroke="#356a80" stroke-width="3" stroke-linejoin="round"/>
+    <g font-family="Manrope, sans-serif" font-size="15">${marks}</g>
+    <g>${floors}<text x="${bx + 24}" y="${(by0 + by1) / 2 - 8}" font-family="Manrope, sans-serif" font-size="15" font-weight="800" fill="#b4583a">89 м</text><text x="${bx + 24}" y="${(by0 + by1) / 2 + 10}" font-family="Manrope, sans-serif" font-size="12" fill="#6e625a">≈ 30</text><text x="${bx + 24}" y="${(by0 + by1) / 2 + 25}" font-family="Manrope, sans-serif" font-size="12" fill="#6e625a">этажей</text></g>
+    <text x="${L - 30}" y="16" font-family="Manrope, sans-serif" font-size="11.5" font-weight="800" letter-spacing=".12em" fill="#6e625a">ВЫСОТА НАД МОРЕМ, М · ДАННЫЕ SRTM, ±5 М</text>`;
+  const pl = document.getElementById('profLine');
+  const len = pl.getTotalLength();
+  pl.style.strokeDasharray = len; pl.style.strokeDashoffset = len;
+  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { pl.style.transition = 'stroke-dashoffset 2.2s ease'; pl.style.strokeDashoffset = 0; o.disconnect(); } }), { threshold: .4 }).observe(svg);
+}
+
+/* ---------- Мелочи ---------- */
+function initChecklist() {
+  const KEY = 'urban-bliss-checklist';
+  let st = {};
+  try { st = JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) {}
+  document.querySelectorAll('#checklist input').forEach(i => {
+    i.checked = !!st[i.dataset.id];
+    i.onchange = () => { st[i.dataset.id] = i.checked; try { localStorage.setItem(KEY, JSON.stringify(st)); } catch (e) {} };
+  });
+}
+function initCopy() {
+  const b = document.getElementById('copyAddr');
+  b.onclick = async () => {
+    const t = 'Hotel Urban Bliss, 24 Odzisi St, Tbilisi 0144 / ოძისის ქუჩა 24';
+    try { await navigator.clipboard.writeText(t); b.textContent = 'Скопировано ✓'; }
+    catch (e) { b.textContent = t; }
+    setTimeout(() => b.textContent = 'Скопировать адрес', 2500);
+  };
+}
+function initScores() {
+  const io = new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { e.target.querySelectorAll('[data-w]').forEach(s => s.style.width = ((+s.dataset.w - 7) / 3 * 100) + '%'); o.disconnect(); } }), { threshold: .3 });
+  io.observe(document.getElementById('scores'));
+}
+function initReveal() {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .06 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+}
+
+buildChips(); buildLegend(); buildShops(); buildFood(); buildFest();
+document.querySelectorAll('.tbl-wrap table').forEach(t => {
+  const heads = [...t.querySelectorAll('th')].map(th => th.textContent);
+  t.querySelectorAll('tbody tr').forEach(tr => [...tr.children].forEach((td, i) => td.dataset.label = heads[i] || ''));
+});
+drawHero(); drawProfile();
+initMap(); initNavigator(); initChecklist(); initCopy(); initScores(); initReveal();
+document.addEventListener('click', e => {
+  const b = e.target.closest('.num-badge'); if (b) { e.preventDefault(); focusPlace(+b.dataset.n); }
+  const r = e.target.closest('[data-route]'); if (r && map) showRoute(r.dataset.route);
+});
+</script>
+</body>
+</html>
