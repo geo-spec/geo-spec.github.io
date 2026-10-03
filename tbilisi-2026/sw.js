@@ -1,5 +1,5 @@
 /* Офлайн для «Тбилиси в кармане»: оболочка сайта, тайлы карты и прогноз. */
-var V = 'tb-v2';
+var V = 'tb-v3';
 var SHELL = [
   './', 'index.html', 'style.css', 'app.js', 'data.js', 'routes.js', 'manifest.json',
   'vendor/leaflet.js', 'vendor/leaflet.css',
