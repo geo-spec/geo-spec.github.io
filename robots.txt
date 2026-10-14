@@ -14,3 +14,4 @@ Disallow: /claude-sessions-anywhere/
 Disallow: /rclone-vm-backup/
 Disallow: /tbilisi-urban-bliss/
 Disallow: /tbilisi-2026/
+Disallow: /brief-k7q2/
